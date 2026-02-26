@@ -1,0 +1,140 @@
+---
+# ai-lib-rust Project Overview
+
+project: "ai-lib-rust"
+status: "active"
+milestone: "v0.9.0"
+
+overview: |
+  Rust runtime implementation for AI-Protocol. Provides high-performance,
+  zero-allocation streaming support with protocol-driven architecture.
+
+current_version: "v0.8.4"
+current_release_date: "2026-02-24"
+
+features:
+  core:
+    - "Protocol-driven manifest loading"
+    - "Operator pipeline (decode → select → accumulate → fanout → map)"
+    - "Unified StreamingEvent system"
+    - "Hot-reloadable protocol configurations"
+
+  resilience:
+    - "Automatic retry with exponential backoff"
+    - "Circuit breaker pattern"
+    - "Rate limiting (token bucket)"
+    - "Connection pooling with reqwest"
+
+  resilience_features:
+    - "Embeddings generation"
+    - "Batch execution"
+    - "Token counting and cost estimation"
+    - "Telemetry and metrics"
+    - "MCP tool bridge"
+    - "Computer use abstraction"
+
+active_tasks:
+  - id: "RUST-001"
+    title: "V2 Manifest Parser"
+    status: "in_progress"
+    priority: "critical"
+    assignee: "@hiddenpath"
+    description: "Implement V2 three-ring manifest parsing"
+    acceptance_criteria:
+      - "Parse core layer (L1)"
+      - "Parse extension layer (L2)"
+      - "Parse environment layer (L3)"
+      - "Validate against JSON Schema"
+    estimated_hours: 20
+
+  - id: "RUST-002"
+    title: "MCP Tool Bridge"
+    status: "in_progress"
+    priority: "high"
+    assignee: "@hiddenpath"
+    description: "Implement MCP JSON-RPC to AI-Protocol tool conversion"
+    acceptance_criteria:
+      - "MCP tools/list handling"
+      - "MCP tools/call handling"
+      - "Tool definition conversion"
+      - "Error mapping"
+    estimated_hours: 16
+
+  - id: "RUST-003"
+    title: "Extended Multimodal Support"
+    status: "pending"
+    priority: "medium"
+    assignee: "@hiddenpath"
+    description: "Add vision, audio, video modality support"
+    acceptance_criteria:
+      - "Vision modality validation"
+      - "Audio (STT/TTS) modality validation"
+      - "Video stream modality validation"
+      - "Format checks and conversions"
+    estimated_hours: 24
+
+  - id: "RUST-004"
+    title: "Compliance Test Integration"
+    status: "in_progress"
+    priority: "high"
+    assignee: "@hiddenpath"
+    description: "Ensure 100% pass rate on compliance tests"
+    acceptance_criteria:
+      - "All 45 compliance tests pass"
+      - "Test matrix generated"
+      - "CI integration complete"
+    estimated_hours: 12
+
+test_status:
+  unit_tests:
+    total: 156
+    passing: 152
+    failing: 4
+    coverage: 85%
+
+  compliance_tests:
+    total: 45
+    passing: 42
+    failing: 3
+    pass_rate: 93.3%
+
+  integration_tests:
+    status: "passing"
+    mock_server: "ai-protocol-mock"
+    real_api: "select providers"
+
+dependencies:
+  - project: "ai-protocol"
+    version: ">= v0.7.4"
+    reason: "Protocol specifications and provider manifests"
+
+  - project: "ai-protocol-mock"
+    version: ">= v0.1.3"
+    reason: "Integration testing with deterministic mock server"
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-002: Operator-based pipeline"
+  - "ARCH-003: Cross-runtime consistency"
+  - "RUST-001: Error handling with Result<T, E>"
+  - "RUST-002: Async functions and concurrency"
+  - "TEST-001: Compliance tests"
+
+related_documents:
+  - "AI_PROTOCOL_AUDIT_REPORT.md": "Security and code quality audit"
+  - "ROBUSTNESS_IMPROVEMENTS.md": "Resilience pattern improvements"
+
+release_notes:
+  latest: "v0.8.4"
+  key_features:
+    - "Improved error context"
+    - "Enhanced retry policies"
+    - "Better circuit breaker diagnostics"
+    - "Performance optimizations"
+
+known_issues:
+  - "Compliance tests failing: V2 features not implemented"
+  - "MCP bridge: Partial implementation, needs final schema"
+  - "Extended multimodal: Not yet implemented"
+
+---

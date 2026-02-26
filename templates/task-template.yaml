@@ -1,0 +1,87 @@
+---
+# Task Template
+# Copy this file and fill in the details for new tasks
+
+id: "XXX-<sequence>"
+title: "<Task Title>"
+status: "pending"  # pending, in_progress, blocked, completed
+priority: "medium"  # low, medium, high, critical
+assignee: "@username"
+project: "<project-name>"  # ai-protocol, ai-lib-rust, ai-lib-python, ai-lib-ts, ai-protocol-mock
+milestone: "vX.Y.Z"
+labels:
+  - "feature"  # or: bug, enhancement, documentation, performance, security
+  - "<category>"
+created: "YYYY-MM-DD"
+updated: "YYYY-MM-DD"
+
+description: |
+  Detailed description of the task.
+
+  Explain:
+  - Why this task is needed
+  - What problem it solves
+  - How it fits into the larger picture
+
+acceptance_criteria:
+  - "<AC1> What does success look like?"
+  - "<AC2> Specific test cases to verify"
+  - "<AC3> Performance requirements"
+  - "<AC4> Documentation requirements"
+
+dependencies:
+  - "XXX-<dependency-task-id>"
+
+related_issues:
+  - "https://github.com/hiddenpath/<project>/issues/<issue-number>"
+
+references:
+  - "https://github.com/hiddenpath/<project>/pull/<pr-number>"
+  - "Link to related spec or design doc"
+
+estimated_hours: 8
+actual_hours: null
+
+blocks: []  # List of task IDs this blocks
+blocked_by: []  # List of task IDs blocking this task
+
+files_changed:
+  - "src/module/file.rs"
+  - "tests/integration/test_file.rs"
+
+testing:
+  unit_tests:
+    - "test_function_name"
+  integration_tests:
+    - "test_integration_scenario"
+  compliance_tests:
+    - "test_case_from_compliance_suite"
+
+completion_notes: |
+  Notes added when task is completed.
+
+  Document:
+  - What was done
+  - Deviations from plan
+  - Known issues or limitations
+  - Follow-up work needed
+
+tech_considerations:
+  architecture: |
+    Any architectural considerations or changes.
+
+  performance: |
+    Performance requirements or considerations.
+
+  security: |
+    Security considerations.
+
+  compatibility: |
+    Backward compatibility considerations.
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "RUST-001: Error handling with Result<T, E>"
+  # Add applicable rule IDs from ai-lib-constitution
+
+---

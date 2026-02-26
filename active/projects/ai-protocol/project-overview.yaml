@@ -1,0 +1,166 @@
+---
+# AI-Protocol Project Task Overview
+# Generated from AI_PROTOCOL_TASKS_PHASED document
+
+project: "ai-protocol"
+status: "active"
+milestone: "v0.8.0"
+
+overview: |
+  AI-Protocol currently supports 30+ AI providers with standardized
+  configuration-driven interfaces. Focus areas for v0.8.0:
+  - V2 three-layer pyramid architecture
+  - MCP integration
+  - Extended multimodal support
+  - Cross-runtime compliance testing
+
+current_phase: "V2 Development"
+
+milestones:
+  - id: "v0.7.4"
+    title: "Stable V1 with minor enhancements"
+    status: "completed"
+    completed: "2026-02-19"
+    summary: "30+ providers, stable error handling, compliance tests"
+
+  - id: "v0.8.0"
+    title: "V2 Protocol Alignment"
+    status: "in_progress"
+    target: "2026-03-31"
+    summary: "V2 manifests, MCP bridge, extended multimodal"
+
+  - id: "v0.9.0"
+    title: "Advanced Features"
+    status: "pending"
+    target: "TBD"
+    summary: "WASM support, framework integrations, CLI toolchain"
+
+active_tasks:
+  - id: "PT-001"
+    title: "V2 Provider Manifest Schema"
+    status: "in_progress"
+    priority: "critical"
+    assignee: "@hiddenpath"
+    description: "Implement three-ring V2 provider manifest structure"
+    acceptance_criteria:
+      - "Core layer with essential provider info"
+      - "Extension layer with optional capabilities"
+      - "Environment layer with deployment settings"
+    estimated_hours: 16
+
+  - id: "PT-002"
+    title: "MCP Integration Schema"
+    status: "in_progress"
+    priority: "high"
+    assignee: "@hiddenpath"
+    description: "Define MCP (Model Context Protocol) tool bridge schema"
+    acceptance_criteria:
+      - "MCP tool definition schema"
+      - "Tool conversion rules"
+      - "Compatibility layer for existing tools"
+    estimated_hours: 12
+
+  - id: "PT-003"
+    title: "Extended Multimodal Capabilities"
+    status: "pending"
+    priority: "high"
+    assignee: "@hiddenpath"
+    description: "Extend V2 schema for advanced multimodal (vision, audio, video)"
+    acceptance_criteria:
+      - "Vision capability declarations"
+      - "Audio (STT/TTS) capability declarations"
+      - "Video stream capability declarations"
+    estimated_hours: 20
+
+  - id: "PT-004"
+    title: "Compliance Test Suite Expansion"
+    status: "in_progress"
+    priority: "high"
+    assignee: "@hiddenpath"
+    description: "Expand compliance tests to cover V2 features"
+    acceptance_criteria:
+      - "V2 manifest validation tests"
+      - "MCP tool bridge tests"
+      - "Multimodal stream tests"
+    estimated_hours: 24
+
+  - id: "PT-005"
+    title: "Error Code Standardization"
+    status: "completed"
+    priority: "critical"
+    assignee: "@hiddenpath"
+    description: "Standardize error codes across all providers (E1001-E9999)"
+    acceptance_criteria:
+      - "13 standard error codes defined"
+      - "Retry/fallback semantics specified"
+      - "All provider manifests updated"
+    estimated_hours: 8
+    actual_hours: 6
+
+provider_status:
+  global_providers:
+    - name: "OpenAI"
+      version: "v1.5"
+      v2_support: "partial"
+      status: "stable"
+
+    - name: "Anthropic"
+      version: "v1.5"
+      v2_support: "partial"
+      status: "stable"
+
+    - name: "Google Gemini"
+      version: "v1.5"
+      v2_support: "partial"
+      status: "stable"
+
+    - name: "Groq"
+      version: "v1.5"
+      v2_support: "pending"
+      status: "stable"
+
+  china_region_providers:
+    - name: "DeepSeek"
+      version: "v1.5"
+      v2_support: "pending"
+      status: "stable"
+
+    - name: "Qwen (Alibaba)"
+      version: "v1.5"
+      v2_support: "pending"
+      status: "stable"
+
+    - name: "Zhipu GLM"
+      version: "v1.5"
+      v2_support: "pending"
+      status: "stable"
+
+compliance_status:
+  cross_runtime_tests:
+    total_tests: 45
+    passing: 42
+    failing: 3
+    pass_rate: 93.3%
+
+  failing_tests:
+    - "anthropic-multimodal-stream: Pending V2 implementation"
+    - "mcp-tool-bridge: Schema not finalized"
+    - "extended-capabilities: Not yet implemented"
+
+dependencies:
+  ai-lib-rust: "v0.8.0 (requires ai-protocol v0.7.4)"
+  ai-lib-python: "v0.8.0 (requires ai-protocol v0.7.4)"
+  ai-lib-ts: "v0.4.0 (requires ai-protocol v0.7.4)"
+
+related_documents:
+  - "archive/ai-protocol-tasks/AI_PROTOCOL_TASKS_PHASED.md"
+  - "archive/ai-protocol-tasks/AI_PROTOCOL_TASKS_PHASED_EN.md"
+  - "reviews/audits/AI_PROTOCOL_AUDIT_REPORT.md"
+  - "reviews/audits/AI_PROTOCOL_FACT_CHECK_REPORT_CN.md"
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-002: Operator-based architecture"
+  - "ARCH-003: Cross-runtime consistency"
+
+---
