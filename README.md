@@ -51,6 +51,16 @@ ai-lib-plans/
 └── templates/                # YAML templates for tasks/milestones
 ```
 
+## Memory System
+
+| Component | Path | Purpose |
+|-----------|------|---------|
+| **Long-term** | [MEMORY.md](MEMORY.md) | Curated architecture decisions, conventions, learnings |
+| **Short-term** | [active/standup/daily/](active/standup/daily/) | Daily append-only logs |
+| **Flush flow** | [memory/README.md](memory/README.md) | How to extract durable facts from standups into MEMORY.md |
+
+AI agents: use `memory_get` or `memory_search` skill to recall context.
+
 ## Quick Start
 
 ### View Current Tasks
