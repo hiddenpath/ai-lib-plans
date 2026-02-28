@@ -1,0 +1,116 @@
+---
+id: "PT-009"
+title: "Legalize benchmark-related runtime changes and fix downstream blockers"
+status: "completed"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.8.0"
+labels:
+  - "benchmark"
+  - "runtime-fix"
+  - "downstream"
+created: "2026-02-28"
+updated: "2026-02-28"
+
+description: |
+  Validate and normalize benchmark-related uncommitted changes in ai-lib-rust,
+  ai-lib-python, and ai-lib-ts that likely originated from ailib-media work.
+  Then fix runtime blockers in sequence:
+  1) ai-lib-rust protocol 2.0 validation in mock integration path
+  2) ai-lib-python test environment/dependency blockers
+  3) ai-lib-ts FilterRule runtime error
+
+acceptance_criteria:
+  - "Benchmark-related files are reviewed against ailib-media and corrected for portability/quality"
+  - "Only reasonable benchmark changes are committed to each runtime repo"
+  - "Rust mock integration path accepts protocol 2.0 in target flow"
+  - "Python mock e2e test can run with documented/handled environment requirements"
+  - "TypeScript test startup no longer fails with FilterRule ReferenceError"
+  - "All results documented in PT-009 completion_notes"
+
+dependencies:
+  - "PT-008"
+
+related_issues: []
+
+references:
+  - "https://github.com/hiddenpath/ai-lib-rust/commit/0594c21"
+  - "https://github.com/hiddenpath/ai-lib-python/commit/413c2cb"
+  - "https://github.com/hiddenpath/ai-lib-ts/commit/cdf4bfd"
+
+estimated_hours: 4
+actual_hours: 3
+
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "ai-lib-rust/benchmarks/*"
+  - "ai-lib-python/benchmarks/*"
+  - "ai-lib-ts/benchmarks/*"
+  - "ai-lib-rust/tests/*"
+  - "ai-lib-python/tests/*"
+  - "ai-lib-ts/src/guardrails/config.ts"
+  - "ai-lib-plans/active/projects/ai-protocol/tasks/PT-009-runtime-benchmark-legalization-and-fixes.yaml"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "ai-lib-rust: cargo test --test client_mock test_chat_completion_with_mock -- --ignored --nocapture"
+    - "ai-lib-python: pytest tests/integration/test_mock_chat_e2e.py::test_chat_simple_via_mock"
+    - "ai-lib-ts: npm run test -- tests/integration.test.ts -t 'should send chat request and get response'"
+  compliance_tests: []
+
+completion_notes: |
+  Completed.
+
+  Benchmark legalization review:
+  - Compared benchmark scaffolding patterns against ailib-media templates.
+  - Kept and normalized portable benchmark assets in all three runtimes:
+    - README cleanup (fixed broken text / clarified usage)
+    - benchmark_config defaults switched to local mock endpoint
+    - run_autocannon.ps1 switched to repo-local outputs path (no machine-specific D:\ path)
+    - benchmark workflows constrained to workflow_dispatch (avoid noisy auto-trigger and secret coupling)
+  - Left unrelated local drafts uncommitted where quality/scope is uncertain (e.g., local .cursor files and
+    some rust local-only helper drafts) to avoid accidental publication.
+
+  Runtime blockers fixed in requested order:
+  1) ai-lib-rust:
+     - Fixed v2 manifest acceptance path by avoiding strict v1 schema enforcement for protocol_version 2.x.
+     - Updated mock fixture manifest with minimal response/streaming mapping required by current pipeline.
+     - Verified target mock integration test passes.
+  2) ai-lib-python:
+     - Added http2 optional fallback (no hard failure when h2 extra is missing).
+     - Made transport proxy usage opt-in via AI_HTTP_TRUST_ENV=1 to avoid env proxy contamination by default.
+     - Updated mock e2e test health/httpx clients to trust_env=False.
+     - Verified target mock integration test passes.
+  3) ai-lib-ts:
+     - Replaced invalid Object.assign on type-only interfaces with real runtime objects for FilterRule/GuardrailsConfig.
+     - Fixed protocol loader search paths to support current ai-protocol dist/v1 layout and env protocol path.
+     - Verified target integration test passes (with AI_PROTOCOL_PATH set).
+
+  Push status:
+  - ai-lib-rust: pushed to branch feat/message-role-tool
+  - ai-lib-python: pushed to main
+  - ai-lib-ts: pushed to main
+
+tech_considerations:
+  architecture: |
+    Keep benchmark assets optional and portable (no machine-specific absolute paths).
+
+  performance: |
+    Benchmark scripts should not degrade default CI paths or PR reliability.
+
+  security: |
+    External API benchmark workflows must avoid secret leakage and unnecessary broad triggers.
+
+  compatibility: |
+    Fixes should preserve current public API behavior and only address blockers.
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+  - "DOC-001: Documentation language requirements"
+---
