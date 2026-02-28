@@ -1,0 +1,92 @@
+---
+id: "PT-006"
+title: "Fix V2 schema URL references and validator preloading failure"
+status: "completed"
+priority: "critical"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.8.0"
+labels:
+  - "bug"
+  - "schema"
+  - "ci"
+created: "2026-02-28"
+updated: "2026-02-28"
+
+description: |
+  Remote updates introduced V2 schema validation failures in CI and local runs.
+  The validator crashed with MissingRefError while compiling provider.json because
+  newly referenced V2 sub-schemas were not preloaded. In addition, V2 schema
+  $id values pointed at ai-protocol.dev URLs which are not currently resolvable.
+
+acceptance_criteria:
+  - "npm run validate passes locally"
+  - "V2 provider and v2-alpha provider validation both pass"
+  - "V2 schema IDs no longer use ai-protocol.dev host"
+  - "CI validation workflow covers v2/** changes"
+  - "Issue and fix are documented in task completion_notes"
+
+dependencies: []
+
+related_issues: []
+
+references: []
+
+estimated_hours: 2
+actual_hours: 1.5
+
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "scripts/validate.js"
+  - ".github/workflows/validate.yml"
+  - "schemas/v2/*.json"
+  - "active/projects/ai-protocol/tasks/PT-006-v2-schema-url-validation-fix.yaml"
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests:
+    - "npm run validate"
+
+completion_notes: |
+  Completed root-cause fix and verification.
+
+  What was fixed:
+  - Updated scripts/validate.js to dynamically preload all schemas/v2/*.json
+    (except provider.json) before validating providers. This prevents MissingRefError
+    when provider.json gains new $ref targets such as pricing.json.
+  - Updated schemas/v2/*.json $id host from ai-protocol.dev to canonical
+    raw.githubusercontent.com path to avoid non-resolvable host dependency.
+  - Updated .github/workflows/validate.yml trigger paths and yamllint scope to
+    include v2/** and v2-alpha/providers.
+  - Fixed duplicate mapping key in v2-alpha/providers/anthropic.yaml that caused
+    npm run build to fail.
+
+  Verification:
+  - npm run validate ✅
+  - npm run validate -- --providers ✅
+  - npm run validate -- --schemas ✅
+  - npm run build ✅
+
+tech_considerations:
+  architecture: |
+    Keep schema loading dynamic so adding new V2 schema files does not require
+    validator code changes.
+
+  performance: |
+    Dynamic file loading adds negligible overhead compared with full validation run.
+
+  security: |
+    Avoid external, non-resolvable schema hosts in identifiers used by tooling.
+
+  compatibility: |
+    Preserve provider $schema compatibility with existing canonical raw GitHub path.
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+  - "DOC-001: Documentation language requirements"
+---

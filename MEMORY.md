@@ -83,6 +83,11 @@
 
 ---
 
+## Workspace Requirement
+
+**ai-lib-constitution and ai-lib-plans must be workspace roots** when working on ai-lib projects.  
+Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, AGENTS, MEMORY before changes.
+
 ## Repository Layout
 
 | Repo | Purpose |
