@@ -1,0 +1,89 @@
+---
+id: "PT-007"
+title: "Align ai-protocol-mock and assess runtime impact after v0.7.8"
+status: "completed"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.8.0"
+labels:
+  - "integration"
+  - "mock"
+  - "runtime-impact"
+created: "2026-02-28"
+updated: "2026-02-28"
+
+description: |
+  After ai-protocol v0.7.8 schema/CI fixes, align ai-protocol-mock with latest
+  protocol structure and evaluate whether ai-lib-rust, ai-lib-python, and ai-lib-ts
+  require iterative changes.
+
+acceptance_criteria:
+  - "ai-protocol-mock sync tooling supports current ai-protocol schema layout"
+  - "ai-protocol-mock smoke tests pass after sync/tooling update"
+  - "Runtime impact assessed for ai-lib-rust, ai-lib-python, ai-lib-ts"
+  - "If no runtime code changes are needed, rationale documented"
+
+dependencies:
+  - "PT-006"
+
+related_issues: []
+
+references:
+  - "https://github.com/hiddenpath/ai-protocol/releases/tag/v0.7.8"
+
+estimated_hours: 2
+actual_hours: 1
+
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "ai-protocol-mock/scripts/sync_manifests.py"
+  - "ai-lib-plans/active/projects/ai-protocol/tasks/PT-007-downstream-alignment-mock-runtimes.yaml"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "ai-protocol-mock: tests/test_mock.py::test_status"
+    - "ai-protocol-mock: tests/test_mock.py::test_providers"
+    - "ai-protocol-mock: tests/test_mock.py::test_http_mock_openai"
+  compliance_tests: []
+
+completion_notes: |
+  Completed.
+
+  Mock alignment:
+  - Updated sync_manifests.py to handle latest ai-protocol schema layout:
+    - fixed global declaration order bug
+    - disabled proxy-env use in httpx requests
+    - updated schema file allowlist (v1.json/spec.json + full v2 schema set)
+    - removed stale message.json sync target
+  - Synced manifests from local ai-protocol v0.7.8 snapshot.
+  - Smoke tests passed (status/providers/openai chat).
+
+  Runtime impact assessment:
+  - Searched ai-lib-rust / ai-lib-python / ai-lib-ts for ai-protocol.dev references
+    and direct dependency on v2 $id host.
+  - No direct dependency found; runtimes do not rely on ai-protocol.dev schema IDs
+    for request/response execution path.
+  - Conclusion: no immediate runtime code iteration required for this protocol change.
+
+tech_considerations:
+  architecture: |
+    Keep mock sync decoupled from fragile hardcoded schema lists.
+
+  performance: |
+    No runtime-path performance impact; only tooling and sync robustness improved.
+
+  security: |
+    Avoid implicit proxy environment dependency in sync tooling.
+
+  compatibility: |
+    Changes are backward compatible for existing mock API behavior.
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---
