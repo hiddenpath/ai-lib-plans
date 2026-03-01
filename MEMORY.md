@@ -97,5 +97,6 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 | ai-lib-python | Python runtime |
 | ai-lib-ts | TypeScript runtime |
 | ai-protocol-mock | Mock server |
+| ai-mcp-model-switcher | MCP-based model switching showcase |
 | ai-lib-constitution | Rules for AI agents |
 | ai-lib-plans | Tasks, standups, planning |

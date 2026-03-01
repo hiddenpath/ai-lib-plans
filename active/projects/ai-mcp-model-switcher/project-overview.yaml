@@ -1,0 +1,48 @@
+---
+# ai-mcp-model-switcher Project Overview
+
+project: "ai-mcp-model-switcher"
+status: "active"
+milestone: "v0.1.0"
+
+overview: |
+  Showcase project for MCP-based model switching orchestration.
+  Managed under ai-lib ecosystem planning workflow and constitution constraints.
+
+repository:
+  local_path: "d:/rustapp/ai-mcp-model-switcher"
+  remote: "https://github.com/hiddenpath/ai-mcp-model-switcher"
+  default_branch: "main"
+
+current_phase: "Onboarding"
+
+active_tasks:
+  - id: "MS-001"
+    title: "Project onboarding into ai-lib-plans governance"
+    status: "in_progress"
+    priority: "high"
+    assignee: "@hiddenpath"
+    description: "Create planning baseline, initial task backlog, and release/document alignment checks."
+    acceptance_criteria:
+      - "project-overview.yaml established"
+      - "tasks directory created with onboarding task"
+      - "README/changelog/release baseline reviewed"
+    estimated_hours: 2
+
+dependencies:
+  - project: "ai-lib-plans"
+    reason: "Task tracking, milestones, and standup integration"
+  - project: "ai-lib-constitution"
+    reason: "Architecture/document/testing conventions"
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-001: Documentation language requirements"
+  - "TEST-001: Compliance test discipline"
+
+related_documents:
+  - "README.md"
+  - "README_CN.md"
+
+---
