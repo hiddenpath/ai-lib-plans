@@ -181,6 +181,10 @@ Historical documentation imported from local workspace:
 - `archive/ai-protocol-tasks/` - Contains AI_PROTOCOL_TASKS_PHASED.md
 - Original task breakdowns and requirements analysis
 
+### Historical Roadmaps
+- `archive/historical-roadmaps/ai-protocol-v4-import.md` - Migration record for `AI-Protocol项目研发计划_v4.md`
+- `active/projects/ai-protocol/ROADMAP_MASTER.md` - Current master roadmap governance file
+
 ### Daily Work Summaries
 - `active/standup/daily/` - Contains historical work summaries
 - Daily progress tracking and blockers
