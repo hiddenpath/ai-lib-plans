@@ -14,7 +14,7 @@ repository:
   remote: "https://github.com/hiddenpath/ai-mcp-model-switcher"
   default_branch: "main"
 
-current_phase: "Onboarding"
+current_phase: "Security and Reliability Remediation"
 
 active_tasks:
   - id: "MS-001"
@@ -27,6 +27,32 @@ active_tasks:
       - "project-overview.yaml established"
       - "tasks directory created with onboarding task"
       - "README/changelog/release baseline reviewed"
+    estimated_hours: 2
+  - id: "MS-002"
+    title: "Critical remediation for API key safety and connection coordination"
+    status: "completed"
+    priority: "critical"
+    assignee: "@hiddenpath"
+    description: "Fix P0/P1 defects from strict code review: secret handling, runtime stability, connection coordination, and user guidance."
+    acceptance_criteria:
+      - "P0 defects fixed: duplicate definitions, invalid error path, CLI entrypoint, sensitive logging"
+      - "API key experience improved with explicit diagnostics and setup guidance"
+      - "Connection coordination metadata exposed for agent-side synchronization"
+      - "README/README_CN updated with operation and troubleshooting guidance"
+      - "ruff/mypy/pytest verification report recorded in task and daily standup"
+    estimated_hours: 8
+  - id: "MS-003"
+    title: "Release v0.2.0 and PyPI publish"
+    status: "in_progress"
+    priority: "critical"
+    assignee: "@hiddenpath"
+    description: "Finalize release artifacts, push to remote, create tag/release, and publish package to PyPI."
+    acceptance_criteria:
+      - "Version bumped from 0.1.0 to 0.2.0"
+      - "Release commit pushed to remote"
+      - "Tag v0.2.0 created and pushed"
+      - "GitHub release published with validation notes"
+      - "PyPI package published successfully"
     estimated_hours: 2
 
 dependencies:

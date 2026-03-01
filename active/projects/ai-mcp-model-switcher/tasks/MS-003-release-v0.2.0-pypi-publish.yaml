@@ -1,0 +1,64 @@
+---
+id: "MS-003"
+title: "发布 v0.2.0：远程推送、打 Tag、Release、PyPI 发行"
+status: "in_progress"
+priority: "critical"
+assignee: "@hiddenpath"
+project: "ai-mcp-model-switcher"
+milestone: "v0.2.0"
+labels:
+  - "release"
+  - "packaging"
+  - "pypi"
+created: "2026-03-02"
+updated: "2026-03-02"
+
+description: |
+  执行完整发布闭环：提交修复成果，推送远程，打版本标签并创建 release，
+  最后将包发布到 PyPI。
+
+acceptance_criteria:
+  - "版本号由 0.1.0 递增到 0.2.0（+0.1.0）"
+  - "代码通过 ruff/mypy/pytest"
+  - "主仓库提交并推送成功"
+  - "v0.2.0 标签创建并推送成功"
+  - "GitHub Release 创建成功"
+  - "PyPI 发布成功"
+
+dependencies:
+  - "MS-002"
+related_issues: []
+references: []
+estimated_hours: 2
+actual_hours: null
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "pyproject.toml"
+  - "src/ai_mcp_model_switcher/__init__.py"
+  - "CHANGELOG.md"
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests: []
+
+completion_notes: |
+  进行中。
+
+tech_considerations:
+  architecture: |
+    发布过程不引入架构变更；仅做版本、文档与发行流程治理。
+  performance: |
+    无性能行为变更。
+  security: |
+    发布过程中避免在日志与命令行输出中暴露 PyPI token。
+  compatibility: |
+    保持 API 兼容，版本递增为 minor（0.1.0 -> 0.2.0）。
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "DOC-001: Documentation language requirements"
+  - "TEST-001: Compliance tests"
+---
