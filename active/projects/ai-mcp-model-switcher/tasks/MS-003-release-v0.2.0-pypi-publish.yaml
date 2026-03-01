@@ -1,7 +1,7 @@
 ---
 id: "MS-003"
 title: "发布 v0.2.0：远程推送、打 Tag、Release、PyPI 发行"
-status: "in_progress"
+status: "completed"
 priority: "critical"
 assignee: "@hiddenpath"
 project: "ai-mcp-model-switcher"
@@ -30,7 +30,7 @@ dependencies:
 related_issues: []
 references: []
 estimated_hours: 2
-actual_hours: null
+actual_hours: 2
 blocks: []
 blocked_by: []
 
@@ -40,12 +40,25 @@ files_changed:
   - "CHANGELOG.md"
 
 testing:
-  unit_tests: []
-  integration_tests: []
+  unit_tests:
+    - "python -m pytest -q -> 16 passed"
+  integration_tests:
+    - "python -m ruff check src tests -> All checks passed"
+    - "python -m mypy src -> Success: no issues found in 13 source files (single-run mode validated)"
+    - "python -m build --no-isolation -> success"
+    - "python -m twine check dist/* -> PASSED"
   compliance_tests: []
 
 completion_notes: |
-  进行中。
+  已完成完整发布闭环：
+  1) 版本递增：0.1.0 -> 0.2.0（pyproject + runtime version + changelog）
+  2) 代码推送：main 分支提交并推送到远程
+  3) 标签发布：v0.2.0 已创建并推送
+  4) GitHub Release：已发布
+  5) PyPI：wheel 与 sdist 均已发布
+  发布链接：
+  - GitHub Release: https://github.com/hiddenpath/ai-mcp-model-switcher/releases/tag/v0.2.0
+  - PyPI: https://pypi.org/project/ai-mcp-model-switcher/0.2.0/
 
 tech_considerations:
   architecture: |

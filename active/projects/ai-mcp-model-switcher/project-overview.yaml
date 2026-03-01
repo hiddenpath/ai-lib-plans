@@ -3,7 +3,7 @@
 
 project: "ai-mcp-model-switcher"
 status: "active"
-milestone: "v0.1.0"
+milestone: "v0.2.0"
 
 overview: |
   Showcase project for MCP-based model switching orchestration.
@@ -14,7 +14,7 @@ repository:
   remote: "https://github.com/hiddenpath/ai-mcp-model-switcher"
   default_branch: "main"
 
-current_phase: "Security and Reliability Remediation"
+current_phase: "Release Completed and Post-Release Hardening"
 
 active_tasks:
   - id: "MS-001"
@@ -43,7 +43,7 @@ active_tasks:
     estimated_hours: 8
   - id: "MS-003"
     title: "Release v0.2.0 and PyPI publish"
-    status: "in_progress"
+    status: "completed"
     priority: "critical"
     assignee: "@hiddenpath"
     description: "Finalize release artifacts, push to remote, create tag/release, and publish package to PyPI."
