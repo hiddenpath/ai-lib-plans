@@ -3,7 +3,7 @@
 
 project: "spiderswitch"
 status: "active"
-milestone: "v0.2.0"
+milestone: "v0.3.0"
 
 overview: |
   Showcase project for MCP-based model switching orchestration.
@@ -14,7 +14,7 @@ repository:
   remote: "https://github.com/hiddenpath/spiderswitch"
   default_branch: "main"
 
-current_phase: "Post-Release Regression Baseline Established"
+current_phase: "Friendly UX and Auto-Setup Release Completed"
 
 active_tasks:
   - id: "MS-001"
