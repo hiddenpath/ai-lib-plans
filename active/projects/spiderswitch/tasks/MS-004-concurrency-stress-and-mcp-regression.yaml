@@ -4,7 +4,7 @@ title: "后发布加固：并发切换压力测试与MCP回归测试"
 status: "completed"
 priority: "high"
 assignee: "@hiddenpath"
-project: "ai-mcp-model-switcher"
+project: "spiderswitch"
 milestone: "v0.2.1"
 labels:
   - "test"

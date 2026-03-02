@@ -4,7 +4,7 @@ title: "发布 v0.2.0：远程推送、打 Tag、Release、PyPI 发行"
 status: "completed"
 priority: "critical"
 assignee: "@hiddenpath"
-project: "ai-mcp-model-switcher"
+project: "spiderswitch"
 milestone: "v0.2.0"
 labels:
   - "release"
@@ -36,7 +36,7 @@ blocked_by: []
 
 files_changed:
   - "pyproject.toml"
-  - "src/ai_mcp_model_switcher/__init__.py"
+  - "src/spiderswitch/__init__.py"
   - "CHANGELOG.md"
 
 testing:
@@ -57,8 +57,8 @@ completion_notes: |
   4) GitHub Release：已发布
   5) PyPI：wheel 与 sdist 均已发布
   发布链接：
-  - GitHub Release: https://github.com/hiddenpath/ai-mcp-model-switcher/releases/tag/v0.2.0
-  - PyPI: https://pypi.org/project/ai-mcp-model-switcher/0.2.0/
+  - GitHub Release: https://github.com/hiddenpath/spiderswitch/releases/tag/v0.2.0
+  - PyPI (legacy package name before rename): https://pypi.org/project/ai-mcp-model-switcher/0.2.0/
 
 tech_considerations:
   architecture: |

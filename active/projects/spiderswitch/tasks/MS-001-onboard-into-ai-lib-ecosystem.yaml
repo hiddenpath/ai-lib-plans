@@ -1,10 +1,10 @@
 ---
 id: "MS-001"
-title: "Onboard ai-mcp-model-switcher into ai-lib ecosystem management"
+title: "Onboard spiderswitch into ai-lib ecosystem management"
 status: "in_progress"
 priority: "high"
 assignee: "@hiddenpath"
-project: "ai-mcp-model-switcher"
+project: "spiderswitch"
 milestone: "v0.1.0"
 labels:
   - "onboarding"
@@ -18,9 +18,9 @@ description: |
   project overview, baseline governance constraints, and initial tracking entry.
 
 acceptance_criteria:
-  - "Repository cloned locally to d:/rustapp/ai-mcp-model-switcher"
+  - "Repository cloned locally to d:/rustapp/spiderswitch"
   - "Project appears in ai-lib-plans README active project inventory"
-  - "Project overview exists under active/projects/ai-mcp-model-switcher"
+  - "Project overview exists under active/projects/spiderswitch"
   - "Local constraint rule prepared for Cursor workflow"
 
 dependencies: []

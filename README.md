@@ -15,7 +15,7 @@ for the ai-lib ecosystem projects:
 - **ai-lib-python** - Python runtime implementation
 - **ai-lib-ts** - TypeScript/JavaScript runtime implementation
 - **ai-protocol-mock** - Mock server for testing
-- **ai-mcp-model-switcher** - MCP-based model switching showcase project
+- **spiderswitch** - MCP-based model switching showcase project
 
 ## Structure
 
@@ -28,7 +28,7 @@ ai-lib-plans/
 │   │   ├── ai-lib-python/
 │   │   ├── ai-lib-ts/
 │   │   ├── ai-protocol-mock/
-│   │   └── ai-mcp-model-switcher/
+│   │   └── spiderswitch/
 │   ├── releases/             # Release schedules and planning
 │   │   └── 2026/
 │   │       ├── Q1/
@@ -149,7 +149,7 @@ completion_notes: |
 | ai-lib-python | Active | v0.8.0 | 70% |
 | ai-lib-ts | Active | v0.5.0 | 50% |
 | ai-protocol-mock | Active | v0.2.0 | 90% |
-| ai-mcp-model-switcher | Active | v0.1.0 | 20% |
+| spiderswitch | Active | v0.2.0 | 100% |
 
 ### Recent Activity
 

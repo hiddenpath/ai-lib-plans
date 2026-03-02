@@ -1,7 +1,7 @@
 ---
-# ai-mcp-model-switcher Project Overview
+# spiderswitch Project Overview
 
-project: "ai-mcp-model-switcher"
+project: "spiderswitch"
 status: "active"
 milestone: "v0.2.0"
 
@@ -10,8 +10,8 @@ overview: |
   Managed under ai-lib ecosystem planning workflow and constitution constraints.
 
 repository:
-  local_path: "d:/rustapp/ai-mcp-model-switcher"
-  remote: "https://github.com/hiddenpath/ai-mcp-model-switcher"
+  local_path: "d:/rustapp/spiderswitch"
+  remote: "https://github.com/hiddenpath/spiderswitch"
   default_branch: "main"
 
 current_phase: "Post-Release Regression Baseline Established"
