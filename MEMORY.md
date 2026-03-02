@@ -3,7 +3,7 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-02-27
+**Last Updated**: 2026-03-02
 
 ---
 
@@ -48,6 +48,15 @@
 - Standard codes: E1001–E9999 (see ai-protocol schemas/v2/errors.json)
 - Minimum mappings: 400→invalid_request, 401→authentication, 429→rate_limited, 500→server_error
 
+### Default Branch Naming (ARCH-004)
+- Canonical default branch across ai-lib ecosystem repositories is `main`
+- Docs/scripts/automation should target `main` and avoid using `master` as default branch name
+
+### Internal Work Doc Privacy (DOC-002)
+- Internal work documents (discussion/plan/report/solution/summary) must remain private
+- Do not upload or push internal work artifacts to public ai-lib project repositories
+- If leaked, remove immediately from public branch and add ignore safeguards
+
 ---
 
 ## Key Learnings & Gotchas
@@ -70,9 +79,11 @@
 | Rule ID | Topic |
 |---------|-------|
 | DOC-001 | Code docs: English + Chinese module header |
+| DOC-002 | Internal work docs must stay private |
 | ARCH-001 | Protocol-driven design |
 | ARCH-002 | Operator pipeline |
 | ARCH-003 | Cross-runtime consistency |
+| ARCH-004 | Default branch naming: `main` |
 | RUST-001 | Error handling (Result) |
 | RUST-002 | Async functions |
 | PY-001 | Type hints |
