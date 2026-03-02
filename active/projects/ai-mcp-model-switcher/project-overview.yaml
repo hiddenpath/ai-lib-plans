@@ -14,7 +14,7 @@ repository:
   remote: "https://github.com/hiddenpath/ai-mcp-model-switcher"
   default_branch: "main"
 
-current_phase: "Release Completed and Post-Release Hardening"
+current_phase: "Post-Release Regression Baseline Established"
 
 active_tasks:
   - id: "MS-001"
@@ -54,6 +54,17 @@ active_tasks:
       - "GitHub release published with validation notes"
       - "PyPI package published successfully"
     estimated_hours: 2
+  - id: "MS-004"
+    title: "Post-release concurrency stress and MCP regression"
+    status: "completed"
+    priority: "high"
+    assignee: "@hiddenpath"
+    description: "Add concurrent switching and MCP-path regression tests to harden v0.2.x stability."
+    acceptance_criteria:
+      - "Concurrent switch semantics covered by deterministic tests"
+      - "Critical MCP paths covered by regression tests"
+      - "ruff/mypy/pytest all pass with new tests"
+    estimated_hours: 4
 
 dependencies:
   - project: "ai-lib-plans"
