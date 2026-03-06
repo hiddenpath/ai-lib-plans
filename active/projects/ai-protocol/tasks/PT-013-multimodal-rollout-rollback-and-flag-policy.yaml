@@ -1,0 +1,62 @@
+---
+id: "PT-013"
+title: "Define multimodal rollout/rollback policy with feature flags and trigger thresholds"
+status: "pending"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.8.x"
+labels:
+  - "release"
+  - "risk-control"
+  - "multimodal"
+created: "2026-03-06"
+updated: "2026-03-06"
+
+description: |
+  Add a practical rollout and rollback policy for multimodal capabilities, including
+  feature flags, trigger thresholds, execution procedures, and rollback drills.
+
+acceptance_criteria:
+  - "Rollout policy defines feature-flag scopes and default-safe states"
+  - "Rollback triggers are quantified (error-rate/latency/regression thresholds)"
+  - "Rollback procedures include owner, commands/checklist, and verification steps"
+  - "Integration plan references rollback policy before enabling new multimodal features"
+  - "One rollback drill template is documented for release practice"
+
+dependencies:
+  - "PT-012"
+related_issues: []
+references:
+  - "reviews/audits/AI_PROTOCOL_MULTIMODAL_DOC_AUDIT_REPORT_CN.md"
+  - "active/projects/ai-protocol/MULTIMODAL_DOC_REVIEW_REPORT_2026-03-06.md"
+estimated_hours: 6
+actual_hours: null
+blocks: []
+blocked_by: []
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests: []
+
+completion_notes: |
+  Pending.
+
+tech_considerations:
+  architecture: |
+    Keep rollback controls capability-scoped and compatible with protocol-driven manifests.
+  performance: |
+    Thresholds should avoid flapping and account for normal workload variance.
+  security: |
+    Release and rollback scripts must avoid leaking tokens/keys in logs.
+  compatibility: |
+    Feature flags must preserve backward-compatible defaults for existing clients.
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-001: Documentation language requirements"
+---

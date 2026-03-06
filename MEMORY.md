@@ -25,6 +25,13 @@
 - Message roles: system, user, assistant, tool (per standard_message_roles).
 - Unified request/response format across Rust, Python, TypeScript.
 
+### Multimodal Documentation Governance (ai-protocol)
+- In multimodal survey/integration documents, separate verified facts from design assumptions explicitly.
+- Mark evidence levels for key claims (official docs, implementation tests, assumptions) to keep conclusions reproducible.
+- Use compliance-first as execution gate: feature planning must map to `ai-protocol/tests/compliance/` before large-scale runtime implementation.
+- Keep protocol-driven boundaries clear: avoid provider-specific hardcoded runtime logic; prefer manifest/schema-driven behavior.
+- Add rollback readiness to feature plans (feature flags, rollback triggers, and rollback steps) before enabling new multimodal capabilities.
+
 ### Runtime Routing Boundary (Spiderswitch)
 - spiderswitch acts as a runtime routing capability layer, not a strategy engine.
 - Routing strategy (business policy, cost weighting, tenant rules) stays in upper-layer applications.

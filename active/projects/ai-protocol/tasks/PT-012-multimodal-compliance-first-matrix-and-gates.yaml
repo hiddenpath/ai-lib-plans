@@ -1,0 +1,64 @@
+---
+id: "PT-012"
+title: "Establish compliance-first multimodal matrix and cross-runtime acceptance gates"
+status: "pending"
+priority: "critical"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.8.x"
+labels:
+  - "test"
+  - "compliance"
+  - "cross-runtime"
+  - "multimodal"
+created: "2026-03-06"
+updated: "2026-03-06"
+
+description: |
+  Define and adopt a compliance-first validation matrix for multimodal capabilities
+  across Rust/Python/TS, with explicit semantic consistency checks and release gates
+  before large-scale runtime implementation.
+
+acceptance_criteria:
+  - "Matrix is defined for Provider x Modality x Transport x Failure Mode"
+  - "Cross-runtime semantic checks are specified for events, errors, and retry behavior"
+  - "ai-protocol/tests/compliance/ is documented as a primary acceptance gate"
+  - "Release-readiness criteria include measurable quality thresholds and gate outcomes"
+  - "At least one pilot scenario is validated end-to-end with recorded evidence"
+
+dependencies:
+  - "PT-011"
+related_issues: []
+references:
+  - "reviews/audits/AI_PROTOCOL_MULTIMODAL_DOC_AUDIT_REPORT_CN.md"
+estimated_hours: 10
+actual_hours: null
+blocks: []
+blocked_by: []
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests:
+    - "ai-protocol/tests/compliance/ multimodal cases (to be expanded)"
+
+completion_notes: |
+  Pending.
+
+tech_considerations:
+  architecture: |
+    Enforce ARCH-003: same input + same manifest + equivalent semantic output across runtimes.
+  performance: |
+    Split matrix into fast regression subset and full matrix suite to control CI duration.
+  security: |
+    Test fixtures must use sanitized data and no real provider secrets.
+  compatibility: |
+    New checks should remain additive and not break existing compliant providers unexpectedly.
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+  - "DOC-001: Documentation language requirements"
+---
