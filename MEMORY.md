@@ -25,6 +25,13 @@
 - Message roles: system, user, assistant, tool (per standard_message_roles).
 - Unified request/response format across Rust, Python, TypeScript.
 
+### Runtime Routing Boundary (Spiderswitch)
+- spiderswitch acts as a runtime routing capability layer, not a strategy engine.
+- Routing strategy (business policy, cost weighting, tenant rules) stays in upper-layer applications.
+- Runtime routing must consider both model capabilities and runtime capabilities.
+- Runtime abstraction should be runtime-neutral and extensible beyond Python/Rust/TS (e.g., Go/WASM).
+- Cross-runtime routing requires contract tests to guarantee same semantic behavior for equivalent inputs.
+
 ---
 
 ## Cross-Project Conventions

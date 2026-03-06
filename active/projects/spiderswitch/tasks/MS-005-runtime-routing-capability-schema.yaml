@@ -1,0 +1,62 @@
+---
+id: "MS-005"
+title: "运行时路由能力模型：统一 capability schema（含 Go/WASM 预留）"
+status: "in_progress"
+priority: "high"
+assignee: "@hiddenpath"
+project: "spiderswitch"
+milestone: "v0.4.x"
+labels:
+  - "architecture"
+  - "runtime-routing"
+  - "capability-model"
+created: "2026-03-06"
+updated: "2026-03-06"
+
+description: |
+  基于最新评估报告，先完成 spiderswitch 运行时路由能力模型定义，
+  明确“模型能力 + 运行时能力”的统一描述结构，并为未来 Go/WASM
+  运行时适配预留字段，确保后续路由执行层可扩展且策略上移。
+
+acceptance_criteria:
+  - "定义 runtime-neutral schema：runtime_id、model_capabilities、runtime_capabilities、operational_metrics"
+  - "明确 Python/Rust/TS 当前字段映射，并标注 Go/WASM 预留语义"
+  - "输出文档中明确 spiderswitch 仅执行路由，不承载策略决策"
+  - "将 schema 草案同步到 active/projects/spiderswitch 跟踪文档"
+
+dependencies:
+  - "MS-004"
+related_issues: []
+references:
+  - "reviews/audits/SPIDERSWITCH_RUNTIME_ROUTING_REPORT_CN.md"
+  - "active/projects/spiderswitch/RUNTIME_ROUTING_STRATEGY_REPORT_2026-03-06.md"
+estimated_hours: 6
+actual_hours: null
+blocks: []
+blocked_by: []
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests: []
+
+completion_notes: |
+  待完成。
+
+tech_considerations:
+  architecture: |
+    以 ARCH-001/ARCH-003 为约束，优先统一跨运行时能力表达，避免策略逻辑下沉。
+  performance: |
+    本任务偏设计，不引入运行时开销；后续需以字段最小集控制响应体体积。
+  security: |
+    schema 不暴露敏感凭据，仅表达能力与健康信号。
+  compatibility: |
+    保证对现有 Python runtime 输出兼容扩展（新增字段可选、默认空值）。
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-001: Documentation language requirements"
+---

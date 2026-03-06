@@ -3,7 +3,7 @@
 
 project: "spiderswitch"
 status: "active"
-milestone: "v0.3.0"
+milestone: "v0.4.x"
 
 overview: |
   Showcase project for MCP-based model switching orchestration.
@@ -14,7 +14,7 @@ repository:
   remote: "https://github.com/hiddenpath/spiderswitch"
   default_branch: "main"
 
-current_phase: "Friendly UX and Auto-Setup Release Completed"
+current_phase: "Runtime routing capability planning and execution"
 
 active_tasks:
   - id: "MS-001"
@@ -65,6 +65,39 @@ active_tasks:
       - "Critical MCP paths covered by regression tests"
       - "ruff/mypy/pytest all pass with new tests"
     estimated_hours: 4
+  - id: "MS-005"
+    title: "Runtime routing capability schema (runtime-neutral, Go/WASM ready)"
+    status: "in_progress"
+    priority: "high"
+    assignee: "@hiddenpath"
+    description: "Define unified capability schema for runtime routing while keeping strategy in upper-layer applications."
+    acceptance_criteria:
+      - "Runtime-neutral capability schema defined"
+      - "Current runtimes mapping documented (Python/Rust/TS) with Go/WASM reserved fields"
+      - "Boundary clarified: spiderswitch executes routing, upper layer decides policy"
+    estimated_hours: 6
+  - id: "MS-006"
+    title: "Runtime registry and routing execution API"
+    status: "pending"
+    priority: "high"
+    assignee: "@hiddenpath"
+    description: "Implement RuntimeRegistry/Resolver execution layer with backward-compatible default runtime flow."
+    acceptance_criteria:
+      - "Registry/resolver interface defined"
+      - "runtime_id-aware execution flow and state semantics documented"
+      - "reset/close scope behavior clarified for multi-runtime scenarios"
+    estimated_hours: 10
+  - id: "MS-007"
+    title: "Cross-runtime routing contract test matrix"
+    status: "pending"
+    priority: "high"
+    assignee: "@hiddenpath"
+    description: "Build cross-runtime contract matrix for capability dispatch and routing semantics."
+    acceptance_criteria:
+      - "Matrix covers capability dispatch and routing modes"
+      - "Error/status/coordination fields are aligned across runtimes"
+      - "Future Go/WASM adapter validation checklist prepared"
+    estimated_hours: 12
 
 dependencies:
   - project: "ai-lib-plans"
@@ -81,5 +114,7 @@ constitution_rules:
 related_documents:
   - "README.md"
   - "README_CN.md"
+  - "reviews/audits/SPIDERSWITCH_RUNTIME_ROUTING_REPORT_CN.md"
+  - "active/projects/spiderswitch/RUNTIME_ROUTING_STRATEGY_REPORT_2026-03-06.md"
 
 ---

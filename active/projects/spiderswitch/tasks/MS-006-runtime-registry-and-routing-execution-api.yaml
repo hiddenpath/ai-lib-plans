@@ -1,0 +1,62 @@
+---
+id: "MS-006"
+title: "运行时注册与路由执行接口：RuntimeRegistry/Resolver 最小实现"
+status: "pending"
+priority: "high"
+assignee: "@hiddenpath"
+project: "spiderswitch"
+milestone: "v0.4.x"
+labels:
+  - "architecture"
+  - "runtime-routing"
+  - "execution-layer"
+created: "2026-03-06"
+updated: "2026-03-06"
+
+description: |
+  在不引入策略引擎的前提下，为 spiderswitch 增加 runtime registry/resolver
+  的执行能力：上层传入 runtime 选择结果，spiderswitch 负责路由落地、状态更新、
+  生命周期管理（close/reset）与错误归一化。
+
+acceptance_criteria:
+  - "定义 RuntimeRegistry/RuntimeResolver 接口与最小行为语义"
+  - "支持按 runtime_id 选择执行目标，并保持向后兼容默认 runtime"
+  - "明确多 runtime 状态维度（含 runtime_id）与 epoch 协调语义"
+  - "明确 exit/reset 的作用域（单 runtime / 全局）"
+  - "在项目文档中新增执行流说明与边界声明（策略上移）"
+
+dependencies:
+  - "MS-005"
+related_issues: []
+references:
+  - "reviews/audits/SPIDERSWITCH_RUNTIME_ROUTING_REPORT_CN.md"
+estimated_hours: 10
+actual_hours: null
+blocks: []
+blocked_by: []
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests: []
+
+completion_notes: |
+  待完成。
+
+tech_considerations:
+  architecture: |
+    保持 spiderswitch 作为执行层，策略输入来自上层应用；防止职责漂移。
+  performance: |
+    避免每请求 runtime 冷切换；支持缓存与生命周期治理。
+  security: |
+    多 runtime 场景下避免进程级环境变量副作用导致串扰。
+  compatibility: |
+    API 变更以可选字段和默认路径保证旧客户端可用。
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---
