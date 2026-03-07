@@ -1,0 +1,64 @@
+---
+id: "PT-017"
+title: "Evolve spiderswitch capability-routing execution for P0 multimodal runtime signals"
+status: "pending"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.8.x"
+labels:
+  - "spiderswitch"
+  - "runtime-routing"
+  - "integration"
+created: "2026-03-06"
+updated: "2026-03-06"
+
+description: |
+  Follow up spiderswitch evolution to consume P0 multimodal capability signals and
+  expose runtime-routing execution status, while keeping policy decisions in upper
+  applications (no strategy engine in spiderswitch).
+
+acceptance_criteria:
+  - "Spiderswitch output includes required capability-routing signals for P0"
+  - "Runtime-routing execution remains policy-agnostic (upper-layer strategy owned)"
+  - "Status/coordination fields stay deterministic for session synchronization"
+  - "At least one integrated scenario validates routing execution with new capabilities"
+  - "Docs and notes reflect boundary: routing execution vs strategy decision"
+
+dependencies:
+  - "PT-016"
+related_issues: []
+references:
+  - "active/projects/spiderswitch/RUNTIME_ROUTING_STRATEGY_REPORT_2026-03-06.md"
+  - "reviews/audits/AI_PROTOCOL_GENERATIVE_COVERAGE_FULLCHAIN_PLAN_CN.md"
+estimated_hours: 8
+actual_hours: null
+blocks: []
+blocked_by: []
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "spiderswitch + runtime capability-routing integration for P0 scenario"
+  compliance_tests: []
+
+completion_notes: |
+  Pending.
+
+tech_considerations:
+  architecture: |
+    Keep spiderswitch as routing execution/control plane and avoid policy coupling.
+  performance: |
+    Prevent runtime flapping; preserve stable session coordination behavior.
+  security: |
+    Continue to redact sensitive arguments and avoid key exposure in logs.
+  compatibility: |
+    Maintain backward-compatible status/tool outputs for existing clients.
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-001: Documentation language requirements"
+---

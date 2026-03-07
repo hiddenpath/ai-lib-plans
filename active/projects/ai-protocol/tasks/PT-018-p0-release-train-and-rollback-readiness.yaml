@@ -1,0 +1,64 @@
+---
+id: "PT-018"
+title: "Run P0 release train with rollback readiness across protocol/mock/runtimes/spiderswitch"
+status: "pending"
+priority: "critical"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.8.x"
+labels:
+  - "release"
+  - "risk-control"
+  - "cross-repo"
+created: "2026-03-06"
+updated: "2026-03-06"
+
+description: |
+  Execute the P0 cross-repo release train after protocol/mock/runtime/spiderswitch
+  readiness is met, including release notes alignment, feature-flag defaults, and
+  rollback drill evidence.
+
+acceptance_criteria:
+  - "Cross-repo readiness checklist is completed with evidence links"
+  - "Release notes are aligned to protocol/runtime behavior changes"
+  - "Feature flags and rollback triggers are documented and verified"
+  - "Rollback drill is executed and recorded before general enablement"
+  - "Post-release monitoring checklist is defined and attached"
+
+dependencies:
+  - "PT-017"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/GENERATIVE_MODEL_FULLCHAIN_EXECUTION_PLAN_2026-03-06.md"
+estimated_hours: 8
+actual_hours: null
+blocks: []
+blocked_by: []
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "cross-repo smoke checks for P0 providers and capabilities"
+  compliance_tests:
+    - "final compliance gate pass report"
+
+completion_notes: |
+  Pending.
+
+tech_considerations:
+  architecture: |
+    Release must preserve protocol contracts and document any additive changes clearly.
+  performance: |
+    Include release-time SLO checks for key P0 paths.
+  security: |
+    Ensure release process and artifacts do not expose secrets.
+  compatibility: |
+    Keep backward-compatible defaults and staged enablement where feasible.
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+  - "DOC-001: Documentation language requirements"
+---

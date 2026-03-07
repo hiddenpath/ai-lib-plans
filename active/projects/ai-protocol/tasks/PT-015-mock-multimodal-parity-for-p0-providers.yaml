@@ -1,0 +1,63 @@
+---
+id: "PT-015"
+title: "Align ai-protocol-mock multimodal behavior for P0 provider set"
+status: "pending"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.8.x"
+labels:
+  - "mock"
+  - "multimodal"
+  - "test-infra"
+created: "2026-03-06"
+updated: "2026-03-06"
+
+description: |
+  Extend ai-protocol-mock to simulate P0 provider multimodal behavior, covering
+  sync/stream/async-polling modes and critical failure injection paths for
+  compliance-first runtime validation.
+
+acceptance_criteria:
+  - "P0 provider multimodal response templates are added to mock"
+  - "Transport modes covered: sync, streaming, async polling"
+  - "Failure injection supported: 429, 5xx, timeout, invalid content-type"
+  - "Mock behavior is documented with deterministic fixtures"
+  - "Downstream runtime smoke tests can run against mock scenarios"
+
+dependencies:
+  - "PT-014"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/GENERATIVE_MODEL_FULLCHAIN_EXECUTION_PLAN_2026-03-06.md"
+estimated_hours: 12
+actual_hours: null
+blocks: []
+blocked_by: []
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "mock endpoint behavior checks for P0 multimodal scenarios"
+  compliance_tests:
+    - "compliance matrix smoke cases against mock"
+
+completion_notes: |
+  Pending.
+
+tech_considerations:
+  architecture: |
+    Mock behavior must follow protocol semantics, not provider SDK internals.
+  performance: |
+    Keep mock deterministic and CI-friendly; avoid flaky timing dependencies.
+  security: |
+    No real credentials or personal data in fixtures.
+  compatibility: |
+    Keep existing mock routes stable; additive changes only where possible.
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "TEST-001: Compliance tests"
+---

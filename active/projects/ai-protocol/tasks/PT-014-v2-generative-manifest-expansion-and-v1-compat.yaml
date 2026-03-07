@@ -1,0 +1,65 @@
+---
+id: "PT-014"
+title: "Expand v2 generative multimodal manifest model with v1 compatibility layer"
+status: "in_progress"
+priority: "critical"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.8.x"
+labels:
+  - "protocol"
+  - "manifest"
+  - "multimodal"
+  - "v2"
+created: "2026-03-06"
+updated: "2026-03-06"
+
+description: |
+  Build the v2-primary generative multimodal capability model for P0 providers
+  (OpenAI/Anthropic/Gemini/DeepSeek/Qwen/Doubao), while preserving v1-compatible
+  mappings and downgrade paths for existing runtimes.
+
+acceptance_criteria:
+  - "P0 provider capability declarations are defined in v2 manifests"
+  - "v1 compatibility mappings are documented for key fields and transport modes"
+  - "Schema-gap table classifies each new field: supported / needs_schema_change / experimental"
+  - "Error/retry/termination mappings are explicitly defined for P0 providers"
+  - "Validation scripts and schema checks pass for changed manifests"
+
+dependencies:
+  - "PT-013"
+related_issues: []
+references:
+  - "reviews/audits/AI_PROTOCOL_GENERATIVE_COVERAGE_FULLCHAIN_PLAN_CN.md"
+  - "active/projects/ai-protocol/GENERATIVE_MODEL_FULLCHAIN_EXECUTION_PLAN_2026-03-06.md"
+estimated_hours: 14
+actual_hours: null
+blocks: []
+blocked_by: []
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests:
+    - "manifest/schema validation for v2 + compatibility mapping checks"
+
+completion_notes: |
+  Pending.
+
+tech_considerations:
+  architecture: |
+    Must align with ARCH-001 (protocol-driven); no runtime-specific provider hardcoding assumptions.
+  performance: |
+    Protocol-level changes only; runtime performance impact should be assessed downstream.
+  security: |
+    Provider examples and fixtures must use sanitized placeholders only.
+  compatibility: |
+    Preserve backward compatibility by documenting field fallbacks and default-safe behavior.
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---

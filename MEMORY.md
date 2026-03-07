@@ -32,6 +32,13 @@
 - Keep protocol-driven boundaries clear: avoid provider-specific hardcoded runtime logic; prefer manifest/schema-driven behavior.
 - Add rollback readiness to feature plans (feature flags, rollback triggers, and rollback steps) before enabling new multimodal capabilities.
 
+### Generative Coverage Fullchain Plan (ai-protocol)
+- For near-term expansion, use a v2-primary path with explicit v1 compatibility mapping.
+- Execute in a P0 tiered provider set first (OpenAI/Anthropic/Gemini + DeepSeek/Qwen/Doubao), then expand in P1/P2.
+- Treat ai-protocol-mock as a required parity layer for multimodal sync/stream/async behavior and failure injection.
+- Require tri-runtime semantic alignment (Rust/Python/TS) before broad rollout; compliance matrix is the main readiness gate.
+- Keep spiderswitch as capability-routing execution plane; strategy decisions remain in upper-layer applications.
+
 ### Runtime Routing Boundary (Spiderswitch)
 - spiderswitch acts as a runtime routing capability layer, not a strategy engine.
 - Routing strategy (business policy, cost weighting, tenant rules) stays in upper-layer applications.

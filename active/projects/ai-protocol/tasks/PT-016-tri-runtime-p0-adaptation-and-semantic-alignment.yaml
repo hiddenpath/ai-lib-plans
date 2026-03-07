@@ -1,0 +1,65 @@
+---
+id: "PT-016"
+title: "Adapt Rust/Python/TS runtimes for P0 multimodal and enforce semantic alignment"
+status: "pending"
+priority: "critical"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.8.x"
+labels:
+  - "runtime"
+  - "cross-runtime"
+  - "multimodal"
+created: "2026-03-06"
+updated: "2026-03-06"
+
+description: |
+  Implement P0 multimodal adaptation in ai-lib-rust, ai-lib-python, and ai-lib-ts
+  using a shared compliance-first matrix, and resolve semantic deltas in events,
+  error mapping, and retry/fallback behavior.
+
+acceptance_criteria:
+  - "All three runtimes support P0 capability paths per protocol contracts"
+  - "Cross-runtime semantic checks pass for P0 matrix scenarios"
+  - "Event/error/retry behavior differences are documented and resolved"
+  - "Regression suite includes at least one end-to-end path per P0 provider group"
+  - "Readiness evidence is recorded for release gating"
+
+dependencies:
+  - "PT-015"
+related_issues: []
+references:
+  - "reviews/audits/AI_PROTOCOL_GENERATIVE_COVERAGE_FULLCHAIN_PLAN_CN.md"
+estimated_hours: 18
+actual_hours: null
+blocks: []
+blocked_by: []
+
+files_changed: []
+
+testing:
+  unit_tests:
+    - "runtime-level multimodal mapping and error classification tests"
+  integration_tests:
+    - "mock-backed end-to-end P0 scenarios for rust/python/ts"
+  compliance_tests:
+    - "ai-protocol/tests/compliance/ multimodal matrix subset"
+
+completion_notes: |
+  Pending.
+
+tech_considerations:
+  architecture: |
+    Must satisfy ARCH-003 semantic consistency without introducing provider hardcoding.
+  performance: |
+    Include baseline latency and resource checks for streaming and audio paths.
+  security: |
+    Ensure secret redaction and safe fixture handling remain intact in all runtimes.
+  compatibility: |
+    Keep existing stable paths functional while introducing additive multimodal support.
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+  - "DOC-001: Documentation language requirements"
+---
