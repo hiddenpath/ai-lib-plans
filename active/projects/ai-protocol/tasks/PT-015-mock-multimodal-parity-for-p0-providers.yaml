@@ -38,8 +38,6 @@ blocked_by: []
 files_changed:
   - "ai-protocol-mock/src/ai_protocol_mock/mocks/http_provider.py"
   - "ai-protocol-mock/tests/test_mock.py"
-  - "ai-protocol-mock/manifests/v2/providers/qwen.yaml"
-  - "ai-protocol-mock/manifests/v2/providers/doubao.yaml"
 
 testing:
   unit_tests: []
