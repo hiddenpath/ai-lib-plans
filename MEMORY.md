@@ -39,6 +39,13 @@
 - Require tri-runtime semantic alignment (Rust/Python/TS) before broad rollout; compliance matrix is the main readiness gate.
 - Keep spiderswitch as capability-routing execution plane; strategy decisions remain in upper-layer applications.
 
+### P1/P2 Expansion Governance (ai-protocol)
+- P1 provider expansion uses evidence-scored wave planning; onboarding should be phased rather than parallel bulk integration.
+- Video generation/editing must follow a normalized lifecycle and event contract before broad runtime rollout.
+- Tri-runtime performance optimization is allowed only when semantic parity remains unchanged under compliance gates.
+- Go/WASM runtime support should stay optional and disabled-by-default until MVP compliance subset is proven.
+- Drift detection should run in report-only mode first, then gradually become a mandatory release gate.
+
 ### Runtime Routing Boundary (Spiderswitch)
 - spiderswitch acts as a runtime routing capability layer, not a strategy engine.
 - Routing strategy (business policy, cost weighting, tenant rules) stays in upper-layer applications.

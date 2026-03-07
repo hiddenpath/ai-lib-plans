@@ -1,0 +1,71 @@
+---
+id: "PT-020"
+title: "Define P1 full video generation/editing semantic contract"
+status: "completed"
+priority: "critical"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "p1"
+  - "video"
+  - "semantic-contract"
+created: "2026-03-07"
+updated: "2026-03-07"
+
+description: |
+  Specify a complete protocol-level semantic contract for video generation and
+  editing workflows, including request schema, async job lifecycle, event model,
+  errors, retries, and compatibility fallback to v1 clients.
+
+acceptance_criteria:
+  - "Video generation/editing contract includes sync/streaming/async polling modes"
+  - "Job lifecycle states are explicitly normalized across providers"
+  - "Event semantics define start/progress/chunk/end/error payload minimums"
+  - "v1 downgrade path and unsupported-mode behavior are documented"
+  - "Compliance test cases are enumerated for each critical video path"
+
+dependencies:
+  - "PT-019"
+related_issues: []
+references:
+  - "reviews/audits/AI_PROTOCOL_GENERATIVE_COVERAGE_FULLCHAIN_PLAN_CN.md"
+estimated_hours: 12
+actual_hours: 2
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/P1_VIDEO_GENERATION_EDITING_CONTRACT_2026-03-07.md"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "mock-backed video flow smoke scenario"
+  compliance_tests:
+    - "video semantic matrix cases in ai-protocol/tests/compliance/"
+
+completion_notes: |
+  Completed on 2026-03-07.
+  - Delivered video generation/editing lifecycle and event semantic baseline.
+  - Defined transport modes, retry/error semantics, and v1 downgrade behavior.
+  - Output document: `P1_VIDEO_GENERATION_EDITING_CONTRACT_2026-03-07.md`.
+
+execution_rhythm:
+  week_1: "State machine and event contract drafting"
+  week_2: "Provider mapping and schema-gap closure"
+  week_3: "Compliance matrix population and gate review"
+
+risk_and_rollback:
+  top_risks:
+    - "Provider async video APIs vary significantly in lifecycle fields"
+    - "Streaming and async events may conflict with existing event mapper assumptions"
+  rollback:
+    - "Keep video capability behind explicit feature flags at protocol and runtime layers"
+    - "On regression, downgrade to text/image/audio-only path and disable video features"
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---

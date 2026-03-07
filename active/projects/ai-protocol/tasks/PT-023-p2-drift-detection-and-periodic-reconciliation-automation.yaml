@@ -1,0 +1,71 @@
+---
+id: "PT-023"
+title: "Build P2 drift detection and periodic reconciliation automation"
+status: "completed"
+priority: "critical"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v1.0.x"
+labels:
+  - "p2"
+  - "drift-detection"
+  - "automation"
+  - "governance"
+created: "2026-03-07"
+updated: "2026-03-07"
+
+description: |
+  Implement automated drift detection for protocol/manifests/mock/runtimes/docs
+  and establish periodic reconciliation workflow with alerts and remediation SLAs.
+
+acceptance_criteria:
+  - "Drift detection dimensions are defined (schema, mapping, event, docs, tests)"
+  - "Automation runbook includes schedule, owners, and escalation path"
+  - "Diff reports classify severity and required action windows"
+  - "Reconciliation checklist supports additive fix, rollback, and freeze decisions"
+  - "At least one dry-run report is generated and archived"
+
+dependencies:
+  - "PT-022"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/ROADMAP_MASTER.md"
+estimated_hours: 12
+actual_hours: 2
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/P2_DRIFT_DETECTION_RECONCILIATION_AUTOMATION_PLAN_2026-03-07.md"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "dry-run of drift scan against current protocol/runtime snapshot"
+  compliance_tests:
+    - "drift findings must reference compliance gate impacts"
+
+completion_notes: |
+  Completed on 2026-03-07.
+  - Delivered drift signal taxonomy, severity model, and automation cadence.
+  - Added reconciliation workflow and report-first rollback strategy.
+  - Output document: `P2_DRIFT_DETECTION_RECONCILIATION_AUTOMATION_PLAN_2026-03-07.md`.
+
+execution_rhythm:
+  week_1: "Signal taxonomy and severity model"
+  week_2: "Automation pipeline/runbook definition"
+  week_3: "Dry-run evidence and SLA calibration"
+
+risk_and_rollback:
+  top_risks:
+    - "False positives create alert fatigue and reduce governance effectiveness"
+    - "Detection gaps miss high-impact semantic drifts"
+  rollback:
+    - "Run automation in report-only mode first, then enforce gates gradually"
+    - "If high-noise, fall back to manual review cadence while tuning detectors"
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+  - "DOC-001: Documentation language requirements"
+---

@@ -1,0 +1,72 @@
+---
+id: "PT-021"
+title: "Run P1 tri-runtime performance and stability hardening"
+status: "completed"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "p1"
+  - "runtime"
+  - "performance"
+  - "stability"
+created: "2026-03-07"
+updated: "2026-03-07"
+
+description: |
+  Perform targeted performance and stability hardening for Rust/Python/TS
+  runtimes after P1 capability expansion, focusing on streaming pressure,
+  retry/fallback determinism, and long-running multimodal sessions.
+
+acceptance_criteria:
+  - "Unified benchmark profile covers streaming, tool-calls, audio, and video jobs"
+  - "Cross-runtime SLO thresholds are defined and measurable"
+  - "Top N bottlenecks per runtime are documented with mitigation patches"
+  - "Regression checks include retry storm and backpressure scenarios"
+  - "Hardening report includes before/after metrics and release recommendation"
+
+dependencies:
+  - "PT-020"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/GENERATIVE_MODEL_FULLCHAIN_EXECUTION_PLAN_2026-03-06.md"
+estimated_hours: 16
+actual_hours: 2
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/P1_TRI_RUNTIME_PERF_STABILITY_HARDENING_PLAN_2026-03-07.md"
+
+testing:
+  unit_tests:
+    - "runtime-level retry/backpressure test expansion"
+  integration_tests:
+    - "mock-backed long session stress checks"
+  compliance_tests:
+    - "cross-runtime semantic equivalence gate remains zero-drift for key scenarios"
+
+completion_notes: |
+  Completed on 2026-03-07.
+  - Delivered tri-runtime hardening plan with SLO baseline and workload groups.
+  - Added runtime-specific hardening workstreams and rollback toggles.
+  - Output document: `P1_TRI_RUNTIME_PERF_STABILITY_HARDENING_PLAN_2026-03-07.md`.
+
+execution_rhythm:
+  week_1: "Baseline collection and SLO freeze"
+  week_2: "Runtime-specific optimization and regression gates"
+  week_3: "Cross-runtime verification and release recommendation"
+
+risk_and_rollback:
+  top_risks:
+    - "Runtime-specific optimization introduces semantic drift"
+    - "Throughput optimization degrades error-classification correctness"
+  rollback:
+    - "Use feature-flagged optimizations with immediate disable paths"
+    - "Revert to baseline runtime config profiles if SLO or semantics regress"
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---

@@ -1,0 +1,70 @@
+---
+id: "PT-022"
+title: "Complete P2 Go/WASM runtime adapter feasibility and contract definition"
+status: "completed"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v1.0.x"
+labels:
+  - "p2"
+  - "go"
+  - "wasm"
+  - "runtime-adapter"
+created: "2026-03-07"
+updated: "2026-03-07"
+
+description: |
+  Produce feasibility analysis and runtime-neutral adapter contracts for Go/WASM
+  runtime support, including boundary definitions, ABI constraints, and MVP scope.
+
+acceptance_criteria:
+  - "Go/WASM adapter boundary contract is documented against current runtime interfaces"
+  - "MVP capability subset is defined with non-goals and phased rollout path"
+  - "Build/deploy constraints and security boundary assumptions are explicit"
+  - "Cross-runtime compatibility assumptions are mapped to compliance requirements"
+  - "Decision memo includes recommend / defer / reject with rationale"
+
+dependencies:
+  - "PT-021"
+related_issues: []
+references:
+  - "reviews/audits/AI_PROTOCOL_GENERATIVE_COVERAGE_FULLCHAIN_PLAN_CN.md"
+estimated_hours: 10
+actual_hours: 2
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/P2_GO_WASM_ADAPTER_FEASIBILITY_REPORT_2026-03-07.md"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "prototype contract smoke checks (if PoC exists)"
+  compliance_tests:
+    - "define compatibility subset for future compliance runner extension"
+
+completion_notes: |
+  Completed on 2026-03-07.
+  - Delivered Go/WASM adapter boundary contract and MVP/non-goal definition.
+  - Added feasibility verdict and phased rollout recommendation with rollback conditions.
+  - Output document: `P2_GO_WASM_ADAPTER_FEASIBILITY_REPORT_2026-03-07.md`.
+
+execution_rhythm:
+  week_1: "Interface mapping and feasibility constraints"
+  week_2: "MVP scope and security boundary definition"
+  week_3: "Decision memo and phased rollout recommendation"
+
+risk_and_rollback:
+  top_risks:
+    - "WASM runtime capability mismatch with current streaming/tool contracts"
+    - "Go/WASM adapter adds maintenance burden without immediate ROI"
+  rollback:
+    - "Keep Go/WASM as optional adapter track, disabled by default"
+    - "Abort rollout if MVP cannot satisfy compliance subset without forked semantics"
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+---

@@ -1,0 +1,71 @@
+---
+id: "PT-024"
+title: "Establish integrated P1/P2 release gates and rollback drill program"
+status: "completed"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v1.0.x"
+labels:
+  - "p1"
+  - "p2"
+  - "release-gate"
+  - "rollback"
+created: "2026-03-07"
+updated: "2026-03-07"
+
+description: |
+  Build a unified gate model for P1/P2 execution that links quality gates,
+  operational risk thresholds, and recurring rollback drills across repositories.
+
+acceptance_criteria:
+  - "Integrated gate checklist maps PT-019~PT-023 outputs to release criteria"
+  - "Rollback drill cadence (monthly/major release) and ownership is defined"
+  - "Gate evidence template includes metrics, compliance summary, and rollback readiness"
+  - "Fail/hold/release decision policy is documented with severity thresholds"
+  - "One simulated gate review is recorded with actionable follow-ups"
+
+dependencies:
+  - "PT-023"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/GENERATIVE_MODEL_FULLCHAIN_EXECUTION_PLAN_2026-03-06.md"
+estimated_hours: 8
+actual_hours: 2
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/P1P2_INTEGRATED_RELEASE_GATES_AND_ROLLBACK_PROGRAM_2026-03-07.md"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "simulated gate review with synthetic release evidence"
+  compliance_tests:
+    - "gate review must include compliance pass-rate and semantic drift status"
+
+completion_notes: |
+  Completed on 2026-03-07.
+  - Delivered integrated release gate framework and decision model (GO/HOLD/NO-GO).
+  - Added recurring rollback drill cadence and evidence templates.
+  - Output document: `P1P2_INTEGRATED_RELEASE_GATES_AND_ROLLBACK_PROGRAM_2026-03-07.md`.
+
+execution_rhythm:
+  week_1: "Gate framework and metric thresholds"
+  week_2: "Rollback drill script and evidence templates"
+  week_3: "Simulated review and threshold tuning"
+
+risk_and_rollback:
+  top_risks:
+    - "Gate model too strict blocks healthy iteration velocity"
+    - "Gate model too loose allows risky release promotion"
+  rollback:
+    - "Adopt staged enforcement: advisory -> required for critical paths"
+    - "Allow emergency rollback lane with post-incident mandatory review"
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+  - "DOC-001: Documentation language requirements"
+---

@@ -1,0 +1,70 @@
+---
+id: "PT-019"
+title: "Plan and execute P1 provider expansion wave beyond P0 baseline"
+status: "completed"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "p1"
+  - "provider-expansion"
+  - "planning"
+created: "2026-03-07"
+updated: "2026-03-07"
+
+description: |
+  Expand provider coverage beyond P0 baseline with a ranked onboarding wave,
+  including candidate prioritization, capability fit, integration complexity,
+  and release sequence.
+
+acceptance_criteria:
+  - "P1 provider candidate list has scoring dimensions and evidence references"
+  - "Onboarding wave is split into Week 1/2/3 with owners and expected outputs"
+  - "Each candidate includes dependency map (protocol/mock/runtime/spiderswitch)"
+  - "Risk register includes contract risk, drift risk, and release-risk levels"
+  - "Rollback strategy is defined per provider wave (feature flag + disable path)"
+
+dependencies:
+  - "PT-018"
+related_issues: []
+references:
+  - "reviews/audits/AI_PROTOCOL_GENERATIVE_COVERAGE_FULLCHAIN_PLAN_CN.md"
+estimated_hours: 8
+actual_hours: 2
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/P1_PROVIDER_EXPANSION_WAVE_PLAN_2026-03-07.md"
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests:
+    - "provider wave must map to compliance matrix rows before implementation start"
+
+completion_notes: |
+  Completed on 2026-03-07.
+  - Delivered ranked P1 provider expansion wave with dependency decomposition.
+  - Added week rhythm, risk register, and provider-level rollback strategy.
+  - Output document: `P1_PROVIDER_EXPANSION_WAVE_PLAN_2026-03-07.md`.
+
+execution_rhythm:
+  week_1: "Candidate ranking and evidence verification"
+  week_2: "Dependency decomposition and integration sequencing"
+  week_3: "Readiness review and wave freeze"
+
+risk_and_rollback:
+  top_risks:
+    - "Provider contract drift during integration window"
+    - "Cross-runtime semantics diverge when adding multiple providers in parallel"
+  rollback:
+    - "Gate by provider feature flags; disable newly onboarded providers by default"
+    - "Maintain provider-level rollback checklist with owner and verification steps"
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---
