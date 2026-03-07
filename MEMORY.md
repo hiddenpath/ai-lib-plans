@@ -46,6 +46,11 @@
 - Go/WASM runtime support should stay optional and disabled-by-default until MVP compliance subset is proven.
 - Drift detection should run in report-only mode first, then gradually become a mandatory release gate.
 
+### Implementation Supervision Mechanism (ai-protocol)
+- PT-012/PT-013 should not stop at policy drafting; they must include weekly supervision cadence and escalation rules.
+- Implementation supervision uses a fixed rhythm (Mon/Wed/Fri) with gate pass-rate, drift critical count, and rollback readiness as primary KPIs.
+- If critical semantic drift remains unresolved beyond 48 hours, release progression must be suspended until closure evidence is recorded.
+
 ### Runtime Routing Boundary (Spiderswitch)
 - spiderswitch acts as a runtime routing capability layer, not a strategy engine.
 - Routing strategy (business policy, cost weighting, tenant rules) stays in upper-layer applications.

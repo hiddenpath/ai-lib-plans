@@ -1,7 +1,7 @@
 ---
 id: "PT-012"
 title: "Establish compliance-first multimodal matrix and cross-runtime acceptance gates"
-status: "pending"
+status: "completed"
 priority: "critical"
 assignee: "@hiddenpath"
 project: "ai-protocol"
@@ -12,7 +12,7 @@ labels:
   - "cross-runtime"
   - "multimodal"
 created: "2026-03-06"
-updated: "2026-03-06"
+updated: "2026-03-07"
 
 description: |
   Define and adopt a compliance-first validation matrix for multimodal capabilities
@@ -32,11 +32,13 @@ related_issues: []
 references:
   - "reviews/audits/AI_PROTOCOL_MULTIMODAL_DOC_AUDIT_REPORT_CN.md"
 estimated_hours: 10
-actual_hours: null
+actual_hours: 3
 blocks: []
 blocked_by: []
 
-files_changed: []
+files_changed:
+  - "active/projects/ai-protocol/MULTIMODAL_COMPLIANCE_MATRIX_AND_GATES_EXECUTION_2026-03-07.md"
+  - "active/projects/ai-protocol/IMPLEMENTATION_SUPERVISION_BOARD_P1P2_2026-03-07.md"
 
 testing:
   unit_tests: []
@@ -45,7 +47,10 @@ testing:
     - "ai-protocol/tests/compliance/ multimodal cases (to be expanded)"
 
 completion_notes: |
-  Pending.
+  Completed on 2026-03-07.
+  - Delivered compliance-first multimodal matrix and gate hierarchy (Gate-0/Gate-1).
+  - Added cross-runtime semantic assertions, quality thresholds, and pilot evidence template.
+  - Added supervision cadence and escalation rules to force execution follow-through.
 
 tech_considerations:
   architecture: |

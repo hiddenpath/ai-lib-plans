@@ -165,6 +165,9 @@ related_documents:
   - "active/projects/ai-protocol/P2_GO_WASM_ADAPTER_FEASIBILITY_REPORT_2026-03-07.md"
   - "active/projects/ai-protocol/P2_DRIFT_DETECTION_RECONCILIATION_AUTOMATION_PLAN_2026-03-07.md"
   - "active/projects/ai-protocol/P1P2_INTEGRATED_RELEASE_GATES_AND_ROLLBACK_PROGRAM_2026-03-07.md"
+  - "active/projects/ai-protocol/MULTIMODAL_COMPLIANCE_MATRIX_AND_GATES_EXECUTION_2026-03-07.md"
+  - "active/projects/ai-protocol/MULTIMODAL_ROLLOUT_ROLLBACK_FLAG_POLICY_EXECUTION_2026-03-07.md"
+  - "active/projects/ai-protocol/IMPLEMENTATION_SUPERVISION_BOARD_P1P2_2026-03-07.md"
 
 constitution_rules:
   - "ARCH-001: Protocol-driven design"
