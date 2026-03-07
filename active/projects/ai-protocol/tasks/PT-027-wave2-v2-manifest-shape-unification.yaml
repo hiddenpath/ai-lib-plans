@@ -1,0 +1,66 @@
+---
+id: "PT-027"
+title: "Unify V2 manifest shape compatibility across Rust/Python/TS runtimes"
+status: "pending"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "p1"
+  - "runtime"
+  - "compatibility"
+created: "2026-03-07"
+updated: "2026-03-07"
+
+description: |
+  Align runtime handling of V2 manifest structural variants
+  (endpoint/endpoints, streaming structure, multimodal nested output/input)
+  to prevent semantic divergence.
+
+acceptance_criteria:
+  - "Three runtimes pass the same V2 manifest shape matrix"
+  - "Known edge-shape variants are documented and covered by tests"
+  - "No provider-specific hardcoded shortcuts are introduced"
+  - "Compatibility behavior is reflected in runtime docs/changelogs"
+
+dependencies:
+  - "PT-025"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/NEXT_PHASE_EXECUTION_PLAN_2026-03-07.md"
+estimated_hours: 12
+actual_hours: 0
+blocks: []
+blocked_by: []
+
+files_changed: []
+
+testing:
+  unit_tests:
+    - "manifest parser shape compatibility tests"
+  integration_tests:
+    - "cross-repo generative manifest consumption tests"
+  compliance_tests:
+    - "load and semantic matrix tests for latest V2 providers"
+
+completion_notes: ""
+
+execution_rhythm:
+  week_1: "Shape matrix finalization and gap list"
+  week_2: "Runtime patching and cross-check"
+  week_3: "Regression hardening and documentation sync"
+
+risk_and_rollback:
+  top_risks:
+    - "Patch in one runtime regresses another shape path"
+    - "Undocumented provider extension fields cause parser drift"
+  rollback:
+    - "Keep compatibility logic additive and feature-guarded"
+    - "Revert runtime-specific patches independently if needed"
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+---
+

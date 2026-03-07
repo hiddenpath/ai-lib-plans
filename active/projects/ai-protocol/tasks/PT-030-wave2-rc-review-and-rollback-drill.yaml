@@ -1,0 +1,69 @@
+---
+id: "PT-030"
+title: "Execute Wave-2 RC review and rollback drill closure package"
+status: "pending"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "p2"
+  - "release"
+  - "rollback-drill"
+created: "2026-03-07"
+updated: "2026-03-07"
+
+description: |
+  Build a full RC review package for Wave-2 (quality, risk, docs, ops)
+  and run at least one rollback drill with measurable closure evidence.
+
+acceptance_criteria:
+  - "RC checklist covers protocol/mock/runtimes/docs alignment"
+  - "Rollback drill is executed with timeline, trigger, owner, and result"
+  - "Open risks are classified as go/hold/no-go inputs"
+  - "Release recommendation is recorded with explicit evidence references"
+
+dependencies:
+  - "PT-025"
+  - "PT-026"
+  - "PT-027"
+  - "PT-028"
+  - "PT-029"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/NEXT_PHASE_EXECUTION_PLAN_2026-03-07.md"
+estimated_hours: 10
+actual_hours: 0
+blocks: []
+blocked_by: []
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "release candidate smoke test on protocol + three runtimes"
+  compliance_tests:
+    - "RC package includes compliance, drift, and gate evidence"
+
+completion_notes: ""
+
+execution_rhythm:
+  week_2: "Draft RC checklist and drill scenario"
+  week_3: "Dry-run and threshold alignment"
+  week_4: "Formal drill execution and closure report"
+
+risk_and_rollback:
+  top_risks:
+    - "Rollback drill not representative of production release path"
+    - "RC evidence is incomplete across repositories"
+  rollback:
+    - "Repeat drill with corrected scenario before release decision"
+    - "Freeze promotion until RC evidence reaches completeness threshold"
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+  - "DOC-001: Documentation language requirements"
+---
+

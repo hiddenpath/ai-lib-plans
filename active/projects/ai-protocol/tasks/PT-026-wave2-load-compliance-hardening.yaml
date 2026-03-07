@@ -1,0 +1,64 @@
+---
+id: "PT-026"
+title: "Harden load-compliance execution from skipped to required validation"
+status: "pending"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "p1"
+  - "compliance"
+  - "load-tests"
+created: "2026-03-07"
+updated: "2026-03-07"
+
+description: |
+  Upgrade load-class compliance checks from partial/skip behavior to required
+  validation with explicit pass criteria for V2 provider manifests.
+
+acceptance_criteria:
+  - "load-* compliance cases have runnable required path in all target runtimes"
+  - "Skip reasons are eliminated or explicitly scoped to non-target areas"
+  - "Compliance report tracks load-case pass rate as first-class KPI"
+  - "Failure diagnostics include provider/model/case identifiers"
+
+dependencies:
+  - "PT-025"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/NEXT_PHASE_EXECUTION_PLAN_2026-03-07.md"
+estimated_hours: 8
+actual_hours: 0
+blocks: []
+blocked_by: []
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "load case execution in python/rust/ts pipelines"
+  compliance_tests:
+    - "load-* pass rate >= target threshold"
+
+completion_notes: ""
+
+execution_rhythm:
+  week_1: "Case audit and skip reason taxonomy"
+  week_2: "Runner and fixture hardening"
+  week_3: "Gate integration and threshold freeze"
+
+risk_and_rollback:
+  top_risks:
+    - "Legacy fixtures conflict with strict load validation"
+    - "Case owner ambiguity blocks rapid fix"
+  rollback:
+    - "Temporary scoped allowlist with expiration date"
+    - "Fallback to report-only while fixing critical blockers"
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---
+

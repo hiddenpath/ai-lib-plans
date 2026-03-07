@@ -1,0 +1,65 @@
+---
+id: "PT-029"
+title: "Integrate drift and release-gate into CI as report-first governance"
+status: "pending"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "p2"
+  - "ci"
+  - "governance"
+created: "2026-03-07"
+updated: "2026-03-07"
+
+description: |
+  Integrate `drift:check` and `release:gate` into CI with report-first mode,
+  weekly evidence persistence, and staged policy escalation.
+
+acceptance_criteria:
+  - "CI jobs execute drift and gate scripts and archive JSON reports"
+  - "Advisory mode and required mode thresholds are documented"
+  - "Weekly governance report can trace failures to owning task"
+  - "No direct release blocking introduced before readiness sign-off"
+
+dependencies:
+  - "PT-023"
+  - "PT-024"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/NEXT_PHASE_EXECUTION_PLAN_2026-03-07.md"
+estimated_hours: 8
+actual_hours: 0
+blocks: []
+blocked_by: []
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "CI dry-run in report-only mode"
+  compliance_tests:
+    - "governance evidence includes drift and gate outcomes"
+
+completion_notes: ""
+
+execution_rhythm:
+  week_1: "Workflow design and evidence artifact template"
+  week_2: "Report-only CI integration"
+  week_3: "Threshold tuning and staged enforcement proposal"
+
+risk_and_rollback:
+  top_risks:
+    - "CI noise from unstable drift checks"
+    - "Governance workflow increases release latency"
+  rollback:
+    - "Keep advisory mode default until two stable cycles"
+    - "Allow manual bypass with documented postmortem requirement"
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---
+

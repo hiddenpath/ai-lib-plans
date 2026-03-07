@@ -1,0 +1,66 @@
+---
+id: "PT-025"
+title: "Establish Wave-2 cross-repo manifest consumption gate as default quality baseline"
+status: "in_progress"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "p1"
+  - "quality-gate"
+  - "cross-runtime"
+created: "2026-03-07"
+updated: "2026-03-07"
+
+description: |
+  Promote latest V2 manifest consumption tests (protocol + Rust/Python/TS)
+  from one-off release checks to recurring baseline gates in Wave-2.
+
+acceptance_criteria:
+  - "Each runtime has a stable latest-manifest consumption test entrypoint"
+  - "Gate runbook defines required command set and pass/fail policy"
+  - "Gate evidence template is integrated into weekly supervision cadence"
+  - "Any gate failure has owner/ETA/rollback annotation format"
+
+dependencies:
+  - "PT-024"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/RELEASE_WRAPUP_2026-03-07.md"
+  - "active/projects/ai-protocol/NEXT_PHASE_EXECUTION_PLAN_2026-03-07.md"
+estimated_hours: 6
+actual_hours: 0
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/NEXT_PHASE_EXECUTION_PLAN_2026-03-07.md"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "rust/python/ts latest-manifest consumption tests must pass in one runbook"
+  compliance_tests:
+    - "gate output must be archived alongside compliance evidence"
+
+completion_notes: ""
+
+execution_rhythm:
+  week_1: "Gate baseline freeze and command normalization"
+  week_2: "Weekly gate evidence publishing and exception handling"
+  week_3: "Stability tuning and false-positive reduction"
+
+risk_and_rollback:
+  top_risks:
+    - "Gate instability causes frequent false alarms"
+    - "Cross-repo command drift causes inconsistent operator experience"
+  rollback:
+    - "Downgrade to report-only mode while preserving evidence archive"
+    - "Pin runtime test command versions per release train"
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---
+

@@ -4,7 +4,7 @@
 
 project: "ai-protocol"
 status: "active"
-milestone: "v0.8.0"
+milestone: "v0.9.x"
 
 overview: |
   AI-Protocol currently supports 30+ AI providers with standardized
@@ -14,7 +14,7 @@ overview: |
   - Extended multimodal support
   - Cross-runtime compliance testing
 
-current_phase: "Post-P0 closed, P1/P2 coding wave-1 execution completed (mock + drift + gate automation)"
+current_phase: "v0.8.0 release closed; P1/P2 Wave-2 execution planning started"
 
 milestones:
   - id: "v0.7.4"
@@ -25,15 +25,15 @@ milestones:
 
   - id: "v0.8.0"
     title: "V2 Protocol Alignment"
-    status: "in_progress"
-    target: "2026-03-31"
-    summary: "V2 manifests, MCP bridge, extended multimodal"
+    status: "completed"
+    completed: "2026-03-07"
+    summary: "Generative fullchain upgrade released with protocol/runtime/site alignment"
 
-  - id: "v0.9.0"
-    title: "Advanced Features"
-    status: "pending"
-    target: "TBD"
-    summary: "WASM support, framework integrations, CLI toolchain"
+  - id: "v0.9.x"
+    title: "P1/P2 Wave-2 Stabilization and Governance Integration"
+    status: "in_progress"
+    target: "2026-04-05"
+    summary: "Cross-repo gates, load-compliance hardening, CI governance rollout, RC drill closure"
 
 active_tasks:
   - id: "PT-001"
@@ -148,9 +148,9 @@ compliance_status:
     - "extended-capabilities: Not yet implemented"
 
 dependencies:
-  ai-lib-rust: "v0.8.0 (requires ai-protocol v0.7.4)"
-  ai-lib-python: "v0.8.0 (requires ai-protocol v0.7.4)"
-  ai-lib-ts: "v0.4.0 (requires ai-protocol v0.7.4)"
+  ai-lib-rust: "v0.9.0 (aligned with ai-protocol v0.8.0 baseline)"
+  ai-lib-python: "v0.8.0 (aligned with ai-protocol v0.8.0 baseline)"
+  ai-lib-ts: "v0.5.0 (aligned with ai-protocol v0.8.0 baseline)"
 
 related_documents:
   - "archive/ai-protocol-tasks/AI_PROTOCOL_TASKS_PHASED.md"
@@ -170,6 +170,8 @@ related_documents:
   - "active/projects/ai-protocol/IMPLEMENTATION_SUPERVISION_BOARD_P1P2_2026-03-07.md"
   - "active/projects/ai-protocol/MULTIMODAL_DOC_METHODOLOGY_EVIDENCE_HARDENING_EXECUTION_2026-03-07.md"
   - "active/projects/ai-protocol/P1P2_CODING_EXECUTION_WAVE1_2026-03-07.md"
+  - "active/projects/ai-protocol/RELEASE_WRAPUP_2026-03-07.md"
+  - "active/projects/ai-protocol/NEXT_PHASE_EXECUTION_PLAN_2026-03-07.md"
 
 constitution_rules:
   - "ARCH-001: Protocol-driven design"

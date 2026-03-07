@@ -78,6 +78,25 @@
 - `exit_switcher` supports scoped reset (`runtime` vs `all`) to avoid unnecessary global teardown.
 - Capability schema is runtime-neutral and includes reserved runtime ids for Go/WASM future adapters.
 
+### Release Baseline (Generative Fullchain, 2026-03-07)
+- Release train closed with aligned matrix:
+  - `ai-protocol v0.8.0`
+  - `ai-lib-rust v0.9.0`
+  - `ai-lib-python v0.8.0`
+  - `ai-lib-ts v0.5.0`
+- Release order and evidence confirmed as: capability closure -> cross-runtime consumption verification -> version bump/tag/release -> site docs alignment.
+- `ailib.info` docs baseline now tracks release matrix updates as part of mandatory wrap-up, not optional post-processing.
+
+### Wave-2 Execution Decision (PT-025~PT-030)
+- Next phase starts immediately after release closure, focused on:
+  - cross-repo manifest consumption gate normalization,
+  - load-compliance hardening,
+  - V2 manifest shape compatibility unification,
+  - mock video lifecycle semantic expansion,
+  - CI governance integration (`drift:check`/`release:gate`),
+  - RC + rollback drill closure package.
+- Governance remains staged (report-first), with escalation to required gates only after stability proof cycles.
+
 ---
 
 ## Cross-Project Conventions
