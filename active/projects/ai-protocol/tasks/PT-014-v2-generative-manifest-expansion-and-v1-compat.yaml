@@ -1,7 +1,7 @@
 ---
 id: "PT-014"
 title: "Expand v2 generative multimodal manifest model with v1 compatibility layer"
-status: "in_progress"
+status: "completed"
 priority: "critical"
 assignee: "@hiddenpath"
 project: "ai-protocol"
@@ -12,7 +12,7 @@ labels:
   - "multimodal"
   - "v2"
 created: "2026-03-06"
-updated: "2026-03-06"
+updated: "2026-03-07"
 
 description: |
   Build the v2-primary generative multimodal capability model for P0 providers
@@ -33,11 +33,17 @@ references:
   - "reviews/audits/AI_PROTOCOL_GENERATIVE_COVERAGE_FULLCHAIN_PLAN_CN.md"
   - "active/projects/ai-protocol/GENERATIVE_MODEL_FULLCHAIN_EXECUTION_PLAN_2026-03-06.md"
 estimated_hours: 14
-actual_hours: null
+actual_hours: 7
 blocks: []
 blocked_by: []
 
-files_changed: []
+files_changed:
+  - "ai-protocol/schemas/v2/multimodal.json"
+  - "ai-protocol/v2/providers/qwen.yaml"
+  - "ai-protocol/v2/providers/doubao.yaml"
+  - "ai-protocol/tests/compliance/fixtures/providers/mock-qwen-v2.yaml"
+  - "ai-protocol/tests/compliance/fixtures/providers/mock-doubao-v2.yaml"
+  - "ai-protocol/tests/compliance/cases/01-protocol-loading/load-v2-p0-generative-providers.yaml"
 
 testing:
   unit_tests: []
@@ -46,7 +52,11 @@ testing:
     - "manifest/schema validation for v2 + compatibility mapping checks"
 
 completion_notes: |
-  Pending.
+  Completed on 2026-03-07.
+  - Added V2 P0 provider manifests for Qwen and Doubao.
+  - Extended multimodal schema with output.video contract for generative video declaration.
+  - Added compliance fixtures/cases for V2 protocol loading coverage.
+  - Validation evidence: `node scripts/validate.js` passed (0 failed).
 
 tech_considerations:
   architecture: |

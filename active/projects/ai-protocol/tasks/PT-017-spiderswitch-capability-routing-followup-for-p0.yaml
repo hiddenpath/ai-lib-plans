@@ -1,7 +1,7 @@
 ---
 id: "PT-017"
 title: "Evolve spiderswitch capability-routing execution for P0 multimodal runtime signals"
-status: "pending"
+status: "completed"
 priority: "high"
 assignee: "@hiddenpath"
 project: "ai-protocol"
@@ -11,7 +11,7 @@ labels:
   - "runtime-routing"
   - "integration"
 created: "2026-03-06"
-updated: "2026-03-06"
+updated: "2026-03-07"
 
 description: |
   Follow up spiderswitch evolution to consume P0 multimodal capability signals and
@@ -32,11 +32,20 @@ references:
   - "active/projects/spiderswitch/RUNTIME_ROUTING_STRATEGY_REPORT_2026-03-06.md"
   - "reviews/audits/AI_PROTOCOL_GENERATIVE_COVERAGE_FULLCHAIN_PLAN_CN.md"
 estimated_hours: 8
-actual_hours: null
+actual_hours: 4
 blocks: []
 blocked_by: []
 
-files_changed: []
+files_changed:
+  - "spiderswitch/src/spiderswitch/runtime/base.py"
+  - "spiderswitch/src/spiderswitch/runtime/python_runtime.py"
+  - "spiderswitch/src/spiderswitch/tools/list.py"
+  - "spiderswitch/src/spiderswitch/tools/status.py"
+  - "spiderswitch/src/spiderswitch/tools/switch.py"
+  - "spiderswitch/src/spiderswitch/server.py"
+  - "spiderswitch/tests/test_runtime.py"
+  - "spiderswitch/README.md"
+  - "spiderswitch/CHANGELOG.md"
 
 testing:
   unit_tests: []
@@ -45,7 +54,11 @@ testing:
   compliance_tests: []
 
 completion_notes: |
-  Pending.
+  Completed on 2026-03-07.
+  - Added runtime routing capability signal (`runtime_profile`) to switch/list/status responses.
+  - Added runtime abstraction method `describe_runtime_profile` and Python implementation.
+  - Kept policy-agnostic boundary intact: spiderswitch exposes capability signals only; strategy remains upper-layer owned.
+  - Validation evidence: `python -m pytest tests/test_runtime.py` passed (8 passed).
 
 tech_considerations:
   architecture: |
