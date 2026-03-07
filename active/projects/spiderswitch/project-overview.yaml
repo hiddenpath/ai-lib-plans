@@ -14,12 +14,12 @@ repository:
   remote: "https://github.com/hiddenpath/spiderswitch"
   default_branch: "main"
 
-current_phase: "Runtime routing capability planning and execution"
+current_phase: "Runtime routing capability wave-1 coding execution completed"
 
 active_tasks:
   - id: "MS-001"
     title: "Project onboarding into ai-lib-plans governance"
-    status: "in_progress"
+    status: "completed"
     priority: "high"
     assignee: "@hiddenpath"
     description: "Create planning baseline, initial task backlog, and release/document alignment checks."
@@ -67,7 +67,7 @@ active_tasks:
     estimated_hours: 4
   - id: "MS-005"
     title: "Runtime routing capability schema (runtime-neutral, Go/WASM ready)"
-    status: "in_progress"
+    status: "completed"
     priority: "high"
     assignee: "@hiddenpath"
     description: "Define unified capability schema for runtime routing while keeping strategy in upper-layer applications."
@@ -78,7 +78,7 @@ active_tasks:
     estimated_hours: 6
   - id: "MS-006"
     title: "Runtime registry and routing execution API"
-    status: "pending"
+    status: "completed"
     priority: "high"
     assignee: "@hiddenpath"
     description: "Implement RuntimeRegistry/Resolver execution layer with backward-compatible default runtime flow."
@@ -89,7 +89,7 @@ active_tasks:
     estimated_hours: 10
   - id: "MS-007"
     title: "Cross-runtime routing contract test matrix"
-    status: "pending"
+    status: "completed"
     priority: "high"
     assignee: "@hiddenpath"
     description: "Build cross-runtime contract matrix for capability dispatch and routing semantics."
@@ -116,5 +116,6 @@ related_documents:
   - "README_CN.md"
   - "reviews/audits/SPIDERSWITCH_RUNTIME_ROUTING_REPORT_CN.md"
   - "active/projects/spiderswitch/RUNTIME_ROUTING_STRATEGY_REPORT_2026-03-06.md"
+  - "active/projects/spiderswitch/RUNTIME_ROUTING_EXECUTION_WAVE1_2026-03-07.md"
 
 ---

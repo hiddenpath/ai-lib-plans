@@ -14,7 +14,7 @@ overview: |
   - Extended multimodal support
   - Cross-runtime compliance testing
 
-current_phase: "Post-P0 closed, P1/P2 planning package completed"
+current_phase: "Post-P0 closed, P1/P2 coding wave-1 execution completed (mock + drift + gate automation)"
 
 milestones:
   - id: "v0.7.4"
@@ -169,6 +169,7 @@ related_documents:
   - "active/projects/ai-protocol/MULTIMODAL_ROLLOUT_ROLLBACK_FLAG_POLICY_EXECUTION_2026-03-07.md"
   - "active/projects/ai-protocol/IMPLEMENTATION_SUPERVISION_BOARD_P1P2_2026-03-07.md"
   - "active/projects/ai-protocol/MULTIMODAL_DOC_METHODOLOGY_EVIDENCE_HARDENING_EXECUTION_2026-03-07.md"
+  - "active/projects/ai-protocol/P1P2_CODING_EXECUTION_WAVE1_2026-03-07.md"
 
 constitution_rules:
   - "ARCH-001: Protocol-driven design"

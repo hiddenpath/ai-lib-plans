@@ -1,7 +1,7 @@
 ---
 id: "MS-001"
 title: "Onboard spiderswitch into ai-lib ecosystem management"
-status: "in_progress"
+status: "completed"
 priority: "high"
 assignee: "@hiddenpath"
 project: "spiderswitch"
@@ -11,7 +11,7 @@ labels:
   - "governance"
   - "documentation"
 created: "2026-03-01"
-updated: "2026-03-01"
+updated: "2026-03-07"
 
 description: |
   Bring the showcase repository under ai-lib-plans management scope with
@@ -27,10 +27,13 @@ dependencies: []
 related_issues: []
 references: []
 estimated_hours: 2
-actual_hours: null
+actual_hours: 2
 blocks: []
 blocked_by: []
 
 completion_notes: |
-  In progress.
+  Completed on 2026-03-07.
+  - Repository is tracked under ai-lib-plans spiderswitch project scope.
+  - Project overview/tasks baseline established and actively maintained.
+  - Local Cursor constraint rule is in place and used in follow-up execution tasks.
 ---

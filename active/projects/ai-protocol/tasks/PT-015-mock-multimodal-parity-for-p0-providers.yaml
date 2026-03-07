@@ -38,6 +38,7 @@ blocked_by: []
 files_changed:
   - "ai-protocol-mock/src/ai_protocol_mock/mocks/http_provider.py"
   - "ai-protocol-mock/tests/test_mock.py"
+  - "active/projects/ai-protocol/P1P2_CODING_EXECUTION_WAVE1_2026-03-07.md"
 
 testing:
   unit_tests: []
@@ -49,9 +50,10 @@ testing:
 completion_notes: |
   Completed on 2026-03-07.
   - Added Gemini generateContent / streamGenerateContent mock routes.
-  - Added Gemini mock tests and passed full test module.
-  - Added v2 mock manifests for Qwen/Doubao to align with P0 provider set.
-  - Validation evidence: `python -m pytest tests/test_mock.py` passed (18 passed).
+  - Added async video generation + polling endpoints to close sync/stream/async transport coverage.
+  - Added unified test-control headers for timeout and invalid-content-type injection.
+  - Added mock tests for async polling lifecycle and failure injection scenarios.
+  - Validation evidence: `python -m pytest tests/test_mock.py` passed (22 passed).
 
 tech_considerations:
   architecture: |

@@ -3,7 +3,7 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-03-02
+**Last Updated**: 2026-03-07
 
 ---
 
@@ -51,6 +51,13 @@
 - Implementation supervision uses a fixed rhythm (Mon/Wed/Fri) with gate pass-rate, drift critical count, and rollback readiness as primary KPIs.
 - If critical semantic drift remains unresolved beyond 48 hours, release progression must be suspended until closure evidence is recorded.
 
+### P1/P2 Coding Execution Baseline (Wave 1)
+- PT-015/023/024 moved from planning-only outputs to executable automation and service behavior.
+- `ai-protocol-mock` now exposes async video generation polling semantics to support sync/stream/async transport coverage.
+- `ai-protocol` includes runnable governance automation: `drift:check` (drift scan) and `release:gate` (go/no-go decision).
+- Drift checks must tolerate legacy fixtures where applicable, while still enforcing P0 provider readiness coverage.
+- Governance automation should be integrated as report-first gates before mandatory enforcement in CI.
+
 ### Multimodal Documentation Hardening Baseline (PT-011)
 - Multimodal planning docs must use explicit evidence tags (`E1_OFFICIAL` to `E4_ASSUMPTION`) for key claims.
 - Assumption entries require `UNVERIFIED` marking and planned verification path.
@@ -63,6 +70,13 @@
 - Runtime routing must consider both model capabilities and runtime capabilities.
 - Runtime abstraction should be runtime-neutral and extensible beyond Python/Rust/TS (e.g., Go/WASM).
 - Cross-runtime routing requires contract tests to guarantee same semantic behavior for equivalent inputs.
+
+### Runtime Registry/Resolver Baseline (Spiderswitch Wave-1)
+- Runtime execution path now supports explicit `runtime_id` routing with deterministic resolution order:
+  request runtime_id -> state runtime_id -> default runtime.
+- Runtime state semantics now include `runtime_epoch` and `runtime_epochs` to support multi-runtime coordination.
+- `exit_switcher` supports scoped reset (`runtime` vs `all`) to avoid unnecessary global teardown.
+- Capability schema is runtime-neutral and includes reserved runtime ids for Go/WASM future adapters.
 
 ---
 

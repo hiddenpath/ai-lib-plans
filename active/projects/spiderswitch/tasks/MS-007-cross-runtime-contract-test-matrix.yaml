@@ -1,7 +1,7 @@
 ---
 id: "MS-007"
 title: "跨运行时契约测试矩阵：能力分发与路由语义一致性"
-status: "pending"
+status: "completed"
 priority: "high"
 assignee: "@hiddenpath"
 project: "spiderswitch"
@@ -11,7 +11,7 @@ labels:
   - "runtime-routing"
   - "contract"
 created: "2026-03-06"
-updated: "2026-03-06"
+updated: "2026-03-07"
 
 description: |
   建立跨运行时契约测试矩阵，验证 Python/Rust/TS（并为 Go/WASM 预留）
@@ -32,11 +32,17 @@ references:
   - "reviews/audits/SPIDERSWITCH_RUNTIME_ROUTING_REPORT_CN.md"
   - "MEMORY.md"
 estimated_hours: 12
-actual_hours: null
+actual_hours: 3
 blocks: []
 blocked_by: []
 
-files_changed: []
+files_changed:
+  - "spiderswitch/tests/test_runtime_registry.py"
+  - "spiderswitch/tests/test_server_regression.py"
+  - "spiderswitch/tests/test_state.py"
+  - "spiderswitch/tests/test_tools.py"
+  - "spiderswitch/tests/test_runtime.py"
+  - "active/projects/spiderswitch/RUNTIME_ROUTING_EXECUTION_WAVE1_2026-03-07.md"
 
 testing:
   unit_tests: []
@@ -44,7 +50,12 @@ testing:
   compliance_tests: []
 
 completion_notes: |
-  待完成。
+  Completed on 2026-03-07.
+  - Established contract matrix baseline for runtime selection semantics:
+    request runtime_id > state runtime_id > default runtime.
+  - Added assertions for switch/list/status/reset runtime-aware fields and scoped reset behavior.
+  - Added runtime schema assertions for reserved runtimes (Go/WASM ready).
+  - Validation evidence: `python -m pytest` passed in spiderswitch (32 passed).
 
 tech_considerations:
   architecture: |

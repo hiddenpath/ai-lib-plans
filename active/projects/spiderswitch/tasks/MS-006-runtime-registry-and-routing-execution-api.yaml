@@ -1,7 +1,7 @@
 ---
 id: "MS-006"
 title: "运行时注册与路由执行接口：RuntimeRegistry/Resolver 最小实现"
-status: "pending"
+status: "completed"
 priority: "high"
 assignee: "@hiddenpath"
 project: "spiderswitch"
@@ -11,7 +11,7 @@ labels:
   - "runtime-routing"
   - "execution-layer"
 created: "2026-03-06"
-updated: "2026-03-06"
+updated: "2026-03-07"
 
 description: |
   在不引入策略引擎的前提下，为 spiderswitch 增加 runtime registry/resolver
@@ -31,11 +31,21 @@ related_issues: []
 references:
   - "reviews/audits/SPIDERSWITCH_RUNTIME_ROUTING_REPORT_CN.md"
 estimated_hours: 10
-actual_hours: null
+actual_hours: 4
 blocks: []
 blocked_by: []
 
-files_changed: []
+files_changed:
+  - "spiderswitch/src/spiderswitch/runtime/registry.py"
+  - "spiderswitch/src/spiderswitch/runtime/__init__.py"
+  - "spiderswitch/src/spiderswitch/server.py"
+  - "spiderswitch/src/spiderswitch/state.py"
+  - "spiderswitch/src/spiderswitch/tools/switch.py"
+  - "spiderswitch/src/spiderswitch/tools/list.py"
+  - "spiderswitch/src/spiderswitch/tools/status.py"
+  - "spiderswitch/src/spiderswitch/tools/reset.py"
+  - "spiderswitch/README.md"
+  - "active/projects/spiderswitch/RUNTIME_ROUTING_EXECUTION_WAVE1_2026-03-07.md"
 
 testing:
   unit_tests: []
@@ -43,7 +53,12 @@ testing:
   compliance_tests: []
 
 completion_notes: |
-  待完成。
+  Completed on 2026-03-07.
+  - Implemented `RuntimeRegistry` and `RuntimeResolver` with request/state/default resolution order.
+  - Added runtime_id-aware execution flow for switch/list/status/reset with backward-compatible default runtime path.
+  - Extended state semantics with runtime dimension (`runtime_id`, `runtime_epoch`, `runtime_epochs`)
+    and scoped reset behavior (`scope=runtime|all`).
+  - Validation evidence: `python -m pytest` passed in spiderswitch (32 passed).
 
 tech_considerations:
   architecture: |

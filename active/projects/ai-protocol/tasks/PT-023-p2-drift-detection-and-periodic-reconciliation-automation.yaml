@@ -37,6 +37,11 @@ blocked_by: []
 
 files_changed:
   - "active/projects/ai-protocol/P2_DRIFT_DETECTION_RECONCILIATION_AUTOMATION_PLAN_2026-03-07.md"
+  - "ai-protocol/scripts/drift-detect.js"
+  - "ai-protocol/tests/compliance/fixtures/providers/mock-google-v2.yaml"
+  - "ai-protocol/tests/compliance/fixtures/providers/mock-deepseek-v2.yaml"
+  - "ai-protocol/tests/compliance/cases/01-protocol-loading/load-v2-p0-generative-providers.yaml"
+  - "active/projects/ai-protocol/P1P2_CODING_EXECUTION_WAVE1_2026-03-07.md"
 
 testing:
   unit_tests: []
@@ -50,6 +55,9 @@ completion_notes: |
   - Delivered drift signal taxonomy, severity model, and automation cadence.
   - Added reconciliation workflow and report-first rollback strategy.
   - Output document: `P2_DRIFT_DETECTION_RECONCILIATION_AUTOMATION_PLAN_2026-03-07.md`.
+  - Implemented executable drift detector: `npm run drift:check` (`scripts/drift-detect.js`).
+  - Added P0 coverage checks across v2 manifests, compliance fixtures, and protocol-loading cases.
+  - Validation evidence: drift run report generated with `Drifts: 0`.
 
 execution_rhythm:
   week_1: "Signal taxonomy and severity model"

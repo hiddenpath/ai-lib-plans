@@ -37,6 +37,10 @@ blocked_by: []
 
 files_changed:
   - "active/projects/ai-protocol/P1P2_INTEGRATED_RELEASE_GATES_AND_ROLLBACK_PROGRAM_2026-03-07.md"
+  - "ai-protocol/scripts/release-gate.js"
+  - "ai-protocol/scripts/release-gate-input.example.json"
+  - "ai-protocol/package.json"
+  - "active/projects/ai-protocol/P1P2_CODING_EXECUTION_WAVE1_2026-03-07.md"
 
 testing:
   unit_tests: []
@@ -50,6 +54,9 @@ completion_notes: |
   - Delivered integrated release gate framework and decision model (GO/HOLD/NO-GO).
   - Added recurring rollback drill cadence and evidence templates.
   - Output document: `P1P2_INTEGRATED_RELEASE_GATES_AND_ROLLBACK_PROGRAM_2026-03-07.md`.
+  - Implemented executable gate evaluator: `npm run release:gate` (`scripts/release-gate.js`).
+  - Added five-dimensional gate checks (coverage/compliance/stability/rollback/docs).
+  - Validation evidence: release gate report generated with `Status: pass`.
 
 execution_rhythm:
   week_1: "Gate framework and metric thresholds"

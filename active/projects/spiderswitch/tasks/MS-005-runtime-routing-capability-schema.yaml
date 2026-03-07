@@ -1,7 +1,7 @@
 ---
 id: "MS-005"
 title: "运行时路由能力模型：统一 capability schema（含 Go/WASM 预留）"
-status: "in_progress"
+status: "completed"
 priority: "high"
 assignee: "@hiddenpath"
 project: "spiderswitch"
@@ -11,7 +11,7 @@ labels:
   - "runtime-routing"
   - "capability-model"
 created: "2026-03-06"
-updated: "2026-03-06"
+updated: "2026-03-07"
 
 description: |
   基于最新评估报告，先完成 spiderswitch 运行时路由能力模型定义，
@@ -31,11 +31,15 @@ references:
   - "reviews/audits/SPIDERSWITCH_RUNTIME_ROUTING_REPORT_CN.md"
   - "active/projects/spiderswitch/RUNTIME_ROUTING_STRATEGY_REPORT_2026-03-06.md"
 estimated_hours: 6
-actual_hours: null
+actual_hours: 3
 blocks: []
 blocked_by: []
 
-files_changed: []
+files_changed:
+  - "spiderswitch/src/spiderswitch/runtime/base.py"
+  - "spiderswitch/src/spiderswitch/runtime/python_runtime.py"
+  - "spiderswitch/README.md"
+  - "active/projects/spiderswitch/RUNTIME_ROUTING_EXECUTION_WAVE1_2026-03-07.md"
 
 testing:
   unit_tests: []
@@ -43,7 +47,12 @@ testing:
   compliance_tests: []
 
 completion_notes: |
-  待完成。
+  Completed on 2026-03-07.
+  - Defined runtime-neutral capability schema in `RuntimeProfile`:
+    `runtime_id/model_capabilities/runtime_capabilities/operational_metrics/reserved_runtimes`.
+  - Added explicit Go/WASM reserved runtime ids for future adapter alignment.
+  - Clarified boundary in code/docs: spiderswitch exposes capability signals and executes routing only;
+    strategy remains in upper-layer applications.
 
 tech_considerations:
   architecture: |
