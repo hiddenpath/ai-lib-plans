@@ -1,7 +1,7 @@
 ---
 id: "PT-011"
 title: "Harden multimodal docs methodology, evidence grading, and schema-gap clarity"
-status: "in_progress"
+status: "completed"
 priority: "high"
 assignee: "@hiddenpath"
 project: "ai-protocol"
@@ -11,7 +11,7 @@ labels:
   - "multimodal"
   - "governance"
 created: "2026-03-06"
-updated: "2026-03-06"
+updated: "2026-03-07"
 
 description: |
   Refactor multimodal survey/integration documentation to separate verified facts
@@ -32,11 +32,13 @@ references:
   - "reviews/audits/AI_PROTOCOL_MULTIMODAL_DOC_AUDIT_REPORT_CN.md"
   - "active/projects/ai-protocol/MULTIMODAL_DOC_REVIEW_REPORT_2026-03-06.md"
 estimated_hours: 6
-actual_hours: null
+actual_hours: 3
 blocks: []
 blocked_by: []
 
-files_changed: []
+files_changed:
+  - "active/projects/ai-protocol/MULTIMODAL_DOC_METHODOLOGY_EVIDENCE_HARDENING_EXECUTION_2026-03-07.md"
+  - "active/projects/ai-protocol/tasks/PT-011-multimodal-doc-methodology-and-evidence-hardening.yaml"
 
 testing:
   unit_tests: []
@@ -44,7 +46,10 @@ testing:
   compliance_tests: []
 
 completion_notes: |
-  Pending.
+  Completed on 2026-03-07.
+  - Delivered executable methodology/evidence hardening package for multimodal docs.
+  - Defined evidence levels, schema-gap classification, and editorial consistency checklist.
+  - Linked governance outputs to PT-012/PT-013 and P1/P2 execution chain.
 
 tech_considerations:
   architecture: |

@@ -51,6 +51,12 @@
 - Implementation supervision uses a fixed rhythm (Mon/Wed/Fri) with gate pass-rate, drift critical count, and rollback readiness as primary KPIs.
 - If critical semantic drift remains unresolved beyond 48 hours, release progression must be suspended until closure evidence is recorded.
 
+### Multimodal Documentation Hardening Baseline (PT-011)
+- Multimodal planning docs must use explicit evidence tags (`E1_OFFICIAL` to `E4_ASSUMPTION`) for key claims.
+- Assumption entries require `UNVERIFIED` marking and planned verification path.
+- Schema-gap entries must be classified as `supported` / `needs_schema_change` / `experimental`.
+- Documentation governance should be coupled with execution supervision metrics, not maintained as standalone narrative artifacts.
+
 ### Runtime Routing Boundary (Spiderswitch)
 - spiderswitch acts as a runtime routing capability layer, not a strategy engine.
 - Routing strategy (business policy, cost weighting, tenant rules) stays in upper-layer applications.
