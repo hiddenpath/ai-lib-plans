@@ -35,12 +35,20 @@
 - `PT-029`：drift/release-gate 接入 CI report-first 流水线并沉淀周报
 - `PT-030`：P1/P2 Wave-2 RC 发布评审与回滚演练闭环
 
-### Wave-3（执行期追加）
+### Wave-3A（已完成）
 
 - `PT-031`：`retry_decision` compliance 在 Python/Rust/TS 三运行时执行激活
 - `PT-032`：message/stream/request compliance 矩阵在三运行时全量执行激活
 - `PT-033`：跨仓 compliance matrix gate 脚本与治理流水线接入
 - `PT-034`：fullchain governance gate 一键编排入口
+
+### Wave-3B（当前执行）
+
+- `PT-035`：fullchain 门禁从 report-first 向 required 基线晋级（进行中）
+- `PT-036`：P1 provider 扩展 wave-1（manifest/mock/三运行时消费）
+- `PT-037`：视频生成/编辑契约在 protocol/mock/runtime 三层对齐
+- `PT-038`：spiderswitch 运行时能力路由契约测试补齐
+- `PT-039`：v0.9.x RC 门禁评审与跨仓发布列车闭环
 
 ## 4. 交付物定义
 
@@ -93,4 +101,9 @@
 - `PT-032`: `completed`（message/stream/request compliance 全量激活并通过）
 - `PT-033`: `completed`（cross-repo compliance gate 与报告归档落地）
 - `PT-034`: `completed`（fullchain gate 编排落地并通过 required 基线）
+- `PT-035`: `completed`（required-mode 推广口径/阈值边界/回退策略已落地并完成验证）
+- `PT-036`: `completed`（Wave-1 provider onboarding：manifest/mock/三运行时消费对齐已闭环）
+- `PT-037`: `completed`（视频契约断言已在 Rust/Python/TS 消费路径闭环）
+- `PT-038`: `completed`（spiderswitch 路由契约测试与文档边界已闭环）
+- `PT-039`: `pending`
 

@@ -1,0 +1,89 @@
+---
+id: "PT-036"
+title: "Execute P1 provider expansion wave-1 with compliance-first onboarding"
+status: "completed"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "wave3"
+  - "provider-expansion"
+  - "compliance"
+created: "2026-03-08"
+updated: "2026-03-08"
+
+description: |
+  Implement Wave-1 onboarding for next P1 providers through v2 manifests,
+  mock parity, and tri-runtime manifest consumption validation.
+
+acceptance_criteria:
+  - "new provider manifests pass schema validation"
+  - "mock behavior is available for onboarding providers"
+  - "Rust/Python/TS manifest consumption tests pass for added providers"
+  - "drift-check and fullchain reports show no high/critical drift"
+
+dependencies:
+  - "PT-035"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/P1_PROVIDER_EXPANSION_WAVE_PLAN_2026-03-07.md"
+estimated_hours: 12
+actual_hours: 5
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "ai-protocol/tests/compliance/cases/01-protocol-loading/load-v2-wave1-provider-expansion.yaml"
+  - "ai-protocol/tests/compliance/fixtures/providers/mock-cohere-v2.yaml"
+  - "ai-protocol/tests/compliance/fixtures/providers/mock-moonshot-v2.yaml"
+  - "ai-protocol/tests/compliance/fixtures/providers/mock-zhipu-v2.yaml"
+  - "ai-protocol/tests/compliance/fixtures/providers/mock-jina-v2.yaml"
+  - "rustapp/ai-lib-rust/tests/generative_manifest_consumption.rs"
+  - "rustapp/ai-lib-python/src/ai_lib_python/protocol/v2/capabilities.py"
+  - "rustapp/ai-lib-python/tests/integration/test_generative_manifest_consumption.py"
+  - "rustapp/ai-lib-ts/tests/protocol-loading.compliance.test.ts"
+  - "rustapp/ai-protocol-mock/tests/test_mock.py"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "npm run validate"
+    - "npm run gate:manifest-consumption"
+  compliance_tests:
+    - "cross-runtime manifest consumption remains pass"
+
+completion_notes: |
+  2026-03-08 completed:
+  1) Added Wave-1 protocol-loading fixtures/cases for Cohere, Moonshot, Zhipu, and Jina.
+  2) Extended tri-runtime manifest consumption paths:
+     - Rust generative manifest tests include wave-1 providers.
+     - Python generative manifest tests include wave-1 providers.
+     - TypeScript protocol-loading compliance now consumes wave-1 case file.
+  3) Added mock-side provider availability assertion for wave-1 onboarding set.
+  4) Verification evidence:
+     - ai-protocol: `npm run validate`
+     - ai-protocol: `npm run gate:manifest-consumption`
+     - ai-protocol: `npm run drift:check`
+     - ai-protocol: `npm run gate:fullchain -- --report-only`
+     - ai-lib-rust: `cargo test --test generative_manifest_consumption --features multimodal`
+     - ai-lib-python: `python -m pytest tests/integration/test_generative_manifest_consumption.py`
+     - ai-lib-ts: `npm run test -- tests/protocol-loading.compliance.test.ts`
+     - ai-protocol-mock: `python -m pytest tests/test_mock.py`
+
+execution_rhythm:
+  week_1: "Manifest and fixture onboarding"
+  week_2: "Mock parity and tri-runtime validation"
+
+risk_and_rollback:
+  top_risks:
+    - "provider docs and real API behavior drift from fixture assumptions"
+  rollback:
+    - "disable newly added provider entries and keep previous manifest set stable"
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---
+

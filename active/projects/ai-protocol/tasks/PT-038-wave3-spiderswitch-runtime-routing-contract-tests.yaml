@@ -1,0 +1,72 @@
+---
+id: "PT-038"
+title: "Add spiderswitch runtime-routing contract tests for tri-runtime capability profiles"
+status: "completed"
+priority: "medium"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "wave3"
+  - "spiderswitch"
+  - "routing"
+created: "2026-03-08"
+updated: "2026-03-09"
+
+description: |
+  Extend spiderswitch verification with contract tests for runtime profile
+  capability routing, ensuring stable and deterministic runtime selection
+  semantics across Rust/Python/TS profile declarations.
+
+acceptance_criteria:
+  - "runtime profile fixtures include tri-runtime capability snapshots"
+  - "resolver contract tests validate deterministic runtime_id selection"
+  - "scoped reset semantics remain stable under multi-runtime state changes"
+  - "routing-layer docs clarify boundary vs upper-layer strategy responsibilities"
+
+dependencies:
+  - "PT-037"
+related_issues: []
+references:
+  - "active/projects/spiderswitch/RUNTIME_ROUTING_EXECUTION_WAVE1_2026-03-07.md"
+estimated_hours: 10
+actual_hours: 4
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "rustapp/spiderswitch/tests/fixtures/runtime_profiles.yaml"
+  - "rustapp/spiderswitch/tests/test_runtime.py"
+  - "rustapp/spiderswitch/README.md"
+
+testing:
+  unit_tests:
+    - "spiderswitch runtime resolver contract test set"
+  integration_tests:
+    - "python -m pytest tests/test_runtime.py"
+  compliance_tests:
+    - "runtime profile routing parity checks"
+
+completion_notes: |
+  2026-03-09 closure:
+  - Added tri-runtime routing profile fixture snapshots (`python/rust/ts`) for capability parity checks.
+  - Added runtime resolver contract test covering deterministic precedence:
+    request runtime_id -> active state runtime_id -> default runtime.
+  - Added scoped reset contract test to verify runtime-only reset does not clear other runtime epochs.
+  - Updated routing boundary docs to clarify switcher vs upper-layer strategy responsibilities.
+  - Validation passed: `python -m pytest tests/test_runtime.py` (11 passed).
+
+execution_rhythm:
+  week_1: "Runtime profile fixture normalization"
+  week_2: "Resolver contract test implementation"
+
+risk_and_rollback:
+  top_risks:
+    - "routing contract overreach into strategy layer"
+  rollback:
+    - "revert to capability-only routing contract and keep strategy out of switcher"
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+---
+

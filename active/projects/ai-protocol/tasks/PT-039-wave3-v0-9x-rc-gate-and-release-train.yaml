@@ -1,0 +1,63 @@
+---
+id: "PT-039"
+title: "Execute v0.9.x RC gate review and cross-repo release train"
+status: "in_progress"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "wave3"
+  - "release"
+  - "rc"
+created: "2026-03-08"
+updated: "2026-03-09"
+
+description: |
+  Build and execute the Wave-3 release closure package:
+  RC gate review, rollback drill refresh, cross-repo release matrix,
+  and public site alignment checkpoints.
+
+acceptance_criteria:
+  - "RC go/hold/no-go input package is generated and reviewed"
+  - "fullchain gate required mode passes for release candidate snapshot"
+  - "rollback drill evidence is refreshed for current wave"
+  - "release matrix and public site documentation are synchronized"
+
+dependencies:
+  - "PT-038"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/WAVE2_RC_REVIEW_AND_ROLLBACK_DRILL_2026-03-08.md"
+estimated_hours: 8
+actual_hours: 0
+blocks: []
+blocked_by: []
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "npm run gate:fullchain"
+    - "node scripts/release-gate.js --input=scripts/release-gate-input.rollback-drill.json --report-only"
+  compliance_tests:
+    - "release checklist includes compliance and drift evidence"
+
+completion_notes: ""
+
+execution_rhythm:
+  week_1: "RC checklist and baseline evidence"
+  week_2: "Release train execution and final audit"
+
+risk_and_rollback:
+  top_risks:
+    - "cross-repo release sequencing drift"
+  rollback:
+    - "pause promotion and fallback to report-only gate mode until closure"
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---
+

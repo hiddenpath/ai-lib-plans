@@ -58,6 +58,11 @@
   - `PT-032`：message/stream/request compliance 三运行时全量执行激活（已完成）
   - `PT-033`：cross-repo compliance matrix gate 与治理集成（已完成）
   - `PT-034`：fullchain governance gate 编排入口（已完成）
+  - `PT-035`：required gate 基线晋级与执行证据固化（已完成）
+  - `PT-036`：P1 provider 扩展 wave-1（已完成）
+  - `PT-037`：视频生成/编辑契约三层对齐（已完成）
+  - `PT-038`：spiderswitch 运行时路由契约测试（已完成）
+  - `PT-039`：v0.9.x RC 门禁评审与发布列车（待开始）
 
 ## 5. 维护约定
 

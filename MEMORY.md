@@ -141,6 +141,43 @@
 - Fullchain runner keeps report-only fallback while preserving standalone gate commands.
 - Required-mode baseline run passed with archived fullchain evidence report.
 
+### Wave-3 Required-Mode Promotion Closure (PT-035, 2026-03-08)
+- Wave-3 next execution list initialized as PT-035~PT-039 with explicit dependency chain.
+- PT-035 closure evidence:
+  - `npm run gate:fullchain -- --report-only` (pass)
+  - `npm run gate:fullchain` (pass)
+  - `npm run gate:fullchain -- --report-only` re-check after policy update (pass)
+- Governance boundary upgraded:
+  - PR/workflow_dispatch path keeps report-only execution.
+  - `main` push path runs required fullchain as blocking baseline.
+- Rollback lane remains report-only with mandatory evidence retention and recovery target.
+
+### Wave-3 P1 Provider Expansion Wave-1 Closure (PT-036, 2026-03-08)
+- Wave-1 onboarding set (Cohere / Moonshot / Zhipu / Jina) now has dedicated protocol-loading fixtures and compliance cases.
+- Tri-runtime consumption alignment completed:
+  - Rust/Python generative manifest consumption tests extended to wave-1 providers.
+  - TypeScript protocol-loading compliance suite now consumes wave-1 loading cases.
+- Mock onboarding readiness now explicitly asserts wave-1 provider ids are exposed in `/providers`.
+- Gate evidence refreshed with manifest-consumption, drift-check, and fullchain report-only pass.
+
+### Wave-3 Video Contract Alignment Kickoff (PT-037, 2026-03-08)
+- PT-037 entered execution after PT-036 closure.
+- Next implementation focus is video generation/editing contract freeze across protocol schema, mock semantics, and tri-runtime assertions.
+
+### Wave-3 Video Contract Alignment Closure (PT-037, 2026-03-09)
+- Moonshot video contract assertions are now enforced in Rust/Python/TS manifest-consumption paths:
+  - `multimodal.input.video.supported = true`
+  - `multimodal.output.video.supported = false`
+- Python V2 capability parsing now normalizes `rerank` to `reranking` to keep manifest compatibility stable.
+- Tri-runtime verification passed and feeds fullchain gate evidence chain for release checks.
+
+### Wave-3 Spiderswitch Routing Contract Closure (PT-038, 2026-03-09)
+- Added tri-runtime runtime-profile fixture snapshots (`python-runtime`, `rust-runtime`, `ts-runtime`).
+- Resolver contract test now enforces deterministic precedence:
+  request runtime_id -> active state runtime_id -> default runtime.
+- Scoped reset contract is verified to preserve non-target runtime epochs during runtime-local reset.
+- Routing boundary docs now explicitly pin capability exposure vs upper-layer strategy ownership.
+
 ---
 
 ## Cross-Project Conventions

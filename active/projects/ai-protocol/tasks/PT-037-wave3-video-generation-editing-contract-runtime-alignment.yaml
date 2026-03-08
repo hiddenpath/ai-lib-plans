@@ -1,0 +1,87 @@
+---
+id: "PT-037"
+title: "Align video generation/editing contract across protocol, mock, and runtimes"
+status: "completed"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "wave3"
+  - "video"
+  - "multimodal"
+created: "2026-03-08"
+updated: "2026-03-09"
+
+description: |
+  Close remaining P1 contract gaps for video generation/editing by aligning
+  protocol schema declarations, mock lifecycle semantics, and tri-runtime
+  request/response handling.
+
+acceptance_criteria:
+  - "video generation/editing contract is documented and schema-validated"
+  - "mock includes deterministic terminal-state and failure path fixtures"
+  - "Rust/Python/TS pass video-related contract/compliance verification"
+  - "release gate evidence includes video contract checks"
+
+dependencies:
+  - "PT-036"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/P1_VIDEO_GENERATION_EDITING_CONTRACT_2026-03-07.md"
+estimated_hours: 14
+actual_hours: 6
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "rustapp/ai-lib-rust/tests/generative_manifest_consumption.rs"
+  - "rustapp/ai-lib-python/src/ai_lib_python/protocol/v2/capabilities.py"
+  - "rustapp/ai-lib-python/tests/integration/test_generative_manifest_consumption.py"
+  - "rustapp/ai-lib-ts/tests/protocol-loading.compliance.test.ts"
+  - "ai-protocol/tests/compliance/cases/01-protocol-loading/load-v2-wave1-provider-expansion.yaml"
+  - "ai-protocol/tests/compliance/fixtures/providers/mock-moonshot-v2.yaml"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "python -m pytest tests/test_mock.py"
+    - "cargo test --test generative_manifest_consumption --features multimodal"
+    - "npm run test -- tests/protocol-v2.test.ts"
+  compliance_tests:
+    - "video-related contract fixtures pass in tri-runtime matrix"
+
+completion_notes: |
+  2026-03-08 kickoff:
+  - PT-037 entered execution after PT-036 closure.
+  - Focus: freeze video generation/editing contract deltas and wire tri-runtime
+    validation assertions against protocol+mock semantics.
+  2026-03-09 closure:
+  - Added Moonshot video contract assertions in Rust/Python/TS consumption paths:
+    - input.video.supported = true
+    - output.video.supported = false
+  - Added capability alias normalization (`rerank` -> `reranking`) in Python V2 capability parsing
+    for better compatibility with provider manifests.
+  - Validation passed:
+    - Rust: `cargo test --test generative_manifest_consumption --features multimodal`
+    - Python: `python -m pytest tests/integration/test_generative_manifest_consumption.py`
+    - TypeScript: `npm run test -- tests/protocol-loading.compliance.test.ts`
+  - Release-gate evidence now includes video contract assertions through tri-runtime
+    manifest-consumption checks in fullchain pipeline.
+
+execution_rhythm:
+  week_1: "Contract freeze and schema gap closure"
+  week_2: "Mock/runtime alignment and regression"
+
+risk_and_rollback:
+  top_risks:
+    - "video contract divergence causes cross-runtime semantic mismatch"
+  rollback:
+    - "gate video extension by feature flag and preserve current stable contract"
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---
+
