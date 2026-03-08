@@ -178,6 +178,18 @@
 - Scoped reset contract is verified to preserve non-target runtime epochs during runtime-local reset.
 - Routing boundary docs now explicitly pin capability exposure vs upper-layer strategy ownership.
 
+### Wave-3 RC Gate + Release Train Closure (PT-039, 2026-03-09)
+- Required fullchain gate passed for RC snapshot (`npm run gate:fullchain`).
+- Rollback drill evidence refreshed in report-only mode with blocked findings retained for audit trace.
+- Cross-repo patch releases closed with synchronized tags/releases:
+  - `ai-protocol v0.8.2`
+  - `ai-lib-rust v0.9.2`
+  - `ai-lib-python v0.8.2`
+  - `ai-lib-ts v0.5.2`
+  - `ai-protocol-mock v0.1.10`
+  - `spiderswitch v0.4.1`
+- Public docs matrix in `ailib.info` was updated across EN/ZH/JA/ES release-facing pages.
+
 ---
 
 ## Cross-Project Conventions

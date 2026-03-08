@@ -14,7 +14,7 @@ overview: |
   - Extended multimodal support
   - Cross-runtime compliance testing
 
-current_phase: "Wave-3B executing: PT-035~PT-038 completed; PT-039 in_progress"
+current_phase: "Wave-3B completed: PT-035~PT-039 all closed"
 
 milestones:
   - id: "v0.7.4"

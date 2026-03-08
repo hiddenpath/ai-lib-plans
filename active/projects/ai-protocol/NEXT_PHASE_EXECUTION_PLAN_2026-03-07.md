@@ -105,5 +105,5 @@
 - `PT-036`: `completed`（Wave-1 provider onboarding：manifest/mock/三运行时消费对齐已闭环）
 - `PT-037`: `completed`（视频契约断言已在 Rust/Python/TS 消费路径闭环）
 - `PT-038`: `completed`（spiderswitch 路由契约测试与文档边界已闭环）
-- `PT-039`: `pending`
+- `PT-039`: `completed`（RC gate required + rollback drill + 跨仓 release train + 站点对齐已闭环）
 
