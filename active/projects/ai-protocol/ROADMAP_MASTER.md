@@ -48,12 +48,16 @@
   - `PT-022`：P2 Go/WASM adapter 可行性与契约定义（已完成）
   - `PT-023`：P2 漂移检测与周期对账自动化方案（已完成）
   - `PT-024`：P1/P2 一体化发布门禁与回滚演练体系（已完成）
-  - `PT-025`：Wave-2 跨仓 manifest 消费门禁常态化（进行中）
-  - `PT-026`：load 类 compliance 从 skip 到强校验（待开始）
-  - `PT-027`：三运行时 V2 manifest 结构兼容统一（待开始）
-  - `PT-028`：mock 视频生命周期语义扩展（待开始）
-  - `PT-029`：drift/release-gate 接入 CI report-first（待开始）
-  - `PT-030`：Wave-2 RC 评审与回滚演练闭环（待开始）
+  - `PT-025`：Wave-2 跨仓 manifest 消费门禁常态化（已完成）
+  - `PT-026`：load 类 compliance 从 skip 到强校验（已完成）
+  - `PT-027`：三运行时 V2 manifest 结构兼容统一（已完成）
+  - `PT-028`：mock 视频生命周期语义扩展（已完成）
+  - `PT-029`：drift/release-gate 接入 CI report-first（已完成）
+  - `PT-030`：Wave-2 RC 评审与回滚演练闭环（已完成）
+  - `PT-031`：retry_decision compliance 三运行时执行激活（已完成）
+  - `PT-032`：message/stream/request compliance 三运行时全量执行激活（已完成）
+  - `PT-033`：cross-repo compliance matrix gate 与治理集成（已完成）
+  - `PT-034`：fullchain governance gate 编排入口（已完成）
 
 ## 5. 维护约定
 

@@ -1,0 +1,70 @@
+---
+id: "PT-034"
+title: "Orchestrate fullchain governance gate as one-shot executable pipeline"
+status: "completed"
+priority: "medium"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "wave3"
+  - "gate"
+  - "automation"
+created: "2026-03-08"
+updated: "2026-03-08"
+
+description: |
+  Add a one-shot fullchain gate runner to aggregate drift, manifest consumption,
+  compliance matrix, and release gate checks into a single executable entrypoint.
+
+acceptance_criteria:
+  - "ai-protocol exposes gate:fullchain command"
+  - "runner supports required and report-only modes"
+  - "JSON evidence report is generated under reports/fullchain-gates/"
+  - "first required-mode local run passes"
+
+dependencies:
+  - "PT-033"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/NEXT_PHASE_EXECUTION_PLAN_2026-03-07.md"
+estimated_hours: 3
+actual_hours: 2
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "ai-protocol/scripts/gate-fullchain.js"
+  - "ai-protocol/package.json"
+  - "ai-protocol/README.md"
+  - "ai-protocol/.github/workflows/governance-report.yml"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "npm run gate:fullchain"
+  compliance_tests:
+    - "fullchain report generated under reports/fullchain-gates/"
+
+completion_notes: |
+  2026-03-08 completed:
+  1) Added `scripts/gate-fullchain.js` orchestrating 4 gates in sequence.
+  2) Added npm command `gate:fullchain`.
+  3) Integrated report-only fullchain step in governance workflow.
+  4) Executed required mode run successfully:
+     - report: `ai-protocol/reports/fullchain-gates/fullchain-gate-2026-03-07T23-02-25-464Z.json`
+
+execution_rhythm:
+  week_1: "fullchain entrypoint implementation and baseline execution"
+
+risk_and_rollback:
+  top_risks:
+    - "fullchain runtime can be longer in CI"
+  rollback:
+    - "run fullchain in report-only while preserving per-gate standalone commands"
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---
+

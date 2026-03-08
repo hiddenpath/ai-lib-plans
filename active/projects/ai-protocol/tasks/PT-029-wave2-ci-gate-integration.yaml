@@ -1,7 +1,7 @@
 ---
 id: "PT-029"
 title: "Integrate drift and release-gate into CI as report-first governance"
-status: "pending"
+status: "completed"
 priority: "high"
 assignee: "@hiddenpath"
 project: "ai-protocol"
@@ -11,7 +11,7 @@ labels:
   - "ci"
   - "governance"
 created: "2026-03-07"
-updated: "2026-03-07"
+updated: "2026-03-08"
 
 description: |
   Integrate `drift:check` and `release:gate` into CI with report-first mode,
@@ -30,11 +30,15 @@ related_issues: []
 references:
   - "active/projects/ai-protocol/NEXT_PHASE_EXECUTION_PLAN_2026-03-07.md"
 estimated_hours: 8
-actual_hours: 0
+actual_hours: 4
 blocks: []
 blocked_by: []
 
-files_changed: []
+files_changed:
+  - "ai-protocol/.github/workflows/governance-report.yml"
+  - "ai-protocol/scripts/drift-detect.js"
+  - "ai-protocol/scripts/release-gate.js"
+  - "ai-protocol/README.md"
 
 testing:
   unit_tests: []
@@ -43,7 +47,16 @@ testing:
   compliance_tests:
     - "governance evidence includes drift and gate outcomes"
 
-completion_notes: ""
+completion_notes: |
+  2026-03-08 已完成 report-first CI 治理接入：
+  1) 新增 `ai-protocol/.github/workflows/governance-report.yml`，
+     在 PR/push/workflow_dispatch 中执行 drift/release gate 并归档报告。
+  2) `drift-detect.js` 与 `release-gate.js` 均新增 `--report-only` 模式，
+     支持“产出报告但不阻断”分级治理。
+  3) README 更新治理命令与 report-only 口径说明。
+  4) 本地验证通过：
+     - `node scripts/drift-detect.js --report-only`（0 drift）
+     - `node scripts/release-gate.js --report-only`（status=pass）
 
 execution_rhythm:
   week_1: "Workflow design and evidence artifact template"

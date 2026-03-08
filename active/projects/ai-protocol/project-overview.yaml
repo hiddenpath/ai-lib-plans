@@ -14,7 +14,7 @@ overview: |
   - Extended multimodal support
   - Cross-runtime compliance testing
 
-current_phase: "v0.8.0 release closed; P1/P2 Wave-2 execution planning started"
+current_phase: "v0.8.0 release closed; P1/P2 Wave-2 tasks PT-025~PT-030 completed"
 
 milestones:
   - id: "v0.7.4"
@@ -172,6 +172,7 @@ related_documents:
   - "active/projects/ai-protocol/P1P2_CODING_EXECUTION_WAVE1_2026-03-07.md"
   - "active/projects/ai-protocol/RELEASE_WRAPUP_2026-03-07.md"
   - "active/projects/ai-protocol/NEXT_PHASE_EXECUTION_PLAN_2026-03-07.md"
+  - "active/projects/ai-protocol/WAVE2_RC_REVIEW_AND_ROLLBACK_DRILL_2026-03-08.md"
 
 constitution_rules:
   - "ARCH-001: Protocol-driven design"

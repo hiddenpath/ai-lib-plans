@@ -35,6 +35,13 @@
 - `PT-029`：drift/release-gate 接入 CI report-first 流水线并沉淀周报
 - `PT-030`：P1/P2 Wave-2 RC 发布评审与回滚演练闭环
 
+### Wave-3（执行期追加）
+
+- `PT-031`：`retry_decision` compliance 在 Python/Rust/TS 三运行时执行激活
+- `PT-032`：message/stream/request compliance 矩阵在三运行时全量执行激活
+- `PT-033`：跨仓 compliance matrix gate 脚本与治理流水线接入
+- `PT-034`：fullchain governance gate 一键编排入口
+
 ## 4. 交付物定义
 
 - 计划与治理文档：
@@ -73,4 +80,17 @@
 - 任一 `critical drift` 超过 48 小时未闭环：暂停 Release Promotion。
 - 任一运行时语义回归触发：冻结该能力链路进入修复优先队列。
 - 每周五固定输出：进度、风险、阻塞、下周计划四栏报告。
+
+## 8. 执行状态（实时）
+
+- `PT-025`: `completed`（统一门禁脚本、runbook、required 基线证据已闭环）
+- `PT-026`: `completed`（load-* 在 Python/Rust/TS 三运行时全部进入强校验执行路径）
+- `PT-027`: `completed`（三运行时 V2 manifest shape 兼容矩阵已对齐并通过回归）
+- `PT-028`: `completed`（mock 视频生命周期终态语义扩展 + 失败路径注入 + 测试/文档闭环）
+- `PT-029`: `completed`（drift/release-gate report-first CI 接入 + 报告归档）
+- `PT-030`: `completed`（RC 评审包 + 回滚演练记录 + go/hold/no-go 输入）
+- `PT-031`: `completed`（retry_decision 跨运行时执行激活并通过）
+- `PT-032`: `completed`（message/stream/request compliance 全量激活并通过）
+- `PT-033`: `completed`（cross-repo compliance gate 与报告归档落地）
+- `PT-034`: `completed`（fullchain gate 编排落地并通过 required 基线）
 

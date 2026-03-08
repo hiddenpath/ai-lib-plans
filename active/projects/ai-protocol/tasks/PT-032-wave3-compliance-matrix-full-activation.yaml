@@ -1,0 +1,73 @@
+---
+id: "PT-032"
+title: "Activate full compliance matrix execution for message/stream/request in all runtimes"
+status: "completed"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "wave3"
+  - "compliance"
+  - "cross-runtime"
+created: "2026-03-08"
+updated: "2026-03-08"
+
+description: |
+  Implement runnable compliance execution for message_building, stream_decode,
+  event_mapping, tool_accumulation, and parameter_mapping across Python/Rust/TS.
+
+acceptance_criteria:
+  - "Python compliance suite executes all YAML case types without skip"
+  - "Rust compliance suite includes message/stream/request case execution"
+  - "TypeScript compliance matrix tests execute the same case sets"
+  - "Cross-runtime tests pass for added compliance dimensions"
+
+dependencies:
+  - "PT-031"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/NEXT_PHASE_EXECUTION_PLAN_2026-03-07.md"
+estimated_hours: 8
+actual_hours: 5
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "rustapp/ai-lib-python/tests/compliance/test_compliance.py"
+  - "rustapp/ai-lib-rust/tests/compliance.rs"
+  - "rustapp/ai-lib-ts/tests/compliance-matrix.test.ts"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "python -m pytest tests/compliance/test_compliance.py"
+    - "cargo test --test compliance"
+    - "npm run test -- tests/compliance-matrix.test.ts tests/retry-policy.compliance.test.ts tests/protocol-loading.compliance.test.ts"
+  compliance_tests:
+    - "msg-001~msg-004 pass"
+    - "str-001~str-008 pass"
+    - "req-001~req-003 pass"
+
+completion_notes: |
+  2026-03-08 completed:
+  1) Python runner now supports all current compliance case types and reached 46/46 pass.
+  2) Rust compliance test suite expanded with message/stream/request execution dispatcher.
+  3) TypeScript added `tests/compliance-matrix.test.ts` for message/stream/request case parity.
+  4) Cross-runtime matrix regression passed in all three runtimes.
+
+execution_rhythm:
+  week_1: "Case type activation and execution parity"
+  week_2: "Regression hardening and gate-ready baseline"
+
+risk_and_rollback:
+  top_risks:
+    - "Semantic simplification in test runners diverges from runtime internals"
+  rollback:
+    - "Keep assertions contract-focused and avoid provider hardcoded branches"
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---
+

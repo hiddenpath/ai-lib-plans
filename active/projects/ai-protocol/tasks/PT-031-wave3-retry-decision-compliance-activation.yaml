@@ -1,0 +1,71 @@
+---
+id: "PT-031"
+title: "Activate retry_decision compliance execution across Python/Rust/TS"
+status: "completed"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "wave3"
+  - "compliance"
+  - "resilience"
+created: "2026-03-08"
+updated: "2026-03-08"
+
+description: |
+  Implement runnable retry_decision compliance paths in the three runtimes,
+  eliminating skip behavior for resilience retry decision cases.
+
+acceptance_criteria:
+  - "retry_decision cases execute in Python compliance runner"
+  - "retry_decision cases execute in Rust compliance test suite"
+  - "retry_decision cases execute in TypeScript compliance tests"
+  - "res-001~res-004 pass in all three runtimes"
+
+dependencies:
+  - "PT-026"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/NEXT_PHASE_EXECUTION_PLAN_2026-03-07.md"
+estimated_hours: 6
+actual_hours: 4
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "rustapp/ai-lib-python/tests/compliance/test_compliance.py"
+  - "rustapp/ai-lib-rust/tests/compliance.rs"
+  - "rustapp/ai-lib-ts/tests/retry-policy.compliance.test.ts"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "python -m pytest tests/compliance/test_compliance.py"
+    - "cargo test --test compliance"
+    - "npm run test -- tests/retry-policy.compliance.test.ts tests/protocol-loading.compliance.test.ts"
+  compliance_tests:
+    - "res-001~res-004 all pass"
+
+completion_notes: |
+  2026-03-08 completed:
+  1) Python compliance runner now executes `retry_decision` with deterministic delay range checks.
+  2) Rust compliance test suite added `compliance_retry_decision` and parsed retry fields.
+  3) TypeScript added `tests/retry-policy.compliance.test.ts` loading official YAML cases.
+  4) Verified all retry decision cases pass in three runtimes.
+
+execution_rhythm:
+  week_1: "Resilience case mapping and deterministic decision rules"
+  week_2: "Cross-runtime implementation and verification"
+
+risk_and_rollback:
+  top_risks:
+    - "Retry delay checks become flaky if random jitter is asserted directly"
+  rollback:
+    - "Keep deterministic baseline assertion (min/max range) for compliance"
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---
+

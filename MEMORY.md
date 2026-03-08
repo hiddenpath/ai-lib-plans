@@ -3,7 +3,7 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-03-07
+**Last Updated**: 2026-03-08
 
 ---
 
@@ -96,6 +96,50 @@
   - CI governance integration (`drift:check`/`release:gate`),
   - RC + rollback drill closure package.
 - Governance remains staged (report-first), with escalation to required gates only after stability proof cycles.
+
+### Wave-2 Baseline Closure (PT-026/PT-027, 2026-03-08)
+- `PT-026` closed: `protocol_loading` cases (`load-001`~`load-007`) now run as required checks in Python/Rust/TS paths (no load-skip in target runtimes).
+- `PT-027` closed: V2 manifest shape compatibility matrix is aligned across runtimes, including structured endpoint path forms and nested multimodal shape assertions.
+- Cross-runtime verification baseline for these two tasks is now:
+  - Rust: generative + compliance suites
+  - Python: generative integration + compliance suites
+  - TypeScript: protocol-v2 + protocol-loading compliance suites
+
+### Wave-2 Mock Lifecycle Closure (PT-028, 2026-03-08)
+- `ai-protocol-mock` video async polling now supports terminal variants:
+  - `succeeded` (output payload)
+  - `failed` (error payload)
+  - `cancelled` (cancellation payload)
+- Terminal-state control is deterministic via request header/body (`X-Mock-Video-Terminal` / `terminal_state`).
+- Once a terminal state is reached, subsequent polling remains stable to avoid flaky lifecycle semantics.
+
+### Wave-2 Governance + RC Closure (PT-029/PT-030, 2026-03-08)
+- `drift-detect.js` and `release-gate.js` now support `--report-only` for advisory CI rollout.
+- `ai-protocol` CI includes dedicated governance report workflow, archiving drift and gate JSON evidence.
+- RC rollback drill baseline is now executable and auditable:
+  - blocked scenario (`exit=1`) using failing gate input
+  - rollback scenario (`--report-only`, `exit=0`) preserving evidence without hard block
+
+### Wave-3 Resilience Compliance Activation (PT-031, 2026-03-08)
+- `retry_decision` compliance cases (`res-001`~`res-004`) are now executable across Python/Rust/TS.
+- Delay assertions use deterministic baseline ranges to avoid jitter-driven flakiness.
+- Cross-runtime resilience compliance progressed from partial-skip to runnable parity.
+
+### Wave-3 Full Compliance Activation (PT-032, 2026-03-08)
+- Compliance case types `message_building`, `stream_decode`, `event_mapping`, `tool_accumulation`, `parameter_mapping`
+  are now runnable across Python/Rust/TS verification paths.
+- Python compliance baseline advanced to full execution (`46 passed, 0 skipped`) for current YAML matrix.
+- Cross-runtime parity now covers protocol-loading + error-classification + retry + message + stream + request dimensions.
+
+### Wave-3 Compliance Gate Normalization (PT-033, 2026-03-08)
+- `ai-protocol` now provides `gate:compliance-matrix` for cross-repo compliance execution evidence.
+- Governance workflow archives compliance-gate artifacts in report-first mode.
+- Local required-mode baseline completed successfully with full pass report.
+
+### Wave-3 Fullchain Gate Orchestration (PT-034, 2026-03-08)
+- Added one-shot fullchain gate runner chaining drift + manifest + compliance + release checks.
+- Fullchain runner keeps report-only fallback while preserving standalone gate commands.
+- Required-mode baseline run passed with archived fullchain evidence report.
 
 ---
 

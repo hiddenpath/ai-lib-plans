@@ -1,0 +1,71 @@
+---
+id: "PT-033"
+title: "Add cross-repo compliance matrix gate and governance workflow integration"
+status: "completed"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "wave3"
+  - "gate"
+  - "governance"
+created: "2026-03-08"
+updated: "2026-03-08"
+
+description: |
+  Add executable cross-repo compliance matrix gate to normalize ongoing
+  execution of Python/Rust/TS compliance baselines.
+
+acceptance_criteria:
+  - "ai-protocol exposes gate:compliance-matrix command"
+  - "gate script writes structured JSON reports"
+  - "governance workflow archives compliance gate artifacts"
+  - "first required-mode local run passes"
+
+dependencies:
+  - "PT-032"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/NEXT_PHASE_EXECUTION_PLAN_2026-03-07.md"
+estimated_hours: 4
+actual_hours: 2
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "ai-protocol/scripts/gate-compliance-matrix.js"
+  - "ai-protocol/package.json"
+  - "ai-protocol/README.md"
+  - "ai-protocol/.github/workflows/governance-report.yml"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "npm run gate:compliance-matrix"
+  compliance_tests:
+    - "gate report generated under reports/compliance-gates/"
+
+completion_notes: |
+  2026-03-08 completed:
+  1) Added `scripts/gate-compliance-matrix.js` with required/report-only modes.
+  2) Added npm command `gate:compliance-matrix`.
+  3) Integrated report-only run into `governance-report.yml` and artifact upload.
+  4) Executed first required-mode run successfully:
+     - report: `ai-protocol/reports/compliance-gates/compliance-gate-2026-03-07T21-05-09-836Z.json`
+
+execution_rhythm:
+  week_1: "gate implementation and first baseline run"
+  week_2: "report trend review and threshold tuning"
+
+risk_and_rollback:
+  top_risks:
+    - "CI environments without sibling repos produce false negatives"
+  rollback:
+    - "use report-only mode with explicit failure annotations"
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---
+
