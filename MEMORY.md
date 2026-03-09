@@ -3,7 +3,8 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-03-08
+**Last Updated**: 2026-03-09
+
 
 ---
 
@@ -275,4 +276,52 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 | ai-protocol-mock | Mock server |
 | spiderswitch | MCP-based model switching showcase |
 | ai-lib-constitution | Rules for AI agents |
+
+---
+
+## Repository Layout (Updated 2026-03-09)
+
+| Repo | Purpose | Version |
+|------|---------|--------|
+| ai-protocol | Spec, schemas, provider manifests | v0.8.0 |
+| ai-lib-rust | Rust runtime | v0.8.6 |
+| ai-lib-python | Python runtime | v0.8.2 |
+| ai-lib-ts | TypeScript runtime | v0.5.1 |
+| **ai-lib-go** | **Go runtime (NEW)** | **v0.5.0** |
+| ai-protocol-mock | Mock server | v0.1.3 |
+| spiderswitch | MCP-based model switching | v0.2.0 |
+| ai-lib-constitution | Rules for AI agents | - |
+| ai-lib-plans | Tasks, standups, planning | - |
+
+### ai-lib-go Initial Release (2026-03-09)
+
+- **Repository**: https://github.com/hiddenpath/ai-lib-go
+- **Version**: 0.5.0
+- **Language**: Go 1.21+
+- **License**: MIT OR Apache-2.0
+- **Status**: Initial release, core features implemented
+
+**Features Implemented**:
+- V1/V2 Protocol Loader (YAML/JSON)
+- Unified Chat API (sync/stream)
+- SSE Streaming decoder
+- Standard error codes (E1001-E9999)
+- Retry policy with exponential backoff
+- Rate limiting and circuit breaker
+- Tool calling support
+- Multimodal support (vision/audio/video)
+- Embeddings, Batch, STT/TTS, Reranking APIs
+- Compliance test framework
+
+**Alignment with Python Runtime**: 85%
+- Core features: 100% aligned
+- Advanced features (MCP, Computer Use, Guardrails, Telemetry): Not yet implemented
+
+**Architecture**:
+- gRPC/Cloud style project layout
+- Standard library only (net/http, encoding/json, context, sync)
+- Native Go concurrency (goroutines, channels)
+- Protocol-driven design (ARCH-001)
+- Cross-runtime consistency (ARCH-003)
+
 | ai-lib-plans | Tasks, standups, planning |
