@@ -1,7 +1,7 @@
 ---
 id: "AILIB-001"
 title: "Align ailib.info with ecosystem releases"
-status: "in_progress"
+status: "done"
 priority: "high"
 assignee: "@ai"
 project: "ailib.info"
@@ -22,11 +22,13 @@ description: |
   - This solves the discrepancy between the shipped code and the public-facing ecosystem website, maintaining the "One Protocol" promise.
 
 acceptance_criteria:
-  - "ai-lib-go documentation pages exist (overview, quickstart, client)."
+  - "ai-lib-go documentation pages exist (overview, quickstart, client, resilience, streaming, advanced)."
   - "The runtime comparison table includes a 'Go SDK' column."
   - "The homepage (index.astro) displays an updated project card for ai-lib-go."
   - "All project versions match the MEMORY.md 2026-03-11 release matrix."
-  - "Multilingual pages (zh-cn, ja, es) reflect these changes accurately."
+  - "Multilingual pages (zh-cn, ja, es) reflect these changes accurately including full Go docs translations."
+  - "Sidebar config in astro.config.mjs includes Go SDK."
+  - "Redirect pages for /go/ exist similar to /rust/."
   - "All links and formatting pass Astro build checks."
 
 dependencies: []
