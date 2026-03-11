@@ -3,7 +3,7 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-03-08
+**Last Updated**: 2026-03-11
 
 ---
 
@@ -189,6 +189,46 @@
   - `ai-protocol-mock v0.1.10`
   - `spiderswitch v0.4.1`
 - Public docs matrix in `ailib.info` was updated across EN/ZH/JA/ES release-facing pages.
+
+### ai-lib-go Re-architecture Bootstrap (2026-03-09)
+- `ai-lib-go` repository entered hard reset + rebuild track under constitution constraints.
+- Legacy implementation/docs were cleared, preserving open-source license files as required baseline.
+- New architecture bootstrap now includes protocol loader, unified client, stream decoder, and retry executor.
+- First verification baseline for rebuilt runtime is green: `go test ./...`.
+- Next gate is compliance fixture wiring (message/stream/event/tool/parameter/retry) before parity claims.
+
+### ai-lib-go Capability Surface Expansion (2026-03-10)
+- `ai-lib-go` public client now exposes advanced APIs for `mcp`, `computer_use`, `reasoning`, and `video`.
+- Runtime transport entries were added with protocol endpoint mapping and fallback paths.
+- Manifest capability-gate behavior is enabled for advanced features; undeclared capability now fails fast (`E1005`).
+- Regression baseline remains green with fixture-driven compliance path enabled (`go test ./...`).
+
+### ai-lib-go Manifest Error + Fallback Iteration (2026-03-10)
+- Runtime error parser now supports manifest-driven `error_classification` mapping with provider code/type inputs.
+- `FallbackClient` supports full `Client` surface and sequential failover on fallbackable failures.
+- Shared compliance suite now includes a new `07-advanced-capabilities` category baseline consumed by Go runtime tests.
+- `07-advanced-capabilities` matrix expanded to 12 cases and aligned for Rust/Python/TS runner consumption using shared `input.type` contracts.
+- Matrix now includes provider-mock request/response body assertions, and Go fallback upgraded to health + circuit-breaker policy.
+
+### Final Closure Objective (GO-003, 2026-03-10)
+- After GO parity closure, execute matrix-wide commit/push, publish runtime packages (including Go module release), then synchronize `ailib.info`.
+
+### GO-003 Matrix Release Closure (2026-03-11)
+- Cross-repo push + tag completed:
+  - `ai-protocol v0.8.3`
+  - `ai-lib-go v0.0.1`
+  - `ai-lib-rust v0.9.3`
+  - `ai-lib-python v0.8.3`
+  - `ai-lib-ts v0.5.3`
+  - `ai-protocol-mock v0.1.11`
+  - `spiderswitch v0.4.2`
+  - `ailib.info v0.7.1`
+- Runtime package visibility closure:
+  - npm: `@hiddenpath/ai-lib-ts@0.5.3`
+  - crates.io: `ai-lib-rust@0.9.3`
+  - PyPI: `ai-lib-python@0.8.3`, `ai-protocol-mock@0.1.11`, `spiderswitch@0.4.2`
+  - Go proxy: `github.com/hiddenpath/ai-lib-go@v0.0.1` resolvable
+- `ailib.info` docs matrix synced in EN/ZH/JA/ES intro+ecosystem pages with Go runtime included and versions aligned.
 
 ---
 

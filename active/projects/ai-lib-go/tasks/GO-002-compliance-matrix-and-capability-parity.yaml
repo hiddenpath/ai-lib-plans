@@ -1,0 +1,61 @@
+---
+id: "GO-002"
+title: "Compliance matrix integration with ai-protocol fixtures"
+status: "completed"
+priority: "critical"
+assignee: "@hiddenpath"
+project: "ai-lib-go"
+milestone: "v0.1.x-rearchitecture"
+labels:
+  - "go"
+  - "runtime"
+  - "compliance"
+  - "parity"
+created: "2026-03-10"
+updated: "2026-03-11"
+
+description: |
+  Integrate ai-protocol compliance fixtures as hard gates and close
+  capability parity gaps against existing ai-lib runtimes.
+
+acceptance_criteria:
+  - "message/stream/event/tool/parameter/retry categories executable and green"
+  - "advanced capability APIs exposed: mcp/computer_use/reasoning/video"
+  - "manifest capability gate enforces undeclared-feature blocking"
+  - "cross-runtime behavior differences documented for follow-up"
+
+dependencies:
+  - "GO-001"
+related_issues: []
+estimated_hours: 32
+actual_hours: 38
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "d:/rustapp/ai-lib-go/pkg/ailib/*"
+  - "d:/rustapp/ai-lib-go/internal/protocol/*"
+  - "d:/rustapp/ai-lib-go/tests/compliance/*"
+  - "active/projects/ai-lib-go/project-overview.yaml"
+  - "active/projects/ai-lib-go/GO-002-cross-runtime-gap-report-2026-03-10.md"
+  - "active/standup/daily/2026-03-09.md"
+  - "active/standup/daily/2026-03-10.md"
+  - "d:/ai-protocol/tests/compliance/cases/07-advanced-capabilities/*"
+  - "d:/rustapp/ai-lib-rust/tests/compliance.rs"
+  - "d:/rustapp/ai-lib-python/tests/compliance/test_compliance.py"
+  - "d:/rustapp/ai-lib-ts/tests/advanced-capabilities.compliance.test.ts"
+  - "d:/rustapp/ai-lib-ts/package.json"
+
+testing:
+  unit_tests:
+    - "go test ./..."
+  integration_tests: []
+  compliance_tests:
+    - "tests/compliance loads ai-protocol fixtures"
+
+constitution_rules:
+  - "ARCH-001"
+  - "ARCH-003"
+  - "TEST-001"
+  - "DOC-001"
+---

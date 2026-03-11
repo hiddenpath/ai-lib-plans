@@ -1,0 +1,65 @@
+---
+id: "GO-003"
+title: "Matrix release, package publish, and ailib.info sync"
+status: "completed"
+priority: "critical"
+assignee: "@hiddenpath"
+project: "ai-lib-go"
+milestone: "v0.1.x-rearchitecture"
+labels:
+  - "go"
+  - "release"
+  - "publishing"
+  - "docs-sync"
+created: "2026-03-10"
+updated: "2026-03-11"
+
+description: |
+  Final closure task after GO runtime parity completion:
+  1) commit/push aligned changes across ai-lib matrix repositories,
+  2) publish runtime packages to package hosting registries,
+  3) sync ailib.info public docs with final capability and release matrix.
+
+acceptance_criteria:
+  - "All targeted repositories have reviewed commit(s) and remote push completed"
+  - "Runtime package releases completed for Rust/Python/TypeScript/Go channels"
+  - "Go module release is fetchable via module proxy and tagged release exists"
+  - "Release notes/changelog entries aligned across runtime repositories"
+  - "ailib.info EN/ZH/JA/ES pages aligned to final runtime matrix and capability status"
+  - "Plans memory + standup include final release evidence links"
+
+dependencies:
+  - "GO-002"
+related_issues: []
+estimated_hours: 20
+actual_hours: 15
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-lib-go/project-overview.yaml"
+  - "active/projects/ai-lib-go/GO-003-release-execution-checklist.md"
+  - "active/standup/daily/2026-03-10.md"
+  - "active/standup/daily/2026-03-11.md"
+  - "MEMORY.md"
+  - "d:/rustapp/ailib.info/src/content/docs/{intro,ecosystem}.md"
+  - "d:/rustapp/ailib.info/src/content/docs/{zh-cn,ja,es}/{intro,ecosystem}.md"
+  - "d:/rustapp/ai-lib-ts/src/{index.ts,client/index.ts,interceptors/index.ts,guardrails/index.ts,guardrails/guardrails.ts,guardrails/pii.ts,telemetry/{types.ts,sinks.ts}}"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "post-publish install checks for each runtime package"
+  compliance_tests:
+    - "final compliance matrix pass evidence before release"
+  - "npm: @hiddenpath/ai-lib-ts==0.5.3 visible"
+  - "crates: ai-lib-rust==0.9.3 visible"
+  - "pypi: ai-lib-python==0.8.3 / ai-protocol-mock==0.1.11 / spiderswitch==0.4.2 visible"
+  - "go proxy: github.com/hiddenpath/ai-lib-go@v0.0.1 resolvable"
+
+constitution_rules:
+  - "ARCH-001"
+  - "ARCH-003"
+  - "TEST-001"
+  - "DOC-001"
+---

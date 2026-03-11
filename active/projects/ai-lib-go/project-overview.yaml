@@ -1,0 +1,56 @@
+---
+project: "ai-lib-go"
+status: "active"
+milestone: "v0.1.x-rearchitecture"
+
+overview: |
+  Official Go runtime for ai-lib ecosystem, rebuilt with protocol-first architecture.
+  Current phase focuses on core runtime foundation and compliance-first convergence.
+
+repository:
+  local_path: "d:/rustapp/ai-lib-go"
+  remote: "https://github.com/hiddenpath/ai-lib-go"
+  default_branch: "main"
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-002: Operator pipeline"
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-001: Documentation language requirements"
+  - "DOC-002: Internal work doc privacy"
+
+active_tasks:
+  - id: "GO-001"
+    title: "Repository reset and architecture bootstrap"
+    status: "completed"
+    priority: "critical"
+    assignee: "@hiddenpath"
+    description: "Clear legacy implementation and rebuild runtime with protocol-driven baseline."
+    acceptance_criteria:
+      - "Legacy code/docs removed while preserving open-source licenses"
+      - "New core modules compile and pass baseline tests"
+      - "Public API surface covers chat/stream and capability entry points"
+  - id: "GO-002"
+    title: "Compliance matrix integration with ai-protocol fixtures"
+    status: "completed"
+    priority: "critical"
+    assignee: "@hiddenpath"
+    description: "Wire ai-protocol compliance fixtures and close parity gaps."
+    acceptance_criteria:
+      - "message/stream/event/tool/parameter/retry categories executable"
+      - "No skip in required categories"
+      - "Cross-runtime behavior report produced"
+      - "mcp/computer_use/reasoning/video public API and transport entry points implemented"
+      - "manifest capability gate blocks undeclared advanced features"
+  - id: "GO-003"
+    title: "Release train, package publish, and site sync"
+    status: "completed"
+    priority: "critical"
+    assignee: "@hiddenpath"
+    description: "After GO runtime parity closure, execute cross-repo commit/push, runtime package publishing, and ailib.info alignment."
+    acceptance_criteria:
+      - "ai-lib matrix repositories commit/push completed with traceable release notes"
+      - "runtime packages published to package hosting sites (Rust/Python/TS/Go)"
+      - "go package published and installable from standard Go module proxy path"
+      - "ailib.info docs synchronized to final release matrix and capability status"
+---
