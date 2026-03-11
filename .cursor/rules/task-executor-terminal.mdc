@@ -1,0 +1,31 @@
+---
+description: In ai-lib-plans task execution, executor name and terminal name are mandatory metadata.
+alwaysApply: true
+---
+
+# ai-lib-plans Task Attribution Rule
+
+## Rule
+
+For every executed task document under `active/projects/*/tasks/*.yaml`,
+the executor MUST record both:
+
+- `executor_name`: real executor name (or stable operator id)
+- `executor_terminal`: terminal/session name used for execution evidence
+
+## When To Fill
+
+- Before setting task status to `in_progress`
+- Before changing task status to `completed`
+
+## Minimum YAML Fields
+
+```yaml
+executor_name: "alex"
+executor_terminal: "terminal-2"
+```
+
+## Enforcement
+
+- Missing either field means the task record is incomplete.
+- Incomplete records cannot be treated as fully auditable execution evidence.

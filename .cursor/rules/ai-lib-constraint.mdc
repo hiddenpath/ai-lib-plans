@@ -16,13 +16,17 @@ All local work in this workspace is **constrained and supported** by:
 2. **Read** `ai-lib-constitution/AGENTS.md` — Checklists
 3. **Read** `ai-lib-plans/MEMORY.md` — Architecture decisions, conventions
 4. **Load** applicable rules from `ai-lib-constitution/rules/` (ARCH-*, RUST-*, PY-*, TS-*, DOC-*)
+5. **Sync ai-lib-plans before planning**: Run `bash /home/alex/ai-lib-plans/tools/sync_ai_lib_plans.sh --mode pre-plan`
+6. **Task attribution required**: For task execution records in `active/projects/*/tasks/*.yaml`, fill `executor_name` and `executor_terminal`
 
 ## While Working
 
 - Follow constitution rules; cite rule IDs when reporting violations
 - Use memory_get / memory_search skill to recall context
 - DOC-001: Code docs in English + Chinese module header; internal docs in Chinese
+- Reusable scripts/programs must be saved under `ai-lib-plans/tools/` and indexed in `ai-lib-plans/tools/INDEX.md`
 
 ## After Changes
 
 - Run AGENTS.md checklist (linters, tests, doc updates)
+- If ai-lib-plans documentation changed, run `bash /home/alex/ai-lib-plans/tools/sync_ai_lib_plans.sh --mode post-doc-change --push-if-ahead`

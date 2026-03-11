@@ -3,12 +3,7 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-<<<<<<< HEAD
 **Last Updated**: 2026-03-11
-=======
-**Last Updated**: 2026-03-09
-
->>>>>>> origin/main
 
 ---
 

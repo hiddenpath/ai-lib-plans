@@ -1,0 +1,22 @@
+---
+description: Automation rules for syncing ai-lib-plans before planning and after doc changes.
+alwaysApply: true
+---
+
+# ai-lib-plans Sync Automation Rules
+
+## Rule 1 — Sync Before Planning
+
+Before drafting or updating planning documents in `ai-lib-plans`, run:
+
+`bash /home/alex/ai-lib-plans/tools/sync_ai_lib_plans.sh --mode pre-plan`
+
+If sync fails, stop planning work and resolve sync/conflict issues first.
+
+## Rule 2 — Sync After Documentation Changes
+
+When documentation files in `ai-lib-plans` are changed and committed, run:
+
+`bash /home/alex/ai-lib-plans/tools/sync_ai_lib_plans.sh --mode post-doc-change --push-if-ahead`
+
+This keeps local and remote repositories synchronized after document updates.
