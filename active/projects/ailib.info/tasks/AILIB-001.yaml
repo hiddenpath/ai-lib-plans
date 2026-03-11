@@ -1,0 +1,76 @@
+---
+id: "AILIB-001"
+title: "Align ailib.info with ecosystem releases"
+status: "in_progress"
+priority: "high"
+assignee: "@ai"
+project: "ailib.info"
+milestone: "v0.8.0-alignment"
+labels:
+  - "documentation"
+  - "ecosystem"
+created: "2026-03-12"
+updated: "2026-03-12"
+
+description: |
+  Align the ailib.info website with the latest 2026-03-11 release matrix.
+  
+  Explain:
+  - The website currently lacks documentation for the new `ai-lib-go` runtime.
+  - Project versions in `index.astro` and intro pages are outdated (e.g., ai-protocol 0.8.1 instead of 0.8.3, ai-lib-rust 0.9.1 instead of 0.9.3, etc.).
+  - The provider count logic is inconsistent (e.g., 37 total but lists 6 V2 + 36 V1, which equals 42; should be 10 V2 + 27 V1 for OpenAI/Anthropic/Gemini/DeepSeek/Qwen/Doubao + others).
+  - This solves the discrepancy between the shipped code and the public-facing ecosystem website, maintaining the "One Protocol" promise.
+
+acceptance_criteria:
+  - "ai-lib-go documentation pages exist (overview, quickstart, client)."
+  - "The runtime comparison table includes a 'Go SDK' column."
+  - "The homepage (index.astro) displays an updated project card for ai-lib-go."
+  - "All project versions match the MEMORY.md 2026-03-11 release matrix."
+  - "Multilingual pages (zh-cn, ja, es) reflect these changes accurately."
+  - "All links and formatting pass Astro build checks."
+
+dependencies: []
+
+related_issues: []
+
+references: []
+
+estimated_hours: 2
+actual_hours: null
+
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "src/pages/index.astro"
+  - "src/pages/zh-cn/index.astro"
+  - "src/pages/ja/index.astro"
+  - "src/pages/es/index.astro"
+  - "src/content/docs/ecosystem.md"
+  - "src/content/docs/zh-cn/ecosystem.md"
+  - "src/content/docs/intro.md"
+  - "src/content/docs/zh-cn/intro.md"
+  - "src/content/docs/go/*"
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests:
+    - "npm run build"
+
+completion_notes: |
+  
+tech_considerations:
+  architecture: |
+    No architectural changes. Just content and localized routing updates.
+  performance: |
+    N/A
+  security: |
+    N/A
+  compatibility: |
+    N/A
+
+constitution_rules:
+  - "DOC-001: Keep README/hub navigation aligned across locales."
+  - "ai-lib-workspace-rule.md: Keep README/docs-hub/SUMMARY/collection indexes EN/ZH parity."
+---
