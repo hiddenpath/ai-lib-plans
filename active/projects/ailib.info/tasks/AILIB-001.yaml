@@ -38,7 +38,7 @@ related_issues: []
 references: []
 
 estimated_hours: 2
-actual_hours: null
+actual_hours: 2.5
 
 blocks: []
 blocked_by: []
@@ -61,7 +61,13 @@ testing:
     - "npm run build"
 
 completion_notes: |
-  
+  Completed on 2026-03-12.
+  - Full Go SDK documentation added and translated into Chinese, Japanese, and Spanish.
+  - Homepages for all 4 languages updated to include Go runtime cards.
+  - Verified with clean build (`npm run build`) and formatting checks.
+  - Fixed an incorrect Rust code block in zh-cn Go advanced doc.
+  - Integrated Go code examples into the Developer Guides (zh-cn).
+  - All project versions updated to match the 2026-03-11 release matrix.
 tech_considerations:
   architecture: |
     No architectural changes. Just content and localized routing updates.

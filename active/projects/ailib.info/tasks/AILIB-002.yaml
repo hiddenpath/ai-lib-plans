@@ -1,0 +1,75 @@
+---
+id: "AILIB-002"
+title: "Fix Go SDK Documentation Accuracies and Missing Examples"
+status: "todo"
+priority: "high"
+assignee: "@ai"
+project: "ailib.info"
+milestone: "v0.8.0-alignment"
+labels:
+  - "documentation"
+  - "fix"
+  - "enhancement"
+  - "ecosystem"
+created: "2026-03-12"
+updated: "2026-03-12"
+
+description: |
+  Fix critical inaccuracies in the `ai-lib-go` documentation on the ailib.info website and fill missing examples in guides.
+  
+  Explain:
+  - Go API documentation pages (`resilience.md`, `streaming.md`, `advanced.md`) contain pseudo-code or pure Rust code disguised under ````go` code blocks. These need to be rewritten to idiomatic Go 1.21.
+  - The Go runtime starts at v0.5.0 and uses standard looping `stream.Next()`, contrary to claims of Go 1.23 `iter.Seq2`.
+  - The developer guides (`src/content/docs/*/guides/*.md`) feature `<Tabs>` with Rust, Python, and TS. We must add the Go SDK examples to unify the "One Protocol" message.
+  - Requires an audit of the homepage components (ProjectCard, versions) across all locales (EN, ZH, JA, ES).
+
+acceptance_criteria:
+  - "Code examples in `resilience.md`, `streaming.md`, `advanced.md`, `quickstart.md` are rewritten to idiomatic Go 1.21 for all locales."
+  - "Homepage `index.astro` correctly renders Go runtime attributes, setting version to v0.5.0 and fixing the features descriptions."
+  - "No Rust syntax (e.g. `let mut`, `await?`) remains in `.md` files under `go/` directories."
+  - "`guides/` documentation pages contain a 'Go' tab alongside Rust/Python/TS with proper usage examples."
+
+dependencies:
+  - "AILIB-001"
+
+related_issues: []
+
+references: []
+
+estimated_hours: 3
+actual_hours: null
+
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "src/content/docs/**/go/resilience.md"
+  - "src/content/docs/**/go/streaming.md"
+  - "src/content/docs/**/go/advanced.md"
+  - "src/content/docs/**/go/quickstart.md"
+  - "src/content/docs/**/go/overview.md"
+  - "src/content/docs/**/guides/*.md"
+  - "src/pages/**/index.astro"
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests:
+    - "npm run build"
+
+completion_notes: |
+  
+tech_considerations:
+  architecture: |
+    No architectural changes. Just content and localized routing updates.
+  performance: |
+    N/A
+  security: |
+    N/A
+  compatibility: |
+    N/A
+
+constitution_rules:
+  - "DOC-001: Keep README/hub navigation aligned across locales."
+  - "ARCH-003: Cross-runtime consistency"
+---
