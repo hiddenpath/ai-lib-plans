@@ -1,0 +1,71 @@
+---
+id: "MS-010"
+title: "插件市场阶段一：CLI统一入口（serve/init/doctor）"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "spiderswitch"
+milestone: "v0.4.5"
+labels:
+  - "cli"
+  - "installability"
+  - "ops"
+created: "2026-03-12"
+updated: "2026-03-12"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  实现一键安装场景必需的 CLI 入口能力：
+  - serve：启动 MCP 服务
+  - init：生成 MCP 配置模板
+  - doctor：执行结构化健康检查（支持 JSON）
+
+acceptance_criteria:
+  - "`spiderswitch serve` 可启动服务"
+  - "`spiderswitch init` 可输出配置模板文件"
+  - "`spiderswitch doctor --json` 输出结构化检查结果"
+  - "pytest/ruff/mypy 通过"
+
+dependencies:
+  - "MS-009"
+related_issues: []
+references:
+  - "active/projects/spiderswitch/SPIDERSWITCH_PLUGIN_MARKET_ONE_CLICK_PLAN_2026-03-12.md"
+estimated_hours: 2
+actual_hours: 1
+blocks: []
+blocked_by: []
+files_changed:
+  - "src/spiderswitch/cli.py"
+  - "src/spiderswitch/__main__.py"
+  - "src/spiderswitch/__init__.py"
+  - "pyproject.toml"
+  - "tests/test_cli.py"
+testing:
+  unit_tests:
+    - ".venv/bin/pytest -q -> 39 passed"
+  integration_tests:
+    - ".venv/bin/ruff check src tests -> All checks passed"
+    - ".venv/bin/mypy src -> Success: no issues found in 16 source files"
+  compliance_tests: []
+completion_notes: |
+  阶段一完成：
+  1) 新增统一 CLI：`spiderswitch serve/init/doctor`
+  2) `init` 可生成 Cursor/Claude/OpenCode MCP 配置模板
+  3) `doctor --json` 可输出结构化健康检查（版本、协议路径、密钥、代理、可选 runtime probe）
+  4) 保持 `python -m spiderswitch.server` 兼容路径
+tech_considerations:
+  architecture: |
+    不改动 MCP tool 契约，仅增加部署与运维入口层。
+  performance: |
+    doctor 检查应快速返回，避免阻塞式重操作。
+  security: |
+    doctor 输出不得包含密钥明文。
+  compatibility: |
+    保持 `python -m spiderswitch.server` 兼容。
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "DOC-001: Documentation language requirements"
+  - "TEST-001: Compliance tests"
+---

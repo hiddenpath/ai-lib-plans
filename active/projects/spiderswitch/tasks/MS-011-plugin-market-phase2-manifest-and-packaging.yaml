@@ -1,0 +1,69 @@
+---
+id: "MS-011"
+title: "插件市场阶段二：manifest 与一键安装/打包脚本"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "spiderswitch"
+milestone: "v0.4.5"
+labels:
+  - "packaging"
+  - "manifest"
+  - "distribution"
+created: "2026-03-12"
+updated: "2026-03-12"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  完成插件市场上架包装资产：
+  - 插件 manifest（入口、配置、验证命令）
+  - 一键安装脚本（受控 venv）
+  - release bundle 打包脚本
+
+acceptance_criteria:
+  - "manifest 字段完整且可校验"
+  - "安装脚本可在本地完成环境准备"
+  - "打包脚本可输出标准化发布目录"
+  - "pytest/ruff/mypy 通过"
+
+dependencies:
+  - "MS-010"
+related_issues: []
+references:
+  - "active/projects/spiderswitch/SPIDERSWITCH_PLUGIN_MARKET_ONE_CLICK_PLAN_2026-03-12.md"
+estimated_hours: 2
+actual_hours: 1
+blocks: []
+blocked_by: []
+files_changed:
+  - "packaging/plugin-market/manifest.json"
+  - "packaging/plugin-market/README.md"
+  - "scripts/install_one_click.sh"
+  - "scripts/package_plugin_bundle.sh"
+testing:
+  unit_tests:
+    - ".venv/bin/pytest -q -> 39 passed"
+  integration_tests:
+    - "bash scripts/smoke_plugin_check.sh -> passed"
+    - ".venv/bin/ruff check src tests -> All checks passed"
+    - ".venv/bin/mypy src -> Success: no issues found in 16 source files"
+  compliance_tests: []
+completion_notes: |
+  阶段二完成：
+  1) 新增插件市场 manifest（入口、安装、健康检查、配置项）
+  2) 新增一键安装脚本（受控 venv + 命令链接）
+  3) 新增发布打包脚本（标准化 plugin-market bundle 目录）
+tech_considerations:
+  architecture: |
+    产物层变更，不影响核心 runtime/tool 行为。
+  performance: |
+    打包脚本应可复现且执行时间可接受。
+  security: |
+    manifest 与脚本不得硬编码密钥。
+  compatibility: |
+    保留 pip editable 安装路径。
+constitution_rules:
+  - "DOC-001: Documentation language requirements"
+  - "TEST-001: Compliance tests"
+---

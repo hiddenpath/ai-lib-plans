@@ -1,0 +1,83 @@
+---
+id: "MS-009"
+title: "P2 迭代：缓存TTL、初始化性能基线与MCP端到端回归"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "spiderswitch"
+milestone: "v0.4.4"
+labels:
+  - "performance"
+  - "cache"
+  - "test"
+  - "mcp"
+created: "2026-03-12"
+updated: "2026-03-12"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  执行 P2 优化闭环：
+  1) 为 list/status 增加 TTL 缓存能力（可配置、默认安全）
+  2) 增加离线初始化性能基线测试，防止首包时延回归
+  3) 增加 MCP 请求层回归测试，覆盖 tools/list 与 tools/call 关键契约
+
+acceptance_criteria:
+  - "list_models 支持 TTL 缓存并可通过环境变量开关"
+  - "get_status 支持 TTL 缓存并在状态变更后自动失效"
+  - "新增初始化性能基线测试并通过"
+  - "新增 MCP 请求层回归测试并通过"
+  - "pytest + ruff + mypy 全部通过"
+
+dependencies:
+  - "MS-008"
+related_issues: []
+references:
+  - "active/projects/spiderswitch/SPIDERSWITCH_P0_P1_OPTIMIZATION_PLAN_2026-03-12.md"
+estimated_hours: 3
+actual_hours: 2
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "src/spiderswitch/tools/list.py"
+  - "src/spiderswitch/tools/status.py"
+  - "src/spiderswitch/tools/switch.py"
+  - "src/spiderswitch/tools/reset.py"
+  - "tests/test_server_regression.py"
+  - "tests/test_server_mcp_flow.py"
+  - "tests/test_runtime_performance.py"
+  - "active/projects/spiderswitch/tasks/MS-009-p2-cache-performance-and-mcp-e2e-regression.yaml"
+  - "active/projects/spiderswitch/project-overview.yaml"
+
+testing:
+  unit_tests:
+    - ".venv/bin/pytest -q -> 34 passed"
+  integration_tests:
+    - ".venv/bin/ruff check src tests -> All checks passed"
+    - ".venv/bin/mypy src -> Success: no issues found in 14 source files"
+  compliance_tests: []
+
+completion_notes: |
+  P2 迭代已完成：
+  1) list_models 增加 TTL 缓存（默认 5s，可通过 SPIDERSWITCH_LIST_CACHE_TTL_SEC 调整）
+  2) get_status 增加 TTL 缓存（默认 2s），并在 switch/reset 状态变更时自动失效
+  3) 新增离线初始化性能基线测试，防止首包时延回归
+  4) 新增 MCP 请求层回归测试，覆盖 tools/list 与 tools/call 的关键契约路径
+  5) 全量验证通过（pytest/ruff/mypy）
+tech_considerations:
+  architecture: |
+    不改变 routing 边界，仅增强工具层可观测与性能表现。
+  performance: |
+    通过 TTL 缓存减少重复请求计算与序列化开销。
+  security: |
+    缓存内容不包含密钥原文，仅包含状态与能力元数据。
+  compatibility: |
+    保持原有 MCP tool schema 与响应结构兼容。
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-001: Documentation language requirements"
+  - "TEST-001: Compliance tests"
+---

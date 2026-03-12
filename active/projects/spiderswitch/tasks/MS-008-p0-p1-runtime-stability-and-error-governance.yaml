@@ -1,0 +1,89 @@
+---
+id: "MS-008"
+title: "P0/P1 稳定性治理：初始化去阻塞、并发安全与错误收敛"
+status: "completed"
+priority: "critical"
+assignee: "@ai"
+project: "spiderswitch"
+milestone: "v0.4.3"
+labels:
+  - "stability"
+  - "security"
+  - "runtime"
+  - "observability"
+created: "2026-03-12"
+updated: "2026-03-12"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  针对 spiderswitch 本轮审查结论，执行 P0/P1 优化闭环：
+  1) 移除初始化请求路径中的阻塞网络同步
+  2) 移除模型切换流程中的进程级环境变量副作用
+  3) 对外错误响应改为安全消息 + 错误码
+  4) 增加模型 ID 冲突检测，避免静默覆盖
+  5) 完成 pytest/ruff/mypy 验证并沉淀执行记录
+
+acceptance_criteria:
+  - "P0: list_models/switch_model 首次调用不再默认触发 dist 网络同步"
+  - "P0: switch_model 不再临时修改 os.environ 代理变量"
+  - "P1: 内部错误不透传原始异常文本，响应包含 error.code"
+  - "P1: provider/model 冲突能被结构化报错并可定位来源"
+  - "pytest + ruff + mypy 全部通过"
+
+dependencies:
+  - "MS-004"
+related_issues: []
+references:
+  - "active/projects/spiderswitch/SPIDERSWITCH_P0_P1_OPTIMIZATION_PLAN_2026-03-12.md"
+estimated_hours: 4
+actual_hours: 2
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "src/spiderswitch/runtime/python_runtime.py"
+  - "src/spiderswitch/server.py"
+  - "src/spiderswitch/response.py"
+  - "src/spiderswitch/tools/switch.py"
+  - "src/spiderswitch/tools/list.py"
+  - "src/spiderswitch/tools/status.py"
+  - "src/spiderswitch/tools/reset.py"
+  - "tests/test_runtime.py"
+  - "tests/test_server_regression.py"
+  - "active/projects/spiderswitch/SPIDERSWITCH_P0_P1_OPTIMIZATION_PLAN_2026-03-12.md"
+  - "active/projects/spiderswitch/project-overview.yaml"
+  - "active/projects/spiderswitch/tasks/MS-008-p0-p1-runtime-stability-and-error-governance.yaml"
+
+testing:
+  unit_tests:
+    - ".venv/bin/pytest -q -> 28 passed"
+  integration_tests:
+    - ".venv/bin/ruff check src tests -> All checks passed"
+    - ".venv/bin/mypy src -> Success: no issues found in 14 source files"
+  compliance_tests: []
+
+completion_notes: |
+  已完成 P0/P1 全量执行并通过验证：
+  1) P0 初始化去阻塞：默认不在 init 链路执行 dist 同步（新增 SPIDERSWITCH_SYNC_ON_INIT 显式开关）
+  2) P0 并发安全：移除 switch_model 中对全局 os.environ 的临时改写，改为显式检测并返回可操作错误
+  3) P1 错误收敛：MCP 错误响应新增 error.code，内部异常对外改为安全消息
+  4) P1 可观测：模型 ID 冲突改为结构化报错，避免静默覆盖
+  5) 回归用例补齐：新增默认不同步/代理失败/重复 ID 场景测试
+tech_considerations:
+  architecture: |
+    继续遵循 [ARCH-001] 协议驱动，不引入 provider 特化分支。
+  performance: |
+    初始化路径去阻塞化，降低 MCP 首次调用尾延迟风险。
+  security: |
+    错误响应收敛与日志脱敏协同，降低信息泄露面。
+  compatibility: |
+    保持已有工具 schema 与调用方式兼容。
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-001: Documentation language requirements"
+  - "DOC-002: Internal work docs privacy boundary"
+  - "TEST-001: Compliance tests"
+---

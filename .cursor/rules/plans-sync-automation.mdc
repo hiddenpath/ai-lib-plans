@@ -20,3 +20,14 @@ When documentation files in `ai-lib-plans` are changed and committed, run:
 `bash /home/alex/ai-lib-plans/tools/sync_ai_lib_plans.sh --mode post-doc-change --push-if-ahead`
 
 This keeps local and remote repositories synchronized after document updates.
+
+## Rule 3 — Mandatory Final Step for Implementation Plans
+
+For every implementation plan/task execution managed in `ai-lib-plans`, the final mandatory step is:
+
+1. Backfill task/plan execution status and result fields (e.g., `status`, `testing`, `completion_notes`, `updated`, and related evidence fields).
+2. Immediately sync `ai-lib-plans` to GitHub remote:
+
+`bash /home/alex/ai-lib-plans/tools/sync_ai_lib_plans.sh --mode post-doc-change --push-if-ahead`
+
+If the sync/push step fails, execution is not considered fully closed.

@@ -30,3 +30,4 @@ All local work in this workspace is **constrained and supported** by:
 
 - Run AGENTS.md checklist (linters, tests, doc updates)
 - If ai-lib-plans documentation changed, run `bash /home/alex/ai-lib-plans/tools/sync_ai_lib_plans.sh --mode post-doc-change --push-if-ahead`
+- For implementation plans/tasks, final mandatory closeout is: backfill execution status/results in plan/task files, then immediately run `bash /home/alex/ai-lib-plans/tools/sync_ai_lib_plans.sh --mode post-doc-change --push-if-ahead`

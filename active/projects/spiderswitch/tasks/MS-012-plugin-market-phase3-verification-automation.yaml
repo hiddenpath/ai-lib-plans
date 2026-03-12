@@ -1,0 +1,71 @@
+---
+id: "MS-012"
+title: "插件市场阶段三：验证自动化与回归基线"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "spiderswitch"
+milestone: "v0.4.5"
+labels:
+  - "verification"
+  - "regression"
+  - "automation"
+created: "2026-03-12"
+updated: "2026-03-12"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  建立插件市场落地后的高效验证闭环：
+  - 增加安装后 smoke 检查脚本
+  - 增加 CLI/manifest 相关测试
+  - 文档给出标准化验证命令
+
+acceptance_criteria:
+  - "smoke 验证脚本可执行并输出可读结果"
+  - "新增测试覆盖 CLI/manifest 关键路径"
+  - "README 增加安装后验证章节"
+  - "pytest/ruff/mypy 通过"
+
+dependencies:
+  - "MS-011"
+related_issues: []
+references:
+  - "active/projects/spiderswitch/SPIDERSWITCH_PLUGIN_MARKET_ONE_CLICK_PLAN_2026-03-12.md"
+estimated_hours: 2
+actual_hours: 1
+blocks: []
+blocked_by: []
+files_changed:
+  - "scripts/smoke_plugin_check.sh"
+  - "tests/test_plugin_packaging.py"
+  - "tests/test_server_mcp_flow.py"
+  - "tests/test_runtime_performance.py"
+  - "README.md"
+  - "README_CN.md"
+testing:
+  unit_tests:
+    - ".venv/bin/pytest -q -> 39 passed"
+  integration_tests:
+    - "bash scripts/smoke_plugin_check.sh -> passed"
+    - ".venv/bin/ruff check src tests -> All checks passed"
+    - ".venv/bin/mypy src -> Success: no issues found in 16 source files"
+  compliance_tests: []
+completion_notes: |
+  阶段三完成：
+  1) 新增插件市场冒烟验证脚本（doctor/init/manifest 字段校验）
+  2) 新增 manifest 与 CLI 行为测试覆盖
+  3) README/README_CN 更新安装验证与缓存/同步相关运行时参数说明
+tech_considerations:
+  architecture: |
+    验证层增强，不变更业务路由边界。
+  performance: |
+    smoke 检查控制在秒级反馈。
+  security: |
+    验证输出不暴露敏感信息。
+  compatibility: |
+    验证脚本支持本地与 CI 场景。
+constitution_rules:
+  - "DOC-001: Documentation language requirements"
+  - "TEST-001: Compliance tests"
+---

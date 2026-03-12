@@ -98,6 +98,63 @@ active_tasks:
       - "Error/status/coordination fields are aligned across runtimes"
       - "Future Go/WASM adapter validation checklist prepared"
     estimated_hours: 12
+  - id: "MS-008"
+    title: "P0/P1 runtime stability and error governance"
+    status: "completed"
+    priority: "critical"
+    assignee: "@ai"
+    description: "Execute P0/P1 hardening: non-blocking init path, no global env mutation, safer error payloads, and model ID collision detection."
+    acceptance_criteria:
+      - "Init path avoids default blocking network sync"
+      - "switch_model has no process-wide env side effects"
+      - "Error responses include stable codes and safe messaging"
+      - "Model ID collisions are detected with actionable diagnostics"
+    estimated_hours: 4
+  - id: "MS-009"
+    title: "P2 cache/performance and MCP e2e regressions"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "Add TTL cache for list/status, initialization performance baseline tests, and MCP request-layer regression coverage."
+    acceptance_criteria:
+      - "TTL cache available for list/status with safe defaults"
+      - "Offline init performance baseline test added"
+      - "MCP request-layer regressions covered"
+      - "ruff/mypy/pytest all green"
+    estimated_hours: 3
+  - id: "MS-010"
+    title: "Plugin market phase-1 cli init/doctor"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "Implement unified serve/init/doctor CLI for one-click install readiness."
+    acceptance_criteria:
+      - "spiderswitch serve/init/doctor available"
+      - "doctor supports JSON output"
+      - "tests and static checks pass"
+    estimated_hours: 2
+  - id: "MS-011"
+    title: "Plugin market phase-2 manifest and packaging"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "Add plugin-market manifest, one-click install script, and release bundle packaging."
+    acceptance_criteria:
+      - "manifest documented and validated"
+      - "install/package scripts runnable"
+      - "tests and static checks pass"
+    estimated_hours: 2
+  - id: "MS-012"
+    title: "Plugin market phase-3 verification automation"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "Add smoke verification automation and regression coverage for plugin-market flows."
+    acceptance_criteria:
+      - "smoke script and tests available"
+      - "README verification path updated"
+      - "tests and static checks pass"
+    estimated_hours: 2
 
 dependencies:
   - project: "ai-lib-plans"
