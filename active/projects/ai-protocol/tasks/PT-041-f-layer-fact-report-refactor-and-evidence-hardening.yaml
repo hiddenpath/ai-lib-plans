@@ -1,0 +1,52 @@
+---
+id: "PT-041"
+title: "Refactor supplier fact-check report into F-layer with evidence hardening"
+status: "pending"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "docs"
+  - "fact-check"
+  - "evidence"
+created: "2026-03-15"
+updated: "2026-03-15"
+
+description: |
+  Rewrite the supplier API fact-check report into strict F-layer structure.
+  Separate facts from assumptions, assign Claim IDs, and attach evidence grades (E1-E4).
+
+acceptance_criteria:
+  - "F-layer report produced with no design proposal mixing"
+  - "All key claims include Claim ID and evidence grade"
+  - "Critical claims are backed by at least one E1/E2 source"
+  - "Implemented/Partially Implemented/Proposed labels are explicitly used"
+  - "Evidence matrix draft is created and linked"
+
+dependencies:
+  - "PT-040"
+related_issues: []
+references:
+  - "work/AI-Protocol 供应商 API 事实核查报告 (2025-2026).pdf"
+  - "work/report-governance-template-pack/templates/fact-report.template.md"
+  - "work/report-governance-template-pack/templates/evidence-matrix.template.md"
+estimated_hours: 6
+actual_hours: 0
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/tasks/PT-041-f-layer-fact-report-refactor-and-evidence-hardening.yaml"
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests: []
+
+completion_notes: ""
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "DOC-002: Internal work docs privacy boundary"
+---

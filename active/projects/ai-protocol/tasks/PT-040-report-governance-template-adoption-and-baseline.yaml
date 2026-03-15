@@ -1,0 +1,52 @@
+---
+id: "PT-040"
+title: "Adopt report governance template pack and establish F/D baseline"
+status: "pending"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "docs"
+  - "governance"
+  - "audit"
+created: "2026-03-15"
+updated: "2026-03-15"
+
+description: |
+  Adopt the report governance template pack in work directory and establish
+  baseline process for F-layer (fact) and D-layer (design) split.
+  This task is documentation/governance only and must not introduce runtime changes.
+
+acceptance_criteria:
+  - "Template pack is indexed and linked in ai-lib-plans execution context"
+  - "Unified execution plan is documented under active/projects/ai-protocol"
+  - "Task-context brief template is selected as default task bootstrap input"
+  - "Scope boundary explicitly states no runtime/schema forced changes in this phase"
+
+dependencies: []
+related_issues: []
+references:
+  - "active/projects/ai-protocol/REPORT_GOVERNANCE_UNIFIED_EXECUTION_PLAN_2026-03-15.md"
+  - "work/report-governance-template-pack/INDEX.md"
+  - "work/report-governance-template-pack/TASK-PLAYBOOK.md"
+estimated_hours: 3
+actual_hours: 0
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/REPORT_GOVERNANCE_UNIFIED_EXECUTION_PLAN_2026-03-15.md"
+  - "active/projects/ai-protocol/tasks/PT-040-report-governance-template-adoption-and-baseline.yaml"
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests: []
+
+completion_notes: ""
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "DOC-002: Internal work docs privacy boundary"
+---

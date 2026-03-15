@@ -1,0 +1,55 @@
+---
+id: "PT-042"
+title: "Refactor capability evolution report into D-layer with explicit validation plan"
+status: "pending"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "docs"
+  - "design"
+  - "governance"
+created: "2026-03-15"
+updated: "2026-03-15"
+
+description: |
+  Rewrite capability evolution deep report as D-layer proposal document.
+  Keep assumptions explicit, define validation strategy, and provide rollback-first plan.
+
+acceptance_criteria:
+  - "D-layer report produced with clear non-goals and scope boundaries"
+  - "Assumptions table includes validation method and pass/fail criteria"
+  - "Risk + rollback section is complete and actionable"
+  - "No unverified statement is presented as already-implemented fact"
+  - "Evidence matrix is updated for D-layer claims"
+
+dependencies:
+  - "PT-041"
+related_issues: []
+references:
+  - "work/AI-Protocol 协议规范与能力结构化演变深度报告.pdf"
+  - "work/report-governance-template-pack/templates/design-evolution.template.md"
+  - "work/report-governance-template-pack/templates/evidence-matrix.template.md"
+  - "active/projects/ai-protocol/PT-042_D_LAYER_HYPOTHESIS_VALIDATION_DRAFT_2026-03-15.md"
+estimated_hours: 6
+actual_hours: 0
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/PT-042_D_LAYER_HYPOTHESIS_VALIDATION_DRAFT_2026-03-15.md"
+  - "active/projects/ai-protocol/tasks/PT-042-d-layer-design-report-refactor-and-verification-plan.yaml"
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests: []
+
+completion_notes: ""
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-002: Internal work docs privacy boundary"
+---
