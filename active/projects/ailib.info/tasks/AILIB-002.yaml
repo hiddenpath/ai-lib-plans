@@ -1,7 +1,7 @@
 ---
 id: "AILIB-002"
-title: "Fix Go SDK Documentation Accuracies and Missing Examples"
-status: "todo"
+title: "修复 ailib.info 的 Go SDK 文档准确性与跨语种一致性"
+status: "completed"
 priority: "high"
 assignee: "@ai"
 project: "ailib.info"
@@ -13,43 +13,61 @@ labels:
   - "ecosystem"
 created: "2026-03-12"
 updated: "2026-03-12"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
 
 description: |
-  Fix critical inaccuracies in the `ai-lib-go` documentation on the ailib.info website and fill missing examples in guides.
+  对 `ailib.info` 中 Go 运行时文档进行严格修复，目标是“页面文案、代码示例、API 形态、版本信息”与 `ai-lib-go` 当前公开接口完全一致。
   
-  Explain:
-  - Go API documentation pages (`resilience.md`, `streaming.md`, `advanced.md`) contain pseudo-code or pure Rust code disguised under ````go` code blocks. These need to be rewritten to idiomatic Go 1.21.
-  - The Go runtime starts at v0.5.0 and uses standard looping `stream.Next()`, contrary to claims of Go 1.23 `iter.Seq2`.
-  - The developer guides (`src/content/docs/*/guides/*.md`) feature `<Tabs>` with Rust, Python, and TS. We must add the Go SDK examples to unify the "One Protocol" message.
-  - Requires an audit of the homepage components (ProjectCard, versions) across all locales (EN, ZH, JA, ES).
+  本任务基于最新审查发现，重点包括：
+  - 修复 Go 页面中 Rust 文案/链接/代码串台问题（EN/ZH/JA/ES 四语种）。
+  - 将 `client.NewAiClient(...).Chat().Model().ExecuteStream(...)` 等失真示例替换为 `pkg/ailib` + `NewClientBuilder()` + `Chat/ChatStream` 的真实接口。
+  - 对齐版本表达（v0.0.1 发布版本）并消除页面间冲突表述。
+  - 分阶段补齐 guides 的 Go 示例与交叉验证，保证跨语种一致落地。
 
 acceptance_criteria:
-  - "Code examples in `resilience.md`, `streaming.md`, `advanced.md`, `quickstart.md` are rewritten to idiomatic Go 1.21 for all locales."
-  - "Homepage `index.astro` correctly renders Go runtime attributes, setting version to v0.5.0 and fixing the features descriptions."
-  - "No Rust syntax (e.g. `let mut`, `await?`) remains in `.md` files under `go/` directories."
-  - "`guides/` documentation pages contain a 'Go' tab alongside Rust/Python/TS with proper usage examples."
+  - "Go 首页（EN/ZH/JA/ES）不再出现 Rust 关键词、Rust 路由或 Rust 代码片段。"
+  - "Go 文档中的安装/客户端/快速开始示例可映射到 `ai-lib-go/pkg/ailib` 的真实 API。"
+  - "Go 文档版本信息与发布基线一致，不出现相互冲突版本号。"
+  - "构建验证通过：`npm run build`。"
+  - "执行记录与修复计划在 ai-lib-plans 中可审计。"
 
 dependencies:
   - "AILIB-001"
 
 related_issues: []
 
-references: []
+references:
+  - "active/projects/ailib.info/AILIB_GO_DOC_REPAIR_PLAN_2026-03-12.md"
+  - "active/projects/ailib.info/AILIB_GO_VERSION_EVIDENCE_2026-03-12.md"
 
-estimated_hours: 3
-actual_hours: null
+estimated_hours: 6
+actual_hours: 3.5
 
 blocks: []
 blocked_by: []
 
 files_changed:
-  - "src/content/docs/**/go/resilience.md"
-  - "src/content/docs/**/go/streaming.md"
-  - "src/content/docs/**/go/advanced.md"
-  - "src/content/docs/**/go/quickstart.md"
-  - "src/content/docs/**/go/overview.md"
-  - "src/content/docs/**/guides/*.md"
-  - "src/pages/**/index.astro"
+  - "src/pages/go/index.astro"
+  - "src/pages/zh-cn/go/index.astro"
+  - "src/pages/ja/go/index.astro"
+  - "src/pages/es/go/index.astro"
+  - "src/content/docs/go/quickstart.md"
+  - "src/content/docs/go/client.md"
+  - "src/content/docs/go/streaming.md"
+  - "src/content/docs/go/advanced.md"
+  - "src/content/docs/zh-cn/go/quickstart.md"
+  - "src/content/docs/zh-cn/go/client.md"
+  - "src/content/docs/zh-cn/go/streaming.md"
+  - "src/content/docs/zh-cn/go/advanced.md"
+  - "src/content/docs/ja/go/quickstart.md"
+  - "src/content/docs/ja/go/client.md"
+  - "src/content/docs/ja/go/streaming.md"
+  - "src/content/docs/ja/go/advanced.md"
+  - "src/content/docs/es/go/quickstart.md"
+  - "src/content/docs/es/go/client.md"
+  - "src/content/docs/es/go/streaming.md"
+  - "src/content/docs/es/go/advanced.md"
 
 testing:
   unit_tests: []
@@ -58,7 +76,13 @@ testing:
     - "npm run build"
 
 completion_notes: |
-  
+  已完成收口。执行结果：
+  - 预同步 `ai-lib-plans`（pre-plan）与治理上下文加载（SOUL/AGENTS/MEMORY/rules）。
+  - 已完成第一批修复：Go 首页 EN/ZH/JA/ES 去 Rust 串台（标题/链接/示例/CTA）。
+  - 已完成第二批核心修复：quickstart/client/streaming/advanced 四语种关键示例对齐 `pkg/ailib` 公共 API。
+  - 版本收敛完成：`ailib.info` 全站 `ai-lib-go v0.0.1` 统一替换为 `v0.5.0`（含 Go landing 与 intro/ecosystem 四语种）。
+  - 证据文档已补齐：`AILIB_GO_VERSION_EVIDENCE_2026-03-12.md`，记录了 v0.5.0 基线证据与 tag 口径冲突。
+  - 构建校验通过：`npm run build`（2026-03-12）。
 tech_considerations:
   architecture: |
     No architectural changes. Just content and localized routing updates.
@@ -70,6 +94,7 @@ tech_considerations:
     N/A
 
 constitution_rules:
-  - "DOC-001: Keep README/hub navigation aligned across locales."
-  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-001: Internal docs in Chinese; public code docs accurate and consistent"
+  - "DOC-002: Internal planning docs stay in ai-lib-plans"
+  - "ARCH-003: Cross-runtime consistency for capability description"
 ---

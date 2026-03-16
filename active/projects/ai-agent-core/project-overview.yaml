@@ -1,0 +1,100 @@
+---
+project: "ai-agent-core"
+status: "completed"
+milestone: "v0.3.x"
+
+overview: |
+  New agent orchestration core project.
+  Built above spiderswitch execution plane and ai-lib runtime/protocol stack.
+
+repository:
+  local_path: "/home/alex/ai-agent-core"
+  remote: "TBD"
+  default_branch: "main"
+
+current_phase: "UI console skeleton completed (AGENT-005)"
+
+active_tasks:
+  - id: "AGENT-001"
+    title: "Bootstrap repository and MVP orchestration loop"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "Create repository skeleton and implement a minimal orchestration closed loop with spiderswitch-facing executor adapter."
+    acceptance_criteria:
+      - "Repository skeleton is available and runnable"
+      - "Phase-1 intake->plan->route->execute->observe flow works"
+      - "Task state transitions and retry policy implemented"
+      - "Phase-2/3 roadmap documented"
+    estimated_hours: 8
+  - id: "AGENT-002"
+    title: "Phase-2 scale-out and persistent orchestration state"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "Add concurrent queue workers, durable state store, and checkpoint recovery."
+    acceptance_criteria:
+      - "Concurrent task workers configurable"
+      - "Persistent task state and replay available"
+      - "Crash-recovery drill evidence recorded"
+    estimated_hours: 12
+  - id: "AGENT-003"
+    title: "Phase-3 policy plugins and production observability"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "Ship policy plugin API, A/B routing, and production metrics/reporting."
+    acceptance_criteria:
+      - "Policy plugin contract frozen"
+      - "A/B routing with rollback available"
+      - "SLO/cost/failure dashboards available"
+    estimated_hours: 16
+  - id: "AGENT-004"
+    title: "UI-facing API assembly and operations integration"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "Deliver a UI-facing HTTP API layer for task orchestration, dashboard, policy updates, and tenant quota governance."
+    acceptance_criteria:
+      - "HTTP API supports tasks/batch/recover/dashboard/audit endpoints"
+      - "Policy and tenant quota update endpoints available"
+      - "API tests pass under fake execution mode"
+      - "README and assembly docs updated for UI integration"
+    estimated_hours: 4
+  - id: "AGENT-005"
+    title: "Frontend UI console skeleton and API integration"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "Implement a React+Vite operations console with tasks/dashboard/policy/tenants pages integrated with agent-api."
+    acceptance_criteria:
+      - "UI skeleton pages are implemented"
+      - "UI API client is integrated with agent-api endpoints"
+      - "Frontend production build passes"
+      - "README and UI assembly docs include run/build instructions"
+    estimated_hours: 4
+
+dependencies:
+  - project: "ai-agent-core"
+    reason: "orchestration core implementation"
+  - project: "spiderswitch"
+    reason: "execution plane via MCP tool semantics"
+  - project: "ai-lib-python"
+    reason: "runtime protocol ecosystem compatibility"
+  - project: "ai-protocol"
+    reason: "manifest/schema governance baseline"
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-001: Documentation language requirements"
+  - "DOC-002: Internal work docs privacy"
+
+related_documents:
+  - "active/projects/ai-agent-core/AGENT_CORE_SCOPE_CONTRACT_2026-03-12.md"
+  - "active/projects/ai-agent-core/AGENT_CORE_PHASE2_PHASE3_ROADMAP_2026-03-12.md"
+  - "active/projects/ai-agent-core/AGENT002_RECOVERY_DRILL_EVIDENCE_2026-03-13.md"
+  - "active/projects/ai-agent-core/AGENT003_POLICY_AB_ROLLBACK_EVIDENCE_2026-03-13.md"
+  - "active/projects/ai-agent-core/AGENT_CORE_FINAL_ACCEPTANCE_REPORT_2026-03-13.md"
+  - "active/projects/ai-agent-core/AGENT_CORE_SUGGESTIONS_COMPLETION_2026-03-13.md"
+---

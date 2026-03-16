@@ -5,7 +5,7 @@ milestone: "v0.1.x-rearchitecture"
 
 overview: |
   Official Go runtime for ai-lib ecosystem, rebuilt with protocol-first architecture.
-  Current phase focuses on core runtime foundation and compliance-first convergence.
+  Current phase has closed version-governance correction with v0.5.1 release and v0.0.1 retraction.
 
 repository:
   local_path: "d:/rustapp/ai-lib-go"
@@ -53,4 +53,14 @@ active_tasks:
       - "runtime packages published to package hosting sites (Rust/Python/TS/Go)"
       - "go package published and installable from standard Go module proxy path"
       - "ailib.info docs synchronized to final release matrix and capability status"
+  - id: "GO-004"
+    title: "Version governance: retract v0.0.1 and publish corrected release"
+    status: "completed"
+    priority: "critical"
+    assignee: "@ai"
+    description: "Fix version baseline inconsistency by retracting accidental v0.0.1 and releasing v0.5.1 with explicit correction notes."
+    acceptance_criteria:
+      - "go.mod includes retract v0.0.1"
+      - "v0.5.1 tag and release published"
+      - "release notes explain governance correction"
 ---

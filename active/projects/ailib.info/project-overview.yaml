@@ -1,0 +1,47 @@
+---
+project: "ailib.info"
+status: "active"
+milestone: "v0.7.1-go-doc-repair"
+
+overview: |
+  ailib.info 是 ai-lib 生态的公开文档站点。
+  当前进入 Go 运行时文档准确性修复阶段，目标是修复页面串台、API 示例失真和版本口径冲突。
+
+repository:
+  local_path: "/home/alex/ailib.info"
+  remote: "https://github.com/hiddenpath/ailib.info"
+  default_branch: "main"
+
+current_phase: "Go documentation accuracy hardening completed (v0.5.0 version alignment closed)"
+
+active_tasks:
+  - id: "AILIB-001"
+    title: "Align ailib.info with ecosystem releases"
+    status: "done"
+    priority: "high"
+    assignee: "@ai"
+  - id: "AILIB-002"
+    title: "修复 ailib.info 的 Go SDK 文档准确性与跨语种一致性"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+
+dependencies:
+  - project: "ai-lib-plans"
+    reason: "任务执行记录与里程碑管理"
+  - project: "ai-lib-constitution"
+    reason: "文档治理与架构一致性规则"
+  - project: "ai-lib-go"
+    reason: "Go 公共 API 作为文档事实来源"
+
+constitution_rules:
+  - "DOC-001: Documentation language and internal-doc policy"
+  - "DOC-002: Internal work docs privacy boundary"
+  - "ARCH-003: Cross-runtime consistency"
+
+related_documents:
+  - "active/projects/ailib.info/tasks/AILIB-001.yaml"
+  - "active/projects/ailib.info/tasks/AILIB-002.yaml"
+  - "active/projects/ailib.info/AILIB_GO_DOC_REPAIR_PLAN_2026-03-12.md"
+  - "active/projects/ailib.info/AILIB_GO_VERSION_EVIDENCE_2026-03-12.md"
+---

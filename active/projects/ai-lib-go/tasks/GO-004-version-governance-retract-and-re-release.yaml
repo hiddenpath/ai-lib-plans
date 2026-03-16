@@ -1,0 +1,67 @@
+---
+id: "GO-004"
+title: "Version governance: retract v0.0.1 and publish corrected release"
+status: "completed"
+priority: "critical"
+assignee: "@ai"
+project: "ai-lib-go"
+milestone: "v0.5.x-governance"
+labels:
+  - "go"
+  - "release"
+  - "versioning"
+  - "governance"
+created: "2026-03-12"
+updated: "2026-03-12"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Close version-governance inconsistency for ai-lib-go:
+  1) Keep semver baseline at v0.5.x (initial capability baseline),
+  2) Add go.mod retract for accidental `v0.0.1`,
+  3) Publish a new corrected release (`v0.5.1`) with explicit notes,
+  4) Sync planning evidence and release traceability.
+
+acceptance_criteria:
+  - "go.mod includes `retract v0.0.1` with clear rationale."
+  - "New release tag `v0.5.1` exists on remote."
+  - "GitHub Release for v0.5.1 clearly states version-governance correction."
+  - "GO-004 task and project overview updated with execution evidence."
+
+dependencies:
+  - "GO-003"
+related_issues: []
+estimated_hours: 2
+actual_hours: 1.5
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "go.mod"
+  - "CHANGELOG.md"
+  - "active/projects/ai-lib-go/tasks/GO-004-version-governance-retract-and-re-release.yaml"
+  - "active/projects/ai-lib-go/project-overview.yaml"
+
+testing:
+  unit_tests:
+    - "go test ./... (failed: go command not available in current execution environment)"
+  integration_tests: []
+  compliance_tests: []
+
+completion_notes: |
+  Completed.
+  - Committed release-governance updates in ai-lib-go:
+    - `go.mod`: added `retract v0.0.1`
+    - `CHANGELOG.md`: added `v0.5.1` correction notes
+  - Pushed commit to `main`: `5304805`
+  - Created and pushed tag: `v0.5.1`
+  - Published GitHub release:
+    - https://github.com/hiddenpath/ai-lib-go/releases/tag/v0.5.1
+  - `v0.0.1` tag retained (not deleted) to avoid destructive history rewrite; superseded by corrected release + retract.
+
+constitution_rules:
+  - "ARCH-003"
+  - "TEST-001"
+  - "DOC-001"
+---

@@ -1,0 +1,72 @@
+---
+id: "AGENT-002"
+title: "Phase-2 scale-out and persistent orchestration state"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "ai-agent-core"
+milestone: "v0.2.x"
+labels:
+  - "scale-out"
+  - "persistence"
+  - "recovery"
+created: "2026-03-13"
+updated: "2026-03-13"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Add concurrent workers, durable state store, and checkpoint recovery
+  to evolve ai-agent-core from single-task MVP to resilient multi-task orchestration.
+
+acceptance_criteria:
+  - "Concurrent task workers configurable"
+  - "Persistent task state and replay available"
+  - "Crash-recovery drill evidence recorded"
+  - "Retry/fallback execution evidence exported"
+
+dependencies:
+  - "AGENT-001"
+related_issues: []
+references:
+  - "active/projects/ai-agent-core/project-overview.yaml"
+  - "active/projects/ai-agent-core/AGENT_CORE_PHASE2_PHASE3_ROADMAP_2026-03-12.md"
+estimated_hours: 12
+actual_hours: 5
+blocks: []
+blocked_by: []
+files_changed:
+  - "/home/alex/ai-agent-core/src/ai_agent_core/state.py"
+  - "/home/alex/ai-agent-core/src/ai_agent_core/orchestrator.py"
+  - "/home/alex/ai-agent-core/src/ai_agent_core/executor/spiderswitch_mcp.py"
+  - "/home/alex/ai-agent-core/src/ai_agent_core/cli.py"
+  - "/home/alex/ai-agent-core/tests/test_state_machine.py"
+  - "/home/alex/ai-agent-core/README.md"
+  - "/home/alex/ai-agent-core/pyproject.toml"
+testing:
+  unit_tests:
+    - "/home/alex/ai-agent-core/.venv/bin/pytest -q -> 8 passed"
+  integration_tests: []
+  compliance_tests: []
+completion_notes: |
+  AGENT-002 completed:
+  1) SQLite-backed task state store supports recoverable snapshots and recoverable task scanning
+  2) Orchestrator supports concurrent task workers and replay of pending tasks
+  3) True stdio MCP transport client integrated for spiderswitch tool calls
+  4) CLI supports single/batch/recovery modes with configurable concurrency
+  5) Retry/fallback execution evidence can be exported to JSON
+  6) Recovery drill evidence captured in AGENT002_RECOVERY_DRILL_EVIDENCE_2026-03-13.md
+tech_considerations:
+  architecture: |
+    Keep strategy and execution boundaries unchanged while adding persistence.
+  performance: |
+    Introduce queue/workers with bounded concurrency and backpressure control.
+  security: |
+    Persist only operational task metadata, no plaintext secret storage.
+  compatibility: |
+    Maintain compatibility with AGENT-001 task model contracts.
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-001: Documentation language requirements"
+---

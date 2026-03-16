@@ -1,0 +1,81 @@
+---
+id: "AGENT-003"
+title: "Phase-3 policy plugins and production observability"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "ai-agent-core"
+milestone: "v0.3.x"
+labels:
+  - "policy"
+  - "ab-routing"
+  - "observability"
+created: "2026-03-13"
+updated: "2026-03-13"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Build policy plugin API, A/B routing, and production-grade observability
+  for strategy governance and safe rollout in real workloads.
+
+acceptance_criteria:
+  - "Policy plugin contract frozen"
+  - "A/B routing with rollback available"
+  - "SLO/cost/failure dashboards available"
+  - "Governance audit log for policy changes available"
+
+dependencies:
+  - "AGENT-002"
+related_issues: []
+references:
+  - "active/projects/ai-agent-core/project-overview.yaml"
+  - "active/projects/ai-agent-core/AGENT_CORE_PHASE2_PHASE3_ROADMAP_2026-03-12.md"
+estimated_hours: 16
+actual_hours: 4
+blocks: []
+blocked_by: []
+files_changed:
+  - "/home/alex/ai-agent-core/src/ai_agent_core/router/policy.py"
+  - "/home/alex/ai-agent-core/src/ai_agent_core/state.py"
+  - "/home/alex/ai-agent-core/src/ai_agent_core/orchestrator.py"
+  - "/home/alex/ai-agent-core/src/ai_agent_core/observe/dashboard.py"
+  - "/home/alex/ai-agent-core/src/ai_agent_core/observe/metrics.py"
+  - "/home/alex/ai-agent-core/src/ai_agent_core/cli.py"
+  - "/home/alex/ai-agent-core/src/ai_agent_core/tenant/quota.py"
+  - "/home/alex/ai-agent-core/src/ai_agent_core/observe/cost.py"
+  - "/home/alex/ai-agent-core/src/ai_agent_core/intake/queue.py"
+  - "/home/alex/ai-agent-core/docs/UI_ASSEMBLY_PLAN.md"
+  - "/home/alex/ai-agent-core/tests/test_policy_and_dashboard.py"
+  - "/home/alex/ai-agent-core/tests/test_router_hot_reload_and_tenant_quota.py"
+  - "/home/alex/ai-agent-core/tests/test_cost_calibration.py"
+  - "active/projects/ai-agent-core/AGENT003_POLICY_AB_ROLLBACK_EVIDENCE_2026-03-13.md"
+  - "active/projects/ai-agent-core/AGENT_CORE_SUGGESTIONS_COMPLETION_2026-03-13.md"
+testing:
+  unit_tests:
+    - "/home/alex/ai-agent-core/.venv/bin/pytest -q -> 14 passed"
+  integration_tests: []
+  compliance_tests: []
+completion_notes: |
+  AGENT-003 completed:
+  1) Policy plugin contract frozen at v1
+  2) A/B routing implemented with failure-rate auto rollback to baseline policy
+  3) Governance audit log implemented via sqlite policy_audit table
+  4) Dashboard export implemented for SLO/cost/failure/policy dimensions (JSON + Markdown)
+  5) Acceptance evidence captured in AGENT003_POLICY_AB_ROLLBACK_EVIDENCE_2026-03-13.md
+  6) Follow-up recommendations completed: policy hot reload, A/B stress+cost calibration, multi-tenant quota governance
+  7) UI and assembly plan documented in /home/alex/ai-agent-core/docs/UI_ASSEMBLY_PLAN.md
+tech_considerations:
+  architecture: |
+    Policy plugins must stay decoupled from spiderswitch execution internals.
+  performance: |
+    Strategy evaluation latency should be bounded and observable.
+  security: |
+    Tenant-level controls and policy audit trail are required before broad rollout.
+  compatibility: |
+    Preserve backward compatibility for existing policy modes.
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-001: Documentation language requirements"
+---

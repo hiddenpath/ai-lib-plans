@@ -14,7 +14,7 @@ repository:
   remote: "https://github.com/hiddenpath/spiderswitch"
   default_branch: "main"
 
-current_phase: "Runtime routing capability wave-1 coding execution completed"
+current_phase: "Runtime routing wave-1 completed; entering orchestrator strategy planning"
 
 active_tasks:
   - id: "MS-001"
@@ -155,6 +155,18 @@ active_tasks:
       - "README verification path updated"
       - "tests and static checks pass"
     estimated_hours: 2
+  - id: "MS-013"
+    title: "Long-term orchestration layer design (runtime inventory + policy orchestrator)"
+    status: "planned"
+    priority: "high"
+    assignee: "@ai"
+    description: "Inventory cross-runtime implemented capabilities and design an orchestrator above spiderswitch for model/runtime/provider selection policy."
+    acceptance_criteria:
+      - "Cross-runtime capability inventory documented with evidence"
+      - "Orchestrator boundary clarified: policy vs execution responsibilities"
+      - "MVP interface defined (discover/plan/route/observe)"
+      - "Rollout plan with compatibility strategy prepared"
+    estimated_hours: 6
 
 dependencies:
   - project: "ai-lib-plans"

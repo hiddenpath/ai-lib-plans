@@ -1,0 +1,64 @@
+---
+id: "MS-013"
+title: "长期规划：运行时能力盘点与编排器（orchestrator）设计"
+status: "planned"
+priority: "high"
+assignee: "@ai"
+project: "spiderswitch"
+milestone: "v0.5.x"
+labels:
+  - "architecture"
+  - "orchestrator"
+  - "cross-runtime"
+created: "2026-03-12"
+updated: "2026-03-12"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  基于 spiderswitch 已实现的 runtime registry/resolver 与 runtime_id 路由能力，
+  进入下一层架构设计：在其上增加策略编排器（orchestrator），实现“策略决策与执行层解耦”。
+  本任务先完成运行时能力盘点与编排器 MVP 设计，不直接改动生产执行路径。
+
+acceptance_criteria:
+  - "完成 Python/Rust/TS/Go 运行时能力盘点（聊天、流式、工具调用、MCP桥接、弹性/回退）"
+  - "明确边界：spiderswitch 负责执行（execute），orchestrator 负责策略（decide）"
+  - "定义 orchestrator MVP 接口：discover、plan、route、observe"
+  - "给出兼容迁移路径：保持当前 MCP 工具接口不破坏"
+  - "形成 v0.5.x 三阶段落地路线与验收指标"
+
+dependencies:
+  - "MS-006"
+  - "MS-007"
+  - "MS-008"
+  - "MS-009"
+related_issues: []
+references:
+  - "active/projects/spiderswitch/project-overview.yaml"
+estimated_hours: 6
+actual_hours: 0
+blocks: []
+blocked_by: []
+files_changed:
+  - "active/projects/spiderswitch/project-overview.yaml"
+  - "active/projects/spiderswitch/tasks/MS-013-long-term-orchestrator-and-runtime-inventory.yaml"
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests: []
+completion_notes: ""
+tech_considerations:
+  architecture: |
+    保持 ARCH-001 与 ARCH-003：协议驱动 + 跨运行时一致性。
+    编排器仅做决策，不侵入 runtime 具体实现。
+  performance: |
+    通过缓存和策略快照降低编排开销，避免成为请求关键路径瓶颈。
+  security: |
+    策略层不持久化明文密钥，仅消费 runtime 暴露的安全状态信号。
+  compatibility: |
+    向后兼容现有 switch_model/list_models/get_status/exit_switcher 语义。
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-001: Documentation language requirements"
+---
