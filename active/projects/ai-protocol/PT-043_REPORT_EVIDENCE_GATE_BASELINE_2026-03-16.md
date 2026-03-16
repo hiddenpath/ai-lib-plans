@@ -45,9 +45,18 @@ Reference checklist:
 - Capability profile staged schema:
   - `d:/ai-protocol/schemas/v2/capability-profile.json`
 - Boundary validation report (IOS phase):
-  - `d:/ai-protocol/reports/report-evidence-gates/capability-profile-ios-boundary-2026-03-16T15-54-32-599Z.json`
+  - `d:/ai-protocol/reports/report-evidence-gates/capability-profile-ios-boundary-2026-03-16T17-37-18-197Z.json`
 - Full validation:
   - `npm run validate` => pass
+
+## Fast Evolution Addendum (IOS staged rollout)
+
+- Confirmed staged direction: prioritize I/O/S, delay P/C.
+- Added compliance fixtures for protocol-loading:
+  - `tests/compliance/fixtures/providers/mock-google-v2-ios.yaml` (valid)
+  - `tests/compliance/fixtures/providers/mock-google-v2-ios-invalid-process.yaml` (invalid)
+  - `tests/compliance/cases/01-protocol-loading/load-v2-capability-profile-ios.yaml`
+- Updated `v2-alpha/spec.yaml` to explicitly document IOS-phase boundaries.
 
 ## Gate Conclusion
 
