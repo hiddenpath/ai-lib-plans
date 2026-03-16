@@ -153,6 +153,8 @@ dependencies:
   ai-lib-ts: "v0.5.0 (aligned with ai-protocol v0.8.0 baseline)"
 
 related_documents:
+  - "active/projects/ai-protocol/REPORT_GOVERNANCE_UNIFIED_EXECUTION_PLAN_2026-03-15.md"
+  - "active/projects/ai-protocol/REPORT_GOVERNANCE_TASK_CONTEXT_BOOTSTRAP_2026-03-16.md"
   - "archive/ai-protocol-tasks/AI_PROTOCOL_TASKS_PHASED.md"
   - "archive/ai-protocol-tasks/AI_PROTOCOL_TASKS_PHASED_EN.md"
   - "reviews/audits/AI_PROTOCOL_AUDIT_REPORT.md"
