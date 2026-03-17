@@ -1,0 +1,68 @@
+---
+id: "PT-047"
+title: "Pilot IOSPC phase schema with cross-runtime compliance alignment"
+status: "completed"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "schema"
+  - "compliance"
+  - "iospc"
+created: "2026-03-17"
+updated: "2026-03-17"
+executor_name: "codex"
+executor_terminal: "cursor-terminal"
+
+description: |
+  Introduce report-first iospc_v1 phase into capability-profile schema and align
+  Rust/Python/TypeScript protocol_loading compliance behavior with new boundaries.
+
+acceptance_criteria:
+  - "capability-profile schema supports ios_v1 and iospc_v1 with conditional boundaries"
+  - "runtime compliance checks stay strict for ios_v1 and support iospc_v1 constraints"
+  - "new protocol_loading fixtures/cases for iospc are executable across runtimes"
+  - "boundary script and compliance matrix reports are archived"
+
+dependencies:
+  - "PT-046"
+related_issues: []
+references:
+  - "schemas/v2/capability-profile.json"
+  - "scripts/validate-capability-profile-boundary.js"
+  - "tests/compliance/cases/01-protocol-loading/load-v2-capability-profile-ios.yaml"
+  - "reports/report-evidence-gates/capability-profile-staged-boundary-2026-03-17T09-33-11-206Z.json"
+  - "reports/compliance-gates/compliance-gate-2026-03-17T09-39-31-808Z.json"
+  - "active/projects/ai-protocol/PT-047_IOSPC_PILOT_BASELINE_2026-03-17.md"
+estimated_hours: 6
+actual_hours: 2
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/tasks/PT-047-iospc-phase-schema-and-runtime-compliance-pilot.yaml"
+  - "active/projects/ai-protocol/PT-047_IOSPC_PILOT_BASELINE_2026-03-17.md"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "node scripts/validate-capability-profile-boundary.js"
+  compliance_tests:
+    - "cargo test --test compliance compliance_protocol_loading"
+    - "python -m pytest tests/compliance/test_compliance.py"
+    - "npm run test -- tests/protocol-loading.compliance.test.ts"
+    - "node scripts/gate-compliance-matrix.js --report-only"
+
+completion_notes: |
+  Completed on 2026-03-17.
+  - Added staged ios_v1/iospc_v1 conditional schema boundary.
+  - Added iospc fixtures and protocol_loading cases (load-017/load-018).
+  - Aligned Python/Rust/TypeScript compliance checks with phase-aware semantics.
+  - Generated staged boundary and cross-runtime matrix evidence reports.
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance-first governance"
+---
