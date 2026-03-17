@@ -1,0 +1,62 @@
+---
+id: "PT-049"
+title: "Run IOSPC fail-fast drill for required vs report-only lanes"
+status: "completed"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "gate"
+  - "rollback"
+  - "drill"
+created: "2026-03-17"
+updated: "2026-03-17"
+executor_name: "codex"
+executor_terminal: "cursor-terminal"
+
+description: |
+  Execute a negative drill by injecting deterministic matrix failure and verify
+  required mode blocks while report-only mode records failure evidence and returns success.
+
+acceptance_criteria:
+  - "one-command drill script exists for deterministic failure injection"
+  - "required mode returns non-zero and archives failed matrix report"
+  - "report-only returns zero and archives failed matrix report"
+  - "drill baseline documents commands, reports, and outcome"
+
+dependencies:
+  - "PT-048"
+related_issues: []
+references:
+  - "scripts/rehearse-compliance-rollback.js"
+  - "package.json"
+  - "reports/rollback-rehearsals/compliance-rollback-rehearsal-2026-03-17T15-53-59-248Z.json"
+  - "reports/compliance-gates/compliance-gate-2026-03-17T15-52-59-784Z.json"
+  - "reports/compliance-gates/compliance-gate-2026-03-17T15-53-58-933Z.json"
+  - "active/projects/ai-protocol/PT-049_FAIL_FAST_DRILL_BASELINE_2026-03-17.md"
+estimated_hours: 3
+actual_hours: 1
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/tasks/PT-049-iospc-fail-fast-required-vs-report-only-drill.yaml"
+  - "active/projects/ai-protocol/PT-049_FAIL_FAST_DRILL_BASELINE_2026-03-17.md"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "npm run rehearse:compliance:rollback"
+  compliance_tests: []
+
+completion_notes: |
+  Completed on 2026-03-17.
+  - Added rollback rehearsal script with deterministic failure injection via invalid AI_LIB_TS_DIR.
+  - Verified required-mode blocked (exit=1) and report-only lane passed (exit=0) with failure evidence retained.
+  - Archived drill baseline and linked all generated reports.
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance-first governance"
+---
