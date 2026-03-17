@@ -58,6 +58,23 @@ Reference checklist:
   - `tests/compliance/cases/01-protocol-loading/load-v2-capability-profile-ios.yaml`
 - Updated `v2-alpha/spec.yaml` to explicitly document IOS-phase boundaries.
 
+## Cross-Runtime Evidence Refresh (IOS fact boundary)
+
+- Objective:
+  - Upgrade IOS boundary evidence from "document-level/schema-level" to "cross-runtime executable fact".
+- Runtime coverage:
+  - Rust: `cargo test --test compliance compliance_protocol_loading` => pass
+  - Python: `python -m pytest tests/compliance/test_compliance.py` => pass
+  - TypeScript: `npm run test -- tests/protocol-loading.compliance.test.ts` => pass
+- Matrix gate (report-only):
+  - `node scripts/gate-compliance-matrix.js --report-only` => pass
+  - Evidence artifact:
+    - `d:/ai-protocol/reports/compliance-gates/compliance-gate-2026-03-16T18-04-32-634Z.json`
+- Boundary conclusion:
+  - `load-012` (valid IOS capability_profile) is accepted consistently across runtimes.
+  - `load-013` (IOS profile contains `process`) is rejected consistently across runtimes.
+  - This confirms staged governance boundary: prioritize I/O/S; keep P/C deferred.
+
 ## Gate Conclusion
 
 - Result: `Pass (report-only)`
