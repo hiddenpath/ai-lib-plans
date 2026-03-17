@@ -1,0 +1,58 @@
+---
+id: "PT-046"
+title: "Design Process/Contract phase readiness with validation and rollback"
+status: "completed"
+priority: "medium"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "design"
+  - "schema"
+  - "rollback"
+created: "2026-03-17"
+updated: "2026-03-17"
+executor_name: "codex"
+executor_terminal: "cursor-terminal"
+
+description: |
+  Produce a staged design package for enabling Process and Contract dimensions after IOS,
+  including schema boundary, runtime impact analysis, and rollback-first controls.
+
+acceptance_criteria:
+  - "D-layer design note defines non-goals, assumptions, and entry/exit criteria"
+  - "schema evolution proposal includes compatibility and migration strategy"
+  - "required evidence checklist exists before any required-mode promotion"
+  - "rollback trigger matrix is executable and documented"
+
+dependencies:
+  - "PT-045"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/PT-042_D_LAYER_HYPOTHESIS_VALIDATION_DRAFT_2026-03-15.md"
+  - "schemas/v2/capability-profile.json"
+  - "active/projects/ai-protocol/PT-046_PROCESS_CONTRACT_PHASE_READINESS_DRAFT_2026-03-17.md"
+estimated_hours: 6
+actual_hours: 1
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/PT-046_PROCESS_CONTRACT_PHASE_READINESS_DRAFT_2026-03-17.md"
+  - "active/projects/ai-protocol/tasks/PT-046-process-contract-phase-readiness-design-and-rollback.yaml"
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests: []
+
+completion_notes: |
+  Completed on 2026-03-17.
+  - Delivered Process/Contract phase readiness design draft with non-goals, assumptions, gate criteria, compatibility notes, and rollback matrix.
+  - Defined report-only to required promotion path with explicit evidence prerequisites.
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-002: Internal work docs privacy boundary"
+---

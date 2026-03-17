@@ -1,0 +1,61 @@
+---
+id: "PT-045"
+title: "Expand IOS boundary fixtures and negative-case coverage"
+status: "completed"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "compliance"
+  - "fixtures"
+  - "ios"
+created: "2026-03-17"
+updated: "2026-03-17"
+executor_name: "codex"
+executor_terminal: "cursor-terminal"
+
+description: |
+  Extend IOS capability_profile boundary fixtures to cover additional invalid shapes
+  and edge limits to reduce false positives before Process/Contract phase activation.
+
+acceptance_criteria:
+  - "new protocol_loading cases for malformed phase/value/range boundaries are added"
+  - "cross-runtime runners execute new cases consistently"
+  - "boundary evidence report is refreshed and archived"
+
+dependencies:
+  - "PT-044"
+related_issues: []
+references:
+  - "tests/compliance/cases/01-protocol-loading/load-v2-capability-profile-ios.yaml"
+  - "schemas/v2/capability-profile.json"
+  - "reports/compliance-gates/compliance-gate-2026-03-17T07-26-49-690Z.json"
+  - "active/projects/ai-protocol/PT-045_IOS_BOUNDARY_EXPANSION_BASELINE_2026-03-17.md"
+estimated_hours: 5
+actual_hours: 2
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/PT-045_IOS_BOUNDARY_EXPANSION_BASELINE_2026-03-17.md"
+  - "active/projects/ai-protocol/tasks/PT-045-ios-boundary-fixture-and-negative-case-expansion.yaml"
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests:
+    - "npm run validate"
+    - "node scripts/gate-compliance-matrix.js --report-only"
+
+completion_notes: |
+  Completed on 2026-03-17.
+  - Added three IOS negative boundary cases (contract, empty-ios, non-object).
+  - Added corresponding fixtures and aligned runtime assertions.
+  - Revalidated with cross-runtime matrix report-only gate and archived evidence.
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance-first governance"
+---

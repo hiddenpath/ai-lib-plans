@@ -70,6 +70,10 @@ Reference checklist:
   - `node scripts/gate-compliance-matrix.js --report-only` => pass
   - Evidence artifact:
     - `d:/ai-protocol/reports/compliance-gates/compliance-gate-2026-03-16T18-04-32-634Z.json`
+- Matrix gate (required):
+  - `node scripts/gate-compliance-matrix.js` => pass
+  - Evidence artifact:
+    - `d:/ai-protocol/reports/compliance-gates/compliance-gate-2026-03-17T07-15-04-608Z.json`
 - Boundary conclusion:
   - `load-012` (valid IOS capability_profile) is accepted consistently across runtimes.
   - `load-013` (IOS profile contains `process`) is rejected consistently across runtimes.

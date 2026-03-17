@@ -1,0 +1,65 @@
+---
+id: "PT-044"
+title: "Promote IOS protocol-loading boundary from report-only to required gate"
+status: "completed"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "governance"
+  - "gate"
+  - "compliance"
+created: "2026-03-17"
+updated: "2026-03-17"
+executor_name: "codex"
+executor_terminal: "cursor-terminal"
+
+description: |
+  Promote IOS-phase protocol-loading boundary checks from advisory/report-only evidence
+  to required gate enforcement with rollback-ready controls.
+
+acceptance_criteria:
+  - "compliance-matrix gate includes load-012/load-013 on Rust/Python/TypeScript"
+  - "required-mode run passes in local baseline"
+  - "rollback path to report-only mode is documented and tested"
+  - "PT-043 baseline links required-gate evidence artifacts"
+
+dependencies:
+  - "PT-043"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/PT-043_REPORT_EVIDENCE_GATE_BASELINE_2026-03-16.md"
+  - "reports/compliance-gates/compliance-gate-2026-03-16T18-04-32-634Z.json"
+  - "reports/compliance-gates/compliance-gate-2026-03-17T07-15-04-608Z.json"
+  - "active/projects/ai-protocol/PT-044_REQUIRED_GATE_BASELINE_2026-03-17.md"
+estimated_hours: 4
+actual_hours: 1
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/PT-044_REQUIRED_GATE_BASELINE_2026-03-17.md"
+  - "active/projects/ai-protocol/PT-043_REPORT_EVIDENCE_GATE_BASELINE_2026-03-16.md"
+  - "active/projects/ai-protocol/tasks/PT-044-ios-cross-runtime-required-gate-promotion.yaml"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "node scripts/gate-compliance-matrix.js"
+  compliance_tests:
+    - "cargo test --test compliance"
+    - "python -m pytest tests/compliance/test_compliance.py"
+    - "npm run test -- tests/protocol-loading.compliance.test.ts"
+
+completion_notes: |
+  Completed on 2026-03-17.
+  - Executed required-mode compliance matrix gate with full pass.
+  - Archived required-gate evidence baseline for IOS boundary.
+  - Back-linked required evidence into PT-043 baseline to keep report-only -> required progression auditable.
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance-first governance"
+---
