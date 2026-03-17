@@ -1,0 +1,68 @@
+---
+id: "PT-050"
+title: "Integrate rollback drill as optional stage in fullchain gate"
+status: "completed"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "gate"
+  - "fullchain"
+  - "rollback"
+created: "2026-03-17"
+updated: "2026-03-17"
+executor_name: "codex"
+executor_terminal: "cursor-terminal"
+
+description: |
+  Integrate compliance rollback rehearsal into fullchain as an optional stage,
+  keep default fullchain behavior unchanged, and provide one-command execution
+  for combined governance evidence capture.
+
+acceptance_criteria:
+  - "fullchain supports optional rollback drill switch"
+  - "default fullchain path remains unchanged without rollback drill"
+  - "npm script entrypoint exists for fullchain with rollback drill"
+  - "report-only and required fullchain+drill runs pass with archived evidence"
+
+dependencies:
+  - "PT-049"
+related_issues: []
+references:
+  - "d:/ai-protocol/scripts/gate-fullchain.js"
+  - "d:/ai-protocol/scripts/rehearse-compliance-rollback.js"
+  - "d:/ai-protocol/package.json"
+  - "d:/ai-protocol/README.md"
+  - "d:/ai-protocol/reports/fullchain-gates/fullchain-gate-2026-03-17T16-20-33-822Z.json"
+  - "d:/ai-protocol/reports/fullchain-gates/fullchain-gate-2026-03-17T16-21-42-226Z.json"
+  - "d:/ai-protocol/reports/fullchain-gates/fullchain-gate-2026-03-17T16-26-13-987Z.json"
+  - "active/projects/ai-protocol/PT-050_FULLCHAIN_ROLLBACK_INTEGRATION_BASELINE_2026-03-17.md"
+estimated_hours: 3
+actual_hours: 1
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/tasks/PT-050-fullchain-rollback-drill-integration.yaml"
+  - "active/projects/ai-protocol/PT-050_FULLCHAIN_ROLLBACK_INTEGRATION_BASELINE_2026-03-17.md"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "npm run gate:fullchain -- --report-only"
+    - "npm run gate:fullchain:with-rollback -- --report-only"
+    - "npm run gate:fullchain:with-rollback"
+  compliance_tests: []
+
+completion_notes: |
+  Completed on 2026-03-17.
+  - Added optional rollback drill stage in fullchain via `--with-rollback-drill`.
+  - Added npm entrypoint `gate:fullchain:with-rollback`.
+  - Verified both report-only and required fullchain+drill lanes pass.
+  - Archived fullchain evidence reports for audit traceability.
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance-first governance"
+---
