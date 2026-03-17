@@ -1,0 +1,61 @@
+---
+id: "PT-048"
+title: "Run IOSPC required-gate rehearsal with rollback lane evidence"
+status: "completed"
+priority: "high"
+assignee: "@hiddenpath"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "gate"
+  - "rollback"
+  - "iospc"
+created: "2026-03-17"
+updated: "2026-03-17"
+executor_name: "codex"
+executor_terminal: "cursor-terminal"
+
+description: |
+  Execute required-mode compliance matrix rehearsal for iospc_v1 pilot and
+  capture rollback-lane evidence via report-only run with one-command entrypoints.
+
+acceptance_criteria:
+  - "package scripts provide explicit required/report-only gate entrypoints"
+  - "required-mode compliance matrix passes for IOSPC baseline"
+  - "report-only rollback lane run passes with archived evidence"
+  - "PT-048 baseline documents runbook and evidence links"
+
+dependencies:
+  - "PT-047"
+related_issues: []
+references:
+  - "scripts/gate-compliance-matrix.js"
+  - "package.json"
+  - "reports/compliance-gates/compliance-gate-2026-03-17T15-33-50-422Z.json"
+  - "reports/compliance-gates/compliance-gate-2026-03-17T15-34-23-761Z.json"
+  - "active/projects/ai-protocol/PT-048_REQUIRED_REHEARSAL_AND_ROLLBACK_BASELINE_2026-03-17.md"
+estimated_hours: 3
+actual_hours: 1
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/PT-048_REQUIRED_REHEARSAL_AND_ROLLBACK_BASELINE_2026-03-17.md"
+  - "active/projects/ai-protocol/tasks/PT-048-iospc-required-gate-rehearsal-and-rollback-lane.yaml"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "npm run gate:compliance-matrix:required"
+    - "npm run gate:compliance-matrix:report-only"
+  compliance_tests: []
+
+completion_notes: |
+  Completed on 2026-03-17.
+  - Added explicit required/report-only script entrypoints for compliance matrix gate.
+  - Executed required rehearsal and report-only rollback lane with archived evidence reports.
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance-first governance"
+---
