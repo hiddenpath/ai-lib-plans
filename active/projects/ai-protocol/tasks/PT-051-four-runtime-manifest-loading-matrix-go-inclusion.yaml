@@ -1,0 +1,57 @@
+---
+id: "PT-051"
+title: "Four-runtime manifest loading matrix and Go inclusion closure"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "compliance"
+  - "cross-runtime"
+  - "go"
+created: "2026-03-15"
+updated: "2026-03-15"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Close the governance and execution gap where cross-runtime parity narratives
+  were tri-runtime centric. Promote baseline to Rust/Python/TypeScript/Go and
+  align dependency records and planning artifacts accordingly.
+
+acceptance_criteria:
+  - "ai-protocol project overview dependencies include ai-lib-go alignment status"
+  - "Cross-runtime wording is updated to four-runtime baseline"
+  - "Related runtime/governance task chain is recorded under ai-lib-go GO-005~GO-010"
+
+dependencies:
+  - "PT-050"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/project-overview.yaml"
+  - "active/projects/ai-lib-go/project-overview.yaml"
+  - "active/projects/ai-lib-go/tasks/GO-005-v2-manifest-structure-refactor-and-alignment.yaml"
+  - "active/projects/ai-lib-go/tasks/GO-010-four-runtime-governance-equalization.yaml"
+estimated_hours: 1
+actual_hours: 0.5
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/project-overview.yaml"
+  - "active/projects/ai-protocol/tasks/PT-051-four-runtime-manifest-loading-matrix-go-inclusion.yaml"
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests: []
+
+completion_notes: |
+  Completed.
+  - Project-level dependency/status narrative now explicitly includes ai-lib-go.
+  - Four-runtime baseline is reflected in planning artifacts.
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+---

@@ -1,11 +1,12 @@
 ---
 project: "ai-lib-go"
 status: "active"
-milestone: "v0.1.x-rearchitecture"
+milestone: "v0.6.x-manifest-governance"
 
 overview: |
   Official Go runtime for ai-lib ecosystem, rebuilt with protocol-first architecture.
-  Current phase has closed version-governance correction with v0.5.1 release and v0.0.1 retraction.
+  Current phase has closed manifest v2/capability_profile alignment and governance equalization
+  with four-runtime consistency baseline (Rust/Python/TypeScript/Go).
 
 repository:
   local_path: "d:/rustapp/ai-lib-go"
@@ -63,4 +64,64 @@ active_tasks:
       - "go.mod includes retract v0.0.1"
       - "v0.5.1 tag and release published"
       - "release notes explain governance correction"
+  - id: "GO-005"
+    title: "V2 manifest structure refactor and schema alignment"
+    status: "completed"
+    priority: "critical"
+    assignee: "@ai"
+    description: "Align internal manifest model with current ai-protocol v2 structure and capability_profile."
+    acceptance_criteria:
+      - "Current v2 provider manifests are loadable by ai-lib-go loader"
+      - "v1 fallback remains deterministic for compatibility fixtures"
+      - "capability_profile field and phase boundaries are parsed and validated"
+  - id: "GO-006"
+    title: "Loader and capability determination upgrade"
+    status: "completed"
+    priority: "critical"
+    assignee: "@ai"
+    description: "Upgrade endpoint/auth/capability resolution logic to new v2 shape with manifest-driven behavior."
+    acceptance_criteria:
+      - "EndpointFor/AuthHeader/HasCapability resolve from current v2 fields"
+      - "No provider-id hardcoded branch introduced"
+      - "go test ./... passes after loader upgrade"
+  - id: "GO-007"
+    title: "capability_profile IOS/IOSPC boundary validation"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "Enforce ios_v1 and iospc_v1 phase boundaries in loader validation path."
+    acceptance_criteria:
+      - "ios_v1 rejects process/contract declarations"
+      - "iospc_v1 rejects manifests without process/contract"
+      - "Boundary behavior covered in unit tests"
+  - id: "GO-008"
+    title: "Protocol loading compliance runner: real-loader execution"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "Switch protocol_loading compliance checks from map-shape heuristics to protocol.Loader."
+    acceptance_criteria:
+      - "protocol_loading cases run against actual loader parse path"
+      - "Expected provider_id/protocol_version are asserted from parsed manifest"
+      - "Compliance suite remains green"
+  - id: "GO-009"
+    title: "Unit/compliance matrix closure for manifest evolution"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "Add/update tests for capability_profile and v2 shape migration; update fixtures in client tests."
+    acceptance_criteria:
+      - "New unit tests cover v2 shape and IOS/IOSPC negative boundaries"
+      - "Legacy core-style inline fixtures migrated to current v2 format"
+      - "go test ./... passes"
+  - id: "GO-010"
+    title: "Four-runtime evidence alignment and governance sync"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "Record Go runtime parity in constitution/plans governance artifacts."
+    acceptance_criteria:
+      - "ARCH-003 and workspace docs include ai-lib-go as equal runtime"
+      - "ai-lib-plans project overviews and memory reflect four-runtime baseline"
+      - "Task records include executor metadata for auditability"
 ---

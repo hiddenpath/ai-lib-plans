@@ -1,0 +1,55 @@
+---
+id: "GO-008"
+title: "Real-loader-driven protocol loading compliance execution"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "ai-lib-go"
+milestone: "v0.6.x-manifest-governance"
+labels:
+  - "go"
+  - "compliance"
+  - "protocol-loading"
+created: "2026-03-15"
+updated: "2026-03-15"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Replace map-shape protocol loading checks with protocol.NewLoader() execution,
+  so compliance outcomes reflect real runtime parse/validation behavior.
+
+acceptance_criteria:
+  - "protocol_loading compliance uses loader.LoadFile path"
+  - "valid/invalid results are derived from parse error outcome"
+  - "provider_id/protocol_version checks are read from typed manifest output"
+
+dependencies:
+  - "GO-006"
+  - "GO-007"
+related_issues: []
+estimated_hours: 2
+actual_hours: 1
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "d:/rustapp/ai-lib-go/tests/compliance/compliance_test.go"
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "go test ./tests/compliance -v"
+  compliance_tests:
+    - "go test ./tests/compliance -v"
+
+completion_notes: |
+  Completed.
+  - protocol_loading runner now executes real loader parsing.
+  - Valid-path assertions now verify typed manifest provider/version fields.
+
+constitution_rules:
+  - "ARCH-003"
+  - "GO-004"
+  - "TEST-001"
+---

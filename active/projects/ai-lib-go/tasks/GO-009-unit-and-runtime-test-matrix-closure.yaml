@@ -1,0 +1,60 @@
+---
+id: "GO-009"
+title: "Unit and runtime test matrix closure for manifest evolution"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "ai-lib-go"
+milestone: "v0.6.x-manifest-governance"
+labels:
+  - "go"
+  - "tests"
+  - "runtime"
+created: "2026-03-15"
+updated: "2026-03-15"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Close test coverage gaps introduced by manifest evolution:
+  add/refresh unit tests, migrate old inline fixtures, and ensure full go test baseline passes.
+
+acceptance_criteria:
+  - "internal/protocol tests include v2 shape and IOS/IOSPC boundary coverage"
+  - "client/compliance fixtures use current v2 manifest structure"
+  - "go test ./... passes"
+
+dependencies:
+  - "GO-008"
+related_issues: []
+estimated_hours: 3
+actual_hours: 1.5
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "d:/rustapp/ai-lib-go/internal/protocol/manifest_test.go"
+  - "d:/rustapp/ai-lib-go/pkg/ailib/client_test.go"
+  - "d:/rustapp/ai-lib-go/tests/compliance/advanced_capabilities_test.go"
+  - "d:/rustapp/ai-lib-go/pkg/ailib/errors.go"
+
+testing:
+  unit_tests:
+    - "go test ./internal/protocol -v"
+    - "go test ./pkg/ailib -v"
+  integration_tests:
+    - "go test ./tests/compliance -v"
+  compliance_tests:
+    - "go test ./... (all pass)"
+
+completion_notes: |
+  Completed.
+  - Added manifest boundary tests in internal/protocol.
+  - Migrated core-style inline manifests in client/compliance tests to current v2 format.
+  - Updated retry semantics for quota_exhausted to match compliance baseline.
+
+constitution_rules:
+  - "ARCH-003"
+  - "GO-004"
+  - "TEST-001"
+---

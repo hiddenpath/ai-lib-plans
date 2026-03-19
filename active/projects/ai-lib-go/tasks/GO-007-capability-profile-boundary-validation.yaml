@@ -1,0 +1,57 @@
+---
+id: "GO-007"
+title: "capability_profile IOS/IOSPC boundary validation"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "ai-lib-go"
+milestone: "v0.6.x-manifest-governance"
+labels:
+  - "go"
+  - "capability-profile"
+  - "validation"
+created: "2026-03-15"
+updated: "2026-03-15"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Implement phase-boundary validation for capability_profile:
+  - ios_v1: only Inputs/Outcomes/Systems dimensions
+  - iospc_v1: requires Process or Contract dimension
+
+acceptance_criteria:
+  - "ios_v1 rejects manifests that include process/contract"
+  - "iospc_v1 rejects manifests without process/contract"
+  - "Validation errors are fail-fast in loader path"
+
+dependencies:
+  - "GO-005"
+related_issues: []
+estimated_hours: 2
+actual_hours: 1
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "d:/rustapp/ai-lib-go/internal/protocol/manifest.go"
+  - "d:/rustapp/ai-lib-go/internal/protocol/loader.go"
+  - "d:/rustapp/ai-lib-go/internal/protocol/manifest_test.go"
+
+testing:
+  unit_tests:
+    - "go test ./internal/protocol -v"
+  integration_tests: []
+  compliance_tests:
+    - "go test ./tests/compliance -v"
+
+completion_notes: |
+  Completed.
+  - Added ValidateCapabilityProfile() with ios_v1/iospc_v1 rules.
+  - Added unit tests for both negative boundary scenarios.
+
+constitution_rules:
+  - "ARCH-003"
+  - "GO-005"
+  - "GO-004"
+---

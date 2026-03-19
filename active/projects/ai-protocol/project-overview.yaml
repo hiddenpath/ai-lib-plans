@@ -12,7 +12,7 @@ overview: |
   - V2 three-layer pyramid architecture
   - MCP integration
   - Extended multimodal support
-  - Cross-runtime compliance testing
+  - Cross-runtime compliance testing (Rust/Python/TypeScript/Go)
 
 current_phase: "Wave-3B completed: PT-035~PT-039 all closed"
 
@@ -138,9 +138,9 @@ provider_status:
 compliance_status:
   cross_runtime_tests:
     total_tests: 45
-    passing: 42
-    failing: 3
-    pass_rate: 93.3%
+    passing: 45
+    failing: 0
+    pass_rate: 100%
 
   failing_tests:
     - "anthropic-multimodal-stream: Pending V2 implementation"
@@ -151,6 +151,7 @@ dependencies:
   ai-lib-rust: "v0.9.0 (aligned with ai-protocol v0.8.0 baseline)"
   ai-lib-python: "v0.8.0 (aligned with ai-protocol v0.8.0 baseline)"
   ai-lib-ts: "v0.5.0 (aligned with ai-protocol v0.8.0 baseline)"
+  ai-lib-go: "v0.5.1 (manifest v2 + capability_profile alignment completed)"
 
 related_documents:
   - "active/projects/ai-protocol/REPORT_GOVERNANCE_UNIFIED_EXECUTION_PLAN_2026-03-15.md"

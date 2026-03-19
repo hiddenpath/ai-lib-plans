@@ -1,0 +1,67 @@
+---
+id: "GO-010"
+title: "Four-runtime governance equalization and evidence sync"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "ai-lib-go"
+milestone: "v0.6.x-manifest-governance"
+labels:
+  - "go"
+  - "governance"
+  - "constitution"
+  - "plans"
+created: "2026-03-15"
+updated: "2026-03-15"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Give ai-lib-go equal governance status with Rust/Python/TypeScript across
+  ai-lib-constitution and ai-lib-plans, and add Go-specific constraints for
+  manifest compatibility, transport contract, and release/module governance.
+
+acceptance_criteria:
+  - "ARCH-003 applicable projects and execution section include ai-lib-go"
+  - "Constitution README and workspace docs include ai-lib-go in parity positions"
+  - "GO-005/GO-006/GO-007 rules are added"
+  - "Plans README/project-overview/MEMORY reflect four-runtime baseline"
+
+dependencies:
+  - "GO-009"
+related_issues: []
+estimated_hours: 3
+actual_hours: 2
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "d:/ai-lib-constitution/rules/architecture/ARCH-003-cross-runtime-consistency.yaml"
+  - "d:/ai-lib-constitution/README.md"
+  - "d:/ai-lib-constitution/docs/WORKSPACE_SETUP.md"
+  - "d:/ai-lib-constitution/rules/coding/go/GO-005-manifest-schema-compatibility.yaml"
+  - "d:/ai-lib-constitution/rules/coding/go/GO-006-transport-stream-contract.yaml"
+  - "d:/ai-lib-constitution/rules/release/go/GO-007-release-module-governance.yaml"
+  - "d:/ai-lib-plans/README.md"
+  - "d:/ai-lib-plans/MEMORY.md"
+  - "d:/ai-lib-plans/active/projects/ai-protocol/project-overview.yaml"
+  - "d:/ai-lib-plans/active/projects/ai-lib-go/project-overview.yaml"
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests:
+    - "d:/rustapp/ai-lib-go: go test ./... (pass)"
+
+completion_notes: |
+  Completed.
+  - Governance artifacts now treat Go as first-class runtime peer.
+  - Added Go-specific rules for manifest compatibility, transport contract, and release governance.
+  - Plans memory and project overviews updated with four-runtime semantics.
+
+constitution_rules:
+  - "ARCH-003"
+  - "GO-005"
+  - "GO-006"
+  - "GO-007"
+---

@@ -3,7 +3,7 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-03-11
+**Last Updated**: 2026-03-15
 
 ---
 
@@ -13,7 +13,7 @@
 - **Principle**: 一切逻辑皆算子，一切配置皆协议
 - All provider logic is driven by YAML manifests in ai-protocol. Zero hardcoded provider code in runtimes.
 - Adding a new provider = add manifest only, no runtime code changes.
-- Runtimes: ai-lib-rust, ai-lib-python, ai-lib-ts load manifests via ProtocolLoader.
+- Runtimes: ai-lib-rust, ai-lib-python, ai-lib-ts, ai-lib-go load manifests via ProtocolLoader.
 
 ### Operator Pipeline (ARCH-002)
 - Chat flow: decode → select → accumulate → fanout → map
@@ -23,7 +23,16 @@
 ### Cross-Runtime Consistency (ARCH-003)
 - All runtimes must pass ai-protocol compliance tests.
 - Message roles: system, user, assistant, tool (per standard_message_roles).
-- Unified request/response format across Rust, Python, TypeScript.
+- Unified request/response format across Rust, Python, TypeScript, Go.
+
+### Four-Runtime Baseline and Go Manifest Alignment (2026-03-15)
+- Cross-runtime default semantics are now defined as **Rust/Python/TypeScript/Go** (not tri-runtime).
+- `ai-lib-go` runtime loader now follows v2 manifest primary shape (`endpoint`, `capabilities.required/optional`, `capability_profile`) with explicit v1 fallback.
+- `capability_profile` boundary validation is enforced in Go:
+  - `ios_v1`: must stay within Inputs/Outcomes/Systems and must not declare Process/Contract.
+  - `iospc_v1`: Process or Contract is required.
+- Compliance execution for Go protocol loading now uses real loader behavior instead of map-shape checks, ensuring parity evidence is runtime-realistic.
+- Rollback strategy: if schema alignment introduces regressions, revert to prior loader/manifest parsing commit while retaining new compliance fixtures for diagnosis.
 
 ### Multimodal Documentation Governance (ai-protocol)
 - In multimodal survey/integration documents, separate verified facts from design assumptions explicitly.
