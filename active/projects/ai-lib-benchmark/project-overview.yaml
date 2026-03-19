@@ -1,0 +1,44 @@
+---
+project: "ai-lib-benchmark"
+status: "active"
+milestone: "v0.1.0-bootstrap"
+
+overview: |
+  Dedicated benchmark repository extracted from ailib-media benchmark assets.
+  Provides cross-runtime benchmark runners, baseline artifacts, and analysis tooling
+  for ai-lib-rust / ai-lib-python / ai-lib-ts / ai-lib-go.
+
+repository:
+  local_path: "d:/rustapp/ai-lib-benchmark"
+  remote: "https://github.com/hiddenpath/ai-lib-benchmark"
+  default_branch: "main"
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance test requirements"
+  - "BENCH-001: Benchmark reproducibility and baseline governance"
+  - "DOC-001: Documentation language requirements"
+  - "DOC-002: Internal work doc privacy"
+
+active_tasks:
+  - id: "BENCH-001"
+    title: "Extract benchmark assets into dedicated repository"
+    status: "completed"
+    priority: "critical"
+    assignee: "@ai"
+    description: "Create ai-lib-benchmark repo with scripts, tools, baseline samples, and docs."
+    acceptance_criteria:
+      - "Repository contains runnable benchmark scripts and analysis tooling"
+      - "Sample baseline/result artifacts are included"
+      - "Repository pushed to github/hiddenpath"
+  - id: "BENCH-002"
+    title: "Integrate benchmark repo into constitution/plans governance"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "Add benchmark governance rule and register project in plans memory/overview."
+    acceptance_criteria:
+      - "Constitution includes BENCH-001 rule"
+      - "Plans README/MEMORY register ai-lib-benchmark"
+      - "Task records are auditable (executor metadata)"
+---

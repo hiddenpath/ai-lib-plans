@@ -34,6 +34,12 @@
 - Compliance execution for Go protocol loading now uses real loader behavior instead of map-shape checks, ensuring parity evidence is runtime-realistic.
 - Rollback strategy: if schema alignment introduces regressions, revert to prior loader/manifest parsing commit while retaining new compliance fixtures for diagnosis.
 
+### Benchmark Repository Extraction (2026-03-19)
+- Benchmark assets are split from `ailib-media` into dedicated `ai-lib-benchmark` repository for independent evolution.
+- `ai-lib-benchmark` is now the canonical location for benchmark scripts, baseline files, and analysis tooling.
+- Governance requirement added: benchmark claims must include reproducible raw artifacts and thresholded baselines (`BENCH-001`).
+- `ai-lib-benchmark` is managed under `ai-lib-plans` with project overview + auditable task records.
+
 ### Multimodal Documentation Governance (ai-protocol)
 - In multimodal survey/integration documents, separate verified facts from design assumptions explicitly.
 - Mark evidence levels for key claims (official docs, implementation tests, assumptions) to keep conclusions reproducible.

@@ -1,0 +1,59 @@
+---
+id: "BENCH-002"
+title: "Register ai-lib-benchmark in constitution and plans governance"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "ai-lib-benchmark"
+milestone: "v0.1.0-bootstrap"
+labels:
+  - "benchmark"
+  - "governance"
+  - "constitution"
+  - "plans"
+created: "2026-03-19"
+updated: "2026-03-19"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Add benchmark-specific governance and planning records:
+  - Constitution benchmark reproducibility rule
+  - Constitution/Plans README project registration
+  - Plans memory and benchmark project overview updates
+
+acceptance_criteria:
+  - "BENCH-001 rule exists in constitution"
+  - "Constitution README lists benchmark project/rule"
+  - "Plans README/MEMORY include ai-lib-benchmark"
+  - "ai-lib-benchmark project-overview exists in plans"
+
+dependencies:
+  - "BENCH-001"
+related_issues: []
+estimated_hours: 2
+actual_hours: 1
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "d:/ai-lib-constitution/rules/testing/BENCH-001-benchmark-reproducibility.yaml"
+  - "d:/ai-lib-constitution/README.md"
+  - "d:/ai-lib-plans/README.md"
+  - "d:/ai-lib-plans/MEMORY.md"
+  - "d:/ai-lib-plans/active/projects/ai-lib-benchmark/project-overview.yaml"
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests: []
+
+completion_notes: |
+  Completed.
+  - Benchmark governance is now explicit and auditable.
+  - Benchmark project is first-class in plans and follows constitution constraints.
+
+constitution_rules:
+  - "BENCH-001"
+  - "DOC-002"
+---

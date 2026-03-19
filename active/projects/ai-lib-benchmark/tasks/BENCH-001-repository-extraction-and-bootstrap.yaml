@@ -1,0 +1,62 @@
+---
+id: "BENCH-001"
+title: "Extract benchmark assets from ailib-media and bootstrap ai-lib-benchmark"
+status: "completed"
+priority: "critical"
+assignee: "@ai"
+project: "ai-lib-benchmark"
+milestone: "v0.1.0-bootstrap"
+labels:
+  - "benchmark"
+  - "repository"
+  - "cross-runtime"
+created: "2026-03-19"
+updated: "2026-03-19"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Create independent benchmark repository for ai-lib ecosystem:
+  - benchmark runner scripts
+  - analysis tooling
+  - baseline/sample artifacts
+  - clear documentation and reproducible execution entry points
+
+acceptance_criteria:
+  - "ai-lib-benchmark repository is initialized and versioned"
+  - "README covers quick start and layout"
+  - "scripts/tools/examples are present and runnable"
+  - "Repository pushed to github/hiddenpath"
+
+dependencies: []
+related_issues: []
+estimated_hours: 4
+actual_hours: 2
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "d:/rustapp/ai-lib-benchmark/README.md"
+  - "d:/rustapp/ai-lib-benchmark/scripts/run_benchmark.ps1"
+  - "d:/rustapp/ai-lib-benchmark/scripts/test_deepseek_format.ps1"
+  - "d:/rustapp/ai-lib-benchmark/tools/analyze_benchmarks.py"
+  - "d:/rustapp/ai-lib-benchmark/tools/orchestrate_benchmarks.sh"
+  - "d:/rustapp/ai-lib-benchmark/examples/results/*"
+
+testing:
+  unit_tests:
+    - "python tools/analyze_benchmarks.py --results-dir examples/results --format both"
+  integration_tests: []
+  compliance_tests: []
+
+completion_notes: |
+  Completed.
+  - Extracted benchmark capability into standalone ai-lib-benchmark repository.
+  - Added baseline/sample data and report generation tooling.
+  - Prepared repository for independent CI and long-term benchmark expansion.
+
+constitution_rules:
+  - "ARCH-003"
+  - "BENCH-001"
+  - "DOC-001"
+---
