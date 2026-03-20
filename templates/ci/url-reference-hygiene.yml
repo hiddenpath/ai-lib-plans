@@ -1,0 +1,64 @@
+name: URL Reference Hygiene
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      autofix:
+        description: "Apply autofix and open PR"
+        required: false
+        default: "false"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check URL references
+        run: |
+          python tools/url_reference_hygiene.py .
+
+  autofix:
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.autofix == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Apply autofix
+        run: |
+          python tools/url_reference_hygiene.py . --fix
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore(ci): fix public URL references to ailib-official"
+          title: "chore(ci): normalize hiddenpath public URLs"
+          body: |
+            ## Summary
+            - run URL hygiene autofix
+            - replace hiddenpath public URLs with ailib-official URLs
+            - keep development-only exceptions unchanged
+          branch: "automation/url-reference-hygiene"

@@ -1,0 +1,78 @@
+---
+id: "PT-052"
+title: "Migrate public manifest references to ailib-official"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "governance"
+  - "manifest"
+  - "cross-repo"
+created: "2026-03-19"
+updated: "2026-03-19"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Migrate outward-facing manifest reference addresses from hiddenpath to
+  ailib-official across AI-Protocol and ecosystem repositories while
+  keeping development-side repository wiring unchanged.
+
+acceptance_criteria:
+  - "Public URLs for ai-protocol manifest/schema access use github/ailib-official"
+  - "Runtime loaders/mock sync paths that fetch manifests use ailib-official URLs"
+  - "Development workflow repository checkouts remain on hiddenpath"
+  - "No hiddenpath public manifest URL remains in scanned target repositories"
+
+dependencies:
+  - "PT-051"
+related_issues: []
+references:
+  - "ai-protocol/schemas/v1.json"
+  - "ai-protocol/schemas/v2/provider.json"
+  - "ai-protocol/v2/providers/openai.yaml"
+  - "rustapp/ai-lib-rust/src/protocol/schema_v1.json"
+  - "rustapp/ai-lib-python/src/ai_lib_python/protocol/loader.py"
+  - "rustapp/ai-lib-ts/src/protocol/loader.ts"
+  - "rustapp/ai-lib-go/pkg/ailib/client.go"
+  - "rustapp/ai-protocol-mock/scripts/sync_manifests.py"
+  - "rustapp/spiderswitch/src/spiderswitch/runtime/python_runtime.py"
+  - "rustapp/ailib.info/src/components/Footer.astro"
+
+estimated_hours: 2
+actual_hours: 1.5
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "active/projects/ai-protocol/tasks/PT-052-official-public-manifest-reference-migration.yaml"
+  - "../ai-protocol/schemas/v1.json"
+  - "../ai-protocol/schemas/v2/provider.json"
+  - "../rustapp/ai-lib-python/src/ai_lib_python/protocol/loader.py"
+  - "../rustapp/ai-lib-ts/src/protocol/loader.ts"
+  - "../rustapp/ai-protocol-mock/scripts/sync_manifests.py"
+  - "../rustapp/spiderswitch/src/spiderswitch/runtime/python_runtime.py"
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests: []
+
+completion_notes: |
+  Completed.
+  - Replaced public ai-protocol manifest/schema URL references with
+    github/ailib-official in protocol schemas, provider manifests, runtime docs,
+    examples, and manifest-fetch code paths.
+  - Updated ai-protocol-mock and spiderswitch manifest sync/fetch endpoints,
+    and aligned public URLs in ai-lib-rust/ai-lib-python/ai-lib-ts/ai-lib-go
+    and ailib.info documentation surfaces.
+  - Verified zero remaining hiddenpath public ai-protocol URLs in target repos.
+  - Preserved hiddenpath in CI workflow repository checkouts by design.
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-002: Internal docs privacy boundary"
+---

@@ -127,10 +127,10 @@ dependencies:
   - "XXX-<dependency-task-id>"
 
 related_issues:
-  - "https://github.com/hiddenpath/ai-protocol/issues/123"
+  - "https://github.com/ailib-official/ai-protocol/issues/123"
 
 references:
-  - "https://github.com/hiddenpath/ai-protocol/pull/456"
+  - "https://github.com/ailib-official/ai-protocol/pull/456"
 
 estimated_hours: 8
 actual_hours: null
@@ -181,6 +181,12 @@ See `templates/daily-standup-template.md` for format.
 - Quarter-specific planning in `active/releases/YYYY/QX/`
 - Feature freeze dates documented
 - Release candidate schedules tracked
+
+### URL Hygiene Governance
+
+- Use `tools/url_reference_hygiene.py` to scan/fix public URL references.
+- Recommended CI template: `templates/ci/url-reference-hygiene.yml`.
+- Rule baseline: `ai-lib-constitution/rules/testing/TEST-002-public-url-reference-hygiene.yaml`.
 
 ## Import Historical Data
 

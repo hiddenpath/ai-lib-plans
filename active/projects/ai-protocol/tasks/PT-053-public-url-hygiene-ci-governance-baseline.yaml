@@ -1,0 +1,64 @@
+---
+id: "PT-053"
+title: "Public URL hygiene CI governance baseline"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v0.9.x"
+labels:
+  - "governance"
+  - "ci"
+  - "cross-repo"
+created: "2026-03-20"
+updated: "2026-03-20"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Define a reusable governance baseline for public URL reference hygiene in
+  ailib-official repositories, including rule-level constraints and a CI template
+  with check + optional autofix workflow.
+
+acceptance_criteria:
+  - "Constitution includes explicit URL hygiene rule with allowed exceptions"
+  - "Plans repo contains reusable CI workflow template for URL hygiene"
+  - "Plans repo contains reusable checker/fixer tool and indexed docs"
+  - "Rule index and project docs reflect the governance baseline"
+
+dependencies:
+  - "PT-052"
+related_issues: []
+references:
+  - "ai-lib-constitution/rules/testing/TEST-002-public-url-reference-hygiene.yaml"
+  - "ai-lib-plans/tools/url_reference_hygiene.py"
+  - "ai-lib-plans/templates/ci/url-reference-hygiene.yml"
+
+estimated_hours: 2
+actual_hours: 1.5
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "../ai-lib-constitution/rules/testing/TEST-002-public-url-reference-hygiene.yaml"
+  - "tools/url_reference_hygiene.py"
+  - "templates/ci/url-reference-hygiene.yml"
+  - "tools/INDEX.md"
+  - "README.md"
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests: []
+
+completion_notes: |
+  Completed.
+  - Added TEST-002 governance rule for public URL hygiene and scoped exceptions.
+  - Added reusable CI template with required check and optional manual autofix PR path.
+  - Added reusable tool `url_reference_hygiene.py` and indexed usage.
+
+constitution_rules:
+  - "TEST-002: Public URL reference hygiene"
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-002: Internal docs privacy boundary"
+---

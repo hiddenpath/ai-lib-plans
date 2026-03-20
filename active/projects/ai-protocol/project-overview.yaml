@@ -36,6 +36,32 @@ milestones:
     summary: "Cross-repo gates, load-compliance hardening, CI governance rollout, RC drill closure"
 
 active_tasks:
+  - id: "PT-053"
+    title: "Public URL hygiene CI governance baseline"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "Add reusable URL hygiene rule + CI template + checker tool for ailib-official repositories"
+    acceptance_criteria:
+      - "Constitution includes TEST-002 URL hygiene rule"
+      - "Plans repo provides reusable CI template and checker/fixer tool"
+      - "Governance docs/index entries are updated"
+    estimated_hours: 2
+    actual_hours: 1.5
+
+  - id: "PT-052"
+    title: "Migrate public manifest references to ailib-official"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "Update outward-facing manifest/schema references from hiddenpath to ailib-official across protocol and runtime-adjacent repos"
+    acceptance_criteria:
+      - "Public manifest/schema URLs use github/ailib-official"
+      - "Runtime/mocks manifest fetch paths use ailib-official URLs"
+      - "Development-side hiddenpath workflow checkouts remain unchanged"
+    estimated_hours: 2
+    actual_hours: 1.5
+
   - id: "PT-001"
     title: "V2 Provider Manifest Schema"
     status: "in_progress"

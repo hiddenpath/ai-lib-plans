@@ -54,3 +54,21 @@
   - 演练模式：`bash tools/sync_repos_serial.sh --dry-run`
 - **风险提示**:
   - 默认会执行 `reset --hard` 和 `clean -fd`，会丢弃本地未提交改动和未跟踪文件。
+
+## `url_reference_hygiene.py`
+- **路径**: `tools/url_reference_hygiene.py`
+- **用途**: 扫描并可选修复公开 URL 中的 `hiddenpath` 残留，统一到 `ailib-official`
+- **默认检查模式**:
+  - 检测以下公共 URL 前缀：
+    - `https://github.com/hiddenpath/`
+    - `https://raw.githubusercontent.com/hiddenpath/`
+    - `https://api.github.com/repos/hiddenpath/`
+  - 默认排除：`.github/workflows/**`、`**/go.mod`（开发侧例外）
+- **示例**:
+  - 仅检查（失败返回非 0）：`python tools/url_reference_hygiene.py .`
+  - 自动修复：`python tools/url_reference_hygiene.py . --fix`
+  - 指定目录：`python tools/url_reference_hygiene.py ../ai-protocol ../ai-lib-rust`
+- **配套模板**:
+  - `templates/ci/url-reference-hygiene.yml`（PR/Push 检查 + 手动触发 autofix）
+- **风险提示**:
+  - `--fix` 会原地改写文件，建议在独立分支执行并通过 PR 合并。
