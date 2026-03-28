@@ -72,3 +72,21 @@
   - `templates/ci/url-reference-hygiene.yml`（PR/Push 检查 + 手动触发 autofix）
 - **风险提示**:
   - `--fix` 会原地改写文件，建议在独立分支执行并通过 PR 合并。
+
+## `build_paper.sh`
+
+- **路径**: `tools/build_paper.sh`
+- **用途**: 论文 LaTeX 项目编译脚本，遵循 DOC-003 规范
+- **编译器**: `pdflatex`（无 shell-escape，无 minted）
+- **编译序列**: `pdflatex → bibtex → pdflatex → pdflatex`
+- **适用项目**: `papers` 仓库下的论文目录
+- **示例**:
+  - 编译 paper1：`bash tools/build_paper.sh /home/alex/papers/EN/paper1_cursor`
+  - 清理后编译：`bash tools/build_paper.sh /home/alex/papers/EN/paper1_cursor --clean`
+  - 仅检查依赖：`bash tools/build_paper.sh /home/alex/papers/EN/paper1_cursor --check-deps`
+- **前置依赖**:
+  - `pdflatex` (texlive-latex-recommended)
+  - `bibtex` (texlive-bibtex-extra)
+  - `lmodern` (texlive-fonts-recommended)
+- **风险提示**:
+  - `--clean` 会删除 `*.aux`, `*.log`, `*.bbl`, `*.blg`, `*.out`, `*.toc` 等中间文件

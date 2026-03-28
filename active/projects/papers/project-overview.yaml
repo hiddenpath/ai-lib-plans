@@ -1,0 +1,71 @@
+---
+project: "papers"
+status: "active"
+repository: "https://github.com/hiddenpath/papers"
+overview: |
+  学术论文源码包和 arXiv 发布管理。
+  
+  每篇论文目录应包含：
+  - 原始 Markdown 源稿
+  - 转换后的 LaTeX 项目
+  - 编译后的 PDF
+  - 规范化决策笔记
+  
+  所有论文工作需遵循 ai-lib-constitution 和 ai-lib-plans 治理约束。
+
+active_papers:
+  - id: "paper1"
+    directory: "EN/paper1_cursor"
+    title: "The AI Execution Layer: A Minimal Runtime Architecture for AI-Native Systems"
+    author: "Wang Luqiang"
+    affiliation: "ai-lib"
+    status: "draft"
+    target: "arXiv cs.SE"
+    created: "2026-03-28"
+    last_updated: "2026-03-28"
+    phases:
+      - phase: "术语规范化"
+        status: "completed"
+      - phase: "项目脚手架"
+        status: "completed"
+      - phase: "核心LaTeX转换"
+        status: "completed"
+      - phase: "图形重绘"
+        status: "in_progress"
+      - phase: "Listings转换"
+        status: "pending"
+      - phase: "arXiv打包"
+        status: "pending"
+    open_issues:
+      - "缺少 figures/ 目录"
+      - "本地 LaTeX 编译依赖缺失"
+      - "缺少可复用构建脚本"
+
+constitution_rules:
+  - "DOC-001: 代码文档用英文，模块头加中文摘要"
+  - "DOC-002: 内部工作文档不得上传公开仓库"
+  - "DOC-003: 学术论文工作流规范（待创建）"
+  - "TEST-002: 公开 URL 必须指向 ailib-official"
+
+workflow:
+  build_sequence:
+    - "pdflatex main.tex"
+    - "bibtex main"
+    - "pdflatex main.tex"
+    - "pdflatex main.tex"
+  
+  arXiv_package_requirements:
+    - "所有 .tex 文件"
+    - "bibliography/refs.bib 或生成的 .bbl"
+    - "figures/*.pdf（矢量图）"
+    - "无 shell-escape 依赖"
+    - "无 minted 依赖"
+
+related_documents:
+  - "papers/EN/paper1_cursor/notes/execution_plan.md"
+  - "papers/EN/paper1_cursor/notes/normalization_decisions.md"
+
+metadata:
+  created: "2026-03-28"
+  author: "@ai"
+---
