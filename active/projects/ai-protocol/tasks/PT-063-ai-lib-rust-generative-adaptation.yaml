@@ -1,0 +1,126 @@
+---
+id: "PT-063"
+title: "ai-lib-rust generative LLM capability adaptation"
+status: "completed"
+priority: "critical"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v1.0.x"
+labels:
+  - "rust"
+  - "generative"
+  - "runtime"
+  - "adaptation"
+created: "2026-03-30"
+updated: "2026-03-31"
+executor_name: "cursor-agent"
+executor_terminal: "cursor-session"
+
+description: |
+  Adapt ai-lib-rust to pass gen-001~gen-007 compliance fixtures.
+
+  ## Gap Analysis (from audit)
+
+  1. **reasoning_tokens in Usage** (gen-002): UsageInfo only has 3 fields.
+     → Extend UsageInfo with optional reasoning_tokens, cache_read_tokens,
+       cache_creation_tokens. Parse from completion_tokens_details.
+
+  2. **Structured output wiring** (gen-003): ChatRequestBuilder forces
+     response_format to None.
+     → Wire response_format from ChatRequestBuilder through to UnifiedRequest.
+       When manifest feature_flags.structured_output=true, allow json_mode.
+
+  3. **Reasoning/thinking in default streaming pipeline** (gen-006):
+     ThinkingDelta event exists; Anthropic driver handles it; OpenAI
+     default PathEventMapper does not.
+     → Add reasoning_content/thinking delta branch to OpenAI-style mapper.
+
+  4. **Feature flags enforcement** (gen-001): Flags parsed in V2 but
+     not lifted to runtime behavior checks.
+     → Wire feature_flags into capability validation and request building.
+
+  5. **Compliance test runner** (gen-001~007): No 08-generative-capabilities
+     test runner.
+     → Add generative compliance test module consuming shared YAML fixtures.
+
+  ## Lower priority (already partially working)
+
+  - Tool call streaming accumulation (gen-004): OpenAI-style works; Anthropic partial.
+  - Error classification context_length (gen-005): Already maps to E1005; verify.
+  - MCP bridge (gen-007): Present; verify fail-fast.
+
+execution_protocol: |
+  MANDATORY: Test-first for every adaptation item.
+  1. Write test covering expected behavior (gen-00x fixture assertion)
+  2. Run test → must FAIL (proves test captures the gap)
+  3. Implement minimal code to pass
+  4. Run test → must PASS
+  5. Run full cargo test → no regression
+
+acceptance_criteria:
+  - "UsageInfo includes reasoning_tokens with provider-variant extraction"
+  - "ChatRequestBuilder passes response_format when structured_output enabled"
+  - "Streaming pipeline emits ThinkingDelta for OpenAI reasoning_content"
+  - "Feature flags drive request/validation behavior"
+  - "tests/generative_compliance.rs passes gen-001 through gen-007"
+  - "Each adaptation item has evidence of test-fail-then-pass cycle"
+
+dependencies:
+  - "PT-057"
+  - "PT-058"
+related_issues: []
+references:
+  - "d:/rustapp/ai-lib-rust/src/types/events.rs"
+  - "d:/rustapp/ai-lib-rust/src/drivers/mod.rs"
+  - "d:/rustapp/ai-lib-rust/src/client/chat.rs"
+  - "d:/rustapp/ai-lib-rust/src/protocol/v2/capabilities.rs"
+  - "d:/ai-protocol/tests/compliance/cases/08-generative-capabilities/"
+estimated_hours: 16
+actual_hours: 16
+blocks: []
+blocked_by:
+  - "PT-057"
+
+files_changed:
+  - "d:/rustapp/ai-lib-rust/src/drivers/mod.rs"
+  - "d:/rustapp/ai-lib-rust/src/drivers/anthropic.rs"
+  - "d:/rustapp/ai-lib-rust/src/drivers/gemini.rs"
+  - "d:/rustapp/ai-lib-rust/src/protocol/config.rs"
+  - "d:/rustapp/ai-lib-rust/src/protocol/manifest.rs"
+  - "d:/rustapp/ai-lib-rust/src/client/policy.rs"
+  - "d:/rustapp/ai-lib-rust/src/client/chat.rs"
+  - "d:/rustapp/ai-lib-rust/src/client/core.rs"
+  - "d:/rustapp/ai-lib-rust/src/client.rs"
+  - "d:/rustapp/ai-lib-rust/src/pipeline/event_map.rs"
+  - "d:/rustapp/ai-lib-rust/tests/generative_compliance.rs"
+  - "d:/rustapp/ai-lib-rust/tests/adaptive_controls.rs"
+  - "d:/ai-protocol/tests/compliance/fixtures/providers/mock-openai.yaml"
+
+testing:
+  unit_tests:
+    - "ai-lib-rust: cargo fmt --all -- --check; cargo clippy --all-targets -- -D warnings; cargo test; cargo test --doc; cargo test --all-features --tests"
+  integration_tests:
+    - "tests/integration/* via tests/integration_suite.rs; mockito fixtures"
+  compliance_tests:
+    - "tests/generative_compliance.rs: gen-001~gen-007 (10 tests, all pass)"
+    - "tests/compliance.rs + ai-protocol fixtures"
+
+completion_notes: |
+  Implemented gen-001~gen-007 alignment: UsageInfo reasoning/cache token fields;
+  OpenAI stream ThinkingDelta from reasoning_content; capabilities structured_output/mcp_client;
+  policy + compile_request for response_format; event mappers (rule-based + path);
+  tests/generative_compliance.rs. Fixed adaptive_controls: use openai/gpt-4o-mini because
+  DeepSeek V2 manifest has no rate_limit_headers so header updates are no-ops.
+
+  **Quality gate follow-up (2026-03-31, branch `pt-063-rust-hardening`, pushed):**
+  CI runs fmt, clippy -D warnings, lib/tests/doctests, all-features tests; explicit ai-protocol checkout.
+  Resolved prior doctest drift; cleared clippy -D warnings (incl. result_large_err via boxed ErrorContext);
+  integration test harness + rate_limiter refill stability; plugin/middleware naming (with_plugin / with_middleware);
+  `.gitignore`: `target-precheck/`.
+  Open PR: https://github.com/hiddenpath/ai-lib-rust/pull/new/pt-063-rust-hardening
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "RUST-001: Error handling"
+  - "TEST-001: Compliance tests"
+---

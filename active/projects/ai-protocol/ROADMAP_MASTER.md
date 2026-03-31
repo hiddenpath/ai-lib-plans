@@ -64,6 +64,52 @@
   - `PT-038`：spiderswitch 运行时路由契约测试（已完成）
   - `PT-039`：v0.9.x RC 门禁评审与发布列车（已完成）
 
+### Wave-3C：报告治理与 IOSPC 边界（PT-040~PT-050 已完成）
+
+  - `PT-040`：报告治理模板包采纳与 F/D 基线建立（已完成）
+  - `PT-041`：F 层事实报告重构与证据加固（已完成）
+  - `PT-042`：D 层设计报告重构与验证计划（已完成）
+  - `PT-043`：report-evidence-gate report-only 试点（已完成）
+  - `PT-044`：IOS 跨运行时 required gate 晋级（已完成）
+  - `PT-045`：IOS 边界 fixture 与反例扩展（已完成）
+  - `PT-046`：Process/Contract 阶段就绪设计与回滚（已完成）
+  - `PT-047`：IOSPC 阶段 schema 与运行时 compliance 试点（已完成）
+  - `PT-048`：IOSPC required gate 演练与回滚通道（已完成）
+  - `PT-049`：IOSPC fail-fast required vs report-only 演练（已完成）
+  - `PT-050`：fullchain 回滚演练集成（已完成）
+
+### Wave-3D：四运行时治理与公共引用迁移（PT-051~PT-053 已完成）
+
+  - `PT-051`：四运行时 manifest loading 矩阵 Go 纳入（已完成）
+  - `PT-052`：公开 manifest 引用迁移至 ailib-official（已完成）
+  - `PT-053`：公共 URL hygiene CI 治理基线（已完成）
+
+### Wave-4：生成式大模型扩容与运行时对齐（PT-054~PT-062 进行中）
+
+> 总体目标：将生成式大模型（LLM）完整纳入协议 schema、四运行时对齐、mock 覆盖，
+> 并开启 WASM 运行时演进路径，目标里程碑 v1.0.x。
+
+  - `PT-054`：Plans 与路线图真源对齐（治理基线修复）
+  - `PT-055`：MEMORY 四运行时与 Wave-4 事实对齐
+  - `PT-056`：ai-protocol 仓库 reports/ 目录治理策略
+  - `PT-057`：生成式大模型 Manifest Schema 扩展与运行时支持规划（核心）
+  - `PT-058`：四运行时生成式能力语义对齐矩阵（核心）
+  - `PT-059`：ai-protocol-mock 生成式模型场景扩展
+  - `PT-060`：P1 Provider Wave-2 生成式大模型选型与排期
+  - `PT-061`：WASM Runtime Adapter 分阶段演进规划
+  - `PT-062`：阶段性门禁评审与 v1.0.x RC 发布列车
+
+### Wave-4B：四运行时生成式适配编码（PT-063~PT-066）
+
+> 前置审计发现所有四运行时均需适配编码以通过 08-generative-capabilities 合规矩阵。
+
+> **2026-03-31**：四运行时「官方库质量门禁」补强已分别推送 PR 分支（`pt-063-{rust,python,ts,go}-hardening` → `hiddenpath/*` 远端）；合并前在 GitHub 上针对 `main` 开 PR。细节与验证命令见 `MEMORY.md`「Four-Runtime Official Library Quality Gates」与各任务 YAML 的 `completion_notes`。
+
+  - `PT-063`：ai-lib-rust 生成式适配（Usage/reasoning_tokens、structured output wiring、thinking stream、feature_flags enforcement、compliance runner）**+ 质量门禁闭环（fmt/clippy/tests/doctest/CI）**
+  - `PT-064`：ai-lib-python 生成式适配（Usage、compliance input types、reasoning mapper、feature_flags、MCP naming）**+ CI/docs/mypy 门禁补强（已完成）**
+  - `PT-065`：ai-lib-ts 生成式适配（Usage、ThinkingDelta pipeline、feature_flags parsing、ToolCallAccumulator、error_classification wiring）**进行中；已推送 TS 质量门禁与协议测试加固分支**
+  - `PT-066`：ai-lib-go 生成式适配（Usage struct、SSE thinking、ResponseFormat wiring、ToolCall streaming、compliance runner）**进行中；已落地 Usage/Chat 载荷/loader/CI，其余项仍在本任务内跟踪**
+
 ## 5. 维护约定
 
 - 本文件仅维护“治理规则 + 阶段映射”，不记录日常执行细节。

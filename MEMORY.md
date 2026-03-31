@@ -3,7 +3,7 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-03-15
+**Last Updated**: 2026-03-31
 
 ---
 
@@ -24,6 +24,15 @@
 - All runtimes must pass ai-protocol compliance tests.
 - Message roles: system, user, assistant, tool (per standard_message_roles).
 - Unified request/response format across Rust, Python, TypeScript, Go.
+
+### Four-Runtime Official Library Quality Gates (2026-03-31)
+- Wave-4B follow-up: each runtime has a **PR-ready hardening branch** aligned to public-library expectations (format, lint, typecheck, tests, CI blocking).
+- **Branches pushed** (remote `hiddenpath/*`, open PR against `main`): `pt-063-rust-hardening`, `pt-063-python-hardening`, `pt-063-ts-hardening`, `pt-063-go-hardening`.
+- **Rust**: `cargo fmt --check`, `clippy -D warnings`, `cargo test` incl. doctests + integration; `Error` context boxed for `result_large_err`; integration/mock fixes; `target-precheck/` gitignored.
+- **Python**: CI `build` gates on `smoke` + `test` + `test-with-mock` + `lint` + `typecheck`; `mkdocs build --strict`; mypy overrides for optional deps; `ailib-official` checkout paths in workflows.
+- **TypeScript**: root `ci.yml` (lint, typecheck with tests, test, build, mock-integration job); `eslint.config.mjs`; `protocolRoot()` test helper; loader `base_url` normalization for V2 `endpoint.base_url`.
+- **Go**: `go.mod` module path `github.com/ailib-official/ai-lib-go`; CI `gofmt`/`go vet`/`go test ./...` with `COMPLIANCE_DIR`; shared `buildChatPayload` for Chat/ChatStream parity; extended `Usage` (reasoning/cache); JSON path detection via file extension.
+- **Non-goals closed in this wave**: prior doctest/clippy/mypy/docs debt called out in PT-063 notes — addressed on Rust/Python sides; Go generative YAML runner and SSE thinking stream remain tracked under PT-066 scope.
 
 ### Four-Runtime Baseline and Go Manifest Alignment (2026-03-15)
 - Cross-runtime default semantics are now defined as **Rust/Python/TypeScript/Go** (not tri-runtime).
@@ -245,6 +254,30 @@
   - Go proxy: `github.com/hiddenpath/ai-lib-go@v0.0.1` resolvable
 - `ailib.info` docs matrix synced in EN/ZH/JA/ES intro+ecosystem pages with Go runtime included and versions aligned.
 
+### Four-Runtime Manifest Loading Matrix (PT-051, 2026-03-15)
+- Cross-runtime parity narrative upgraded from tri-runtime to four-runtime (Rust/Python/TypeScript/Go).
+- ai-protocol project-level dependencies now explicitly include ai-lib-go alignment status.
+- Related governance chain: GO-005~GO-010 (manifest compatibility, transport contract, release governance, governance equalization).
+
+### Public Manifest Reference Migration (PT-052, 2026-03-20)
+- Outward-facing manifest/schema URLs migrated from hiddenpath to ailib-official across protocol and runtime repos.
+- Development-side hiddenpath workflow checkouts remain unchanged.
+
+### Public URL Hygiene CI Governance (PT-053, 2026-03-20)
+- Constitution includes TEST-002 rule for public URL reference hygiene.
+- Plans repo provides reusable CI template and checker/fixer tool.
+- Governance baseline enforces ailib-official references in public-facing manifests.
+
+### Wave-4: Generative LLM Expansion Architecture (2026-03-30)
+- **Phase goal**: Bring generative large language models fully into protocol schema, four-runtime alignment, and mock coverage; open WASM evolution path. Target milestone: v1.0.x.
+- **Generative manifest schema** (PT-057): V2 capability schema extends for context window, reasoning mode, function calling depth, structured output, JSON mode. MCP tool bridge schema finalized to v0. Streaming contract and token usage reporting contract defined. New compliance category `08-generative-capabilities`.
+- **Four-runtime alignment** (PT-058): Rust/Python/TypeScript/Go must achieve semantic parity for generative capabilities (message building, streaming decode, tool calling, token reporting, error classification, fallback/resilience). Go may lag by one sprint with explicit catch-up plan.
+- **Mock expansion** (PT-059): ai-protocol-mock extended for generative chat completion, tool calling (single/parallel/recursive/MCP), reasoning mode, error injection (context overflow, content filter, rate limit), token usage reporting with provider-variant shapes.
+- **Provider Wave-2** (PT-060): Scored selection of next generative providers (Mistral, Perplexity, Grok, MiniMax, Baichuan, Yi, etc.) with per-provider onboarding checklist.
+- **WASM evolution** (PT-061): Three-phase plan — Phase 1: contract definition + PoC (wasm32-wasi, ai-lib-rust as primary source); Phase 2: browser/edge integration; Phase 3: production readiness. WASM remains optional/disabled-by-default until Phase 2 proven.
+- **Release gate** (PT-062): Wave-4 phase gate review + v1.0.x RC release train. WASM Phase 1 contract is informational, not blocking for v1.0.x RC.
+- Rollback strategy: generative capabilities use additive schema changes only; V1 backward compatibility preserved; feature flags for experimental capabilities.
+
 ---
 
 ## Cross-Project Conventions
@@ -319,63 +352,17 @@
 **ai-lib-constitution and ai-lib-plans must be workspace roots** when working on ai-lib projects.  
 Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, AGENTS, MEMORY before changes.
 
-## Repository Layout
+## Repository Layout (Updated 2026-03-30)
 
-| Repo | Purpose |
-|------|---------|
-| ai-protocol | Spec, schemas, provider manifests |
-| ai-lib-rust | Rust runtime |
-| ai-lib-python | Python runtime |
-| ai-lib-ts | TypeScript runtime |
-| ai-protocol-mock | Mock server |
-| spiderswitch | MCP-based model switching showcase |
-| ai-lib-constitution | Rules for AI agents |
-
----
-
-## Repository Layout (Updated 2026-03-09)
-
-| Repo | Purpose | Version |
-|------|---------|--------|
-| ai-protocol | Spec, schemas, provider manifests | v0.8.0 |
-| ai-lib-rust | Rust runtime | v0.8.6 |
-| ai-lib-python | Python runtime | v0.8.2 |
-| ai-lib-ts | TypeScript runtime | v0.5.1 |
-| **ai-lib-go** | **Go runtime (NEW)** | **v0.5.0** |
-| ai-protocol-mock | Mock server | v0.1.3 |
-| spiderswitch | MCP-based model switching | v0.2.0 |
+| Repo | Purpose | Latest Version |
+|------|---------|---------------|
+| ai-protocol | Spec, schemas, provider manifests | v0.8.3 (target v1.0.x) |
+| ai-lib-rust | Rust runtime | v0.9.3 |
+| ai-lib-python | Python runtime | v0.8.3 |
+| ai-lib-ts | TypeScript runtime | v0.5.3 |
+| ai-lib-go | Go runtime | v0.0.1 |
+| ai-protocol-mock | Mock server | v0.1.11 |
+| spiderswitch | MCP-based model switching | v0.4.2 |
 | ai-lib-constitution | Rules for AI agents | - |
 | ai-lib-plans | Tasks, standups, planning | - |
-
-### ai-lib-go Initial Release (2026-03-09)
-
-- **Repository**: https://github.com/hiddenpath/ai-lib-go
-- **Version**: 0.5.0
-- **Language**: Go 1.21+
-- **License**: MIT OR Apache-2.0
-- **Status**: Initial release, core features implemented
-
-**Features Implemented**:
-- V1/V2 Protocol Loader (YAML/JSON)
-- Unified Chat API (sync/stream)
-- SSE Streaming decoder
-- Standard error codes (E1001-E9999)
-- Retry policy with exponential backoff
-- Rate limiting and circuit breaker
-- Tool calling support
-- Multimodal support (vision/audio/video)
-- Embeddings, Batch, STT/TTS, Reranking APIs
-- Compliance test framework
-
-**Alignment with Python Runtime**: 85%
-- Core features: 100% aligned
-- Advanced features (MCP, Computer Use, Guardrails, Telemetry): Not yet implemented
-
-**Architecture**:
-- gRPC/Cloud style project layout
-- Standard library only (net/http, encoding/json, context, sync)
-- Native Go concurrency (goroutines, channels)
-- Protocol-driven design (ARCH-001)
-- Cross-runtime consistency (ARCH-003)
-
-| ai-lib-plans | Tasks, standups, planning |
+| ai-lib-benchmark | Benchmark scripts and baselines | - |

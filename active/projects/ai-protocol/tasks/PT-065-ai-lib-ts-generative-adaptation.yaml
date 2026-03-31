@@ -1,0 +1,112 @@
+---
+id: "PT-065"
+title: "ai-lib-ts generative LLM capability adaptation"
+status: "in_progress"
+priority: "critical"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v1.0.x"
+labels:
+  - "typescript"
+  - "generative"
+  - "runtime"
+  - "adaptation"
+created: "2026-03-30"
+updated: "2026-03-31"
+executor_name: "cursor-agent"
+executor_terminal: "cursor-session"
+
+description: |
+  Adapt ai-lib-ts to pass gen-001~gen-007 compliance fixtures.
+
+  ## Gap Analysis (from audit)
+
+  1. **reasoning_tokens in Usage** (gen-002): UnifiedResponse.usage only has 3 fields.
+     → Extend Usage interface with reasoning_tokens?. Normalize from
+       completion_tokens_details (OpenAI) / Anthropic shapes.
+
+  2. **ThinkingDelta in pipeline** (gen-006): Event type defined but not emitted
+     by createOpenAiEventMapper or createAnthropicEventMapper.
+     → Wire thinking/reasoning delta paths in both mappers.
+
+  3. **feature_flags consumption** (gen-001): Not typed or consumed at all.
+     → Add FeatureFlags type to ManifestV2; parse and expose.
+       Wire structured_output/extended_thinking checks.
+
+  4. **Tool call accumulator** (gen-004): Events emitted but no merge logic.
+     → Implement ToolCallAccumulator utility that concatenates partial arguments.
+       Expose in streaming client surface.
+
+  5. **Manifest error_classification consumption** (gen-005): Shape defined in
+     types but not used in errors/index.ts.
+     → Wire manifest error_classification into classifyHttpStatus to support
+       provider-specific error code mapping.
+
+  6. **Structured output auto-wiring** (gen-003): json-mode.ts exists but
+     client/index.ts does not reference it.
+     → Document integration path (manual is acceptable if typed).
+
+  ## Already working
+
+  - MCP bridge (gen-007): Present.
+  - Basic streaming (gen-004 partial): Events emitted.
+
+execution_protocol: |
+  MANDATORY: Test-first for every adaptation item.
+  1. Write test covering expected behavior (gen-00x fixture assertion)
+  2. Run test → must FAIL (proves test captures the gap)
+  3. Implement minimal code to pass
+  4. Run test → must PASS
+  5. Run full npm test → no regression
+
+acceptance_criteria:
+  - "Usage interface includes reasoning_tokens"
+  - "Pipeline emitters produce ThinkingDelta for reasoning content"
+  - "FeatureFlags parsed from manifests and accessible"
+  - "ToolCallAccumulator merges partial arguments"
+  - "tests/generative.compliance.test.ts passes gen-001 through gen-007"
+  - "Each adaptation item has evidence of test-fail-then-pass cycle"
+
+dependencies:
+  - "PT-057"
+  - "PT-058"
+related_issues: []
+references:
+  - "d:/rustapp/ai-lib-ts/src/types/events.ts"
+  - "d:/rustapp/ai-lib-ts/src/pipeline/index.ts"
+  - "d:/rustapp/ai-lib-ts/src/protocol/manifest.ts"
+  - "d:/ai-protocol/tests/compliance/cases/08-generative-capabilities/"
+estimated_hours: 14
+actual_hours: null
+blocks: []
+blocked_by:
+  - "PT-057"
+
+files_changed: []
+
+testing:
+  unit_tests:
+    - "ai-lib-ts: npm run lint; npm run typecheck; npm test; npm run build"
+  compliance_tests:
+    - "protocol-loading / protocol-v2 / advanced-capabilities / compliance-matrix / retry-policy suites (ai-protocol fixtures via tests/helpers/protocol-root.ts)"
+  integration:
+    - "ci.yml mock-integration job when ai-protocol-mock available"
+
+completion_notes: |
+  **Shipped on branch `pt-063-ts-hardening` (2026-03-31, pushed):** official-library quality baseline —
+  root `.github/workflows/ci.yml` (lint, typecheck including tests, unit tests, build, optional mock-integration);
+  `eslint.config.mjs` + Node globals; `tsconfig.typecheck.json`; `tests/helpers/protocolRoot.ts`;
+  `normalizeProviderManifest` projects V2 `endpoint.base_url` to `base_url`; test type-guards / optional chaining;
+  integration tests probe mock health instead of env-only skip; `prepublishOnly` runs full gate script chain.
+
+  **Remaining vs acceptance_criteria:** generative-specific items (ThinkingDelta emitters, ToolCallAccumulator
+  surface, full `tests/generative.compliance.test.ts` gen-001~007 naming as in task spec) still to close under
+  this task or a follow-up slice; track against ARCH-003 before marking completed.
+
+  Open PR: https://github.com/hiddenpath/ai-lib-ts/pull/new/pt-063-ts-hardening
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TS-001: Strict mode"
+  - "TEST-001: Compliance tests"
+---
