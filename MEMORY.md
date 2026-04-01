@@ -32,9 +32,9 @@
 - **Contact (P) extracts**: routing, cache, batch, plugins, interceptors, tokens, telemetry, guardrails (strategy engine), feedback (collectors), negotiation, resilience (circuit breaker, complex rate limiter, fallback chains).
 - **E ↔ P contract**: `ExecutionResult<T>` with `ExecutionMetadata` (provider_id, model_id, latencies, micro_retry_count, error_code, usage). P consumes metadata for routing/retry/degradation; E does not know P's decisions.
 - **WASM enabler**: core-only crate compiles to wasm32-wasip1 (no P dependencies → no state → small binary).
-- **v1.0 condition**: four-language core-only passes full compliance matrix + WASM core passes compliance subset + backward-compatible facade packages.
+- **v1.0 condition**: four-language core-only passes full compliance matrix + WASM core passes compliance subset + documented package layout and migration notes (pre-public: breaking paths/APIs allowed; optional thin aggregation only if trivial).
 - **Tasks**: PT-067 (contract) → PT-068/069/070/071 (split per runtime) → PT-072 (WASM) → PT-073 (v1.0 RC gate).
-- **Rollback**: facade packages re-export both core and contact; existing user code unchanged.
+- **Rollback**: tag baseline commits; CHANGELOG captures breaking layout; no requirement for long-lived dual-track APIs.
 
 ### Four-Runtime Official Library Quality Gates (2026-03-31)
 - Wave-4B follow-up: each runtime has a **PR-ready hardening branch** aligned to public-library expectations (format, lint, typecheck, tests, CI blocking).

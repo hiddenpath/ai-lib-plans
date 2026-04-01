@@ -18,7 +18,10 @@ executor_name: ""
 executor_terminal: ""
 
 description: |
-  Split ai-lib-rust into a Cargo workspace with two crates:
+  Policy (pre-1.0 / pre-public): breaking layout and paths are OK. Optional thin
+  aggregation crate only if it stays trivial; document new entrypoints in CHANGELOG.
+
+  Split ai-lib-rust into a Cargo workspace with two primary crates:
 
   ## ai-lib-core (最小执行层)
 
@@ -38,11 +41,11 @@ description: |
   - Resilience: circuit breaker, complex rate limiter, fallback chains
   - Depends on ai-lib-core
 
-  ## ai-lib-rust (facade, backward compatibility)
+  ## Optional: workspace root / metapackage (ai-lib-rust)
 
-  Re-exports both ai-lib-core and ai-lib-contact.
-  Existing users `use ai_lib_rust::*` continues to work.
-  Deprecation notices guide migration to ai-lib-core or ai-lib-contact.
+  May re-export core + contact for one-line dependency, or omit; not required for
+  Wave 5 success. If omitted, migration notes point consumers to ai-lib-core and
+  ai-lib-contact directly.
 
   ## WASM readiness gate
 
@@ -50,11 +53,11 @@ description: |
   HTTP transport shimmed via conditional compilation (#[cfg(target_arch = "wasm32")]).
 
 execution_protocol: |
-  1. Create Cargo workspace with three members
+  1. Create Cargo workspace (two required members: ai-lib-core, ai-lib-contact; optional third for aggregation)
   2. Move E modules to ai-lib-core
   3. Move P modules to ai-lib-contact
   4. Wire ai-lib-contact depends-on ai-lib-core
-  5. Wire ai-lib-rust re-exports both
+  5. Optionally wire root/metapackage re-exports; otherwise document new crate names in CHANGELOG
   6. cargo fmt + clippy -D warnings + cargo test (full workspace)
   7. cargo test -p ai-lib-core (core-only compliance)
   8. cargo build --target wasm32-wasip1 -p ai-lib-core (WASM gate)
@@ -62,10 +65,10 @@ execution_protocol: |
 acceptance_criteria:
   - "ai-lib-core compiles and passes compliance matrix independently"
   - "ai-lib-contact compiles with ai-lib-core dependency"
-  - "ai-lib-rust facade re-exports both; existing API unchanged"
+  - "CHANGELOG documents public crate layout and any breaking import-path changes"
   - "ai-lib-core has zero routing/cache/batch/plugins/tokens/telemetry imports"
   - "WASM target wasm32-wasip1 compiles for ai-lib-core"
-  - "cargo clippy -D warnings clean on all three crates"
+  - "cargo clippy -D warnings clean on all published workspace crates"
 
 dependencies:
   - "PT-067"

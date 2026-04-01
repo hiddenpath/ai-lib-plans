@@ -21,6 +21,9 @@ description: |
   Final gate before v1.0.0 release. Proves that the minimal execution layer
   (Paper1 §3) is engineering-complete across all supported targets.
 
+  Pre-1.0 policy (WAVE5 plan §1.4): backward compatibility is not a release gate;
+  migration documentation and CHANGELOG are blocking instead.
+
   ## Gate checklist
 
   ### 1. Core-only compliance (blocking)
@@ -42,11 +45,10 @@ description: |
   - [ ] ExecutionMetadata returned by all four runtimes
   - [ ] ai-lib-contact (Rust/Python/TS) compiles against core
 
-  ### 4. Backward compatibility (blocking)
+  ### 4. Migration documentation (blocking)
 
-  - [ ] ai-lib-rust facade: existing user code compiles unchanged
-  - [ ] ai-lib-python[full]: existing user code runs unchanged
-  - [ ] @ailib/ai-lib-ts: existing user code compiles unchanged
+  - [ ] CHANGELOG per runtime: new package/crate names, breaking import paths, migration notes
+  - [ ] Internal consumers (e.g. spiderswitch) updated or tracked with explicit follow-up issue
 
   ### 5. Governance gates (blocking)
 
@@ -66,7 +68,7 @@ description: |
   1. Tag ai-protocol v1.0.0
   2. Tag ai-lib-core (Rust) v1.0.0
   3. Tag ai-lib-contact (Rust) v1.0.0
-  4. Tag ai-lib-rust v1.0.0 (facade)
+  4. Tag optional aggregation crate / workspace root v1.0.0 if it exists; else skip
   5. Tag ai-lib-python v1.0.0
   6. Tag ai-lib-ts v1.0.0 (core + contact + facade)
   7. Tag ai-lib-go v1.0.0
@@ -79,7 +81,7 @@ description: |
   - Any core-only compliance failure
   - WASM binary > 2MB without clear mitigation
   - P-module leak detected in any core package
-  - Backward compatibility regression
+  - Undocumented breaking surface (CHANGELOG/migration missing) for intentional layout changes
 
 acceptance_criteria:
   - "All gate checklist items PASS"
@@ -115,8 +117,8 @@ testing:
     - "Four-runtime core-only full compliance matrix"
     - "WASM compliance subset"
   integration_tests:
-    - "Backward compatibility smoke tests"
     - "E/P dependency direction verification"
+    - "Smoke tests on documented entrypoints (core + contact as released)"
 
 completion_notes: ""
 

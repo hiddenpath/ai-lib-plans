@@ -123,7 +123,7 @@
   - `PT-070`：ai-lib-ts core/contact 包拆分（@ailib/core + @ailib/contact + bundle size 门禁）
   - `PT-071`：ai-lib-go core 验证（已近最小，补齐 ExecutionMetadata 合同）
   - `PT-072`：WASM 从 core-only 构建（PT-061 Phase 1 执行，6 导出函数 + wasmtime 合规）
-  - `PT-073`：core-only 合规证明 + v1.0.0 RC 门禁（四语言 + WASM + 向后兼容 + 发布列车）
+  - `PT-073`：core-only 合规证明 + v1.0.0 RC 门禁（四语言 + WASM + 迁移文档 + 发布列车；pre-1.0 允许破坏性布局）
 
 ## 5. 维护约定
 

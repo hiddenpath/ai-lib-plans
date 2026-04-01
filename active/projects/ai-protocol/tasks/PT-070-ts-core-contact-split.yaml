@@ -23,7 +23,7 @@ description: |
 
   - `@ailib/core` — minimal execution layer (E modules)
   - `@ailib/contact` — strategy layer (P modules), depends on @ailib/core
-  - `@ailib/ai-lib-ts` — facade re-exporting both (backward compat)
+  - `@ailib/ai-lib-ts` — optional aggregation re-export; omit if cleaner to depend on core+contact only
 
   ## Core modules (E)
 
@@ -56,7 +56,7 @@ execution_protocol: |
 acceptance_criteria:
   - "@ailib/core passes compliance matrix independently"
   - "@ailib/contact depends on @ailib/core, not vice versa"
-  - "Existing @ailib/ai-lib-ts API preserved via re-export"
+  - "CHANGELOG documents package layout and any breaking import changes"
   - "Core-only bundle size documented (target: < 50KB minified)"
 
 dependencies:

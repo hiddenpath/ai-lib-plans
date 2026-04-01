@@ -23,7 +23,7 @@ description: |
 
   - `pip install ai-lib-python` → core only (E modules)
   - `pip install ai-lib-python[contact]` → adds routing/cache/batch/plugins/etc.
-  - `pip install ai-lib-python[full]` → everything (backward compat)
+  - `pip install ai-lib-python[full]` → everything (optional convenience extra; not a compat guarantee)
 
   ## Option B: separate packages
 
@@ -59,7 +59,7 @@ execution_protocol: |
 acceptance_criteria:
   - "Core-only install passes compliance matrix"
   - "No P-module imports in core execution path"
-  - "Backward compatibility: pip install ai-lib-python[full] works as before"
+  - "CHANGELOG documents package/extras layout and any breaking import changes"
   - "mypy strict passes on both surfaces"
 
 dependencies:
