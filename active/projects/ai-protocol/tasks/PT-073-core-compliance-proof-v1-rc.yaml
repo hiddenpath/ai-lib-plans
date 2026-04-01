@@ -1,0 +1,127 @@
+---
+id: "PT-073"
+title: "Core-only compliance proof and v1.0.0 RC gate"
+status: "pending"
+priority: "critical"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v1.0.0"
+labels:
+  - "release"
+  - "governance"
+  - "gate"
+  - "v1"
+  - "compliance"
+created: "2026-04-01"
+updated: "2026-04-01"
+executor_name: ""
+executor_terminal: ""
+
+description: |
+  Final gate before v1.0.0 release. Proves that the minimal execution layer
+  (Paper1 §3) is engineering-complete across all supported targets.
+
+  ## Gate checklist
+
+  ### 1. Core-only compliance (blocking)
+
+  - [ ] ai-lib-core (Rust): cargo test -p ai-lib-core → full compliance PASS
+  - [ ] ai-lib-python[core]: pytest tests/compliance/ → PASS
+  - [ ] @ailib/core (TS): npm test → compliance PASS
+  - [ ] ai-lib-go: go test ./... → compliance PASS (already core-only)
+
+  ### 2. WASM compliance (blocking)
+
+  - [ ] wasm32-wasip1 binary < 2MB
+  - [ ] wasmtime harness: protocol_loading + message_building PASS
+  - [ ] 6 exported functions verified
+
+  ### 3. E/P separation integrity (blocking)
+
+  - [ ] No P-module imports in any core package (verified by build test)
+  - [ ] ExecutionMetadata returned by all four runtimes
+  - [ ] ai-lib-contact (Rust/Python/TS) compiles against core
+
+  ### 4. Backward compatibility (blocking)
+
+  - [ ] ai-lib-rust facade: existing user code compiles unchanged
+  - [ ] ai-lib-python[full]: existing user code runs unchanged
+  - [ ] @ailib/ai-lib-ts: existing user code compiles unchanged
+
+  ### 5. Governance gates (blocking)
+
+  - [ ] drift:check → no critical findings
+  - [ ] gate:fullchain → PASS in required mode
+  - [ ] Rollback drill evidence refreshed
+
+  ### 6. Documentation and release (blocking)
+
+  - [ ] Release notes cover: E/P separation, WASM support, minimality proof
+  - [ ] ailib.info updated with new package structure
+  - [ ] MEMORY.md updated with v1.0.0 decision record
+  - [ ] CHANGELOG for all packages
+
+  ## Release train (if gate PASS)
+
+  1. Tag ai-protocol v1.0.0
+  2. Tag ai-lib-core (Rust) v1.0.0
+  3. Tag ai-lib-contact (Rust) v1.0.0
+  4. Tag ai-lib-rust v1.0.0 (facade)
+  5. Tag ai-lib-python v1.0.0
+  6. Tag ai-lib-ts v1.0.0 (core + contact + facade)
+  7. Tag ai-lib-go v1.0.0
+  8. Publish WASM package v1.0.0
+  9. Tag ai-protocol-mock v1.0.0
+  10. Update spiderswitch to consume ai-lib-contact
+
+  ## Hold criteria
+
+  - Any core-only compliance failure
+  - WASM binary > 2MB without clear mitigation
+  - P-module leak detected in any core package
+  - Backward compatibility regression
+
+acceptance_criteria:
+  - "All gate checklist items PASS"
+  - "v1.0.0 release train executed with evidence"
+  - "Release notes published"
+  - "MEMORY.md records v1.0.0 decision"
+
+dependencies:
+  - "PT-068"
+  - "PT-069"
+  - "PT-070"
+  - "PT-071"
+  - "PT-072"
+related_issues:
+  - "PT-062"
+references:
+  - "active/projects/ai-protocol/WAVE5_EP_SEPARATION_AND_V1_PLAN_2026-04-01.md"
+  - "Paper1 §3 (Minimality Constraint)"
+estimated_hours: 12
+actual_hours: null
+blocks: []
+blocked_by:
+  - "PT-068"
+  - "PT-069"
+  - "PT-070"
+  - "PT-071"
+  - "PT-072"
+
+files_changed: []
+
+testing:
+  compliance_tests:
+    - "Four-runtime core-only full compliance matrix"
+    - "WASM compliance subset"
+  integration_tests:
+    - "Backward compatibility smoke tests"
+    - "E/P dependency direction verification"
+
+completion_notes: ""
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---

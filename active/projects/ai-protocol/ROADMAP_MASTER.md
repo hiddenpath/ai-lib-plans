@@ -110,6 +110,21 @@
   - `PT-065`：ai-lib-ts 生成式适配（Usage、ThinkingDelta pipeline、feature_flags parsing、ToolCallAccumulator、error_classification wiring）**进行中；已推送 TS 质量门禁与协议测试加固分支**
   - `PT-066`：ai-lib-go 生成式适配（Usage struct、SSE thinking、ResponseFormat wiring、ToolCall streaming、compliance runner）**进行中；已落地 Usage/Chat 载荷/loader/CI，其余项仍在本任务内跟踪**
 
+### Wave-5：执行层/策略层分离与 v1.0 发布（PT-067~PT-073 规划中）
+
+> **2026-04-01**：基于 Paper1《The AI Execution Layer》§3 最小性约束，将四运行时拆为
+> **ai-lib-core（最小执行层）** + **ai-lib-contact（策略层）** 两个物理包，并在 core-only
+> 基础上实现 WASM 构建，作为 v1.0.0 发布的核心条件。
+> 详细方案见 `WAVE5_EP_SEPARATION_AND_V1_PLAN_2026-04-01.md`。
+
+  - `PT-067`：E/P 边界合同定义与跨运行时对齐（ExecutionResult/ExecutionMetadata 四语言 + 模块分类矩阵 + 依赖方向验证）
+  - `PT-068`：ai-lib-rust core/contact crate 拆分（Cargo workspace 三 crate + WASM 编译门禁）
+  - `PT-069`：ai-lib-python core/contact 包拆分（extras 或独立包 + core-only 合规通过）
+  - `PT-070`：ai-lib-ts core/contact 包拆分（@ailib/core + @ailib/contact + bundle size 门禁）
+  - `PT-071`：ai-lib-go core 验证（已近最小，补齐 ExecutionMetadata 合同）
+  - `PT-072`：WASM 从 core-only 构建（PT-061 Phase 1 执行，6 导出函数 + wasmtime 合规）
+  - `PT-073`：core-only 合规证明 + v1.0.0 RC 门禁（四语言 + WASM + 向后兼容 + 发布列车）
+
 ## 5. 维护约定
 
 - 本文件仅维护“治理规则 + 阶段映射”，不记录日常执行细节。

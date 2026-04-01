@@ -1,0 +1,92 @@
+---
+id: "PT-070"
+title: "ai-lib-ts core/contact package split"
+status: "pending"
+priority: "critical"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v1.0.0"
+labels:
+  - "typescript"
+  - "architecture"
+  - "split"
+  - "core"
+created: "2026-04-01"
+updated: "2026-04-01"
+executor_name: ""
+executor_terminal: ""
+
+description: |
+  Split ai-lib-ts into core and contact npm packages.
+
+  ## Package structure
+
+  - `@ailib/core` — minimal execution layer (E modules)
+  - `@ailib/contact` — strategy layer (P modules), depends on @ailib/core
+  - `@ailib/ai-lib-ts` — facade re-exporting both (backward compat)
+
+  ## Core modules (E)
+
+  types, errors, protocol, transport (HTTP only), pipeline, structured,
+  client (single-shot chat/stream), mcp, streaming (CancelHandle),
+  embeddings, stt, tts, rerank
+  Resilience: micro-retry only in transport
+
+  ## Contact modules (P) — extracted
+
+  routing (ModelManager, selectors), cache, batch, plugins, interceptors,
+  tokens, telemetry, guardrails, negotiation (FallbackChain, parallelAll)
+  Resilience: circuit breaker, rate limiter, backpressure
+
+  ## Validation
+
+  - `npm test` on @ailib/core alone passes compliance suites
+  - `npm run typecheck` clean on both packages
+  - `npm run lint` clean on both packages
+  - Tree-shaking: core-only bundle size measured and documented
+
+execution_protocol: |
+  1. Create npm workspace or separate packages
+  2. Move E modules to @ailib/core
+  3. Move P modules to @ailib/contact
+  4. Wire dependencies
+  5. eslint + typecheck + vitest on both
+  6. Measure bundle size of core-only
+
+acceptance_criteria:
+  - "@ailib/core passes compliance matrix independently"
+  - "@ailib/contact depends on @ailib/core, not vice versa"
+  - "Existing @ailib/ai-lib-ts API preserved via re-export"
+  - "Core-only bundle size documented (target: < 50KB minified)"
+
+dependencies:
+  - "PT-067"
+related_issues:
+  - "PT-065"
+references:
+  - "active/projects/ai-protocol/WAVE5_EP_SEPARATION_AND_V1_PLAN_2026-04-01.md"
+estimated_hours: 16
+actual_hours: null
+blocks:
+  - "PT-073"
+blocked_by:
+  - "PT-067"
+
+files_changed: []
+
+testing:
+  unit_tests:
+    - "vitest on @ailib/core"
+    - "vitest on @ailib/contact"
+  compliance_tests:
+    - "protocol/compliance suites on core-only"
+  typecheck:
+    - "tsc strict on both packages"
+
+completion_notes: ""
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "TS-001: Strict mode"
+---

@@ -1,0 +1,95 @@
+---
+id: "PT-069"
+title: "ai-lib-python core/contact package split"
+status: "pending"
+priority: "critical"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v1.0.0"
+labels:
+  - "python"
+  - "architecture"
+  - "split"
+  - "core"
+created: "2026-04-01"
+updated: "2026-04-01"
+executor_name: ""
+executor_terminal: ""
+
+description: |
+  Split ai-lib-python into core and contact distribution surfaces.
+
+  ## Option A: extras-based split (preferred for PyPI simplicity)
+
+  - `pip install ai-lib-python` → core only (E modules)
+  - `pip install ai-lib-python[contact]` → adds routing/cache/batch/plugins/etc.
+  - `pip install ai-lib-python[full]` → everything (backward compat)
+
+  ## Option B: separate packages
+
+  - `ai-lib-core` + `ai-lib-contact` on PyPI
+  - `ai-lib-python` becomes metapackage
+
+  ## Core modules (E)
+
+  types, errors, protocol, drivers, transport, pipeline, structured,
+  client (single-shot), mcp, registry, utils, embeddings, stt, tts,
+  rerank, multimodal, computer_use
+  Resilience: only bounded retry helper
+
+  ## Contact modules (P) — extracted
+
+  routing, cache, batch, plugins, tokens, telemetry (exporters),
+  guardrails (strategy), feedback (collectors), resilience (circuit breaker,
+  complex rate limiter, fallback)
+
+  ## Validation
+
+  - `pip install ai-lib-python` (core-only) + `pytest tests/compliance/` passes
+  - No import of routing/cache/batch/plugins/tokens/telemetry in core path
+  - mypy strict on both surfaces
+
+execution_protocol: |
+  1. Restructure pyproject.toml extras or create workspace
+  2. Guard P-module imports with lazy import / extras check
+  3. Run ruff + mypy + pytest on core-only install
+  4. Run full test suite on [full] install
+  5. Verify mkdocs build
+
+acceptance_criteria:
+  - "Core-only install passes compliance matrix"
+  - "No P-module imports in core execution path"
+  - "Backward compatibility: pip install ai-lib-python[full] works as before"
+  - "mypy strict passes on both surfaces"
+
+dependencies:
+  - "PT-067"
+related_issues:
+  - "PT-064"
+references:
+  - "active/projects/ai-protocol/WAVE5_EP_SEPARATION_AND_V1_PLAN_2026-04-01.md"
+estimated_hours: 16
+actual_hours: null
+blocks:
+  - "PT-073"
+blocked_by:
+  - "PT-067"
+
+files_changed: []
+
+testing:
+  unit_tests:
+    - "pytest (core-only install)"
+    - "pytest (full install)"
+  compliance_tests:
+    - "tests/compliance/ on core-only"
+  typecheck:
+    - "mypy strict on core and contact"
+
+completion_notes: ""
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "PY-001: Type hints"
+---

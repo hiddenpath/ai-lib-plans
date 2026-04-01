@@ -1,0 +1,103 @@
+---
+id: "PT-072"
+title: "WASM build from ai-lib-core (PT-061 Phase 1 execution)"
+status: "pending"
+priority: "high"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v1.0.0"
+labels:
+  - "wasm"
+  - "rust"
+  - "core"
+  - "build"
+created: "2026-04-01"
+updated: "2026-04-01"
+executor_name: ""
+executor_terminal: ""
+
+description: |
+  Execute PT-061 Phase 1 PoC using the physically separated ai-lib-core
+  crate from PT-068.
+
+  ## Build targets
+
+  1. wasm32-wasip1 (primary, server-side WASM runtimes)
+  2. wasm32-unknown-unknown (stretch, browser via wasm-bindgen)
+
+  ## Exported WASM functions (from PT-061 contract)
+
+  1. load_manifest(yaml_bytes) → manifest_handle
+  2. check_capability(handle, capability_name) → bool
+  3. build_chat_request(handle, messages_json) → request_json
+  4. parse_chat_response(response_json) → normalized_json
+  5. classify_error(status_code, body_json) → error_code
+  6. extract_usage(response_json) → usage_json
+
+  ## Success criteria
+
+  - Binary size < 2MB (wasm32-wasip1)
+  - Manifest parse time < 10ms in wasmtime
+  - Protocol_loading + message_building compliance subset passes in wasmtime
+  - No dependency on routing/cache/batch/plugins/telemetry
+
+  ## Shim requirements (from PT-061 analysis)
+
+  - HTTP client: host-provided fetch (not compiled in)
+  - Filesystem: read-only for manifest loading via WASI
+  - Random/Time: WASI or stub for non-WASI targets
+  - TLS: not needed (host handles networking)
+
+  ## Browser PoC (stretch)
+
+  - wasm-bindgen wrapper
+  - Load manifest from JS, build request, parse response
+  - Demo in simple HTML page
+
+execution_protocol: |
+  1. Add wasm32 target config to ai-lib-core
+  2. Conditional compilation for transport (stub in WASM)
+  3. Create wasm-exports crate (thin wrapper over ai-lib-core)
+  4. Build and measure binary size
+  5. Create wasmtime test harness
+  6. Run compliance subset
+  7. (Stretch) wasm-bindgen browser PoC
+
+acceptance_criteria:
+  - "wasm32-wasip1 build succeeds for ai-lib-core"
+  - "Binary < 2MB"
+  - "6 exported functions work in wasmtime"
+  - "Compliance subset passes in wasmtime harness"
+  - "Zero P-module dependencies in WASM binary"
+
+dependencies:
+  - "PT-068"
+related_issues:
+  - "PT-061"
+references:
+  - "active/projects/ai-protocol/WAVE5_EP_SEPARATION_AND_V1_PLAN_2026-04-01.md"
+  - "active/projects/ai-protocol/WASM_RUNTIME_ADAPTER_EVOLUTION_PLAN_2026-03-30.md"
+estimated_hours: 20
+actual_hours: null
+blocks:
+  - "PT-073"
+blocked_by:
+  - "PT-068"
+
+files_changed: []
+
+testing:
+  unit_tests:
+    - "wasmtime test harness"
+  compliance_tests:
+    - "protocol_loading + message_building in wasmtime"
+  integration_tests:
+    - "Binary size measurement"
+    - "Manifest parse latency benchmark"
+
+completion_notes: ""
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+---

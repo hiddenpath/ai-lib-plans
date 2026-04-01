@@ -25,6 +25,17 @@
 - Message roles: system, user, assistant, tool (per standard_message_roles).
 - Unified request/response format across Rust, Python, TypeScript, Go.
 
+### E/P Separation Architecture Decision (2026-04-01)
+- **Decision**: Split each runtime into **ai-lib-core** (minimal execution layer) + **ai-lib-contact** (strategy/policy layer) as physically separate packages.
+- **Rationale**: Paper1 §3 Minimality Constraint requires E to perform deterministic capability invocation only; routing, caching, batching, complex resilience, plugins, telemetry, and token estimation are policy-driven and belong in P (Contact Layer).
+- **Core (E) retains**: types, error, protocol, drivers, transport, pipeline, structured, client (single-shot), mcp, registry, utils; optional: embeddings, stt, tts, rerank, multimodal, computer_use; resilience: bounded micro-retry only (1-2 attempts, network transient).
+- **Contact (P) extracts**: routing, cache, batch, plugins, interceptors, tokens, telemetry, guardrails (strategy engine), feedback (collectors), negotiation, resilience (circuit breaker, complex rate limiter, fallback chains).
+- **E ↔ P contract**: `ExecutionResult<T>` with `ExecutionMetadata` (provider_id, model_id, latencies, micro_retry_count, error_code, usage). P consumes metadata for routing/retry/degradation; E does not know P's decisions.
+- **WASM enabler**: core-only crate compiles to wasm32-wasip1 (no P dependencies → no state → small binary).
+- **v1.0 condition**: four-language core-only passes full compliance matrix + WASM core passes compliance subset + backward-compatible facade packages.
+- **Tasks**: PT-067 (contract) → PT-068/069/070/071 (split per runtime) → PT-072 (WASM) → PT-073 (v1.0 RC gate).
+- **Rollback**: facade packages re-export both core and contact; existing user code unchanged.
+
 ### Four-Runtime Official Library Quality Gates (2026-03-31)
 - Wave-4B follow-up: each runtime has a **PR-ready hardening branch** aligned to public-library expectations (format, lint, typecheck, tests, CI blocking).
 - **Branches pushed** (remote `hiddenpath/*`, open PR against `main`): `pt-063-rust-hardening`, `pt-063-python-hardening`, `pt-063-ts-hardening`, `pt-063-go-hardening`.

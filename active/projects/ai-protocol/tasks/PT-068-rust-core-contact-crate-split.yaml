@@ -1,0 +1,104 @@
+---
+id: "PT-068"
+title: "ai-lib-rust core/contact crate split"
+status: "pending"
+priority: "critical"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v1.0.0"
+labels:
+  - "rust"
+  - "architecture"
+  - "split"
+  - "core"
+  - "wasm"
+created: "2026-04-01"
+updated: "2026-04-01"
+executor_name: ""
+executor_terminal: ""
+
+description: |
+  Split ai-lib-rust into a Cargo workspace with two crates:
+
+  ## ai-lib-core (最小执行层)
+
+  Modules retained (from PT-067 classification):
+  - types, error, error_code, protocol, drivers, transport, pipeline,
+    structured, client (single-shot chat/stream), mcp, registry, utils
+  - Optional features: embeddings, stt, tts, rerank, multimodal, computer_use
+  - Resilience: ONLY bounded micro-retry (1-2 attempts, network transient)
+
+  Zero state. Zero policy. Deterministic execution.
+
+  ## ai-lib-contact (策略层)
+
+  Modules extracted from current crate:
+  - routing, cache, batch, plugins, interceptors, tokens, telemetry,
+    guardrails (strategy engine), feedback (collector/sinks)
+  - Resilience: circuit breaker, complex rate limiter, fallback chains
+  - Depends on ai-lib-core
+
+  ## ai-lib-rust (facade, backward compatibility)
+
+  Re-exports both ai-lib-core and ai-lib-contact.
+  Existing users `use ai_lib_rust::*` continues to work.
+  Deprecation notices guide migration to ai-lib-core or ai-lib-contact.
+
+  ## WASM readiness gate
+
+  `cargo build --target wasm32-wasip1 -p ai-lib-core` must compile.
+  HTTP transport shimmed via conditional compilation (#[cfg(target_arch = "wasm32")]).
+
+execution_protocol: |
+  1. Create Cargo workspace with three members
+  2. Move E modules to ai-lib-core
+  3. Move P modules to ai-lib-contact
+  4. Wire ai-lib-contact depends-on ai-lib-core
+  5. Wire ai-lib-rust re-exports both
+  6. cargo fmt + clippy -D warnings + cargo test (full workspace)
+  7. cargo test -p ai-lib-core (core-only compliance)
+  8. cargo build --target wasm32-wasip1 -p ai-lib-core (WASM gate)
+
+acceptance_criteria:
+  - "ai-lib-core compiles and passes compliance matrix independently"
+  - "ai-lib-contact compiles with ai-lib-core dependency"
+  - "ai-lib-rust facade re-exports both; existing API unchanged"
+  - "ai-lib-core has zero routing/cache/batch/plugins/tokens/telemetry imports"
+  - "WASM target wasm32-wasip1 compiles for ai-lib-core"
+  - "cargo clippy -D warnings clean on all three crates"
+
+dependencies:
+  - "PT-067"
+related_issues:
+  - "PT-061"
+  - "PT-063"
+references:
+  - "active/projects/ai-protocol/WAVE5_EP_SEPARATION_AND_V1_PLAN_2026-04-01.md"
+  - "active/projects/ai-protocol/WASM_RUNTIME_ADAPTER_EVOLUTION_PLAN_2026-03-30.md"
+estimated_hours: 24
+actual_hours: null
+blocks:
+  - "PT-072"
+  - "PT-073"
+blocked_by:
+  - "PT-067"
+
+files_changed: []
+
+testing:
+  unit_tests:
+    - "cargo test -p ai-lib-core"
+    - "cargo test -p ai-lib-contact"
+    - "cargo test (workspace root, full)"
+  compliance_tests:
+    - "ai-lib-core: full compliance matrix (08-generative-capabilities incl.)"
+  integration_tests:
+    - "WASM: cargo build --target wasm32-wasip1 -p ai-lib-core"
+
+completion_notes: ""
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "RUST-001: Error handling"
+---

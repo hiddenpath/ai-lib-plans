@@ -1,0 +1,77 @@
+---
+id: "PT-071"
+title: "ai-lib-go core verification and ExecutionMetadata alignment"
+status: "pending"
+priority: "high"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v1.0.0"
+labels:
+  - "go"
+  - "architecture"
+  - "core"
+  - "verification"
+created: "2026-04-01"
+updated: "2026-04-01"
+executor_name: ""
+executor_terminal: ""
+
+description: |
+  ai-lib-go is already near-minimal (pkg/ailib + internal/protocol +
+  internal/stream + internal/resilience). This task verifies the claim
+  and aligns with the E/P contract.
+
+  ## Audit checklist
+
+  1. Confirm NO routing/cache/batch/plugins/tokens/telemetry modules exist
+  2. Confirm resilience is micro-retry only (no circuit breaker, no fallback)
+  3. Add ExecutionMetadata to Chat/ChatStream return path
+  4. Verify go test ./... passes with COMPLIANCE_DIR
+  5. Document Go as "core-only reference implementation"
+
+  ## If P modules are found
+
+  Extract to separate `pkg/contact` or `internal/contact` package.
+  This is unlikely given current codebase audit.
+
+execution_protocol: |
+  1. Audit all packages for policy/strategy logic
+  2. Implement ExecutionMetadata struct
+  3. Wire into Chat/ChatStream return values
+  4. Run go test + go vet
+  5. Document findings
+
+acceptance_criteria:
+  - "Audit confirms no P modules in ai-lib-go"
+  - "ExecutionMetadata struct implemented and returned"
+  - "go test ./... passes"
+  - "Go documented as core-only reference"
+
+dependencies:
+  - "PT-067"
+related_issues:
+  - "PT-066"
+references:
+  - "active/projects/ai-protocol/WAVE5_EP_SEPARATION_AND_V1_PLAN_2026-04-01.md"
+estimated_hours: 4
+actual_hours: null
+blocks:
+  - "PT-073"
+blocked_by:
+  - "PT-067"
+
+files_changed: []
+
+testing:
+  unit_tests:
+    - "go test ./..."
+  compliance_tests:
+    - "Existing compliance with COMPLIANCE_DIR"
+
+completion_notes: ""
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "GO-005: Manifest schema compatibility"
+---
