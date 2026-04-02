@@ -90,3 +90,76 @@
   - `lmodern` (texlive-fonts-recommended)
 - **风险提示**:
   - `--clean` 会删除 `*.aux`, `*.log`, `*.bbl`, `*.blg`, `*.out`, `*.toc` 等中间文件
+
+## `slack_file_tool.py`
+
+- **路径**: `tools/slack_file_tool.py`
+- **用途**: 从Slack下载文件附件
+- **功能**:
+  - 列出最近的文件
+  - 下载指定文件
+  - 获取文件详细信息
+- **依赖**:
+  - Python 3.12+
+  - `slack_sdk` (已安装)
+  - `requests` (已安装)
+- **前置要求**:
+  - Slack Bot需要 `files:read` 权限（当前缺失，需在Slack管理界面添加）
+- **示例**:
+  - 列出最近10个文件：`source tools/venv/bin/activate && python tools/slack_file_tool.py list --limit 10`
+  - 下载文件：`source tools/venv/bin/activate && python tools/slack_file_tool.py download <file_id>`
+  - 获取文件信息：`source tools/venv/bin/activate && python tools/slack_file_tool.py info <file_id>`
+- **风险提示**:
+  - 需要Slack Bot权限配置，否则会返回 `missing_scope` 错误
+  - 下载的文件默认保存到 `/home/alex/Downloads/slack/`
+
+## `browser_automation.js`
+- **路径**: `tools/browser_automation.js`
+- **用途**: Playwright 浏览器自动化，用于动态网页访问、表单交互、截图、内容提取
+- **功能**:
+  - 动态网页渲染（JavaScript SPA 支持）
+  - 表单填写与提交
+  - 页面截图（全页面或部分）
+  - 内容提取（文本、HTML、属性）
+  - JavaScript 执行
+  - 网络请求监控
+  - Cookie 与存储管理
+- **依赖**:
+  - Node.js 18+
+  - `playwright` npm 包
+  - Chromium 驱动（约 280MB）
+- **安装**:
+  ```bash
+  cd /path/to/project
+  npm install playwright
+  npx playwright install chromium
+  ```
+- **示例**:
+  ```javascript
+  const { BrowserAutomation } = require('./browser_automation.js');
+  
+  async function demo() {
+    const browser = new BrowserAutomation();
+    await browser.launch();
+    const page = await browser.newPage();
+    
+    // 访问网页
+    await browser.goto(page, 'https://example.com');
+    
+    // 提取内容
+    const text = await browser.getText(page, 'h1');
+    
+    // 截图
+    await browser.screenshot(page, '/tmp/screenshot.png');
+    
+    await browser.close();
+  }
+  ```
+- **便捷函数**:
+  - 快速截图：`quickScreenshot(url, outputPath)`
+  - 快速提取：`quickScrape(url, selector)`
+- **风险提示**:
+  - 无法绕过 CAPTCHA 验证码
+  - 登录网站需额外配置凭证
+  - 部分网站有反爬虫机制
+  - 驱动文件较大（~280MB）
