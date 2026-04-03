@@ -3,7 +3,7 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-03-31
+**Last Updated**: 2026-04-03
 
 ---
 
@@ -34,6 +34,7 @@
 - **WASM enabler**: core-only crate compiles to wasm32-wasip1 (no P dependencies → no state → small binary).
 - **v1.0 condition**: four-language core-only passes full compliance matrix + WASM core passes compliance subset + documented package layout and migration notes (pre-public: breaking paths/APIs allowed; optional thin aggregation only if trivial).
 - **Tasks**: PT-067 (contract) → PT-068/069/070/071 (split per runtime) → PT-072 (WASM) → PT-073 (v1.0 RC gate).
+- **Progress (2026-04-03)**: Rust workspace `ai-lib-core` + `ai-lib-contact` + `ai-lib-wasm` + facade `ai-lib-rust`; PT-068/PT-072 **completed** (WASI exports, ~1.24MB release wasm). PT-073 **in progress**: core subset tests `cargo test -p ai-lib-core pt073_` + `COMPLIANCE_DIR` for `protocol_loading` + `message_building`; wasmtime CLI smoke `ai-lib-rust/scripts/wasmtime-pt073-smoke.ps1`; checklist evidence in `ai-protocol/docs/WAVE5_V1_GATE_CHECKLIST.md`. Remote **hiddenpath/ai-lib-rust** `main` is ahead of **ailib-official/main** by PT-063 merge + URL-align commit; **ailib-official** has one unique URL-swap commit to reconcile when syncing. Stale branches `fix/ci-*` superseded by merged PRs #5/#6.
 - **Rollback**: tag baseline commits; CHANGELOG captures breaking layout; no requirement for long-lived dual-track APIs.
 
 ### Four-Runtime Official Library Quality Gates (2026-03-31)

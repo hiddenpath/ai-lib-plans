@@ -1,7 +1,7 @@
 ---
 id: "PT-073"
 title: "Core-only compliance proof and v1.0.0 RC gate"
-status: "pending"
+status: "in_progress"
 priority: "critical"
 assignee: "@ai"
 project: "ai-protocol"
@@ -13,7 +13,7 @@ labels:
   - "v1"
   - "compliance"
 created: "2026-04-01"
-updated: "2026-04-01"
+updated: "2026-04-03"
 executor_name: ""
 executor_terminal: ""
 
@@ -104,13 +104,14 @@ estimated_hours: 12
 actual_hours: null
 blocks: []
 blocked_by:
-  - "PT-068"
   - "PT-069"
   - "PT-070"
   - "PT-071"
-  - "PT-072"
 
-files_changed: []
+files_changed:
+  - "ai-protocol/docs/WAVE5_V1_GATE_CHECKLIST.md"
+  - "ai-lib-rust/crates/ai-lib-core/tests/pt073_compliance_subset.rs"
+  - "ai-lib-rust/scripts/wasmtime-pt073-smoke.ps1"
 
 testing:
   compliance_tests:
@@ -120,7 +121,11 @@ testing:
     - "E/P dependency direction verification"
     - "Smoke tests on documented entrypoints (core + contact as released)"
 
-completion_notes: ""
+completion_notes: |
+  PT-068/PT-072 closed; blocked_by trimmed to Python/TS/Go core splits (PT-069–071).
+  Rust: `cargo test -p ai-lib-core pt073_` with COMPLIANCE_DIR runs protocol_loading + message_building subset (same logic as facade compliance).
+  WASM: release wasm ~1.24MB; wasmtime CLI smoke script added on ai-lib-rust branch.
+  Checklist in ai-protocol/docs/WAVE5_V1_GATE_CHECKLIST.md updated with partial evidence; full gate still needs four-runtime compliance + CI wasmtime harness + governance.
 
 constitution_rules:
   - "ARCH-001: Protocol-driven design"
