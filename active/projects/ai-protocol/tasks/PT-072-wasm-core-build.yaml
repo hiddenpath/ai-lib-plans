@@ -1,7 +1,7 @@
 ---
 id: "PT-072"
 title: "WASM build from ai-lib-core (PT-061 Phase 1 execution)"
-status: "pending"
+status: "completed"
 priority: "high"
 assignee: "@ai"
 project: "ai-protocol"
@@ -12,7 +12,7 @@ labels:
   - "core"
   - "build"
 created: "2026-04-01"
-updated: "2026-04-01"
+updated: "2026-04-03"
 executor_name: ""
 executor_terminal: ""
 
@@ -84,7 +84,18 @@ blocks:
 blocked_by:
   - "PT-068"
 
-files_changed: []
+files_changed:
+  - "ai-lib-rust/Cargo.toml (workspace members += ai-lib-wasm)"
+  - "ai-lib-rust/crates/ai-lib-wasm/Cargo.toml"
+  - "ai-lib-rust/crates/ai-lib-wasm/src/lib.rs (6 exports + memory accessors)"
+  - "ai-lib-rust/crates/ai-lib-core/src/lib.rs (wasm32 cfg gates)"
+  - "ai-lib-rust/crates/ai-lib-core/src/error.rs (wasm32 cfg Pipeline/Transport)"
+  - "ai-lib-rust/crates/ai-lib-core/src/protocol/mod.rs (wasm_manifest always available)"
+  - "ai-lib-rust/crates/ai-lib-core/src/protocol/wasm_manifest.rs"
+  - "ai-lib-rust/crates/ai-lib-core/src/protocol/validator.rs (wasm validate_basic)"
+  - "ai-lib-rust/crates/ai-lib-core/src/drivers/mod.rs (UsageInfo: Serialize)"
+  - "ai-lib-rust/CHANGELOG.md"
+  - "ai-lib-rust/README.md"
 
 testing:
   unit_tests:
@@ -95,7 +106,16 @@ testing:
     - "Binary size measurement"
     - "Manifest parse latency benchmark"
 
-completion_notes: ""
+completion_notes: |
+  Phase 1 complete (2026-04-03):
+  - ai-lib-wasm crate: cdylib + rlib, 6 exported C functions + 4 memory accessors.
+  - wasm32-wasip1 release binary: 1.24 MB (under 2 MB gate).
+  - cargo check on native + wasm PASS; cargo check --workspace PASS.
+  - Zero P-module (contact) dependencies in WASM binary.
+  - jsonschema excluded on wasm32 (validate_basic only); no reqwest::blocking.
+  - WasmChatRequest DTO avoids Deserialize on UnifiedRequest.
+  - OPEN: wasmtime test harness and compliance subset (can be follow-up or PT-073 gate).
+  - STRETCH not done: wasm32-unknown-unknown / wasm-bindgen browser PoC.
 
 constitution_rules:
   - "ARCH-001: Protocol-driven design"

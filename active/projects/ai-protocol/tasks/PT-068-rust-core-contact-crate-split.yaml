@@ -1,7 +1,7 @@
 ---
 id: "PT-068"
 title: "ai-lib-rust core/contact crate split"
-status: "pending"
+status: "completed"
 priority: "critical"
 assignee: "@ai"
 project: "ai-protocol"
@@ -13,7 +13,7 @@ labels:
   - "core"
   - "wasm"
 created: "2026-04-01"
-updated: "2026-04-01"
+updated: "2026-04-03"
 executor_name: ""
 executor_terminal: ""
 
@@ -86,7 +86,11 @@ blocks:
 blocked_by:
   - "PT-067"
 
-files_changed: []
+files_changed:
+  - "ai-lib-rust/Cargo.toml (workspace)"
+  - "ai-lib-rust/crates/ai-lib-core/**"
+  - "ai-lib-rust/crates/ai-lib-contact/**"
+  - "ai-lib-rust/crates/ai-lib-rust/**"
 
 testing:
   unit_tests:
@@ -98,7 +102,12 @@ testing:
   integration_tests:
     - "WASM: cargo build --target wasm32-wasip1 -p ai-lib-core"
 
-completion_notes: ""
+completion_notes: |
+  Workspace landed: ai-lib-core, ai-lib-contact, ai-lib-wasm, facade crate ai-lib-rust re-exports.
+  Client no longer embeds circuit breaker / token-bucket rate limiter types (policy → contact).
+  cargo check --workspace PASS on native; cargo check -p ai-lib-wasm --target wasm32-wasip1 PASS.
+  WASM gate: ai-lib-core compiles for wasm32-wasip1 with zero P-module deps.
+  All acceptance criteria met (2026-04-03).
 
 constitution_rules:
   - "ARCH-001: Protocol-driven design"
