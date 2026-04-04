@@ -1,0 +1,122 @@
+---
+id: "PT-061"
+title: "WASM Runtime Adapter phased evolution plan"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v1.0.x"
+labels:
+  - "wasm"
+  - "runtime"
+  - "architecture"
+  - "evolution"
+created: "2026-03-30"
+updated: "2026-03-30"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Define and execute a phased evolution plan for WASM runtime adapter support
+  in the ai-lib ecosystem, building on the feasibility analysis from PT-022.
+
+  ## Phase 1: Contract Definition and Feasibility Validation (this task)
+
+  1. **WASM runtime capability contract**
+     - Define which ai-protocol capabilities are in-scope for WASM:
+       Phase 1A: protocol loading, manifest parsing, capability gating
+       Phase 1B: message building, request construction, response parsing
+       Phase 1C: streaming decode (if WASI networking is available)
+     - Out-of-scope for Phase 1: direct HTTP transport (WASM sandbox
+       requires host-provided fetch), filesystem access, native TLS
+
+  2. **Build target matrix**
+     - wasm32-unknown-unknown (browser/embedded, no WASI)
+     - wasm32-wasi (server-side WASM runtimes: Wasmtime, WasmEdge)
+     - wasm32-wasi-preview2 (component model, future)
+     - Document which phase maps to which target
+
+  3. **Source runtime selection**
+     - Primary candidate: ai-lib-rust (Rust → WASM is most mature)
+     - Evaluation: which modules compile to wasm32 without modification
+     - Shim requirements: HTTP client, filesystem, random, time
+     - Alternative: ai-lib-go via TinyGo (evaluate feasibility)
+
+  4. **Compliance subset definition**
+     - Define WASM-compatible compliance subset from existing matrix
+     - protocol_loading + message_building + error_classification minimum
+     - Stream decode as stretch goal dependent on transport shim
+     - Compliance must be runnable in wasm target (wasmtime test harness)
+
+  5. **Proof of concept deliverable**
+     - Minimal WASM module that can: load a V2 manifest, build a chat
+       request, parse a chat response, classify an error code
+     - PoC passes protocol_loading compliance subset in wasmtime
+     - Performance baseline: manifest parse time, binary size
+
+  ## Phase 2: MVP and Integration (future task, PT-061 only plans this)
+
+  - Browser SDK wrapper (JS/TS interop)
+  - Edge runtime integration (Cloudflare Workers, Vercel Edge)
+  - Component Model exploration for composable AI pipelines
+  - Spiderswitch WASM runtime adapter registration
+
+  ## Phase 3: Production Readiness (future task)
+
+  - Streaming transport via host-provided fetch
+  - Full compliance matrix pass
+  - Performance parity benchmarks vs native runtimes
+  - Security audit for WASM sandbox boundaries
+
+acceptance_criteria:
+  - "WASM capability contract is documented with phased scope"
+  - "Build target matrix with rationale is defined"
+  - "Source runtime evaluation (Rust primary, Go TinyGo secondary) complete"
+  - "WASM-compatible compliance subset is defined and documented"
+  - "Phase 1 PoC specification is concrete enough to begin implementation"
+  - "Phase 2/3 roadmap items are captured as future task stubs"
+  - "Rollback strategy: WASM remains optional/disabled-by-default until Phase 2"
+
+dependencies:
+  - "PT-057"
+  - "PT-058"
+related_issues:
+  - "PT-022 (P2 Go/WASM adapter feasibility)"
+references:
+  - "active/projects/ai-protocol/P2_GO_WASM_ADAPTER_FEASIBILITY_REPORT_2026-03-07.md"
+  - "MEMORY.md (P1/P2 Expansion Governance - Go/WASM section)"
+  - "MEMORY.md (Runtime Routing Boundary - Spiderswitch)"
+estimated_hours: 12
+actual_hours: 2
+blocks:
+  - "PT-062"
+blocked_by:
+  - "PT-057"
+  - "PT-058"
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests:
+    - "WASM compliance subset definition (protocol_loading + message_building)"
+
+completion_notes: |
+  Completed.
+  - Created WASM_RUNTIME_ADAPTER_EVOLUTION_PLAN_2026-03-30.md with full three-phase plan.
+  - Phase 1 contract defined: 6 WASM-exported functions (load_manifest, check_capability,
+    build_chat_request, parse_chat_response, classify_error, extract_usage).
+  - Build target: wasm32-wasip1 primary, wasm32-unknown-unknown Phase 2.
+  - Source runtime: ai-lib-rust (primary), TinyGo (auxiliary evaluation).
+  - Shim analysis: 5 dependency categories evaluated with strategies.
+  - WASM compliance subset: 4 full categories + partial gen-*, excluding streaming/resilience.
+  - PoC spec: binary <2MB, manifest parse <10ms, wasmtime compliance harness.
+  - Phase 2/3 roadmap captured as future task stubs.
+  - Rollback: WASM optional/disabled-by-default, no existing runtime impact.
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "GO-005: Manifest schema compatibility (for TinyGo evaluation)"
+---

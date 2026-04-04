@@ -1,7 +1,7 @@
 ---
 id: "PT-067"
 title: "E/P boundary contract definition and cross-runtime alignment"
-status: "pending"
+status: "completed"
 priority: "critical"
 assignee: "@ai"
 project: "ai-protocol"
@@ -12,7 +12,7 @@ labels:
   - "cross-runtime"
   - "minimality"
 created: "2026-04-01"
-updated: "2026-04-01"
+updated: "2026-04-02"
 executor_name: ""
 executor_terminal: ""
 
@@ -77,7 +77,25 @@ blocks:
   - "PT-071"
 blocked_by: []
 
-files_changed: []
+files_changed:
+  - "ai-protocol/schemas/v2/execution-metadata.json"
+  - "ai-protocol/tests/compliance/README.md"
+  - "ai-protocol/tests/compliance/ep-boundary/E_ONLY_CASES.md"
+  - "ai-protocol/tests/compliance/ep-boundary/module-matrix.yaml"
+  - "ai-protocol/tests/compliance/ep-boundary/check_ep_boundary.py"
+  - "ai-lib-rust/src/types/execution_result.rs"
+  - "ai-lib-rust/src/types/mod.rs"
+  - "ai-lib-rust/src/lib.rs"
+  - "ai-lib-rust/src/error_code.rs"
+  - "ai-lib-rust/src/drivers/mod.rs"
+  - "ai-lib-rust/CHANGELOG.md"
+  - "ai-lib-python/src/ai_lib_python/types/execution_result.py"
+  - "ai-lib-python/src/ai_lib_python/types/__init__.py"
+  - "ai-lib-python/src/ai_lib_python/__init__.py"
+  - "ai-lib-ts/src/types/execution-result.ts"
+  - "ai-lib-ts/src/types/index.ts"
+  - "ai-lib-ts/src/index.ts"
+  - "ai-lib-go/pkg/ailib/execution_result.go"
 
 testing:
   unit_tests:
@@ -85,7 +103,12 @@ testing:
   compliance_tests:
     - "E-only compliance subset fixture list"
 
-completion_notes: ""
+completion_notes: |
+  Cross-runtime ExecutionResult/ExecutionMetadata/ExecutionUsage added.
+  StandardErrorCode: serde as canonical E-codes; from_standard_code parser.
+  ai-protocol: JSON schema execution-metadata.json; ep-boundary docs + Rust import check script.
+  E-only compliance: cases 01–05, 07–08; exclude 06-resilience/retry-policy.yaml.
+  Run: python tests/compliance/ep-boundary/check_ep_boundary.py --rust-root ../ai-lib-rust
 
 constitution_rules:
   - "ARCH-001: Protocol-driven design"

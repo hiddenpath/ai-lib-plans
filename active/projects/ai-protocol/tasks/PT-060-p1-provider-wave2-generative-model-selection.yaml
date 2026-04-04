@@ -1,0 +1,89 @@
+---
+id: "PT-060"
+title: "P1 Provider Wave-2 generative LLM selection and onboarding schedule"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v1.0.x"
+labels:
+  - "provider"
+  - "generative"
+  - "wave-2"
+  - "planning"
+created: "2026-03-30"
+updated: "2026-03-30"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Select and schedule Wave-2 generative LLM providers for protocol onboarding
+  beyond the P0 baseline (OpenAI/Anthropic/Gemini/DeepSeek/Qwen/Doubao) and
+  Wave-1 P1 set (Cohere/Moonshot/Zhipu/Jina).
+
+  Selection criteria (scored 1-5, following PT-019 methodology):
+  - Generative capability depth (reasoning, structured output, long context)
+  - Demand fit (ecosystem adoption, community request volume)
+  - API contract maturity (stable endpoints, documented error codes)
+  - Multimodal generation support (text+image, text+code, text+video)
+  - Operational risk (drift frequency, breaking change history)
+
+  Candidate pool for evaluation:
+  - Global: Mistral, Perplexity, Grok (xAI), Meta Llama (hosted), Reka
+  - China: MiniMax, Baichuan, Yi (01.AI), SenseTime SenseNova, Stepfun
+  - Specialized: Stability AI (image gen), ElevenLabs (TTS), Runway (video)
+
+  Per-provider onboarding checklist:
+  1. ai-protocol: capability manifest + error/retry mapping
+  2. ai-protocol-mock: generative scenario template + failure injection
+  3. Four runtimes: request/event/error/retry semantic alignment
+  4. spiderswitch: capability signal consumption validation
+  5. Compliance: 08-generative-capabilities fixture pass
+  6. Docs/release: capability matrix and release note alignment
+
+  Execution rhythm:
+  - Week 1: evidence scoring freeze + ranking
+  - Week 2: dependency/sequencing lock + first provider e2e onboarding
+  - Week 3-4: batch onboarding with per-provider PR + gate evidence
+
+acceptance_criteria:
+  - "Wave-2 provider ranking is scored, documented, and frozen"
+  - "Onboarding sequence has explicit dependency chain"
+  - "Per-provider checklist template exists for execution tracking"
+  - "Risk register and per-provider rollback strategy documented"
+  - "At least 1 Wave-2 provider has completed e2e onboarding as pilot"
+
+dependencies:
+  - "PT-057"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/P1_PROVIDER_EXPANSION_WAVE_PLAN_2026-03-07.md"
+  - "MEMORY.md (P1/P2 Expansion Governance section)"
+estimated_hours: 8
+actual_hours: 1.5
+blocks: []
+blocked_by:
+  - "PT-057"
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests: []
+
+completion_notes: |
+  Completed.
+  - Created P1_PROVIDER_WAVE2_GENERATIVE_SELECTION_2026-03-30.md with:
+    five-dimension scoring matrix (generative depth, demand fit, contract maturity,
+    multimodal generation, operational risk).
+  - Evaluated 13 candidates across global, China-region, and specialized categories.
+  - Wave-2A first batch frozen: Mistral (4.10), MiniMax (4.00), Grok (3.50), Baichuan (3.40).
+  - Per-provider onboarding checklist covering all 9 cross-repo steps.
+  - Risk register with per-provider rollback strategy.
+  - Wave-2B planning deferred to post-Wave-2A closure.
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+---

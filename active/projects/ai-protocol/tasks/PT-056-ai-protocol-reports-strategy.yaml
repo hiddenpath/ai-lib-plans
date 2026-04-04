@@ -1,0 +1,65 @@
+---
+id: "PT-056"
+title: "ai-protocol repository reports/ directory governance strategy"
+status: "completed"
+priority: "medium"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v1.0.x"
+labels:
+  - "governance"
+  - "repository"
+  - "ci"
+created: "2026-03-30"
+updated: "2026-03-30"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Resolve the long-standing dirty working tree in ai-protocol caused by
+  untracked reports/ directories (compliance-gates, drift, fullchain-gates,
+  manifest-gates, release-gates, rollback-rehearsals, report-evidence-gates).
+
+  Decision needed:
+  - Option A: .gitignore all generated reports + document CI archival path
+  - Option B: commit minimal audit-chain samples + .gitignore the rest
+  - Either way: pull origin/main (currently behind 2) before any new work
+
+  Also: document the chosen policy in CONTRIBUTING or docs/ so future
+  contributors and CI workflows follow the same convention.
+
+acceptance_criteria:
+  - "ai-protocol working tree is clean after policy applied"
+  - "Policy choice is documented in repo (CONTRIBUTING.md or docs/)"
+  - "Local branch is up to date with origin/main"
+  - "CI report archival path is explicit if reports are gitignored"
+
+dependencies:
+  - "PT-054"
+related_issues: []
+references:
+  - "d:/ai-protocol/.gitignore"
+  - "d:/ai-protocol/reports/"
+estimated_hours: 1
+actual_hours: 0.5
+blocks: []
+blocked_by:
+  - "PT-054"
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests: []
+
+completion_notes: |
+  Completed (Option A: gitignore all + document CI archival path).
+  - .gitignore: added reports/ with explanatory comment.
+  - docs/CI_VALIDATION_EXPLAINED.md: added Report Archival Policy section.
+  - origin/main pulled (was behind 2, now up to date).
+  - Working tree is clean after policy applied.
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+---

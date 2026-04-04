@@ -1,0 +1,65 @@
+---
+id: "MD2L-003"
+title: "DAG scheduling (v0.1)"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "md2latex"
+milestone: "v0.1.x"
+labels:
+  - "app-runtime"
+  - "interpreter"
+  - "fanout"
+created: "2026-03-25"
+updated: "2026-03-25"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  把执行从“声明顺序线性跑”升级为依赖驱动 DAG 调度：根据节点 inputs/$ref 找到依赖并拓扑调度；检测循环依赖并给出可诊断错误。
+
+acceptance_criteria:
+  - "DAG 调度正确：节点仅在其依赖输入就绪后执行"
+  - "循环依赖可观测：出现循环依赖时返回明确错误"
+  - "现有 8 条测试继续通过（无回归）"
+
+dependencies:
+  - "MD2L-002"
+
+references:
+  - "active/projects/md2latex/MD2L_APP_PROTOCOL_MIN_CONTRACT_2026-03-25.md"
+
+estimated_hours: 10
+actual_hours: 3
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "d:/rustapp/md2latex/src/runtime/graph_v0_1.rs"
+  - "d:/rustapp/md2latex/tests/md2latex_contract_tests.rs"
+
+testing:
+  unit_tests:
+    - "cargo test -> 10 passed"
+
+completion_notes: |
+  MD2L-003 progress:
+  - Already completed: llm.generate_json_v1 bounded fanout concurrency + concurrency test
+  - Implemented dependency-based DAG scheduling (topological order) for generic graph execution
+  - Added DAG-specific tests:
+    - out-of-order node declaration still executes correctly
+    - cyclic DAG is rejected with clear scheduling error
+  - TODO: extend DAG scheduling semantics for more contract features (future v0.2)
+
+tech_considerations:
+  dag_model: |
+    对 v0.1 MVP：节点间依赖以 `$ref.*` 与 `$prompt.*` 的 inputs 解析为准；
+    `app_schema.graph.nodes` 可非声明顺序，runtime 需要在满足依赖后执行。
+    实现优先级：拓扑排序与循环检测 > 调度粒度优化。
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-002: Operator pipeline"
+  - "ARCH-006: Security-critical surfaces first"
+---
+

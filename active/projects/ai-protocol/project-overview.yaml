@@ -4,17 +4,19 @@
 
 project: "ai-protocol"
 status: "active"
-milestone: "v0.9.x"
+milestone: "v1.0.x"
 
 overview: |
-  AI-Protocol currently supports 30+ AI providers with standardized
-  configuration-driven interfaces. Focus areas for v0.8.0:
-  - V2 three-layer pyramid architecture
-  - MCP integration
-  - Extended multimodal support
-  - Cross-runtime compliance testing (Rust/Python/TypeScript/Go)
+  AI-Protocol supports 30+ AI providers with protocol-driven manifest
+  configuration. Current focus (Wave-4, v1.0.x target):
+  - Generative LLM manifest schema expansion and runtime support
+  - Four-runtime (Rust/Python/TypeScript/Go) semantic alignment for generative capabilities
+  - WASM runtime adapter phased evolution
+  - P1 Wave-2 generative provider onboarding
+  - MCP tool bridge schema finalization
+  - Cross-runtime compliance testing including 08-generative-capabilities category
 
-current_phase: "Wave-3B completed: PT-035~PT-039 all closed"
+current_phase: "Wave-4 active: generative LLM expansion, four-runtime alignment, WASM evolution (PT-054~PT-062)"
 
 milestones:
   - id: "v0.7.4"
@@ -31,97 +33,88 @@ milestones:
 
   - id: "v0.9.x"
     title: "P1/P2 Wave-2 Stabilization and Governance Integration"
+    status: "completed"
+    completed: "2026-03-20"
+    summary: "Cross-repo gates, load-compliance hardening, CI governance rollout, RC drill closure, IOSPC boundary, four-runtime governance, URL hygiene"
+
+  - id: "v1.0.x"
+    title: "Wave-4: Generative LLM Expansion, Four-Runtime Alignment, WASM Evolution"
     status: "in_progress"
-    target: "2026-04-05"
-    summary: "Cross-repo gates, load-compliance hardening, CI governance rollout, RC drill closure"
+    target: "2026-05-15"
+    summary: "Generative model manifest schema, four-runtime semantic parity for LLM capabilities, mock scenario expansion, P1 Wave-2 provider onboarding, WASM adapter phased evolution, v1.0.x RC gate"
 
 active_tasks:
-  - id: "PT-053"
-    title: "Public URL hygiene CI governance baseline"
-    status: "completed"
-    priority: "high"
-    assignee: "@ai"
-    description: "Add reusable URL hygiene rule + CI template + checker tool for ailib-official repositories"
-    acceptance_criteria:
-      - "Constitution includes TEST-002 URL hygiene rule"
-      - "Plans repo provides reusable CI template and checker/fixer tool"
-      - "Governance docs/index entries are updated"
-    estimated_hours: 2
-    actual_hours: 1.5
-
-  - id: "PT-052"
-    title: "Migrate public manifest references to ailib-official"
-    status: "completed"
-    priority: "high"
-    assignee: "@ai"
-    description: "Update outward-facing manifest/schema references from hiddenpath to ailib-official across protocol and runtime-adjacent repos"
-    acceptance_criteria:
-      - "Public manifest/schema URLs use github/ailib-official"
-      - "Runtime/mocks manifest fetch paths use ailib-official URLs"
-      - "Development-side hiddenpath workflow checkouts remain unchanged"
-    estimated_hours: 2
-    actual_hours: 1.5
-
-  - id: "PT-001"
-    title: "V2 Provider Manifest Schema"
-    status: "in_progress"
+  - id: "PT-054"
+    title: "Plans and roadmap truth-source alignment for Wave-4 baseline"
+    status: "pending"
     priority: "critical"
-    assignee: "@hiddenpath"
-    description: "Implement three-ring V2 provider manifest structure"
-    acceptance_criteria:
-      - "Core layer with essential provider info"
-      - "Extension layer with optional capabilities"
-      - "Environment layer with deployment settings"
-    estimated_hours: 16
+    description: "Close governance gap between completed tasks and stale planning artifacts; establish Wave-4 as active phase"
+    estimated_hours: 3
 
-  - id: "PT-002"
-    title: "MCP Integration Schema"
-    status: "in_progress"
-    priority: "high"
-    assignee: "@hiddenpath"
-    description: "Define MCP (Model Context Protocol) tool bridge schema"
-    acceptance_criteria:
-      - "MCP tool definition schema"
-      - "Tool conversion rules"
-      - "Compatibility layer for existing tools"
-    estimated_hours: 12
-
-  - id: "PT-003"
-    title: "Extended Multimodal Capabilities"
+  - id: "PT-055"
+    title: "MEMORY.md four-runtime and Wave-4 fact alignment"
     status: "pending"
     priority: "high"
-    assignee: "@hiddenpath"
-    description: "Extend V2 schema for advanced multimodal (vision, audio, video)"
-    acceptance_criteria:
-      - "Vision capability declarations"
-      - "Audio (STT/TTS) capability declarations"
-      - "Video stream capability declarations"
+    description: "Update MEMORY.md with post-PT-053 facts, unified version matrix, Wave-4 architecture decisions"
+    estimated_hours: 2
+
+  - id: "PT-056"
+    title: "ai-protocol repository reports/ directory governance strategy"
+    status: "pending"
+    priority: "medium"
+    description: "Resolve untracked reports/ directories and document policy; pull origin/main"
+    estimated_hours: 1
+
+  - id: "PT-057"
+    title: "Generative LLM manifest schema extension and runtime support planning"
+    status: "pending"
+    priority: "critical"
+    description: "Extend V2 schema for generative LLM capabilities, MCP tool bridge finalization, streaming contract, token reporting, compliance category 08-generative-capabilities"
     estimated_hours: 20
 
-  - id: "PT-004"
-    title: "Compliance Test Suite Expansion"
-    status: "in_progress"
-    priority: "high"
-    assignee: "@hiddenpath"
-    description: "Expand compliance tests to cover V2 features"
-    acceptance_criteria:
-      - "V2 manifest validation tests"
-      - "MCP tool bridge tests"
-      - "Multimodal stream tests"
+  - id: "PT-058"
+    title: "Four-runtime generative capability semantic alignment matrix"
+    status: "pending"
+    priority: "critical"
+    description: "Ensure Rust/Python/TypeScript/Go semantic parity for generative capabilities: message building, streaming, tool calling, token reporting, error classification"
     estimated_hours: 24
 
-  - id: "PT-005"
-    title: "Error Code Standardization"
-    status: "completed"
-    priority: "critical"
-    assignee: "@hiddenpath"
-    description: "Standardize error codes across all providers (E1001-E9999)"
-    acceptance_criteria:
-      - "13 standard error codes defined"
-      - "Retry/fallback semantics specified"
-      - "All provider manifests updated"
+  - id: "PT-059"
+    title: "ai-protocol-mock generative model scenario expansion"
+    status: "pending"
+    priority: "high"
+    description: "Extend mock for generative chat completion, tool calling, reasoning mode, error injection, token usage simulation"
+    estimated_hours: 16
+
+  - id: "PT-060"
+    title: "P1 Provider Wave-2 generative LLM selection and onboarding schedule"
+    status: "pending"
+    priority: "high"
+    description: "Score, rank, and schedule Wave-2 generative providers (Mistral, Perplexity, Grok, MiniMax, Baichuan, etc.) with per-provider onboarding checklist"
     estimated_hours: 8
-    actual_hours: 6
+
+  - id: "PT-061"
+    title: "WASM Runtime Adapter phased evolution plan"
+    status: "pending"
+    priority: "high"
+    description: "Define phased WASM support: contract, build targets, source runtime selection, compliance subset, PoC specification"
+    estimated_hours: 12
+
+  - id: "PT-062"
+    title: "Wave-4 phase gate review and v1.0.x RC release train"
+    status: "pending"
+    priority: "high"
+    description: "Phase gate review for generative expansion readiness; if go: cross-repo release train for v1.0.x RC"
+    estimated_hours: 8
+
+historical_tasks_note: |
+  PT-001~PT-005 were early-stage placeholder entries created during v4 import.
+  Their scope has been absorbed by subsequent waves (PT-006~PT-053).
+  PT-001 (V2 schema) → subsumed by PT-014, PT-027, PT-057
+  PT-002 (MCP schema) → subsumed by PT-057
+  PT-003 (multimodal) → subsumed by PT-014, PT-020, PT-037
+  PT-004 (compliance) → subsumed by PT-031~PT-035, PT-058
+  PT-005 (error codes) → completed and stable since v0.7.4
 
 provider_status:
   global_providers:
@@ -174,10 +167,13 @@ compliance_status:
     - "extended-capabilities: Not yet implemented"
 
 dependencies:
-  ai-lib-rust: "v0.9.0 (aligned with ai-protocol v0.8.0 baseline)"
-  ai-lib-python: "v0.8.0 (aligned with ai-protocol v0.8.0 baseline)"
-  ai-lib-ts: "v0.5.0 (aligned with ai-protocol v0.8.0 baseline)"
-  ai-lib-go: "v0.5.1 (manifest v2 + capability_profile alignment completed)"
+  ai-protocol: "v0.8.3 (current stable, target v1.0.x)"
+  ai-lib-rust: "v0.9.3 (aligned with ai-protocol v0.8.3)"
+  ai-lib-python: "v0.8.3 (aligned with ai-protocol v0.8.3)"
+  ai-lib-ts: "v0.5.3 (aligned with ai-protocol v0.8.3)"
+  ai-lib-go: "v0.0.1 (four-runtime governance equalized, manifest v2 aligned)"
+  ai-protocol-mock: "v0.1.11 (video lifecycle + wave-1 provider coverage)"
+  spiderswitch: "v0.4.2 (runtime routing + capability signal)"
 
 related_documents:
   - "active/projects/ai-protocol/REPORT_GOVERNANCE_UNIFIED_EXECUTION_PLAN_2026-03-15.md"

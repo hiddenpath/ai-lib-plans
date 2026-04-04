@@ -1,0 +1,63 @@
+---
+id: "MD2L-001"
+title: "Define minimal App Protocol contract (v0.1)"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "md2latex"
+milestone: "v0.1.x"
+labels:
+  - "app-protocol"
+  - "contract"
+  - "mvp"
+created: "2026-03-25"
+updated: "2026-03-25"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  冻结 md2latex 的最小 App Protocol contract，使 App Runtime interpreter 能够无需硬编码应用流程即可执行：
+  1) markdown 解码与 ASCII block 抽取
+  2) LLM 识别 block 是图还是表，并输出结构化 figure/table LaTeX
+  3) JSON schema 校验与基于错误日志的重提示重试
+  4) 回写回 Markdown 并可选交给 pandoc
+
+acceptance_criteria:
+  - "GraphNode 最小字段集合足以表达 md2latex MVP 全流程"
+  - "LLM 转换 op 的输出严格为结构化 JSON（FigureSpecV1），并且可被 JSON schema 校验"
+  - "重试策略可将 error_log 回填给 LLM 节点（以解析/校验失败为主要触发）"
+
+dependencies: []
+related_issues: []
+references:
+  - "active/projects/md2latex/MD2L_APP_PROTOCOL_MIN_CONTRACT_2026-03-25.md"
+
+estimated_hours: 4
+actual_hours: 4
+blocks: []
+blocked_by: []
+files_changed:
+  - "active/projects/md2latex/MD2L_APP_PROTOCOL_MIN_CONTRACT_2026-03-25.md"
+  - "active/projects/md2latex/MD2L_PROMPTS_INDEX_2026-03-25.yaml"
+testing: {}
+completion_notes: |
+  MD2L-001 closed:
+  - Minimal App Protocol contract (v0.1) documented, including:
+    - app_schema.graph nodes/inputs/outputs/fanout/retry
+    - $ref and $prompt reference conventions
+    - {{var}} template rendering expectation
+    - FigureSpecV1 JSON output contract
+  - Developer-only prompts index provided as YAML (not required by runtime).
+tech_considerations:
+  architecture: |
+    Policy/strategy（重试、模型池、并行度）归应用运行时（App Runtime）；Execution runtime 侧只做 LLM 调用与流式事件归一。
+  security: |
+    合规要求：不在日志与协议里输出真实 API key；只记录必要的错误摘要用于重提示。
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-002: Operator pipeline"
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-001: Documentation language requirements"
+  - "DOC-002: Internal work docs privacy"
+---
+

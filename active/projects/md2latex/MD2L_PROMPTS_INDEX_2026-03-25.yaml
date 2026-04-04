@@ -1,0 +1,34 @@
+---
+schema_version: "0.1"
+project: "md2latex"
+generated: "2026-03-25"
+
+prompt_index:
+  - prompt_id: "llm_ascii_to_figure_v1"
+    purpose: "Convert an ASCII fenced block into a complete LaTeX figure/table structure."
+    version: "v1"
+    placement:
+      location: "app_schema.prompts"
+      key_path: "llm_ascii_to_figure_v1"
+    required_fields:
+      system: true
+      user: true
+    template_placeholders:
+      - name: "{{block_text}}"
+        meaning: "Raw fenced code block text content."
+      - name: "{{block_id}}"
+        meaning: "Unique id for the fenced block (must match input block_id)."
+      - name: "{{error_log}}"
+        meaning: "Optional error summary injected on retries."
+    output_contract:
+      type: "FigureSpecV1 JSON"
+      constraints:
+        - "LLM must output JSON only (no natural language)."
+        - "JSON fields: content_type, block_id, figure_latex."
+        - "figure_latex must include complete figure/table LaTeX environment."
+    retry_feedback:
+      accepted_error_kinds:
+        - "json_parse_error"
+        - "output_validation_error"
+        - "latex_validation_error"
+

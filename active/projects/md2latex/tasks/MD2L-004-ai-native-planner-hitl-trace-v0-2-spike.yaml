@@ -1,0 +1,63 @@
+---
+id: "MD2L-004"
+title: "AI-native planner + HITL/trace hooks (v0.2 spike)"
+status: "completed"
+priority: "medium"
+assignee: "@ai"
+project: "md2latex"
+milestone: "v0.2.x"
+labels:
+  - "app-runtime"
+  - "planner"
+  - "human-in-the-loop"
+  - "observability"
+created: "2026-03-25"
+updated: "2026-03-26"
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
+
+description: |
+  对齐合同 0.1 / 0.2：在最小运行时之上增加可演进挂钩，而非一次性大 UI。
+  1) Planner / orchestrator 路径：用户意图 + schema 约束 → 调用 LLM → 产出与现有 AppFileV0_1 同构的 graph（或增量补丁），再走同一 load + run 管线。
+  2) 可回溯：RunRecord（run_id、时间、意图摘要、schema_version、图快照或 hash、节点级事件、error_log 链、LLM 元数据引用占位），可落盘或回调。
+  3) Human-in-the-loop：执行前/节点边界 pause、批准、替换 YAML 片段再提交的 API 钩子（CLI 可先 --dry-plan / --approve-step 等最小形态）。
+  4) 可授权：网络写文件等高影响 op 与外部 API 调用前 policy 检查点（最小实现：显式 flag 或 env）。
+
+acceptance_criteria:
+  - "存在从「意图字符串」到「解析后的 AppFileV0_1」的一条可测路径（可 mock LLM）"
+  - "单次 graph run 可发出结构化 trace 事件或写出一份最小 JSONL 记录"
+  - "合同 0.2 的四项能力在架构上各有对应扩展点（文档中注明入口类型/ trait 名）"
+
+dependencies:
+  - "MD2L-003"
+
+references:
+  - "active/projects/md2latex/MD2L_APP_PROTOCOL_MIN_CONTRACT_2026-03-25.md"
+
+estimated_hours: 16
+actual_hours: null
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "d:/rustapp/md2latex/src/planner.rs"
+  - "d:/rustapp/md2latex/src/policy.rs"
+  - "d:/rustapp/md2latex/src/trace.rs"
+  - "d:/rustapp/md2latex/src/runtime/graph_v0_1.rs"
+  - "d:/rustapp/md2latex/src/cli.rs"
+  - "d:/rustapp/md2latex/tests/planner_trace_gates.rs"
+
+testing: {}
+
+completion_notes: |
+  Closed: acceptance met (mock planner path, JSONL trace, 0.2 extension points documented in contract 0.3 + trait index line).
+  Delivered: planner, policy, trace, StepGate, optional ai-lib-exec, CLI plan/run flags.
+  Follow-up: MD2L-005+ (vars dump, gate patch, run-from-intent) — see MD2L_ROADMAP_NEXT_2026-03-26.md.
+
+tech_considerations:
+  architecture: |
+    与 ai-protocol 对齐时：LLM 产出应为 schema 合法结构；manifest 不作为第二真理源。
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "DOC-002: Internal work docs privacy"
+---

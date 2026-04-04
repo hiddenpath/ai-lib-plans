@@ -1,0 +1,106 @@
+---
+project: "md2latex"
+status: "in_progress"
+milestone: "v0.2.x"
+
+overview: |
+  md2latex: 将 Markdown 中的 ASCII art（区分图/表）转为可编译的 LaTeX `figure/table` 结构，并交给 pandoc 渲染。
+  本项目重点做“应用协议（App Protocol）试水”：把流程抽成 YAML 可声明的 graph + minimal contract，再由 App Runtime 解释执行。
+  合同已补充 0.3 实现侧守则；路线图见 tasks/MD2L_ROADMAP_NEXT_2026-03-26.md。
+
+repository:
+  local_path: "d:/rustapp/md2latex"
+  remote: "TBD"
+  default_branch: "main"
+
+current_phase: "v0.3 过渡：MD2L-004~010 已完成（planner、trace、step gate、policy、final vars 脱敏导出、vars patch、run-intent、readonly view、per-node vars 快照、tool ops: pandoc/latexmk）。路线图见 tasks/MD2L_ROADMAP_NEXT_2026-03-26.md。"
+
+active_tasks:
+  - id: "MD2L-001"
+    title: "Define minimal App Protocol contract (v0.1)"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "冻结最小 schema/graph/op 输入输出合同（FigureSpecV1 JSON + GraphNode 最小字段），为 runtime interpreter 开工提供可机读约束。"
+    acceptance_criteria:
+      - "App schema 最小字段集合可描述 md2latex MVP 全流程"
+      - "LLM 转换 op 输出为结构化 JSON（FigureSpecV1），并可被 JSON 校验"
+      - "重试策略可用错误日志驱动（error_log 反馈到 LLM 节点）"
+    estimated_hours: 4
+  - id: "MD2L-002"
+    title: "Implement App Runtime interpreter MVP"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "实现一个最小的 YAML graph interpreter：decode→fanout LLM call→JSON 校验→回写 Markdown→(可选) pandoc render。"
+    acceptance_criteria:
+      - "支持最多 10 个 ASCII blocks / 文件，fanout 并发可配置"
+      - "LLM 节点具备 JSON schema 校验与错误日志重提示重试"
+      - "端到端用一个小 fixture markdown 能跑通"
+    estimated_hours: 10
+  - id: "MD2L-003"
+    title: "DAG scheduling (v0.1)"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "把执行从“声明顺序线性跑”升级为依赖驱动 DAG 调度：根据节点 inputs/$ref 找到依赖并拓扑调度；检测循环依赖并给出可诊断错误。"
+    acceptance_criteria:
+      - "DAG 调度正确：节点仅在其依赖输入就绪后执行"
+      - "循环依赖可观测：出现循环依赖时返回明确错误"
+      - "现有 8 条测试继续通过（无回归）"
+    estimated_hours: 10
+  - id: "MD2L-004"
+    title: "AI-native planner + HITL/trace hooks (v0.2 spike)"
+    status: "completed"
+    priority: "medium"
+    assignee: "@ai"
+    description: "Planner 从意图生成同构 graph；运行追溯记录；HITL 与授权检查扩展点（见 tasks/MD2L-004-*.yaml）。"
+    acceptance_criteria:
+      - "可测路径：意图 → AppFileV0_1（可 mock LLM）"
+      - "单次 run 可产生最小 trace（JSONL 或事件回调）"
+      - "0.2 四项能力各有代码/文档扩展点"
+    estimated_hours: 16
+  - id: "MD2L-005"
+    title: "Optional final vars dump (redacted JSON)"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "运行成功后可选导出最终变量表 JSON；默认脱敏 input_markdown。"
+    estimated_hours: 3
+  - id: "MD2L-006"
+    title: "StepGate: merge/patch runtime vars (HITL edit)"
+    status: "completed"
+    priority: "high"
+    assignee: "@ai"
+    description: "见 tasks/MD2L-006-*.yaml"
+    estimated_hours: 6
+  - id: "MD2L-007"
+    title: "CLI: single-shot run from intent (plan + run)"
+    status: "completed"
+    priority: "medium"
+    assignee: "@ai"
+    description: "见 tasks/MD2L-007-*.yaml"
+    estimated_hours: 4
+  - id: "MD2L-008"
+    title: "Readonly run view export (graph + node statuses)"
+    status: "completed"
+    priority: "medium"
+    assignee: "@ai"
+    description: "见 tasks/MD2L-008-*.yaml"
+    estimated_hours: 4
+
+dependencies:
+  - project: "ai-lib-rust"
+    reason: "LLM 执行侧 runtime 与 pipeline 机制"
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-002: Operator pipeline"
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-001: Documentation language requirements"
+  - "DOC-002: Internal work docs privacy"
+
+related_documents:
+  - "active/projects/md2latex/MD2L_APP_PROTOCOL_MIN_CONTRACT_2026-03-25.md"
+---
+

@@ -1,7 +1,7 @@
 ---
 id: "PT-070"
 title: "ai-lib-ts core/contact package split"
-status: "pending"
+status: "completed"
 priority: "critical"
 assignee: "@ai"
 project: "ai-protocol"
@@ -12,7 +12,7 @@ labels:
   - "split"
   - "core"
 created: "2026-04-01"
-updated: "2026-04-01"
+updated: "2026-04-02"
 executor_name: ""
 executor_terminal: ""
 
@@ -72,7 +72,11 @@ blocks:
 blocked_by:
   - "PT-067"
 
-files_changed: []
+files_changed:
+  - "ai-lib-ts/src/core.ts"
+  - "ai-lib-ts/src/contact.ts"
+  - "ai-lib-ts/tsup.config.ts"
+  - "ai-lib-ts/package.json (exports)"
 
 testing:
   unit_tests:
@@ -83,7 +87,8 @@ testing:
   typecheck:
     - "tsc strict on both packages"
 
-completion_notes: ""
+completion_notes: |
+  Delivered npm subpath exports `@hiddenpath/ai-lib-ts/core` and `/contact` (single package; separate `@ailib/core` npm package optional per plan). Build + typecheck pass.
 
 constitution_rules:
   - "ARCH-001: Protocol-driven design"

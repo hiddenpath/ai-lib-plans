@@ -1,0 +1,83 @@
+---
+id: "MD2L-002"
+title: "Implement App Runtime interpreter MVP"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "md2latex"
+milestone: "v0.1.x"
+labels:
+  - "app-runtime"
+  - "interpreter"
+  - "mvp"
+created: "2026-03-25"
+updated: "2026-03-25"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  实现一个最小 App Runtime interpreter（YAML graph executor）：
+  - decode markdown 并提取 fenced ASCII blocks
+  - 每个 block fanout 调用 LLM 并拿到 FigureSpecV1 JSON
+  - 对 JSON + 最小 LaTeX 片段做校验；失败则按 error_log 重提示重试
+  - 回写为完整 figure/table LaTeX，并可选交给 pandoc 渲染
+
+acceptance_criteria:
+  - "支持单文件最多 10 个 ASCII blocks（超过需返回需要下一版扩容的错误）"
+  - "fanout 并发可配置；并发超过时受控（背压/限流可最小实现）"
+  - "对 LLM 输出 JSON 做可机读校验，不合规触发 error_log 重提示重试"
+  - "提供一个最小 end-to-end fixture：输入 markdown -> 输出 markdown（含 figure/table）"
+
+dependencies:
+  - "MD2L-001"
+related_issues: []
+references:
+  - "active/projects/md2latex/MD2L_APP_PROTOCOL_MIN_CONTRACT_2026-03-25.md"
+
+estimated_hours: 10
+actual_hours: 10
+blocks: []
+blocked_by: []
+files_changed:
+  - "/src/lib.rs"
+  - "/src/contract.rs"
+  - "/src/interpreter.rs"
+  - "/src/schema.rs"
+  - "/src/ops/markdown.rs"
+  - "/src/ops/replace.rs"
+  - "/tests/md2latex_contract_tests.rs"
+testing:
+  unit_tests:
+    - "cargo test -> 8 passed"
+  formatting:
+    - "cargo fmt --all -- --check"
+  lint:
+    - "cargo clippy --all-targets -- -D warnings"
+completion_notes: |
+  MD2L-002 progress:
+  - Implemented fenced block extraction v1
+  - Implemented FigureSpecV1 JSON validation (min LaTeX environment presence)
+  - Implemented markdown replacement v1
+  - Implemented run_minimal_v0_1 with retry on json_parse_error (error_log injection)
+  - Implemented YAML graph interpreter entrypoint:
+    - YAML schema parsing (v0.1) with prompts + nodes + fanout + retry
+    - $ref.$var resolution and $prompt.<id>.(system|user) resolution
+    - {{var}} template rendering for prompts
+    - llm.generate_json_v1 节点已升级为：JSON parse 成功后立即做 FigureSpecV1 校验；校验失败会按 retry.on 触发 output_validation_error/latex_validation_error 的重试
+    - End-to-end YAML tests covering fanout + retry (json_parse_error/output_validation_error/latex_validation_error)
+  - llm.generate_json_v1 fanout 支持基于 `fanout.concurrency` 的有界并发；新增并发度单测（max in-flight == concurrency）
+tech_considerations:
+  architecture: |
+    App Runtime 负责 graph 调度与策略；LLM 调用收敛到 ai-lib-rust（execution boundary）。
+  performance: |
+    MVP 优先确定性与可观测性；并发上限以减少 LLM 成本与不稳定因素。
+  security: |
+    只把必要的错误摘要回填给 LLM；协议与日志避免输出敏感数据。
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-002: Operator pipeline"
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-001: Documentation language requirements"
+  - "DOC-002: Internal work docs privacy"
+---
+

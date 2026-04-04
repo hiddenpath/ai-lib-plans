@@ -1,0 +1,110 @@
+---
+id: "PT-057"
+title: "Generative LLM manifest schema extension and runtime support planning"
+status: "completed"
+priority: "critical"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v1.0.x"
+labels:
+  - "schema"
+  - "generative"
+  - "runtime"
+  - "manifest"
+created: "2026-03-30"
+updated: "2026-03-30"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Extend ai-protocol V2 manifest schema and runtime contract to fully accommodate
+  generative large language models, including but not limited to:
+
+  1. **Capability schema expansion**
+     - Generative-specific capability declarations: context window, reasoning mode,
+       function calling depth, structured output, JSON mode, vision+generation
+     - Model family metadata: parameter count ranges, knowledge cutoff,
+       pricing tier classification (for routing, not billing)
+     - MCP tool bridge JSON schema finalization (currently marked "not fully finalized"
+       in MEMORY.md)
+
+  2. **Runtime support contract**
+     - Unified request/response envelope for generative models across four runtimes
+     - Streaming contract: SSE event shape, partial JSON accumulation, tool-call streaming
+     - Token usage reporting contract (prompt/completion/total + reasoning tokens)
+     - System message and multi-turn conversation protocol alignment
+     - Structured output / JSON mode manifest-driven activation
+
+  3. **Provider manifest coverage**
+     - P0 generative models: OpenAI GPT-4o/o3, Anthropic Claude 3.5/4, Google Gemini 2.x
+     - P0 China-region: DeepSeek V3/R1, Qwen 2.5/3, Doubao (ByteDance)
+     - Manifest fields: model_id, context_window, supported_modalities,
+       tool_calling_spec, structured_output_support, reasoning_mode
+
+  4. **Compliance test baseline**
+     - New compliance category: `08-generative-capabilities`
+     - Cases: context-window-declaration, tool-calling-depth, structured-output-mode,
+       reasoning-token-reporting, system-message-handling
+     - Must be consumable by four runtimes
+
+  5. **Rollback and compatibility**
+     - V1 manifests must remain loadable; new fields are additive-only
+     - Runtime loaders must tolerate missing generative fields with explicit defaults
+     - Feature flag pattern for experimental capabilities (reasoning mode, etc.)
+
+acceptance_criteria:
+  - "V2 capability schema includes generative-specific declarations"
+  - "MCP tool bridge schema has v0 definition with compliance cases"
+  - "Streaming contract is documented and testable across four runtimes"
+  - "Token usage reporting contract is defined in schema"
+  - "08-generative-capabilities compliance category exists with >=5 cases"
+  - "P0 provider manifests include generative capability fields"
+  - "V1 backward compatibility is preserved"
+
+dependencies:
+  - "PT-054"
+related_issues: []
+references:
+  - "schemas/v2/capability-profile.json"
+  - "schemas/v2/provider.json"
+  - "MEMORY.md (MCP Integration section)"
+  - "active/projects/ai-protocol/P1_PROVIDER_EXPANSION_WAVE_PLAN_2026-03-07.md"
+  - "tests/compliance/cases/"
+estimated_hours: 20
+actual_hours: 3
+blocks:
+  - "PT-058"
+  - "PT-059"
+  - "PT-060"
+blocked_by:
+  - "PT-054"
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests:
+    - "tests/compliance/cases/08-generative-capabilities/"
+
+completion_notes: |
+  Completed.
+  - capabilities.json: added feature_flags for json_mode, json_schema_mode, reasoning_tokens,
+    streaming_tool_calls, recursive_tool_calls.
+  - provider-contract.json: added generative capability contract with token_usage_format,
+    token_usage_fields (prompt/completion/total/reasoning/cache), reasoning_mode contract
+    (activation method, thinking block format, streaming thinking), context_window_contract.
+  - Created 08-generative-capabilities compliance category with 7 cases:
+    gen-001 (capability declarations), gen-002 (token usage extraction),
+    gen-003 (structured output JSON mode), gen-004 (streaming tool call accumulation),
+    gen-005 (context overflow error classification), gen-006 (reasoning mode streaming),
+    gen-007 (MCP tool bridge capability gating).
+  - V1 backward compatibility preserved: all new fields are additive with defaults.
+  - P0 provider manifests already declare reasoning/structured_output/mcp_client in capabilities.
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-002: Operator pipeline"
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---

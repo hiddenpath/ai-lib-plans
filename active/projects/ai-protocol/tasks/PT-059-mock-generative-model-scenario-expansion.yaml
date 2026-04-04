@@ -1,0 +1,106 @@
+---
+id: "PT-059"
+title: "ai-protocol-mock generative model scenario expansion"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v1.0.x"
+labels:
+  - "mock"
+  - "generative"
+  - "testing"
+created: "2026-03-30"
+updated: "2026-03-30"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Extend ai-protocol-mock to provide comprehensive generative LLM behavior
+  simulation for downstream runtime testing and development.
+
+  New mock scenarios:
+  1. **Generative chat completion**
+     - Sync and streaming responses with configurable token counts
+     - Multi-turn conversation context echo for semantic verification
+     - System message handling and priority behavior
+     - Structured output / JSON mode response generation
+
+  2. **Tool calling simulation**
+     - Single and parallel tool-call generation in streaming mode
+     - Recursive tool-call chains (depth 1~3)
+     - MCP tool bridge request/response format
+     - Tool-call error injection (malformed schema, timeout, partial)
+
+  3. **Reasoning mode simulation**
+     - Extended thinking / reasoning token generation
+     - Reasoning + answer split in streaming chunks
+     - Reasoning token count in usage metadata
+
+  4. **Error and edge cases**
+     - Context window overflow simulation
+     - Content filter trigger with provider-specific error shapes
+     - Rate limit with Retry-After header behavior
+     - Partial streaming failure mid-response
+
+  5. **Token usage reporting**
+     - Accurate prompt/completion/total/reasoning token counts
+     - Provider-variant usage field shapes (OpenAI vs Anthropic vs Gemini)
+
+  Mock control:
+  - Request headers/body parameters for scenario selection
+  - Deterministic behavior for reproducible compliance testing
+  - Default-safe: unknown scenarios return standard chat completion
+
+acceptance_criteria:
+  - "Mock exposes generative chat completion sync/stream endpoints"
+  - "Tool calling scenarios support single/parallel/recursive/MCP patterns"
+  - "Reasoning mode generates split thinking+answer streaming"
+  - "Error injection covers context overflow, content filter, rate limit"
+  - "Token usage metadata is accurate and provider-variant"
+  - "All scenarios are deterministic and header/body controllable"
+
+dependencies:
+  - "PT-057"
+related_issues: []
+references:
+  - "d:/rustapp/ai-protocol-mock/"
+  - "active/projects/ai-protocol/P1P2_CODING_EXECUTION_WAVE1_2026-03-07.md"
+  - "MEMORY.md (Wave-2 Mock Lifecycle section)"
+estimated_hours: 16
+actual_hours: 2
+blocks:
+  - "PT-058"
+blocked_by:
+  - "PT-057"
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests:
+    - "ai-protocol-mock: generative scenario smoke tests"
+  compliance_tests: []
+
+completion_notes: |
+  Completed (spec + implementation + tests).
+  - Spec: MOCK_GENERATIVE_SCENARIO_SPEC_2026-03-30.md.
+  - Implementation in http_provider.py:
+    - Error injection: X-Mock-Error=context_overflow|content_filter|rate_limit|stream_interrupt
+    - Reasoning mode: X-Mock-Reasoning=true (OpenAI reasoning_content + Anthropic thinking blocks)
+    - Structured output: body response_format.type=json_object|json_schema
+    - Tool calling: X-Mock-Tool-Calls=parallel|recursive (with X-Mock-Tool-Depth)
+    - Token usage: OpenAI completion_tokens_details.reasoning_tokens + Anthropic cache tokens
+    - Usage format override: X-Mock-Usage-Format=openai|anthropic|gemini
+    - Stream interrupt: partial SSE without [DONE]
+  - Helper functions: _openai_usage_with_reasoning, _anthropic_usage_with_cache,
+    _openai_reasoning_stream_chunks, _anthropic_reasoning_stream_chunks,
+    _openai_parallel_tool_calls_response, _openai_parallel_tool_stream_chunks,
+    _openai_structured_output_response, _MODEL_CONTEXT_WINDOWS.
+  - Tests: tests/test_generative.py (15 tests, all passing).
+  - Regression: tests/test_mock.py (25 tests, all passing, zero regression).
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+---

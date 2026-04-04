@@ -1,0 +1,50 @@
+---
+id: "MD2L-006"
+title: "StepGate: merge/patch runtime vars (HITL edit)"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "md2latex"
+milestone: "v0.2.x"
+labels:
+  - "human-in-the-loop"
+  - "app-runtime"
+created: "2026-03-26"
+updated: "2026-03-26"
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
+
+description: |
+  扩展 StepGate：除 Proceed/Abort 外，允许返回对 ctx.vars 的补丁（例如用户编辑后的 JSON），
+  再执行当前节点。CLI 可先支持从文件读入补丁。
+
+acceptance_criteria:
+  - "StepDecision 或等价机制支持 vars patch"
+  - "graph 执行路径在节点执行前应用补丁"
+  - "测试覆盖：注入 patch 改变下游行为"
+
+dependencies:
+  - "MD2L-005"
+
+references:
+  - "active/projects/md2latex/MD2L_APP_PROTOCOL_MIN_CONTRACT_2026-03-25.md"
+
+estimated_hours: 6
+actual_hours: 2
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "d:/rustapp/md2latex/src/runtime/graph_v0_1.rs"
+  - "d:/rustapp/md2latex/src/cli.rs"
+  - "d:/rustapp/md2latex/tests/planner_trace_gates.rs"
+testing:
+  unit_tests:
+    - "cargo test step_gate_patch_changes_downstream_behavior"
+  lint:
+    - "cargo clippy --all-targets -- -D warnings"
+completion_notes: |
+  Added `StepDecisionV0_1::ApplyPatch(HashMap<String, Value>)`.
+  `StepGateV0_1::before_node` now receives `vars` snapshot and may return patch merged before node execution.
+  CLI supports `--gate-patch-file` (JSON object merged before each node), compatible with `--step-stdin`.
+---

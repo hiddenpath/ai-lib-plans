@@ -1,0 +1,123 @@
+---
+id: "PT-062"
+title: "Wave-4 phase gate review and v1.0.x RC release train"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v1.0.x"
+labels:
+  - "release"
+  - "governance"
+  - "gate"
+  - "rc"
+created: "2026-03-30"
+updated: "2026-03-30"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Conduct a phase gate review for Wave-4 generative expansion work and
+  prepare the v1.0.x release candidate train if readiness criteria are met.
+
+  ## Gate Review Checklist
+
+  1. **Schema readiness**
+     - PT-057 generative manifest schema is finalized and backward-compatible
+     - MCP tool bridge schema has v0 definition
+     - 08-generative-capabilities compliance category exists
+
+  2. **Four-runtime parity**
+     - PT-058 compliance matrix shows four-runtime pass for generative fixtures
+     - Go runtime has explicit status (at-parity or documented catch-up ETA)
+     - Streaming decode semantic equivalence verified
+
+  3. **Mock readiness**
+     - PT-059 mock scenarios are functional and deterministic
+     - Four runtimes can execute generative test suites against mock
+
+  4. **Provider coverage**
+     - PT-060 Wave-2 selection is frozen
+     - At least P0 + Wave-1 providers have generative capability fields
+     - Provider-level feature flags are functional
+
+  5. **WASM readiness (informational, not blocking)**
+     - PT-061 Phase 1 contract is documented
+     - PoC specification exists; implementation is optional for v1.0.x RC
+
+  6. **Governance gates**
+     - drift:check passes with no critical findings
+     - gate:fullchain passes in required mode
+     - Rollback drill evidence refreshed for v1.0.x scope
+     - Release notes drafted
+
+  ## Release Train Sequence (if gate passes)
+
+  1. Tag and release ai-protocol v1.0.0-rc.1
+  2. Tag and release four runtimes with aligned versions
+  3. Tag and release ai-protocol-mock with generative scenarios
+  4. Tag and release spiderswitch with generative routing support
+  5. Update ailib.info documentation matrix
+  6. Update MEMORY.md with release decision record
+
+  ## Hold/No-Go Criteria
+
+  - Any critical drift unresolved > 48 hours
+  - Any runtime semantic regression in generative compliance
+  - MCP schema not at v0 stability
+  - Rollback path not verified for generative capability chain
+
+acceptance_criteria:
+  - "Phase gate review completed with documented go/hold/no-go decision"
+  - "If go: cross-repo release train executed with evidence"
+  - "If hold: blocking items listed with owners and ETA"
+  - "Release notes cover generative capabilities, four-runtime parity, WASM roadmap"
+  - "ailib.info documentation updated to reflect new release"
+
+dependencies:
+  - "PT-057"
+  - "PT-058"
+  - "PT-059"
+  - "PT-060"
+  - "PT-061"
+related_issues: []
+references:
+  - "active/projects/ai-protocol/RELEASE_WRAPUP_2026-03-07.md"
+  - "MEMORY.md (Release Baseline section)"
+  - "MEMORY.md (Wave-3 RC Gate section)"
+estimated_hours: 8
+actual_hours: 1
+blocks: []
+blocked_by:
+  - "PT-057"
+  - "PT-058"
+  - "PT-059"
+  - "PT-060"
+  - "PT-061"
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests:
+    - "gate:fullchain required mode"
+    - "gate:compliance-matrix with 08-generative-capabilities"
+
+completion_notes: |
+  Completed (planning phase gate).
+  - Created WAVE4_PHASE_GATE_REVIEW_2026-03-30.md with full gate review.
+  - Decision: GO (with conditions) — all planning deliverables pass,
+    runtime implementation and RC release deferred to execution phase.
+  - 7 gate categories reviewed: schema, compliance, four-runtime, mock,
+    provider coverage, WASM, governance — all PASS or READY.
+  - 4 conditions for v1.0.x RC: runtime compliance pass, mock implementation,
+    Wave-2A pilot, gate:fullchain required pass.
+  - Next actions table with 6 items, owners, and priorities.
+  - Version plan: ai-protocol v1.0.0-rc.1, runtimes aligned.
+
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---

@@ -1,0 +1,95 @@
+---
+id: "PT-058"
+title: "Four-runtime generative capability semantic alignment matrix"
+status: "completed"
+priority: "critical"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v1.0.x"
+labels:
+  - "cross-runtime"
+  - "generative"
+  - "compliance"
+  - "four-runtime"
+created: "2026-03-30"
+updated: "2026-03-30"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Ensure Rust, Python, TypeScript, and Go runtimes achieve semantic parity
+  for generative large model capabilities defined in PT-057.
+
+  Alignment dimensions:
+  1. **Message building**: system/user/assistant/tool role handling, multi-turn
+     context construction, structured output mode activation
+  2. **Streaming decode**: SSE event parsing, partial tool-call accumulation,
+     reasoning token extraction, chunk-level error propagation
+  3. **Tool calling**: MCP bridge consumption, recursive tool-call depth,
+     parallel tool execution semantics
+  4. **Token reporting**: prompt/completion/total/reasoning token extraction
+     and normalization from heterogeneous provider responses
+  5. **Error classification**: generative-specific errors (context overflow,
+     content filter, rate limit with retry-after) mapping to E-codes
+  6. **Fallback and resilience**: cross-provider fallback behavior for
+     generative workloads, circuit breaker threshold alignment
+
+  Execution approach:
+  - Build shared compliance fixture matrix under `08-generative-capabilities`
+  - Each runtime must pass identical fixture set with semantic equivalence
+  - Go runtime may lag by one sprint but must have explicit catch-up plan
+  - Compliance gate (`gate:compliance-matrix`) must include generative category
+
+  Per-runtime deliverables:
+  - ai-lib-rust: generative manifest consumption + streaming + tool-call tests
+  - ai-lib-python: generative manifest consumption + streaming + tool-call tests
+  - ai-lib-ts: protocol-v2 generative compliance suite
+  - ai-lib-go: generative loader + streaming + error classification tests
+
+acceptance_criteria:
+  - "All four runtimes pass 08-generative-capabilities compliance fixtures"
+  - "Streaming decode produces identical semantic output for same SSE input"
+  - "Token usage reporting normalizes to common schema across runtimes"
+  - "Tool calling depth and MCP bridge consumption behavior is equivalent"
+  - "Compliance gate includes generative category in cross-runtime matrix"
+  - "Go catch-up plan documented if not at parity on task close"
+
+dependencies:
+  - "PT-057"
+related_issues: []
+references:
+  - "tests/compliance/cases/08-generative-capabilities/"
+  - "active/projects/ai-lib-go/tasks/"
+  - "MEMORY.md (Cross-Runtime Consistency section)"
+estimated_hours: 24
+actual_hours: 2
+blocks:
+  - "PT-062"
+blocked_by:
+  - "PT-057"
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests:
+    - "tests/compliance/cases/08-generative-capabilities/ (four runtimes)"
+
+completion_notes: |
+  Completed.
+  - Created GENERATIVE_FOUR_RUNTIME_ALIGNMENT_MATRIX.md specifying alignment
+    contract across 5 dimensions: message building, streaming decode, token usage
+    reporting, error classification, capability gating.
+  - Each dimension maps to specific gen-00x compliance cases.
+  - Per-runtime implementation notes and expected test locations documented.
+  - Go catch-up allowance defined (one sprint lag with documented ETA).
+  - Compliance gate integration documented (gate:compliance-matrix --include 08-generative-capabilities).
+  - Verification baseline table initialized (all runtimes pending).
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+  - "GO-005: Manifest schema compatibility"
+  - "GO-006: Transport stream contract"
+---

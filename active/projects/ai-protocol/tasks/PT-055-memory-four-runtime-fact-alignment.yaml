@@ -1,0 +1,67 @@
+---
+id: "PT-055"
+title: "MEMORY.md four-runtime and Wave-4 fact alignment"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v1.0.x"
+labels:
+  - "governance"
+  - "memory"
+  - "four-runtime"
+created: "2026-03-30"
+updated: "2026-03-30"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
+
+description: |
+  Bring MEMORY.md up to date with post-PT-053 reality:
+  - Update last-updated date
+  - Unify version matrix table (resolve contradictory v0.8.x vs v0.8.3 entries)
+  - Write PT-051~053 decision summaries (four-runtime loading, public URL migration, hygiene CI)
+  - Add Wave-4 architecture decision block: generative model runtime support,
+    four-runtime compliance parity, WASM adapter evolution path
+  - Ensure DOC-002 compliance (no internal discussion drafts leak to public repos)
+
+acceptance_criteria:
+  - "MEMORY.md last-updated is current date"
+  - "Version matrix is single authoritative table without contradictions"
+  - "PT-051~053 decision summaries are present"
+  - "Wave-4 decisions block documents generative/four-runtime/WASM direction"
+
+dependencies:
+  - "PT-054"
+related_issues: []
+references:
+  - "MEMORY.md"
+  - "active/projects/ai-protocol/tasks/PT-051-four-runtime-manifest-loading-matrix-go-inclusion.yaml"
+  - "active/projects/ai-protocol/tasks/PT-052-official-public-manifest-reference-migration.yaml"
+  - "active/projects/ai-protocol/tasks/PT-053-public-url-hygiene-ci-governance-baseline.yaml"
+estimated_hours: 2
+actual_hours: 1
+blocks: []
+blocked_by:
+  - "PT-054"
+
+files_changed: []
+
+testing:
+  unit_tests: []
+  integration_tests: []
+  compliance_tests: []
+
+completion_notes: |
+  Completed.
+  - MEMORY.md last-updated set to 2026-03-30.
+  - PT-051~053 decision summaries added (four-runtime loading, URL migration, hygiene CI).
+  - Wave-4 architecture decision block added covering generative schema, four-runtime alignment,
+    mock expansion, provider Wave-2, WASM evolution, and release gate strategy.
+  - Repository Layout unified into single authoritative table with v0.8.3 series versions.
+  - Removed duplicate/contradictory version tables.
+
+constitution_rules:
+  - "ARCH-003: Cross-runtime consistency"
+  - "DOC-001: Code docs English + Chinese module header"
+  - "DOC-002: Internal docs privacy boundary"
+---

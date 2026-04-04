@@ -1,7 +1,7 @@
 ---
 id: "PT-071"
 title: "ai-lib-go core verification and ExecutionMetadata alignment"
-status: "pending"
+status: "in_progress"
 priority: "high"
 assignee: "@ai"
 project: "ai-protocol"
@@ -12,7 +12,7 @@ labels:
   - "core"
   - "verification"
 created: "2026-04-01"
-updated: "2026-04-01"
+updated: "2026-04-02"
 executor_name: ""
 executor_terminal: ""
 
@@ -68,7 +68,8 @@ testing:
   compliance_tests:
     - "Existing compliance with COMPLIANCE_DIR"
 
-completion_notes: ""
+completion_notes: |
+  ExecutionMetadata / ExecutionResult types + JSON tests added. OPEN: wire metadata into Chat/ChatStream return API; audit FallbackClient as contact-layer (pkg/ailib/fallback.go).
 
 constitution_rules:
   - "ARCH-001: Protocol-driven design"

@@ -1,0 +1,52 @@
+---
+id: "MD2L-005"
+title: "Optional final vars dump (redacted JSON)"
+status: "completed"
+priority: "high"
+assignee: "@ai"
+project: "md2latex"
+milestone: "v0.2.x"
+labels:
+  - "observability"
+  - "human-in-the-loop"
+  - "app-runtime"
+created: "2026-03-26"
+updated: "2026-03-26"
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
+
+description: |
+  合同 0.3.2：运行成功结束后，可选将最终变量表导出为 JSON，便于 HITL / 调试。
+  默认对大块/敏感键（如 input_markdown）做长度脱敏；可选完整导出。
+
+acceptance_criteria:
+  - "RunAppConfig 支持 final vars 导出配置"
+  - "CLI run 提供 --dump-final-vars PATH；默认识别脱敏；提供关闭脱敏开关"
+  - "单元或集成测试：mock 运行后文件存在且 input_markdown 被脱敏（当启用脱敏时）"
+
+dependencies:
+  - "MD2L-004"
+
+references:
+  - "active/projects/md2latex/MD2L_APP_PROTOCOL_MIN_CONTRACT_2026-03-25.md"
+
+estimated_hours: 3
+actual_hours: 2
+blocks: []
+blocked_by: []
+
+files_changed:
+  - "d:/rustapp/md2latex/src/runtime/graph_v0_1.rs"
+  - "d:/rustapp/md2latex/src/runtime/mod.rs"
+  - "d:/rustapp/md2latex/src/cli.rs"
+  - "d:/rustapp/md2latex/tests/planner_trace_gates.rs"
+  - "active/projects/md2latex/MD2L_APP_PROTOCOL_MIN_CONTRACT_2026-03-25.md"
+testing:
+  unit_tests:
+    - "cargo test dump_final_vars_redacts_input_markdown"
+completion_notes: |
+  FinalVarsDumpV0_1 + RunAppConfig.final_vars_dump; CLI --dump-final-vars / --dump-final-vars-plain;
+  contract 0.3.3 adds Rust trait / entry reference line.
+constitution_rules:
+  - "DOC-002: Internal work docs privacy"
+---
