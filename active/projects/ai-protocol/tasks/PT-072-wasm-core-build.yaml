@@ -114,7 +114,7 @@ completion_notes: |
   - Zero P-module (contact) dependencies in WASM binary.
   - jsonschema excluded on wasm32 (validate_basic only); no reqwest::blocking.
   - WasmChatRequest DTO avoids Deserialize on UnifiedRequest.
-  - OPEN: wasmtime test harness and compliance subset (can be follow-up or PT-073 gate).
+  - wasmtime harness: `ai-lib-wasmtime-harness` test `wasm_compliance` (protocol_loading + message_building path); run after `cargo build -p ai-lib-wasm --target wasm32-wasip1 --release`.
   - STRETCH not done: wasm32-unknown-unknown / wasm-bindgen browser PoC.
 
 constitution_rules:
