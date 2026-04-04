@@ -1,7 +1,7 @@
 ---
 id: "PT-069"
 title: "ai-lib-python core/contact package split"
-status: "pending"
+status: "in_progress"
 priority: "critical"
 assignee: "@ai"
 project: "ai-protocol"
@@ -12,7 +12,7 @@ labels:
   - "split"
   - "core"
 created: "2026-04-01"
-updated: "2026-04-01"
+updated: "2026-04-02"
 executor_name: ""
 executor_terminal: ""
 
@@ -75,7 +75,10 @@ blocks:
 blocked_by:
   - "PT-067"
 
-files_changed: []
+files_changed:
+  - "ai-lib-python/tests/architecture/test_execution_layer_import_boundary.py"
+  - "ai-protocol/tests/compliance/ep-boundary/check_ep_boundary.py (--python-root)"
+  - "ai-protocol/tests/compliance/ep-boundary/E_ONLY_CASES.md"
 
 testing:
   unit_tests:
@@ -86,7 +89,8 @@ testing:
   typecheck:
     - "mypy strict on core and contact"
 
-completion_notes: ""
+completion_notes: |
+  Optional extra `contact` added (marker; included in `full`). `COMPLIANCE_SUBSET=e_only` filters policy-heavy compliance cases. Static E/P import guard: pytest `tests/architecture/test_execution_layer_import_boundary.py` + ai-protocol `check_ep_boundary.py --python-root`. OPEN: lazy-import / package split so `client` and other mixed surfaces do not pull `resilience` until `[contact]`; optional second wheel on PyPI.
 
 constitution_rules:
   - "ARCH-001: Protocol-driven design"
