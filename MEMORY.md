@@ -7,6 +7,10 @@
 
 ---
 
+## Governance — internal repositories
+
+- **ai-lib-constitution** and **ai-lib-plans** are **internal** (hiddenpath-only workflow). They MUST **not** be pushed or mirrored to **ailib-official**. Authoritative wording: **GOV-001** in the constitution repo (`rules/governance/GOV-001-canonical-remote-monorepo-sync.yaml`).
+
 ## Architecture Decisions
 
 ### Protocol-Driven Design (ARCH-001)
