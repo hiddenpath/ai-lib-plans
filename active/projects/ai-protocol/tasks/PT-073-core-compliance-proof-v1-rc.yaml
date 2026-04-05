@@ -125,11 +125,14 @@ testing:
     - "Smoke tests on documented entrypoints (core + contact as released)"
 
 completion_notes: |
-  PT-068/PT-072 closed; blocked_by trimmed to Python/TS/Go core splits (PT-069–071).
-  Rust: `COMPLIANCE_DIR=<ai-protocol>/tests/compliance cargo test -p ai-lib-core --test compliance_from_core` runs the full YAML compliance matrix (shared runner with facade `compliance` test).
-  WASM: release wasm ~1.24MB; wasmtime in-process harness `ai-lib-wasmtime-harness` (`cargo test -p ai-lib-wasmtime-harness --test wasm_compliance`) validates `ailib_load_manifest` + `ailib_build_chat_request`; optional CLI smoke script remains.
-  Governance: GOV-001 (hiddenpath dev, PR/merge + unified URL story to ailib-official, single-repo workspace).
-  Checklist in ai-protocol/docs/WAVE5_V1_GATE_CHECKLIST.md updated; full gate still needs Python/TS/Go core-only compliance + CI wiring for wasmtime harness + remaining governance items.
+  PT-068–072 closed; all four-runtime core splits landed.
+  Audit (2026-04-05) found and fixed 3 defects:
+    1. Rust/TS: ExecutionUsage required fields didn't match schema partial semantics → serde(default) / optional.
+    2. Go: streaming ExecutionMetadata.Usage was always nil → SSE decoder extracts usage from final chunk.
+    3. TS module-matrix: transport was listed as pure E but imports resilience → moved to mixed with follow-up note.
+  CI: pt073-rust-core-wasm.yml, pt073-ts-core.yml, pt073-python-e-only.yml workflows on hardening branches; Go ci.yml on main.
+  Gate checklist: ai-protocol/docs/WAVE5_V1_GATE_CHECKLIST.md with CI references.
+  Release train: blocked pending owner review of full audit results.
 
 constitution_rules:
   - "ARCH-001: Protocol-driven design"
