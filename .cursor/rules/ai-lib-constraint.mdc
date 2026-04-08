@@ -12,12 +12,13 @@ All local work in this workspace is **constrained and supported** by:
 
 ## Before Making Changes
 
-1. **Read** `ai-lib-constitution/SOUL.md` — Agent persona
-2. **Read** `ai-lib-constitution/AGENTS.md` — Checklists
-3. **Read** `ai-lib-plans/MEMORY.md` — Architecture decisions, conventions
-4. **Load** applicable rules from `ai-lib-constitution/rules/` (ARCH-*, RUST-*, PY-*, TS-*, DOC-*)
-5. **Sync ai-lib-plans before planning**: Run `bash /home/alex/ai-lib-plans/tools/sync_ai_lib_plans.sh --mode pre-plan`
-6. **Task attribution required**: For task execution records in `active/projects/*/tasks/*.yaml`, fill `executor_name` and `executor_terminal`
+1. **CRITICAL — Check git remotes**: Public repos MUST have `origin` → `ailib-official/*`. If still `hiddenpath/*`, repoint **immediately** per `ai-lib-plans/docs/governance/REMOTE_MIGRATION.md`. Only `ai-lib-constitution` and `ai-lib-plans` stay on `hiddenpath`.
+2. **Read** `ai-lib-constitution/SOUL.md` — Agent persona
+3. **Read** `ai-lib-constitution/AGENTS.md` — Checklists
+4. **Read** `ai-lib-plans/MEMORY.md` — Architecture decisions, conventions
+5. **Load** applicable rules from `ai-lib-constitution/rules/` (ARCH-*, RUST-*, PY-*, TS-*, DOC-*)
+6. **Sync ai-lib-plans before planning**: Run `bash /home/alex/ai-lib-plans/tools/sync_ai_lib_plans.sh --mode pre-plan`
+7. **Task attribution required**: For task execution records in `active/projects/*/tasks/*.yaml`, fill `executor_name` and `executor_terminal`
 
 ## While Working
 

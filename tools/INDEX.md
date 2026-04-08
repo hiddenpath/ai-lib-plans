@@ -9,6 +9,14 @@
 - 涉及破坏性操作（如 `reset --hard` / `clean -fd`）必须明确标注。
 - 与 ai-lib 生态相关的工具优先放在 `ai-lib-plans/tools/` 统一管理。
 
+## 治理文档
+
+## `docs/governance/REMOTE_MIGRATION.md`
+- **用途**: 远端迁移指令（GOV-001 v2）——所有编程代理在操作公开仓库前必须检查 `origin` 是否指向 `ailib-official/*`，若仍指向 `hiddenpath/*` 则立即重指向
+- **适用范围**: ai-protocol, ai-lib-rust, ai-lib-python, ai-lib-ts, ai-lib-go, ai-protocol-mock
+- **不适用**: ai-lib-constitution, ai-lib-plans（保持 hiddenpath）
+- **关联规则**: GOV-001 v2.0, TEST-002 v2.0, AGENTS.md
+
 ## 工具列表
 
 ## `sync_ai_lib_plans.sh`

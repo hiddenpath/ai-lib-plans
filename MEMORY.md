@@ -3,13 +3,39 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-04-03
+**Last Updated**: 2026-04-06
 
 ---
 
 ## Governance — internal repositories
 
 - **ai-lib-constitution** and **ai-lib-plans** are **internal** (hiddenpath-only workflow). They MUST **not** be pushed or mirrored to **ailib-official**. Authoritative wording: **GOV-001** in the constitution repo (`rules/governance/GOV-001-canonical-remote-monorepo-sync.yaml`).
+
+## CRITICAL — Canonical remote migration (2026-04-06, GOV-001 v2)
+
+> **Every agent must execute this check before any git operation on public repos.**
+
+**All public code repos are now on `ailib-official`**. If your local `origin` still
+points to `hiddenpath/*`, run the repointing script below **before any push/PR**:
+
+```bash
+# For each public repo clone:
+git remote set-url origin https://github.com/ailib-official/<REPO_NAME>.git
+```
+
+Affected repos: `ai-protocol`, `ai-lib-rust`, `ai-lib-python`, `ai-lib-ts`, `ai-lib-go`, `ai-protocol-mock`.
+
+**Do NOT repoint**: `ai-lib-constitution`, `ai-lib-plans` — these stay on `hiddenpath` (private).
+
+Full operational directive: [`docs/governance/REMOTE_MIGRATION.md`](docs/governance/REMOTE_MIGRATION.md).
+
+## Governance — unified org on ailib-official (2026-04-06)
+
+- **Single canonical org**: All public code repos are developed and released on **ailib-official**. Local `origin` = `ailib-official/<repo>`.
+- **hiddenpath archived**: Public code repos on hiddenpath are archived/read-only. No new development, PRs, or pushes there.
+- **Internal-only on hiddenpath**: `ai-lib-constitution` and `ai-lib-plans` remain private on hiddenpath (GOV-001 v2).
+- **npm**: TypeScript package name is **`@ailib-official/ai-lib-ts`** (v0.6.0+; breaking migration from `@hiddenpath/ai-lib-ts`).
+- **CI**: All workflow `repository:` checkout references use `ailib-official/*`. No hiddenpath references remain in any workflow.
 
 ## Architecture Decisions
 
@@ -38,12 +64,12 @@
 - **WASM enabler**: core-only crate compiles to wasm32-wasip1 (no P dependencies → no state → small binary).
 - **v1.0 condition**: four-language core-only passes full compliance matrix + WASM core passes compliance subset + documented package layout and migration notes (pre-public: breaking paths/APIs allowed; optional thin aggregation only if trivial).
 - **Tasks**: PT-067 (contract) → PT-068/069/070/071 (split per runtime) → PT-072 (WASM) → PT-073 (v1.0 RC gate).
-- **Progress (2026-04-03)**: Rust workspace `ai-lib-core` + `ai-lib-contact` + `ai-lib-wasm` + facade `ai-lib-rust` + optional `ai-lib-wasmtime-harness`; PT-068/PT-072 **completed** (WASI exports, ~1.24MB release wasm). PT-073 **in progress**: core `cargo test -p ai-lib-core --test compliance_from_core` with `COMPLIANCE_DIR` runs full YAML suite (shared with facade `compliance`); wasmtime harness `cargo test -p ai-lib-wasmtime-harness --test wasm_compliance` after wasm release build; governance **GOV-001** (hiddenpath primary remote, promote to ailib-official via PR/merge + one URL story per surface, no split of Rust workspace into separate repos by default). Checklist: `ai-protocol/docs/WAVE5_V1_GATE_CHECKLIST.md`. Remote sync: reconcile hiddenpath vs ailib-official as documented in GOV-001/TEST-002.
+- **Progress (2026-04-03)**: Rust workspace `ai-lib-core` + `ai-lib-contact` + `ai-lib-wasm` + facade `ai-lib-rust` + optional `ai-lib-wasmtime-harness`; PT-068/PT-072 **completed** (WASI exports, ~1.24MB release wasm). PT-073 **in progress**: core `cargo test -p ai-lib-core --test compliance_from_core` with `COMPLIANCE_DIR` runs full YAML suite (shared with facade `compliance`); wasmtime harness `cargo test -p ai-lib-wasmtime-harness --test wasm_compliance` after wasm release build; governance **GOV-001 v2** (ailib-official is sole canonical org; hiddenpath archived; no split of Rust workspace into separate repos by default). Checklist: `ai-protocol/docs/WAVE5_V1_GATE_CHECKLIST.md`.
 - **Rollback**: tag baseline commits; CHANGELOG captures breaking layout; no requirement for long-lived dual-track APIs.
 
 ### Four-Runtime Official Library Quality Gates (2026-03-31)
 - Wave-4B follow-up: each runtime has a **PR-ready hardening branch** aligned to public-library expectations (format, lint, typecheck, tests, CI blocking).
-- **Branches pushed** (remote `hiddenpath/*`, open PR against `main`): `pt-063-rust-hardening`, `pt-063-python-hardening`, `pt-063-ts-hardening`, `pt-063-go-hardening`.
+- **Branches pushed** (originally `hiddenpath/*`, now `ailib-official/*`): `pt-063-rust-hardening`, `pt-063-python-hardening`, `pt-063-ts-hardening`, `pt-063-go-hardening`.
 - **Rust**: `cargo fmt --check`, `clippy -D warnings`, `cargo test` incl. doctests + integration; `Error` context boxed for `result_large_err`; integration/mock fixes; `target-precheck/` gitignored.
 - **Python**: CI `build` gates on `smoke` + `test` + `test-with-mock` + `lint` + `typecheck`; `mkdocs build --strict`; mypy overrides for optional deps; `ailib-official` checkout paths in workflows.
 - **TypeScript**: root `ci.yml` (lint, typecheck with tests, test, build, mock-integration job); `eslint.config.mjs`; `protocolRoot()` test helper; loader `base_url` normalization for V2 `endpoint.base_url`.
@@ -264,10 +290,10 @@
   - `spiderswitch v0.4.2`
   - `ailib.info v0.7.1`
 - Runtime package visibility closure:
-  - npm: `@hiddenpath/ai-lib-ts@0.5.3`
+  - npm: `@ailib-official/ai-lib-ts@0.6.0` (was `@hiddenpath/ai-lib-ts@0.5.3`)
   - crates.io: `ai-lib-rust@0.9.3`
   - PyPI: `ai-lib-python@0.8.3`, `ai-protocol-mock@0.1.11`, `spiderswitch@0.4.2`
-  - Go proxy: `github.com/hiddenpath/ai-lib-go@v0.0.1` resolvable
+  - Go proxy: `github.com/ailib-official/ai-lib-go@v0.5.1`
 - `ailib.info` docs matrix synced in EN/ZH/JA/ES intro+ecosystem pages with Go runtime included and versions aligned.
 
 ### Four-Runtime Manifest Loading Matrix (PT-051, 2026-03-15)
@@ -277,7 +303,7 @@
 
 ### Public Manifest Reference Migration (PT-052, 2026-03-20)
 - Outward-facing manifest/schema URLs migrated from hiddenpath to ailib-official across protocol and runtime repos.
-- Development-side hiddenpath workflow checkouts remain unchanged.
+- **Updated 2026-04-06**: All workflow checkouts also migrated to ailib-official (GOV-001 v2). No hiddenpath references remain in CI.
 
 ### Public URL Hygiene CI Governance (PT-053, 2026-03-20)
 - Constitution includes TEST-002 rule for public URL reference hygiene.
