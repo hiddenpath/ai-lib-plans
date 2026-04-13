@@ -3,7 +3,32 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-04-06
+**Last Updated**: 2026-04-13
+
+---
+
+## crates.io 发布记录 (2026-04-13)
+
+### ai-lib-rust v0.9.4 发布
+
+**发布内容**：
+- ai-lib-core v0.9.4
+- ai-lib-contact v0.9.4
+- ai-lib-rust v0.9.4
+
+**关键修复**：
+- `fix(core): release v0.9.4 transport and mapping hardening`
+- `fix(core): ExecutionUsage accepts partial JSON via serde(default)`
+- `feat(protocol): prioritize v2 provider loading with capability profile`
+- `test(protocol): cover v2-first loader and v1 fallback`
+
+**Protocol v1→v2 一致性**：v0.9.4 修复了 protocol 从 v1 到 v2 的一致性问题，确保 manifest 加载行为一致。
+
+**发布流程**：按 Phase 1-4 执行（代码准备 → 发布前检查 → 正式发布 → 验证同步）。
+
+**遇到的问题**：
+1. crates.io token 需要发布权限
+2. 依赖需要显式版本号约束
 
 ---
 
