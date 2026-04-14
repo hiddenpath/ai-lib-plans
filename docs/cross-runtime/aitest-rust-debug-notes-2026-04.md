@@ -87,6 +87,6 @@
 |--------|------|
 | **Python** | `COMPLIANCE_DIR` + `COMPLIANCE_SUBSET=e_only`：`tests/compliance` **72 passed, 4 skipped**；非流式 / 流式行为见 CHANGELOG [Unreleased]。 |
 | **TypeScript** | 非流式：`parseNonstreamChatResponse` + `response_paths`；流式：`Pipeline.fromManifest` 按 `decoder.strategy` 选择 Anthropic vs OpenAI路径映射器，OpenAI 使用可配置 `content_path` / `tool_call_path` / `usage_path`。README 补充代理说明。 |
-| **Go** | `response_paths` 写入 V1/V2 manifest 模型；`Chat` 读全文 JSON 后 `EnrichNonstreamChatResponse`；`internal/protocol` 提供 JSON path 解析。README 补充代理说明。 |
+| **Go** | `response_paths` 写入 V1/V2 manifest；`execute` 在解码目标为 `*ChatResponse` 时读全文 JSON 并调用 `EnrichNonstreamChatResponse`；`internal/protocol` 提供 JSON path。README 补充代理说明。 |
 
 代理环境变量语义仍以 **ai-lib-rust `HttpTransport`** 为参考实现；各运行时 README 中汇总 `AI_PROXY_URL`、`HTTP(S)_PROXY`、`NO_PROXY`、`AI_HTTP_TRUST_ENV`（Python）等。
