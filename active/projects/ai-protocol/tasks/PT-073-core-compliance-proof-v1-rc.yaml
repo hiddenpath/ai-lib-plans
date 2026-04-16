@@ -13,9 +13,9 @@ labels:
   - "v1"
   - "compliance"
 created: "2026-04-01"
-updated: "2026-04-03"
-executor_name: ""
-executor_terminal: ""
+updated: "2026-04-15"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
 
 description: |
   Final gate before v1.0.0 release. Proves that the minimal execution layer
@@ -29,9 +29,14 @@ description: |
   ### 1. Core-only compliance (blocking)
 
   - [ ] ai-lib-core (Rust): cargo test -p ai-lib-core → full compliance PASS
-  - [ ] ai-lib-python[core]: pytest tests/compliance/ → PASS
-  - [ ] @ailib/core (TS): npm test → compliance PASS
+  - [ ] ai-lib-python[core]: **full** `pytest tests/compliance/` (entire matrix, not only `e_only`) → PASS on default branch CI
+  - [ ] @ailib/core (TS): **full** `npm test` / compliance suites (beyond `test:core` subset) → PASS on default branch CI
   - [ ] ai-lib-go: go test ./... → compliance PASS (already core-only)
+
+  **Partial evidence (PT-073–named CI on `ailib-official/main`, 2026-04-15):**
+
+  - [x] **ai-lib-python:** workflow `.github/workflows/pt073-python-e-only.yml` — `COMPLIANCE_SUBSET=e_only` compliance subset, E/P boundary checks, checkout **ailib-official/ai-protocol** (Wave-5 cross-runtime client parity merged to `main`, commit `483a3f0` area).
+  - [x] **ai-lib-ts:** workflow `.github/workflows/pt073-ts-core.yml` — `npm run typecheck` + `npm run test:core` with `AI_PROTOCOL_DIR`, checkout **ailib-official/ai-protocol** (merge `33f5d0a` includes non-stream `response_paths` / `openai_chat` path-mapper parity).
 
   ### 2. WASM compliance (blocking)
 
@@ -134,9 +139,14 @@ completion_notes: |
   Gate checklist: ai-protocol/docs/WAVE5_V1_GATE_CHECKLIST.md with CI references.
   Release train: blocked pending owner review of full audit results.
 
+  **2026-04-15:** Python/TS `pt-063-*-hardening` feature branches merged into **`ailib-official` `main`** and remote feature branches deleted after verification.
+  PT-073 **subset** CI above is green on `main`; **full-matrix** checklist rows for Python/TS remain open until default CI runs entire compliance suites.
+  Merge conflict policy for future work: **GOV-002** in `ai-lib-constitution` (no blind whole-file takeover; PR rationale + narrow tests).
+
 constitution_rules:
   - "ARCH-001: Protocol-driven design"
   - "ARCH-003: Cross-runtime consistency"
   - "TEST-001: Compliance tests"
   - "GOV-001: Canonical remote, official sync, monorepo workspace"
+  - "GOV-002: Merge conflict resolution discipline"
 ---

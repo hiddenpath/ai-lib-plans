@@ -12,9 +12,9 @@ labels:
   - "runtime"
   - "adaptation"
 created: "2026-03-30"
-updated: "2026-03-31"
-executor_name: "cursor-agent"
-executor_terminal: "cursor-session"
+updated: "2026-04-15"
+executor_name: "alex"
+executor_terminal: "cursor-shell"
 
 description: |
   Adapt ai-lib-ts to pass gen-001~gen-007 compliance fixtures.
@@ -93,20 +93,24 @@ testing:
     - "ci.yml mock-integration job when ai-protocol-mock available"
 
 completion_notes: |
-  **Shipped on branch `pt-063-ts-hardening` (2026-03-31, pushed):** official-library quality baseline —
+  **Shipped (2026-03-31) — official-library quality baseline** on branch `pt-063-ts-hardening` (historical):
   root `.github/workflows/ci.yml` (lint, typecheck including tests, unit tests, build, optional mock-integration);
-  `eslint.config.mjs` + Node globals; `tsconfig.typecheck.json`; `tests/helpers/protocolRoot.ts`;
+  `eslint.config.mjs` + Node globals; `tsconfig.typecheck.json`; `tests/helpers/protocol-root.ts`;
   `normalizeProviderManifest` projects V2 `endpoint.base_url` to `base_url`; test type-guards / optional chaining;
   integration tests probe mock health instead of env-only skip; `prepublishOnly` runs full gate script chain.
 
-  **Remaining vs acceptance_criteria:** generative-specific items (ThinkingDelta emitters, ToolCallAccumulator
-  surface, full `tests/generative.compliance.test.ts` gen-001~007 naming as in task spec) still to close under
-  this task or a follow-up slice; track against ARCH-003 before marking completed.
+  **Merged to `ailib-official/ai-lib-ts` `main` (2026-04-15):** `pt-063-ts-hardening` integrated via merge commit
+  `33f5d0a` (remote feature branch deleted after verification). Includes Wave-5 cross-runtime parity work:
+  non-stream `parseNonstreamChatResponse` + `response_paths`, `openai_chat` path-based pipeline mapper alignment,
+  `tests/client-parse-nonstream.test.ts`, workflow `pt073-ts-core.yml` checkout pinned to **ailib-official/ai-protocol**.
 
-  Open PR: https://github.com/hiddenpath/ai-lib-ts/pull/new/pt-063-ts-hardening
+  **Remaining vs acceptance_criteria:** generative-specific items (ThinkingDelta emitters, ToolCallAccumulator
+  surface, full `tests/generative.compliance.test.ts` gen-001~007 as originally named in this task) still to close
+  under this task or a follow-up slice; track against ARCH-003 before marking **completed**.
 
 constitution_rules:
   - "ARCH-003: Cross-runtime consistency"
   - "TS-001: Strict mode"
   - "TEST-001: Compliance tests"
+  - "GOV-002: Merge conflict resolution discipline"
 ---
