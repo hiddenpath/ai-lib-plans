@@ -18,10 +18,10 @@
 
 ### 统计概览
 - **总任务数**: 118
-- **已完成**: 112 (94.9%)
-- **进行中**: 2
+- **已完成**: 113 (95.8%)
+- **进行中**: 1
 - **未标记**: 1
-- **完成率**: 94.9%
+- **完成率**: 95.8%
 
 ### 🔴 Critical Priority (2个)
 
@@ -81,29 +81,29 @@
 ### 🟡 High Priority (1个)
 
 #### 3. PT-066 - ai-lib-go生成式适配
-- **状态**: in_progress
+- **状态**: ✅ **已完成** (2026-04-18)
 - **负责人**: @ai
 - **里程碑**: v1.0.x
 - **优先级**: high
 - **创建时间**: 2026-03-30
-- **更新时间**: 2026-03-31
+- **更新时间**: 2026-04-18
 
 **描述**: 适配ai-lib-go通过gen-001~gen-007合规测试。
 
-**已完成**:
+**全部完成**:
 - ✅ Usage结构扩展（reasoning_tokens、cache_tokens）
 - ✅ 响应格式支持
 - ✅ 协议JSON检测
 - ✅ 共享聊天负载构建
 - ✅ 测试基础设施
+- ✅ SSE思考/推理提取（gen-006）- OpenAI/Anthropic event mapper
+- ✅ 工具调用流式累积（gen-004）- ToolCallAccumulator
+- ✅ feature_flags消费用于门控（gen-001）- helper methods
+- ✅ 专用合规测试套件 tests/compliance/generative_test.go
 
-**剩余工作**:
-- [ ] SSE思考/推理提取（gen-006）
-- [ ] 工具调用流式累积（gen-004）
-- [ ] feature_flags消费用于门控（gen-001）
-- [ ] 专用合规测试套件 tests/compliance/generative_test.go
+**提交**: `9bd333a` on `ailib-official/ai-lib-go/main`
 
-**PR**: https://github.com/hiddenpath/ai-lib-go/pull/new/pt-063-go-hardening
+**测试结果**: All tests pass
 
 ### 🟢 Other (1个)
 
