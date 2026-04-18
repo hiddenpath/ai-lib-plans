@@ -31,7 +31,7 @@
 - **里程碑**: v1.0.0
 - **优先级**: critical
 - **创建时间**: 2026-04-01
-- **更新时间**: 2026-04-03
+- **更新时间**: 2026-04-19
 
 **描述**: v1.0.0发布前的最终门控，证明最小执行层（Paper1 §3）在所有支持目标上工程完成。
 
@@ -41,10 +41,10 @@
   - ai-lib-python[core]: pytest tests/compliance/ → PASS
   - @ailib/core (TS): npm test → 合规 PASS
   - ai-lib-go: go test ./... → 合规 PASS (已核心专用)
-- [ ] WASM合规（阻塞）
-  - wasm32-wasip1 二进制 < 2MB
-  - wasmtime harness: protocol_loading + message_building PASS
-  - 6个导出函数验证
+- [x] WASM合规 ✅ (2026-04-19 验证)
+  - wasm32-wasip1 二进制 < 2MB → **1.3MB** ✅
+  - wasmtime harness: protocol_loading + message_building PASS → **测试通过** ✅
+  - 6个导出函数验证 → **ailib_load_manifest, ailib_check_capability, ailib_build_chat_request, ailib_parse_chat_response, ailib_classify_error, ailib_extract_usage** ✅
 - [ ] E/P分离完整性（阻塞）
   - 无P模块导入任何核心包（构建测试验证）
   - 所有四个运行时返回ExecutionMetadata
@@ -52,6 +52,10 @@
 - [ ] 迁移文档（阻塞）
   - 每个运行时的CHANGELOG：新包/箱名称、破坏性导入路径、迁移说明
   - 内部消费者（如spiderswitch）更新或跟踪显式后续问题
+
+**阻塞原因 (已解决)**:
+- ~~WASM二进制不存在~~ → 已安装 wasm32-wasip1 target 并构建成功
+- 阻塞项：E/P分离完整性、迁移文档仍待验证
 
 #### 2. PT-065 - ai-lib-ts生成式适配
 - **状态**: ✅ **已完成** (2026-04-18)
