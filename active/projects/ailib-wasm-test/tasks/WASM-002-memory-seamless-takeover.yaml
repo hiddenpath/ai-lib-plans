@@ -1,0 +1,178 @@
+---
+id: "WASM-002"
+title: "Memory Space Seamless Takeover"
+status: "pending"
+priority: "high"
+assignee: "@ai"
+project: "ailib-wasm-test"
+milestone: "v0.2.0"
+labels:
+  - "feature"
+  - "performance"
+  - "memory"
+created: "2026-04-20"
+updated: "2026-04-20"
+description: |
+  Implement explicit memory management for WASM linear memory so that the
+  host (JS or wasmtime) can allocate, read, and release WASM-side buffers
+  without leaks, fragmentation, or unbounded growth.
+
+  ## Problem
+
+  Both WASM modules have memory management defects:
+
+  **ai-lib-wasm (C ABI):**
+  - Output goes to global `static LAST_OUT: Mutex<Vec<u8>>` — single instance,
+    concurrent calls overwrite each other
+  - Host reads via `ailib_out_ptr() + ailib_out_len()` but can never free
+    the WASM-side allocation — memory grows unboundedly
+  - No way to return buffer to WASM allocator after host consumes it
+
+  **wasm-browser (wasm-bindgen):**
+  - Each `Result` struct field returns `String` via `.clone()` — JS side gets
+    a copy, but the WASM linear memory original is never freed
+  - `BuildResult.body()`, `ParseResult.content()`, etc. all allocate fresh
+    strings on every call — GC pressure on WASM side
+  - Large streaming responses accumulate in WASM memory without release
+
+  **Root cause:** WASM linear memory is a shared 4GB address space. Rust's
+  allocator inside WASM can grow but never shrink the linear memory. Without
+  explicit free, the host "borrows" data but can never return it.
+
+  ## Proposed Solution
+
+  ### Phase 1: Explicit Free (C ABI)
+
+  ```rust
+  /// Host calls after consuming ailib_out_ptr/len data.
+  /// Releases the WASM-side Vec back to the linear memory allocator.
+  #[no_mangle]
+  pub unsafe extern "C" fn ailib_free(ptr: *mut u8, len: usize) {
+      if !ptr.is_null() {
+          let _ = Vec::from_raw_parts(ptr, len, len);
+          // drop → dealloc → memory available for next allocation
+      }
+  }
+
+  /// Consumes LAST_OUT and returns ownership to caller.
+  /// After this, ailib_out_ptr/len return null/0 until next call.
+  #[no_mangle]
+  pub unsafe extern "C" fn ailib_out_consume() -> *const u8 {
+      let mut g = LAST_OUT.lock().expect("out lock");
+      let ptr = g.as_ptr();
+      std::mem::forget(std::mem::take(&mut *g));
+      // Caller must call ailib_free(ptr, len) when done
+      ptr
+  }
+  ```
+
+  ### Phase 2: Arena Pre-allocation
+
+  ```rust
+  struct WasmArena {
+      chunks: Vec<Vec<u8>>,   // pre-allocated blocks
+      current: usize,         // active block index
+      block_size: usize,      // default 4KB
+  }
+
+  impl WasmArena {
+      fn alloc(&mut self, size: usize) -> *mut u8 { ... }
+      fn reset(&mut self) { self.current = 0; }  // bulk free
+  }
+  ```
+
+  Arena reduces memory growth requests to the host — allocations cycle
+  within pre-reserved blocks. `ailib_arena_reset()` frees all at once.
+
+  ### Phase 3: Zero-copy Input (ArrayBuffer)
+
+  ```rust
+  // Instead of copying JSON string into WASM memory:
+  // Host passes an ArrayBuffer that WASM maps directly
+  #[no_mangle]
+  pub unsafe extern "C" fn ailib_invoke_zc(
+      op_ptr: *const u8, op_len: usize,
+      input_ptr: *const u8, input_len: usize,  // already in WASM memory
+  ) -> i32
+  ```
+
+  JS side: `wasm.memory.buffer` provides the shared ArrayBuffer.
+  No serialization of input — pointer directly into WASM linear memory.
+
+  ### Phase 4: wasm-bindgen Memory Hygiene
+
+  For wasm-browser, wrap the JS interop with cleanup:
+
+  ```js
+  // After consuming a BuildResult:
+  const result = ailib.build_chat_request(...);
+  const body = result.body();  // String clone to JS
+  result.free();               // Releases WASM-side Rust struct
+  ```
+
+  wasm-bindgen generates `.free()` for exported structs — just need to
+  ensure all consumers call it.
+
+acceptance_criteria:
+  - "ailib_free(ptr, len) correctly releases WASM linear memory (verified via
+    memory.growth WASI metric before and after)"
+  - "ailib_out_consume() transfers ownership; subsequent ailib_out_ptr/len
+    return null/0"
+  - "Arena: 1000 sequential calls do not grow WASM memory beyond initial + 1 block"
+  - "wasm-browser: all Result structs have .free() called in tests — no leak"
+  - "Stress test: 10K build+parse cycle, WASM memory stays bounded"
+  - "Documentation: WASM_MEMORY_MODEL.md in ailib-wasm-test repo"
+dependencies:
+  - "WASM-001"
+related_issues: []
+references:
+  - "https://github.com/ailib-official/ailib-wasm-test"
+  - "https://webassembly.github.io/spec/core/exec/linear.html"
+  - "https://github.com/WebAssembly/design/issues/1397 (linear memory shrinking)"
+estimated_hours: 20
+actual_hours: null
+blocks:
+  - "WASM-003"
+blocked_by:
+  - "WASM-001"
+files_changed:
+  - "crates/ai-lib-wasm/src/lib.rs (in ai-lib-rust repo)"
+  - "crates/ai-lib-wasm/src/arena.rs (new)"
+  - "crates/wasm-browser/src/lib.rs"
+  - "crates/wasm-browser/src/core_logic.rs"
+  - "static/index.html (JS cleanup calls)"
+testing:
+  unit_tests:
+    - "test_ailib_free_null_safe"
+    - "test_ailib_out_consume_ownership_transfer"
+    - "test_arena_alloc_reset"
+    - "test_arena_1000_calls_no_growth"
+  integration_tests:
+    - "test_browser_result_free_no_leak"
+    - "test_stress_10k_cycle_memory_bounded"
+  compliance_tests: []
+completion_notes: ""
+tech_considerations:
+  architecture: |
+    Memory management is split across two concerns:
+    1. **Host → WASM ownership transfer**: ailib_out_consume + ailib_free
+       defines the contract. Host owns data after consume; host must free.
+    2. **WASM internal allocation**: Arena reduces allocator pressure.
+       Not a full allocator replacement — fallback to dlmalloc for oversized.
+
+    This layered approach avoids coupling to a specific WASM allocator
+    (wee8, dlmalloc, etc.) — the external contract is just ptr+len+free.
+  performance: |
+    Arena pre-allocation target: <2% overhead vs raw malloc for typical
+    chat request/response sizes (1-4KB per call).
+    Zero-copy input eliminates one full serialization pass.
+  security: |
+    ailib_free must validate ptr belongs to WASM linear memory range
+    before attempting Vec::from_raw_parts — bad ptr = UB.
+    Consider a simple bounds check: ptr >= __heap_base.
+  compatibility: |
+    ailib_free + ailib_out_consume are additive — old callers that never
+    call free will leak but not crash. Improvement, not breaking change.
+  constitution_rules:
+    - "ARCH-001: Protocol-driven design (memory contract is part of ABI)"
+    - "ARCH-003: Cross-runtime consistency (arena model shared conceptually)"

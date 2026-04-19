@@ -420,17 +420,49 @@ Full operational directive: [`docs/governance/REMOTE_MIGRATION.md`](docs/governa
 **ai-lib-constitution and ai-lib-plans must be workspace roots** when working on ai-lib projects.  
 Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, AGENTS, MEMORY before changes.
 
-## Repository Layout (Updated 2026-03-30)
+## Repository Layout (Updated 2026-04-20)
 
 | Repo | Purpose | Latest Version |
 |------|---------|---------------|
 | ai-protocol | Spec, schemas, provider manifests | v0.8.3 (target v1.0.x) |
-| ai-lib-rust | Rust runtime | v0.9.3 |
+| ai-lib-rust | Rust runtime | v0.9.4 |
 | ai-lib-python | Python runtime | v0.8.3 |
 | ai-lib-ts | TypeScript runtime | v0.5.3 |
 | ai-lib-go | Go runtime | v0.0.1 |
 | ai-protocol-mock | Mock server | v0.1.11 |
+| ailib-wasm-test | Browser WASM chat demo + server proxy | v0.1.0 |
 | spiderswitch | MCP-based model switching | v0.4.2 |
 | ai-lib-constitution | Rules for AI agents | - |
 | ai-lib-plans | Tasks, standups, planning | - |
 | ai-lib-benchmark | Benchmark scripts and baselines | - |
+
+## WASM Hardening Tasks (2026-04-20)
+
+### ailib-wasm-test 项目
+
+- **仓库**: `ailib-official/ailib-wasm-test` (GOV-001 v2 compliant)
+- **内容**: Browser WASM chat demo (wasm-bindgen) + Axum server proxy (libcurl)
+- **当前版本**: v0.1.0
+- **commit**: 1f3d139 — GOV-001 v2 compliance (origin → ailib-official)
+- **两种 WASM 架构并存**:
+  - `wasm-browser` (wasm-bindgen): 浏览器 JS 互操作
+  - `ai-lib-wasm` (C ABI / wasi): 服务端 wasmtime harness (在 ai-lib-rust 仓库内)
+
+### 三项加固任务 (pending, 不启动)
+
+| Task ID | Title | Priority | Depends On |
+|---------|-------|----------|------------|
+| WASM-001 | ABI Evolution & Backward Compatibility | high | None |
+| WASM-002 | Memory Space Seamless Takeover | high | WASM-001 |
+| WASM-003 | Atomic State Migration | high | WASM-001, WASM-002 |
+
+**执行顺序**: WASM-001 → WASM-002 → WASM-003（先锁 ABI 契约，再加固内存，最后做迁移）
+
+### AI 聚合平台架构决策 (2026-04-19)
+
+- **部署**: ailib.info 留 Vercel (静态站); api.ailib.info 指向 VPS (跑 ai-lib-gateway)
+- **P 层闭源**: ai-lib-gateway 代码写在 hiddenpath，不公开
+- **E 层开源**: ai-lib-core, python, ts, go, wasm 继续开源，扩大协议网络效应
+- **论文公开发表**: 理论优先权 + 话语权，思想不是护城河
+- **API Key 复用**: 免费 key 短期可用验证闭环，长期必须走付费 key
+- **3 个 Driver 覆盖几乎所有 provider**: OpenAiDriver (OpenAI-compatible), AnthropicDriver, GeminiDriver

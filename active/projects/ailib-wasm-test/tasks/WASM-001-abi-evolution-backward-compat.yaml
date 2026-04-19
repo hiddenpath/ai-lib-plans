@@ -1,0 +1,140 @@
+---
+id: "WASM-001"
+title: "ABI Evolution & Backward Compatibility"
+status: "pending"
+priority: "high"
+assignee: "@ai"
+project: "ailib-wasm-test"
+milestone: "v0.2.0"
+labels:
+  - "feature"
+  - "architecture"
+  - "compatibility"
+created: "2026-04-20"
+updated: "2026-04-20"
+description: |
+  Design and implement a versioned, backward-compatible ABI for WASM exports
+  so that both wasm-browser (wasm-bindgen) and ai-lib-wasm (C ABI) can evolve
+  their interfaces without breaking existing consumers.
+
+  ## Problem
+
+  Current state has two WASM modules with fragile ABIs:
+
+  1. **ai-lib-wasm (C ABI)**: `ailib_build_chat_request(handle, json_ptr, json_len)`
+     — positional parameters. Adding a new parameter breaks all callers.
+     Global `Mutex<Vec<...>>` for output — single-instance, not concurrent-safe.
+
+  2. **wasm-browser (wasm-bindgen)**: `build_chat_request(messages_json, model, ...)`
+     — wasm-bindgen auto-generates JS glue; version mismatch = runtime failure.
+
+  Neither module has a mechanism for callers to negotiate capabilities or
+  detect the supported ABI version at runtime.
+
+  ## Proposed Solution
+
+  ### Phase 1: Unified Versioned Entry Point (ai-lib-wasm C ABI)
+
+  Replace individual exported functions with a single `ailib_invoke` dispatcher:
+
+  ```rust
+  #[no_mangle]
+  pub unsafe extern "C" fn ailib_invoke(
+      op_ptr: *const u8, op_len: usize,       // operation name
+      input_ptr: *const u8, input_len: usize,  // structured input (JSON)
+      ctx_ptr: *const u8, ctx_len: usize,      // ABI context (version + options)
+  ) -> i32  // 0 = success, -1 = error (read ailib_out_*/ailib_err_*)
+  ```
+
+  Context JSON: `{"version": 2, "manifest_handle": 1, "stream_id": "..."}`
+  New fields go in ctx JSON — old callers pass `{"version": 1}` and still work.
+
+  ### Phase 2: Capability Negotiation
+
+  ```rust
+  #[no_mangle]
+  pub extern "C" fn ailib_abi_version() -> u32  // returns 2
+
+  #[no_mangle]
+  pub extern "C" fn ailib_capabilities() -> *const u8
+  // returns JSON: {"ops":["build_request","parse_response",...],"version":2}
+  ```
+
+  Host queries WASM on load — decides which ABI path to use.
+
+  ### Phase 3: wasm-bindgen Structured Input
+
+  For wasm-browser, switch from positional params to a single config object:
+
+  ```js
+  // Old: build_chat_request(messages_json, model, temperature, max_tokens, stream)
+  // New: ailib_invoke({ op: "build_request", messages: [...], model: "...", ... })
+  ```
+
+  New fields in the object are optional — old call patterns still work.
+
+  ### Compatibility Matrix
+
+  | Host \\ WASM  | v1 only | v2 only | v1+v2 |
+  |---------------|---------|---------|-------|
+  | v1 host       | ✅ v1   | ❌      | ✅ v1 fallback |
+  | v2 host       | ✅ v1   | ✅ v2   | ✅ v2 preferred |
+
+acceptance_criteria:
+  - "ailib_invoke dispatcher passes all existing tests on ai-lib-wasm (C ABI)"
+  - "ailib_abi_version() returns 2; ailib_capabilities() returns valid JSON"
+  - "Old individual exports (ailib_build_chat_request, etc.) still work — zero breaking change"
+  - "wasm-browser ailib_invoke() passes all 18 existing browser tests"
+  - "Cross-version test: v1 caller against v2 WASM succeeds without error"
+  - "Documentation: ABI_VERSIONING.md in ailib-wasm-test repo"
+dependencies:
+  - "None (foundation task)"
+related_issues: []
+references:
+  - "https://github.com/ailib-official/ailib-wasm-test"
+  - "ai-lib-wasm source: ailib-official/ai-lib-rust/crates/ai-lib-wasm/src/lib.rs"
+  - "wasm-browser source: ailib-official/ailib-wasm-test/crates/wasm-browser/src/lib.rs"
+estimated_hours: 16
+actual_hours: null
+blocks:
+  - "WASM-002"
+  - "WASM-003"
+blocked_by: []
+files_changed:
+  - "crates/ai-lib-wasm/src/lib.rs (in ai-lib-rust repo)"
+  - "crates/wasm-browser/src/lib.rs"
+  - "crates/wasm-browser/src/core_logic.rs"
+  - "crates/wasm-browser/src/abi.rs (new)"
+testing:
+  unit_tests:
+    - "test_ailib_invoke_build_request"
+    - "test_ailib_invoke_parse_response"
+    - "test_ailib_invoke_classify_error"
+    - "test_ailib_abi_version"
+    - "test_ailib_capabilities"
+  integration_tests:
+    - "test_v1_caller_v2_wasm_compat"
+    - "test_browser_invoke_api"
+  compliance_tests: []
+completion_notes: ""
+tech_considerations:
+  architecture: |
+    Two WASM targets must converge on a shared ABI philosophy:
+    - C ABI (ai-lib-wasm): ailib_invoke + ailib_free is the primary interface
+    - wasm-bindgen (wasm-browser): ailib_invoke wrapper in JS, structured config
+
+    The invoke pattern is inspired by WASI preview2 and Component Model
+    canonical ABI — single entry point, structured args, versioned context.
+  performance: |
+    Single ailib_invoke entry has minimal dispatch overhead (string match on op).
+    JSON context parse cost is negligible vs network I/O.
+  security: |
+    ABI version mismatch must not cause memory corruption — all paths
+    through ailib_invoke must validate input before use.
+  compatibility: |
+    Additive-only rule: new fields in ctx/input JSON are optional.
+    Old exported functions remain as thin wrappers over ailib_invoke.
+    Breaking changes require a major ABI version bump + migration guide.
+  constitution_rules:
+    - "ARCH-001: Protocol-driven design (manifests drive behavior, ABI just dispatches)"
+    - "ARCH-003: Cross-runtime consistency (C ABI + wasm-bindgen converge)"

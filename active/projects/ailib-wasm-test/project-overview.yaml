@@ -1,0 +1,60 @@
+---
+# ailib-wasm-test Project Overview
+project: "ailib-wasm-test"
+status: "active"
+milestone: "v0.2.0"
+overview: |
+  Browser WASM chat application demonstrating ai-lib-core protocol logic
+  in a real end-to-end scenario. Browser builds requests via WASM; server
+  proxies to AI providers (NVIDIA NIM, DeepSeek) protecting API keys and
+  handling CORS/TLS fingerprint issues.
+
+  Repository: ailib-official/ailib-wasm-test (GOV-001 v2 compliant)
+
+  Two WASM architectures coexist:
+    1. wasm-browser crate (wasm-bindgen) — browser chat demo, JS interop
+    2. ai-lib-wasm crate (C ABI / wasi) — server-side wasmtime harness
+
+  This project tracks hardening of the WASM execution layer for production
+  platform use (memory management, ABI stability, state migration).
+current_version: "v0.1.0"
+architecture:
+  crates:
+    wasm-browser:
+      path: "crates/wasm-browser/"
+      abi: "wasm-bindgen"
+      exports: ["build_chat_request", "parse_chat_response", "parse_stream_event", "classify_error", "is_stream_done"]
+      core_logic: "crates/wasm-browser/src/core_logic.rs (native-testable)"
+    server:
+      path: "crates/server/"
+      framework: "Axum + curl crate (libcurl FFI)"
+      endpoints: ["/health", "/api/proxy", "/api/proxy/stream"]
+  static:
+    path: "static/"
+    entry: "index.html — Chat UI with WASM integration"
+  companion:
+    ai-lib-wasm:
+      repo: "ailib-official/ai-lib-rust (crates/ai-lib-wasm)"
+      abi: "C ABI (extern \"C\" + ptr/len)"
+      exports: ["ailib_load_manifest", "ailib_check_capability", "ailib_build_chat_request", "ailib_parse_chat_response", "ailib_classify_error", "ailib_extract_usage"]
+active_tasks:
+  - id: "WASM-001"
+    title: "ABI Evolution & Backward Compatibility"
+    status: "pending"
+    priority: "high"
+  - id: "WASM-002"
+    title: "Memory Space Seamless Takeover"
+    status: "pending"
+    priority: "high"
+  - id: "WASM-003"
+    title: "Atomic State Migration"
+    status: "pending"
+    priority: "high"
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "GOV-001 v2: Canonical remote = ailib-official"
+references:
+  - "ailib-official/ailib-wasm-test: https://github.com/ailib-official/ailib-wasm-test"
+  - "ai-lib-wasm crate: ailib-official/ai-lib-rust/crates/ai-lib-wasm"
+  - "Paper1: S=(A,P,E) three-layer model"
