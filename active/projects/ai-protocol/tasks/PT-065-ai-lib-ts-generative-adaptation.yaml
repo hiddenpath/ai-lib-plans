@@ -13,6 +13,10 @@ labels:
   - "adaptation"
 created: "2026-03-30"
 updated: "2026-04-21"
+reviewed_codebases:
+  - repo: "ailib-official/ai-lib-ts"
+    ref: "33f5d0a"
+    local_path_note: "d:/rustapp/ai-lib-ts (representative clone)"
 executor_name: "alex"
 executor_terminal: "cursor-shell"
 
@@ -111,6 +115,22 @@ completion_notes: |
   **Truth-source note (2026-04-21):** The top-level `status` field remains `in_progress` until acceptance above is
   verified against PT-073 / PT-058 matrix. `active/ai-lib-status-report-2026-04-17.md` claiming full completion was
   **overstated** relative to this file — treat this YAML as canonical.
+
+  **Code review (2026-04-21) — ai-lib-ts @ 33f5d0a (GOV-002: file-level evidence, not whole-repo assumptions):**
+  - **Implemented / progressed:** OpenAI SSE `createOpenAiEventMapperWithPaths` emits `ThinkingDelta` when
+    `choices[0].delta.reasoning_content` is present (`src/pipeline/index.ts`). E-layer `ExecutionUsage` includes
+    `reasoning_tokens` and cache token slots (`src/types/execution-result.ts`). Compliance matrix covers streaming
+    tool accumulation fixtures (`tests/compliance-matrix.test.ts` + `04-streaming/tool-accumulation.yaml`).
+    Generative manifest load smoke exists (`tests/protocol-v2.test.ts` “latest generative manifest consumption”).
+  - **Gaps vs acceptance_criteria (still open):** `ProviderManifest` / legacy `UnifiedResponse` in
+    `src/protocol/manifest.ts` do **not** model `feature_flags` or extend unified `usage` with reasoning/cache
+    fields — gap for gen-001/gen-002 as stated in this task’s gap analysis. No `tests/generative.compliance.test.ts`
+    in the tree; no dedicated import of `tests/compliance/cases/08-generative-capabilities/` (runner + directory
+    wiring absent in this snapshot). No exported **ToolCallAccumulator** symbol located; accumulation is exercised via
+    compliance-matrix paths, not the named utility from the gap list.
+  - **Status:** Remains **`in_progress`**. Close only after: (1) manifest/unified types align with feature_flags +
+    usage extensions **or** task text is amended with an explicit narrowed scope; (2) a test entrypoint runs
+    08-generative-capabilities (or equivalent) on CI.
 
 constitution_rules:
   - "ARCH-003: Cross-runtime consistency"

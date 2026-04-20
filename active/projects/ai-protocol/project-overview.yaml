@@ -65,14 +65,14 @@ active_tasks:
     title: "ai-lib-ts generative LLM capability adaptation"
     status: "in_progress"
     priority: "critical"
-    description: "gen-001~gen-007 closeout; task YAML remains canonical vs one-off status reports."
+    description: "gen-001~gen-007 closeout. Code review 2026-04-21: ThinkingDelta OpenAI path + ExecutionUsage fields landed; manifest feature_flags / unified usage + dedicated 08-generative test harness still open — see task YAML."
     task_file: "active/projects/ai-protocol/tasks/PT-065-ai-lib-ts-generative-adaptation.yaml"
 
   - id: "PT-066"
     title: "ai-lib-go generative LLM capability adaptation"
     status: "in_progress"
     priority: "high"
-    description: "gen-001~gen-007 closeout; verify against PT-058 matrix before marking completed."
+    description: "gen-001~gen-007 closeout. Code review 2026-04-21: streaming tools + non-stream enrichment present; Usage struct + stream reasoning + generative runner still open — see task YAML."
     task_file: "active/projects/ai-protocol/tasks/PT-066-ai-lib-go-generative-adaptation.yaml"
 
 historical_tasks_note: |
