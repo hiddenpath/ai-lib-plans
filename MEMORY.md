@@ -443,10 +443,24 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 - **仓库**: `ailib-official/ailib-wasm-test` (GOV-001 v2 compliant)
 - **内容**: Browser WASM chat demo (wasm-bindgen) + Axum server proxy (libcurl)
 - **当前版本**: v0.1.0
-- **commit**: 1f3d139 — GOV-001 v2 compliance (origin → ailib-official)
+- **commit**: 0b43384 — 公开 README 重写推送
 - **两种 WASM 架构并存**:
   - `wasm-browser` (wasm-bindgen): 浏览器 JS 互操作
   - `ai-lib-wasm` (C ABI / wasi): 服务端 wasmtime harness (在 ai-lib-rust 仓库内)
+
+### 原版硬核 README（WASM 加固参考）
+
+公开 README 已重写为面向外部用户的简要介绍版。原版包含的关键技术细节已备份至：
+- **内部备份**: `ai-lib-plans/active/projects/ailib-wasm-test/README_internal.md`
+- **中文备份**: `ai-lib-plans/active/projects/ailib-wasm-test/README_CN_internal.md`
+
+**原版中的加固参考价值**：
+1. **Key Finding #5**: Groq 屏蔽 Rust TLS 指纹（reqwest 403, curl crate 200）— 加固时需解决 TLS 指纹兼容
+2. **Key Finding #1**: ai-lib-wasm 是 WASI 不是 browser WASM — 加固需统一两种 WASM 架构
+3. **Key Finding #6**: BigInt/u16 互操作问题 — ABI 演进必须考虑 JS 类型映射
+4. **Key Finding #3/#4**: uuid/getrandom js feature + wasm-opt=false — 构建管线加固点
+5. **完整的 WASM API Reference** — 5 个导出函数签名是 ABI 契约的起点
+6. **mpsc 通道 + spawn_blocking 流式代理** — 内存管理加固的参考实现
 
 ### 三项加固任务 (pending, 不启动)
 
