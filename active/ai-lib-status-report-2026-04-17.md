@@ -2,26 +2,25 @@
 **日期**: 2026年4月17日  
 **报告类型**: 仓库同步状态与未完成任务概况
 
+> **修正案（2026-04-21）**: 下列“统计概览”和第 2 节中关于 **PT-065 / PT-066 / MS-013** 的段落曾与
+> `active/projects/ai-protocol/tasks/PT-065-*.yaml`、`PT-066-*.yaml` 及 `spiderswitch` 任务 YAML **不一致**。
+> 已按 GOV-002（合并与事实对齐须可审查，不以单次摘要做准）在此更正；**以对应 task YAML 与
+> `active/projects/ai-protocol/project-overview.yaml` 为准**。
+
 ## 一、仓库同步状态
 
 ### 1. ai-lib-constitution
-- **状态**: ✅ 已与 origin/main 同步
-- **工作目录**: 干净 (nothing to commit)
-- **分支**: main (up to date)
+- **状态**: 以你本地克隆 `git fetch` / `git status` 为准（本文件不代替鉴权刷新）。
 
 ### 2. ai-lib-plans
-- **状态**: ✅ 已与 origin/main 同步
-- **工作目录**: 干净 (nothing to commit)
-- **分支**: main (up to date)
+- **状态**: 以你本地克隆为准；若有未提交变更，**工作目录未必干净**。
 
 ## 二、未完成任务概况
 
-### 统计概览
-- **总任务数**: 118
-- **已完成**: 113 (95.8%)
-- **进行中**: 1
-- **未标记**: 1
-- **完成率**: 95.8%
+### 统计概览（修正后 — 仅作粗粒度）
+- **说明**: 自动计数易与 YAML 漂移；**不要**用本节百分比做发布门控。
+- **关键开放项（高层）**: **PT-073**（v1.0.0 门控）、**PT-065 / PT-066**（生成式适配收尾，仍为 `in_progress`）、
+  **ailib-wasm-test** 硬编码任务 **WASM-001~003**（见 `active/projects/ailib-wasm-test/`）。
 
 ### 🔴 Critical Priority (2个)
 
@@ -57,64 +56,28 @@
 - ~~WASM二进制不存在~~ → 已安装 wasm32-wasip1 target 并构建成功
 - 阻塞项：E/P分离完整性、迁移文档仍待验证
 
-#### 2. PT-065 - ai-lib-ts生成式适配
-- **状态**: ✅ **已完成** (2026-04-18)
-- **负责人**: @ai
-- **里程碑**: v1.0.x
-- **优先级**: critical
-- **创建时间**: 2026-03-30
-- **更新时间**: 2026-04-18
+#### 2. PT-065 - ai-lib-ts 生成式适配
+- **状态（修正）**: `in_progress` — 见 `tasks/PT-065-ai-lib-ts-generative-adaptation.yaml` 顶部 `status` 与 `completion_notes`。
+- **里程碑**: v1.0.x | **优先级**: critical
 
-**描述**: 适配ai-lib-ts通过gen-001~gen-007合规测试。
-
-**全部完成**:
-- ✅ 官方库质量基线
-- ✅ CI工作流（lint、typecheck、tests、build）
-- ✅ 类型检查配置
-- ✅ 协议根测试助手
-- ✅ 提供者清单规范化
-- ✅ ThinkingDelta发射器（gen-006）- OpenAI/Anthropic event mapper
-- ✅ ToolCallAccumulator合并部分参数（gen-004）- index→id映射追踪
-- ✅ 完整合规测试套件 tests/generative.compliance.test.ts
-- ✅ feature_flags消费（gen-001）- FeatureFlags类型和helper函数
-
-**提交**: `e5edd7f` on `ailib-official/ai-lib-ts/main`
-
-**测试结果**: 194 tests passed, 57 core tests passed
+**真实情况**: 已合并多项硬化与 CI 工作，但 **completion_notes** 仍列出相对 acceptance 的 **剩余项**；
+此前写「全部完成」**不符合**该 task 文件 —— 以 YAML 为准关闭。
 
 ### 🟡 High Priority (1个)
 
-#### 3. PT-066 - ai-lib-go生成式适配
-- **状态**: ✅ **已完成** (2026-04-18)
-- **负责人**: @ai
-- **里程碑**: v1.0.x
-- **优先级**: high
-- **创建时间**: 2026-03-30
-- **更新时间**: 2026-04-18
+#### 3. PT-066 - ai-lib-go 生成式适配
+- **状态（修正）**: `in_progress` — 见 `tasks/PT-066-ai-lib-go-generative-adaptation.yaml`。
+- **里程碑**: v1.0.x | **优先级**: high
 
-**描述**: 适配ai-lib-go通过gen-001~gen-007合规测试。
-
-**全部完成**:
-- ✅ Usage结构扩展（reasoning_tokens、cache_tokens）
-- ✅ 响应格式支持
-- ✅ 协议JSON检测
-- ✅ 共享聊天负载构建
-- ✅ 测试基础设施
-- ✅ SSE思考/推理提取（gen-006）- OpenAI/Anthropic event mapper
-- ✅ 工具调用流式累积（gen-004）- ToolCallAccumulator
-- ✅ feature_flags消费用于门控（gen-001）- helper methods
-- ✅ 专用合规测试套件 tests/compliance/generative_test.go
-
-**提交**: `9bd333a` on `ailib-official/ai-lib-go/main`
-
-**测试结果**: All tests pass
+**真实情况**: baseline / Usage / 负载等已推进，**仍在收尾** gen-006 / gen-004 / gen-001 与
+`08-generative-capabilities` 跑全；**不得**依据本报告旧版宣称「已完成」。
 
 ### 🟢 Other (1个)
 
-#### 4. MS-013 - spiderswitch长期编排和运行时清单
-- **状态**: 未标记
+#### 4. MS-013 - spiderswitch 长期编排与运行时盘点
+- **状态（修正）**: `planned`（非“未标记”）— 见 `active/projects/spiderswitch/tasks/MS-013-long-term-orchestrator-and-runtime-inventory.yaml`
 - **项目**: spiderswitch
-- **描述**: 长期编排和运行时清单
+- **描述**: 运行时能力盘点 + orchestrator MVP 设计（见该 task 的 acceptance_criteria）
 
 ## 三、活跃项目概览
 
@@ -135,11 +98,11 @@
 - **关键焦点**: V2清单解析、MCP工具桥、多模态支持
 
 ### 4. ai-lib-go (Go运行时)
-- **状态**: 生成式适配进行中
+- **状态**: 生成式适配 **in_progress**（PT-066 未结案）
 - **关键焦点**: 合规测试通过、跨运行时一致性
 
 ### 5. ai-lib-ts (TypeScript运行时)
-- **状态**: 生成式适配进行中
+- **状态**: 生成式适配 **in_progress**（PT-065 未结案）
 - **关键焦点**: 合规测试通过、类型安全
 
 ### 6. md2latex (文档转换)
@@ -149,9 +112,9 @@
 ## 四、建议与下一步
 
 ### 立即行动
-1. **优先完成PT-073** - v1.0.0发布的关键门控
-2. **并行处理PT-065和PT-066** - 确保跨运行时一致性
-3. **标记MS-013状态** - 明确任务状态
+1. **优先完成 PT-073** — v1.0.0 发布的关键门控。
+2. **按 task YAML 推进 PT-065 / PT-066** — 与 PT-058 / PT-073 证据对齐后再置 `completed`。
+3. **MS-013** — 已为 **`planned`**，后续工作从该 YAML 的验收条款拆解即可。
 
 ### 中期规划
 1. **v1.0.0发布准备** - 完成所有核心合规证明

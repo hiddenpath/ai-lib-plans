@@ -5,6 +5,12 @@ project: "ai-lib-rust"
 status: "active"
 milestone: "v0.9.0"
 
+planning_note: |
+  Rows below use legacy IDs and snapshot numbers; they may drift from current
+  ailib-official CI. Do not infer v1.0.0 readiness from this file alone — use
+  PT-073 gate artifacts and repository CI. Assignees @hiddenpath reflect history;
+  canonical org for code is ailib-official per GOV-001 v2.
+
 overview: |
   Rust runtime implementation for AI-Protocol. Provides high-performance,
   zero-allocation streaming support with protocol-driven architecture.

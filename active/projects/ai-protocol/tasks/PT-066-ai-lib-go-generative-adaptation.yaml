@@ -12,7 +12,7 @@ labels:
   - "runtime"
   - "adaptation"
 created: "2026-03-30"
-updated: "2026-03-31"
+updated: "2026-04-21"
 executor_name: "cursor-agent"
 executor_terminal: "cursor-session"
 
@@ -106,7 +106,9 @@ completion_notes: |
   feature_flags consumption for gating (gen-001), dedicated `tests/compliance/generative_test.go` for
   08-generative-capabilities YAML — align with PT-058 matrix before closing.
 
-  Open PR: https://github.com/hiddenpath/ai-lib-go/pull/new/pt-063-go-hardening
+  **Truth-source note (2026-04-21):** `status` remains `in_progress` until the remaining bullets are closed and
+  verified. `active/ai-lib-status-report-2026-04-17.md` claiming full completion was **overstated** relative to
+  this file. Active development targets **`ailib-official/ai-lib-go`** (remove any hiddenpath-only PR bookmarks).
 
 constitution_rules:
   - "ARCH-003: Cross-runtime consistency"

@@ -57,6 +57,7 @@ git status
 |--------|----------|------|
 | `ai-lib-constitution` | `hiddenpath` | 私有治理仓，永不公开 |
 | `ai-lib-plans` | `hiddenpath` | 私有规划仓，永不公开 |
+| `papers` | `hiddenpath` | 私有论文仓；**必须**保留在 `hiddenpath`，不迁移至 `ailib-official` |
 
 ---
 
@@ -85,6 +86,7 @@ git status
 | `ai-lib-ts/src/protocol/loader.ts` | `node_modules/@hiddenpath/ai-protocol` 向后兼容 fallback |
 | `ai-lib-ts` CHANGELOG / README | 迁移说明中提及旧包名 |
 | `ai-lib-plans` 历史任务 YAML | 历史记录（任务已关闭） |
+| 本地 `papers` 克隆的 `origin` | 私有仓，合法为 `https://github.com/hiddenpath/papers.git` |
 | `ai-protocol` 历史规划文档 | 日期快照，不做追溯修改 |
 | `ai-lib-go` `go.mod` | Go 模块路径已为 `ailib-official`（无残留），但若未来出现 replace 指令可豁免 |
 

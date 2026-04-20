@@ -1,7 +1,7 @@
 ---
 project: "md2latex"
-status: "in_progress"
-milestone: "v0.2.x"
+status: "active"
+milestone: "v0.3.x"
 
 overview: |
   md2latex: 将 Markdown 中的 ASCII art（区分图/表）转为可编译的 LaTeX `figure/table` 结构，并交给 pandoc 渲染。

@@ -3,7 +3,16 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-04-13
+**Last Updated**: 2026-04-21
+
+---
+
+## Planning truth source — task status
+
+- **Canonical** per-task records live under `active/projects/<project>/tasks/*.yaml` (and companion `project-overview.yaml` in the same folder when maintained).
+- **Do not** treat one-off narrative reports (including `active/ai-lib-status-report-*.md`) as authoritative if they disagree with the task YAML: reports are snapshots and can overstate completion — see **GOV-002** in `ai-lib-constitution`.
+- **Known drift cleaned (2026-04-21):** `active/projects/ai-protocol/project-overview.yaml` listed PT-054~PT-062 as `pending` while individual PT-054~PT-062 task files were already `completed` — overview updated; gate work is **PT-073**, **PT-065**, **PT-066**, plus **WASM-001~003** under `active/projects/ailib-wasm-test/`.
+- **`active/projects/ai-lib-rust/project-overview.yaml`**: numeric test counts / `RUST-*` rows may predate current CI — infer readiness from **PT-073** and runtime repos, not from that file alone until refreshed.
 
 ---
 
@@ -34,7 +43,7 @@
 
 ## Governance — internal repositories
 
-- **ai-lib-constitution** and **ai-lib-plans** are **internal** (hiddenpath-only workflow). They MUST **not** be pushed or mirrored to **ailib-official**. Authoritative wording: **GOV-001** in the constitution repo (`rules/governance/GOV-001-canonical-remote-monorepo-sync.yaml`).
+- **ai-lib-constitution**, **ai-lib-plans**, and **`papers`** are **internal** (hiddenpath-only workflow). They MUST **not** be pushed or mirrored to **ailib-official**. The **`papers`** repo is **private** and must **remain** on **`hiddenpath/papers`**. Authoritative wording: **GOV-001** in the constitution repo (`rules/governance/GOV-001-canonical-remote-monorepo-sync.yaml`).
 
 ## CRITICAL — Canonical remote migration (2026-04-06, GOV-001 v2)
 
@@ -50,7 +59,7 @@ git remote set-url origin https://github.com/ailib-official/<REPO_NAME>.git
 
 Affected repos: `ai-protocol`, `ai-lib-rust`, `ai-lib-python`, `ai-lib-ts`, `ai-lib-go`, `ai-protocol-mock`.
 
-**Do NOT repoint**: `ai-lib-constitution`, `ai-lib-plans` — these stay on `hiddenpath` (private).
+**Do NOT repoint**: `ai-lib-constitution`, `ai-lib-plans`, `papers` — these stay on `hiddenpath` (private). Do **not** migrate `papers` to `ailib-official`.
 
 Full operational directive: [`docs/governance/REMOTE_MIGRATION.md`](docs/governance/REMOTE_MIGRATION.md).
 
@@ -58,7 +67,7 @@ Full operational directive: [`docs/governance/REMOTE_MIGRATION.md`](docs/governa
 
 - **Single canonical org**: All public code repos are developed and released on **ailib-official**. Local `origin` = `ailib-official/<repo>`.
 - **hiddenpath archived**: Public code repos on hiddenpath are archived/read-only. No new development, PRs, or pushes there.
-- **Internal-only on hiddenpath**: `ai-lib-constitution` and `ai-lib-plans` remain private on hiddenpath (GOV-001 v2).
+- **Internal-only on hiddenpath**: `ai-lib-constitution`, `ai-lib-plans`, and **`papers`** remain private on hiddenpath (GOV-001 v2 + project policy: papers is not a public runtime repo).
 - **npm**: TypeScript package name is **`@ailib-official/ai-lib-ts`** (v0.6.0+; breaking migration from `@hiddenpath/ai-lib-ts`).
 - **CI**: All workflow `repository:` checkout references use `ailib-official/*`. No hiddenpath references remain in any workflow.
 

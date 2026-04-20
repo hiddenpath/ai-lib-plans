@@ -16,7 +16,11 @@ overview: |
   - MCP tool bridge schema finalization
   - Cross-runtime compliance testing including 08-generative-capabilities category
 
-current_phase: "Wave-4 active: generative LLM expansion, four-runtime alignment, WASM evolution (PT-054~PT-062)"
+current_phase: |
+  v1.0.0 gate track: PT-073 core-only compliance + RC; generative closeout for TS/Go
+  under PT-065/PT-066; WASM productization and hardening tracked under ailib-wasm-test
+  (WASM-001~003). Wave-4 planning slice PT-054~PT-062 is **closed** in per-task YAMLs —
+  this file previously listed them as pending; that was stale.
 
 milestones:
   - id: "v0.7.4"
@@ -43,69 +47,33 @@ milestones:
     target: "2026-05-15"
     summary: "Generative model manifest schema, four-runtime semantic parity for LLM capabilities, mock scenario expansion, P1 Wave-2 provider onboarding, WASM adapter phased evolution, v1.0.x RC gate"
 
+wave4_planning_tasks_completed:
+  note: |
+    PT-054~PT-062 are **completed** in `active/projects/ai-protocol/tasks/PT-0*.yaml`.
+    They must not appear as `pending` in this overview — doing so was a planning
+    artifact drift issue (fixed 2026-04-21).
+
 active_tasks:
-  - id: "PT-054"
-    title: "Plans and roadmap truth-source alignment for Wave-4 baseline"
-    status: "pending"
+  - id: "PT-073"
+    title: "Core-only compliance proof and v1.0.0 RC gate"
+    status: "in_progress"
     priority: "critical"
-    description: "Close governance gap between completed tasks and stale planning artifacts; establish Wave-4 as active phase"
-    estimated_hours: 3
+    description: "Final gate before v1.0.0 — four runtimes + E/P + migration docs; see task file for checklist."
+    task_file: "active/projects/ai-protocol/tasks/PT-073-core-compliance-proof-v1-rc.yaml"
 
-  - id: "PT-055"
-    title: "MEMORY.md four-runtime and Wave-4 fact alignment"
-    status: "pending"
-    priority: "high"
-    description: "Update MEMORY.md with post-PT-053 facts, unified version matrix, Wave-4 architecture decisions"
-    estimated_hours: 2
-
-  - id: "PT-056"
-    title: "ai-protocol repository reports/ directory governance strategy"
-    status: "pending"
-    priority: "medium"
-    description: "Resolve untracked reports/ directories and document policy; pull origin/main"
-    estimated_hours: 1
-
-  - id: "PT-057"
-    title: "Generative LLM manifest schema extension and runtime support planning"
-    status: "pending"
+  - id: "PT-065"
+    title: "ai-lib-ts generative LLM capability adaptation"
+    status: "in_progress"
     priority: "critical"
-    description: "Extend V2 schema for generative LLM capabilities, MCP tool bridge finalization, streaming contract, token reporting, compliance category 08-generative-capabilities"
-    estimated_hours: 20
+    description: "gen-001~gen-007 closeout; task YAML remains canonical vs one-off status reports."
+    task_file: "active/projects/ai-protocol/tasks/PT-065-ai-lib-ts-generative-adaptation.yaml"
 
-  - id: "PT-058"
-    title: "Four-runtime generative capability semantic alignment matrix"
-    status: "pending"
-    priority: "critical"
-    description: "Ensure Rust/Python/TypeScript/Go semantic parity for generative capabilities: message building, streaming, tool calling, token reporting, error classification"
-    estimated_hours: 24
-
-  - id: "PT-059"
-    title: "ai-protocol-mock generative model scenario expansion"
-    status: "pending"
+  - id: "PT-066"
+    title: "ai-lib-go generative LLM capability adaptation"
+    status: "in_progress"
     priority: "high"
-    description: "Extend mock for generative chat completion, tool calling, reasoning mode, error injection, token usage simulation"
-    estimated_hours: 16
-
-  - id: "PT-060"
-    title: "P1 Provider Wave-2 generative LLM selection and onboarding schedule"
-    status: "pending"
-    priority: "high"
-    description: "Score, rank, and schedule Wave-2 generative providers (Mistral, Perplexity, Grok, MiniMax, Baichuan, etc.) with per-provider onboarding checklist"
-    estimated_hours: 8
-
-  - id: "PT-061"
-    title: "WASM Runtime Adapter phased evolution plan"
-    status: "pending"
-    priority: "high"
-    description: "Define phased WASM support: contract, build targets, source runtime selection, compliance subset, PoC specification"
-    estimated_hours: 12
-
-  - id: "PT-062"
-    title: "Wave-4 phase gate review and v1.0.x RC release train"
-    status: "pending"
-    priority: "high"
-    description: "Phase gate review for generative expansion readiness; if go: cross-repo release train for v1.0.x RC"
-    estimated_hours: 8
+    description: "gen-001~gen-007 closeout; verify against PT-058 matrix before marking completed."
+    task_file: "active/projects/ai-protocol/tasks/PT-066-ai-lib-go-generative-adaptation.yaml"
 
 historical_tasks_note: |
   PT-001~PT-005 were early-stage placeholder entries created during v4 import.
@@ -155,13 +123,17 @@ provider_status:
       status: "stable"
 
 compliance_status:
+  note: |
+    Numbers below mix historical audit snapshots with legacy rows. **Do not** treat
+    them as the v1.0.0 release signal. Canonical compliance gate state is in
+    `tasks/PT-073-core-compliance-proof-v1-rc.yaml` plus runtime CI on `ailib-official`.
   cross_runtime_tests:
     total_tests: 45
     passing: 45
     failing: 0
     pass_rate: 100%
 
-  failing_tests:
+  legacy_or_audit_rows_not_equivalent_to_ci_fail:
     - "anthropic-multimodal-stream: Pending V2 implementation"
     - "mcp-tool-bridge: Schema not finalized"
     - "extended-capabilities: Not yet implemented"

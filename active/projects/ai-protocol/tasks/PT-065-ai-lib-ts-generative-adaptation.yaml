@@ -12,7 +12,7 @@ labels:
   - "runtime"
   - "adaptation"
 created: "2026-03-30"
-updated: "2026-04-15"
+updated: "2026-04-21"
 executor_name: "alex"
 executor_terminal: "cursor-shell"
 
@@ -107,6 +107,10 @@ completion_notes: |
   **Remaining vs acceptance_criteria:** generative-specific items (ThinkingDelta emitters, ToolCallAccumulator
   surface, full `tests/generative.compliance.test.ts` gen-001~007 as originally named in this task) still to close
   under this task or a follow-up slice; track against ARCH-003 before marking **completed**.
+
+  **Truth-source note (2026-04-21):** The top-level `status` field remains `in_progress` until acceptance above is
+  verified against PT-073 / PT-058 matrix. `active/ai-lib-status-report-2026-04-17.md` claiming full completion was
+  **overstated** relative to this file — treat this YAML as canonical.
 
 constitution_rules:
   - "ARCH-003: Cross-runtime consistency"

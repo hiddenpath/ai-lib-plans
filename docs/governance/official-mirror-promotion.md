@@ -12,7 +12,7 @@
 | 组织 | 用途 |
 |------|------|
 | `ailib-official` | 所有公开仓库的日常开发、PR、Issue、CI、发布 |
-| `hiddenpath` | 仅保留 `ai-lib-constitution`（私有）和 `ai-lib-plans`（私有）；公开代码仓已归档 |
+| `hiddenpath` | 保留 `ai-lib-constitution`（私有）、`ai-lib-plans`（私有）、`papers`（私有论文仓，**不**迁往 ailib-official）；其余公开代码仓已归档 |
 
 ---
 
