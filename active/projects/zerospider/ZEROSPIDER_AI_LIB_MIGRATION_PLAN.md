@@ -1,8 +1,13 @@
 ---
 title: ZeroSpider ai-lib Migration — Executable Step Plan
-status: active
+status: in_progress
 created: 2026-04-22
 updated: 2026-04-22
+completion_notes: >
+  Single integration branch feat/zerospider-ai-lib-migration: Phase 0–2 implemented in-repo
+  (docs, CI, ai-lib-rust 0.9.4, protocol_adapter, protocol_registry + CLI, legacy-providers gate,
+  Cargo.toml fix for ai-lib-rust on Windows). Phases 4–7 partially covered via docs/CHANGELOG;
+  full legacy removal and wizard hardening remain for follow-up PRs per original one-PR-per-phase ideal.
 repo_target: https://github.com/ailib-official/zerospider
 related:
   - ai-protocol
