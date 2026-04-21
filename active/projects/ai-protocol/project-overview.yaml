@@ -17,10 +17,9 @@ overview: |
   - Cross-runtime compliance testing including 08-generative-capabilities category
 
 current_phase: |
-  v1.0.0 gate track: PT-073 core-only compliance + RC; generative closeout for TS/Go
-  under PT-065/PT-066; WASM productization and hardening tracked under ailib-wasm-test
-  (WASM-001~003). Wave-4 planning slice PT-054~PT-062 is **closed** in per-task YAMLs —
-  this file previously listed them as pending; that was stale.
+  v1.0.0 gate track: PT-073 core-only compliance + RC. PT-065/PT-066 generative TS/Go adaptation **completed** (2026-04-21).
+  WASM-001~003 **completed** in ai-lib-wasm + ailib-wasm-test docs. Wave-4 planning slice PT-054~PT-062 is **closed**
+  in per-task YAMLs.
 
 milestones:
   - id: "v0.7.4"
@@ -61,18 +60,16 @@ active_tasks:
     description: "Final gate before v1.0.0 — four runtimes + E/P + migration docs; see task file for checklist."
     task_file: "active/projects/ai-protocol/tasks/PT-073-core-compliance-proof-v1-rc.yaml"
 
+recently_completed_runtime_tasks:
   - id: "PT-065"
     title: "ai-lib-ts generative LLM capability adaptation"
-    status: "in_progress"
-    priority: "critical"
-    description: "gen-001~gen-007 closeout. Code review 2026-04-21: ThinkingDelta OpenAI path + ExecutionUsage fields landed; manifest feature_flags / unified usage + dedicated 08-generative test harness still open — see task YAML."
+    status: "completed"
+    completed: "2026-04-21"
     task_file: "active/projects/ai-protocol/tasks/PT-065-ai-lib-ts-generative-adaptation.yaml"
-
   - id: "PT-066"
     title: "ai-lib-go generative LLM capability adaptation"
-    status: "in_progress"
-    priority: "high"
-    description: "gen-001~gen-007 closeout. Code review 2026-04-21: streaming tools + non-stream enrichment present; Usage struct + stream reasoning + generative runner still open — see task YAML."
+    status: "completed"
+    completed: "2026-04-21"
     task_file: "active/projects/ai-protocol/tasks/PT-066-ai-lib-go-generative-adaptation.yaml"
 
 historical_tasks_note: |

@@ -11,8 +11,8 @@
 
 - **Canonical** per-task records live under `active/projects/<project>/tasks/*.yaml` (and companion `project-overview.yaml` in the same folder when maintained).
 - **Do not** treat one-off narrative reports (including `active/ai-lib-status-report-*.md`) as authoritative if they disagree with the task YAML: reports are snapshots and can overstate completion — see **GOV-002** in `ai-lib-constitution`.
-- **Known drift cleaned (2026-04-21):** `active/projects/ai-protocol/project-overview.yaml` listed PT-054~PT-062 as `pending` while individual PT-054~PT-062 task files were already `completed` — overview updated; gate work is **PT-073**, **PT-065**, **PT-066**, plus **WASM-001~003** under `active/projects/ailib-wasm-test/`.
-- **PT-065 / PT-066 (2026-04-21 code review):** Evidence captured in each task YAML (`reviewed_codebases` + `completion_notes` code review section). Both remain **`in_progress`** until 08-generative-capabilities (or equivalent) is wired on CI and acceptance criteria in the YAML are met.
+- **Known drift cleaned (2026-04-21):** `active/projects/ai-protocol/project-overview.yaml` listed PT-054~PT-062 as `pending` while individual PT-054~PT-062 task files were already `completed` — overview updated; primary open gate is **PT-073**. **PT-065 / PT-066** and **WASM-001~003** are marked **`completed`** in task YAMLs with completion notes (2026-04-21).
+- **WASM / ailib-wasm-test:** `docs/ABI_VERSIONING.md`, `docs/WASM_MEMORY_MODEL.md`, `docs/WASM_STATE_MIGRATION.md`; wasm-browser **v0.1.1** adds `ailib_invoke`; companion **`ai-lib-wasm` v0.9.5** in ai-lib-rust implements WASI dispatcher + snapshot + `ailib_free` / `ailib_out_consume`.
 - **`active/projects/ai-lib-rust/project-overview.yaml`**: numeric test counts / `RUST-*` rows may predate current CI — infer readiness from **PT-073** and runtime repos, not from that file alone until refreshed.
 
 ---

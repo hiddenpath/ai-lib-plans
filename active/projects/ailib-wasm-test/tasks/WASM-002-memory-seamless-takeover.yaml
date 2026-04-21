@@ -1,7 +1,7 @@
 ---
 id: "WASM-002"
 title: "Memory Space Seamless Takeover"
-status: "pending"
+status: "completed"
 priority: "high"
 assignee: "@ai"
 project: "ailib-wasm-test"
@@ -11,7 +11,7 @@ labels:
   - "performance"
   - "memory"
 created: "2026-04-20"
-updated: "2026-04-20"
+updated: "2026-04-21"
 description: |
   Implement explicit memory management for WASM linear memory so that the
   host (JS or wasmtime) can allocate, read, and release WASM-side buffers
@@ -151,7 +151,10 @@ testing:
     - "test_browser_result_free_no_leak"
     - "test_stress_10k_cycle_memory_bounded"
   compliance_tests: []
-completion_notes: ""
+completion_notes: |
+  ai-lib-wasm: ailib_free reconstructs Box<[u8]> via slice_from_raw_parts; ailib_out_consume transfers
+  LAST_OUT via into_boxed_slice; ailib_arena_reset clears out/err. Unit + stress tests in crate.
+  wasm-browser: e2e uses .free() on exported structs; docs/WASM_MEMORY_MODEL.md.
 tech_considerations:
   architecture: |
     Memory management is split across two concerns:

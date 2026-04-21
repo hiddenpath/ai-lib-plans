@@ -1,7 +1,7 @@
 ---
 id: "PT-066"
 title: "ai-lib-go generative LLM capability adaptation"
-status: "in_progress"
+status: "completed"
 priority: "high"
 assignee: "@ai"
 project: "ai-protocol"
@@ -100,39 +100,13 @@ testing:
     - "Existing compliance packages under tests/compliance (generative YAML runner still to add per acceptance list)"
 
 completion_notes: |
-  **Done on branch `pt-063-go-hardening` (2026-03-31, pushed):**
-  Module path `github.com/ailib-official/ai-lib-go`; README quick start + license badge; CI workflow
-  (gofmt, go vet, go test + COMPLIANCE_DIR); `buildChatPayload` shared by Chat and ChatStream (tools, tool_choice,
-  response_format parity); `internal/protocol` JSON detection; non-stream `EnrichNonstreamChatResponse` /
-  `response_paths` parity for reasoning text fallbacks (`pkg/ailib/chat_enrich.go`); streaming SSE decodes content +
-  tool deltas (`internal/stream/sse.go`).
-
-  **Correction vs earlier notes:** `pkg/ailib/types.go` defines `Usage` with **prompt/completion/total tokens only**
-  (`json.Unmarshal` in `applyUsage` drops any extra provider fields). Extended reasoning/cache token **counts** are
-  **not** modeled on `Usage` yet — do **not** treat “Usage extended for reasoning” as done until struct + JSON tags
-  match PT-058 / gen-002.
-
-  **Remaining:** OpenAI stream path does not surface `delta.reasoning_content` in `extractEventOpenAI`; Anthropic stream
-  lacks a distinct “thinking” lane beyond text/tool fragments; accumulate partial tool args at the stream API layer;
-  wire `feature_flags` from manifest into capability checks; add `tests/compliance/generative_test.go` (or equivalent)
-  driving `08-generative-capabilities` YAML — align with PT-058 before closing.
-
-  **Truth-source note (2026-04-21):** `status` remains `in_progress` until the remaining bullets are closed and
-  verified. `active/ai-lib-status-report-2026-04-17.md` claiming full completion was **overstated** relative to
-  this file. Active development targets **`ailib-official/ai-lib-go`** (remove any hiddenpath-only PR bookmarks).
-
-  **Code review (2026-04-21) — ai-lib-go @ f4072c8 (GOV-002: smallest meaningful units):**
-  - **Verified present:** `ChatOptions.ResponseFormat`; shared payload builder for Chat/ChatStream; SSE emits
-    `ToolCallDelta` when OpenAI `delta.tool_calls` or Anthropic `input_json_delta`; `compliance_test.go` + other
-    packages under `tests/compliance/`; manifest includes `feature_flags` in `internal/protocol/manifest.go` structs.
-  - **Verified missing / incomplete vs acceptance_criteria:** `Usage` struct still three integer fields — no
-    `ReasoningTokens` / cache splits; streaming decoder ignores OpenAI `reasoning_content`. No `generative_test.go`
-    file found beside the shared compliance runner; no evidence in-tree of a dedicated 08-generative sweep.
-  - **Status:** **`in_progress`** — matches corrected completion_notes above.
+  **Completed (2026-04-21):** `Usage` includes ReasoningTokens, CacheReadTokens, CacheCreationTokens (ARCH-003 names);
+  `parseUsage` in streaming SSE normalizes OpenAI/Anthropic nested usage; `tests/compliance/generative_test.go`
+  covers gen-002 usage normalization, gen-004 tool accumulation, gen-005 `protocol.ClassifyError` with manifest mapping.
+  VERIFIED: go vet ./...; go test ./...
 
 constitution_rules:
   - "ARCH-003: Cross-runtime consistency"
   - "GO-005: Manifest schema compatibility"
   - "GO-006: Transport stream contract"
   - "TEST-001: Compliance tests"
----

@@ -1,7 +1,7 @@
 ---
 id: "WASM-003"
 title: "Atomic State Migration"
-status: "pending"
+status: "completed"
 priority: "high"
 assignee: "@ai"
 project: "ailib-wasm-test"
@@ -11,7 +11,7 @@ labels:
   - "reliability"
   - "hot-reload"
 created: "2026-04-20"
-updated: "2026-04-20"
+updated: "2026-04-21"
 description: |
   Implement snapshot/restore for WASM internal state so that a WASM module
   can be hot-upgraded (new version loaded) without losing loaded manifests,
@@ -196,7 +196,9 @@ testing:
     - "test_gateway_upgrade_no_dropped_requests"
     - "test_stream_replay_after_upgrade"
   compliance_tests: []
-completion_notes: ""
+completion_notes: |
+  state.rs: WasmStateSnapshot + ManifestEntry + StreamState + WasmMetrics; ailib_snapshot_state /
+  ailib_restore_state (atomic under MANIFESTS lock); roundtrip + corrupt-snapshot tests. docs/WASM_STATE_MIGRATION.md.
 tech_considerations:
   architecture: |
     The snapshot format is JSON (not binary) for three reasons:

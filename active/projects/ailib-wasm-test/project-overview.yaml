@@ -17,13 +17,13 @@ overview: |
 
   This project tracks hardening of the WASM execution layer for production
   platform use (memory management, ABI stability, state migration).
-current_version: "v0.1.0"
+current_version: "v0.1.1"
 architecture:
   crates:
     wasm-browser:
       path: "crates/wasm-browser/"
       abi: "wasm-bindgen"
-      exports: ["build_chat_request", "parse_chat_response", "parse_stream_event", "classify_error", "is_stream_done"]
+      exports: ["build_chat_request", "parse_chat_response", "parse_stream_event", "classify_error", "is_stream_done", "ailib_invoke"]
       core_logic: "crates/wasm-browser/src/core_logic.rs (native-testable)"
     server:
       path: "crates/server/"
@@ -36,20 +36,21 @@ architecture:
     ai-lib-wasm:
       repo: "ailib-official/ai-lib-rust (crates/ai-lib-wasm)"
       abi: "C ABI (extern \"C\" + ptr/len)"
-      exports: ["ailib_load_manifest", "ailib_check_capability", "ailib_build_chat_request", "ailib_parse_chat_response", "ailib_classify_error", "ailib_extract_usage"]
-active_tasks:
+      exports: ["ailib_invoke", "ailib_abi_version", "ailib_capabilities_*", "ailib_load_manifest", "ailib_check_capability", "ailib_build_chat_request", "ailib_parse_chat_response", "ailib_classify_error", "ailib_extract_usage", "ailib_snapshot_state", "ailib_restore_state", "ailib_free", "ailib_out_consume", "ailib_arena_reset"]
+active_tasks: []
+completed_wasm_hardening:
   - id: "WASM-001"
     title: "ABI Evolution & Backward Compatibility"
-    status: "pending"
-    priority: "high"
+    status: "completed"
+    completed: "2026-04-21"
   - id: "WASM-002"
     title: "Memory Space Seamless Takeover"
-    status: "pending"
-    priority: "high"
+    status: "completed"
+    completed: "2026-04-21"
   - id: "WASM-003"
     title: "Atomic State Migration"
-    status: "pending"
-    priority: "high"
+    status: "completed"
+    completed: "2026-04-21"
 constitution_rules:
   - "ARCH-001: Protocol-driven design"
   - "ARCH-003: Cross-runtime consistency"

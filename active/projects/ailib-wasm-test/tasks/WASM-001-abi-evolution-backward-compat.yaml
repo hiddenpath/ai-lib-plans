@@ -1,7 +1,7 @@
 ---
 id: "WASM-001"
 title: "ABI Evolution & Backward Compatibility"
-status: "pending"
+status: "completed"
 priority: "high"
 assignee: "@ai"
 project: "ailib-wasm-test"
@@ -11,7 +11,7 @@ labels:
   - "architecture"
   - "compatibility"
 created: "2026-04-20"
-updated: "2026-04-20"
+updated: "2026-04-21"
 description: |
   Design and implement a versioned, backward-compatible ABI for WASM exports
   so that both wasm-browser (wasm-bindgen) and ai-lib-wasm (C ABI) can evolve
@@ -116,7 +116,10 @@ testing:
     - "test_v1_caller_v2_wasm_compat"
     - "test_browser_invoke_api"
   compliance_tests: []
-completion_notes: ""
+completion_notes: |
+  Implemented in ai-lib-rust ai-lib-wasm: ailib_abi_version (2), static ailib_capabilities_ptr/len JSON,
+  ailib_invoke(op,input,ctx) with additive ctx JSON; v1 exports unchanged.
+  ailib-wasm-test wasm-browser: ailib_invoke JSON dispatcher (BROWSER_ABI_VERSION=1) + docs/ABI_VERSIONING.md.
 tech_considerations:
   architecture: |
     Two WASM targets must converge on a shared ABI philosophy:
