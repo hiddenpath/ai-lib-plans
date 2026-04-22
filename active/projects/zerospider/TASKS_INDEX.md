@@ -17,7 +17,8 @@
 2. 合并到 `main` 后，将 YAML 中 `pr.url`、`pr.merge_commit`、`status: completed` 与 `testing.evidence` 补全。
 3. `executor_name` / `executor_terminal` 在任务开始与标记完成时必填（见仓库 `.cursor/rules/task-executor-terminal.mdc`）。
 
-**ZS-ML-002 进展（2026-04-22）**
+**ZS-ML-002 进展（与 GOV-001 对齐）**
 
-- 实现分支已推送到 fork：`hiddenpath/zerospider` 的 `feat/zs-ml-002-contributing`（基于当前 ai-lib 迁移线，与仅含文档改动的 `main` 相比更易绿 CI）。
-- 开 PR 对比：<https://github.com/hiddenpath/zerospider/compare/main...feat/zs-ml-002-contributing>。合并到 `ailib-official/zerospider:main` 后回填对应 task YAML 的 `pr.url` / `merge_commit` 并将状态标为 `completed`。
+- **正确定位**：`ailib-official/zerospider` 是公共 canonical 仓（**GOV-001**）；`hiddenpath` 侧为零 Spider 自 zeroclaw 迁出过程中的历史位置，**公共代码新开发不推 hiddenpath**（同规则：constitution/plans 等内部仓仍在 hiddenpath，与 runtime 公仓不同）。
+- **落地方式**：本地 `git remote set-url origin https://github.com/ailib-official/zerospider.git`（或按 `ai-lib-plans` 中 `docs/governance/REMOTE_MIGRATION.md` 若存在），在 **`ailib-official/zerospider`** 上推送 `feat/zs-ml-002-contributing` 并开 **同组织同仓库** 的 PR（例如比较：<https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-002-contributing>，分支存在并推送后有效）。
+- 合并到 `main` 后回填该 task 的 `pr.url` / `merge_commit` 并将状态标为 `completed`。

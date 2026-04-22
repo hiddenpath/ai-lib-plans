@@ -33,12 +33,13 @@ pr:
   repo: "ailib-official/zerospider"
   branch_pattern: "feat/zs-ml-002-contributing"
   merge_target: "main"
-  # 实现已推送到 fork，待对上游开 PR 并合并后回填 url / merge_commit
-  pushed_fork: "hiddenpath/zerospider"
+  # GOV-001: 公共仓库唯一定位 ailib-official；在 **同仓** 推分支并开 PR（非「个人 fork → 上游」模型）
   branch: "feat/zs-ml-002-contributing"
-  compare_url: "https://github.com/hiddenpath/zerospider/compare/main...feat/zs-ml-002-contributing"
+  compare_url: "https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-002-contributing"
   url: ""
   merge_commit: ""
+governance:
+  - "GOV-001: 本地 public 仓 origin 须指向 ailib-official/zerospider；hiddenpath 上历史公开副本为只读/归档，新开发不推那里"
 
 testing:
   unit_tests:
