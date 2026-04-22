@@ -36,6 +36,8 @@ pr:
   # GOV-001: 公共仓库唯一定位 ailib-official；在 **同仓** 推分支并开 PR（非「个人 fork → 上游」模型）
   branch: "feat/zs-ml-002-contributing"
   compare_url: "https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-002-contributing"
+  # 分支已推送到 ailib-official；用此链接创建 PR 并填 pr.url
+  new_pr_url: "https://github.com/ailib-official/zerospider/pull/new/feat/zs-ml-002-contributing"
   url: ""
   merge_commit: ""
 governance:

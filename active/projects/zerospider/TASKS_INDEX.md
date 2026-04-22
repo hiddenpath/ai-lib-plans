@@ -20,5 +20,5 @@
 **ZS-ML-002 进展（与 GOV-001 对齐）**
 
 - **正确定位**：`ailib-official/zerospider` 是公共 canonical 仓（**GOV-001**）；`hiddenpath` 侧为零 Spider 自 zeroclaw 迁出过程中的历史位置，**公共代码新开发不推 hiddenpath**（同规则：constitution/plans 等内部仓仍在 hiddenpath，与 runtime 公仓不同）。
-- **落地方式**：本地 `git remote set-url origin https://github.com/ailib-official/zerospider.git`（或按 `ai-lib-plans` 中 `docs/governance/REMOTE_MIGRATION.md` 若存在），在 **`ailib-official/zerospider`** 上推送 `feat/zs-ml-002-contributing` 并开 **同组织同仓库** 的 PR（例如比较：<https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-002-contributing>，分支存在并推送后有效）。
+- **落地方式**：本地建议 `git remote set-url origin https://github.com/ailib-official/zerospider.git`（GOV-001），并另存 `ailib-official` remote 若需双远程。**分支 `feat/zs-ml-002-contributing` 已推至 `ailib-official/zerospider`。** 创建 PR： <https://github.com/ailib-official/zerospider/pull/new/feat/zs-ml-002-contributing> ；对比：<https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-002-contributing> 。
 - 合并到 `main` 后回填该 task 的 `pr.url` / `merge_commit` 并将状态标为 `completed`。
