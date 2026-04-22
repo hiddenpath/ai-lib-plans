@@ -16,3 +16,8 @@
 1. 每个 task 独立分支 `feat/zs-ml-NNN-<short-slug>`，一个 PR 对应一个 task（除非显式 `allows_batch`）。
 2. 合并到 `main` 后，将 YAML 中 `pr.url`、`pr.merge_commit`、`status: completed` 与 `testing.evidence` 补全。
 3. `executor_name` / `executor_terminal` 在任务开始与标记完成时必填（见仓库 `.cursor/rules/task-executor-terminal.mdc`）。
+
+**ZS-ML-002 进展（2026-04-22）**
+
+- 实现分支已推送到 fork：`hiddenpath/zerospider` 的 `feat/zs-ml-002-contributing`（基于当前 ai-lib 迁移线，与仅含文档改动的 `main` 相比更易绿 CI）。
+- 开 PR 对比：<https://github.com/hiddenpath/zerospider/compare/main...feat/zs-ml-002-contributing>。合并到 `ailib-official/zerospider:main` 后回填对应 task YAML 的 `pr.url` / `merge_commit` 并将状态标为 `completed`。
