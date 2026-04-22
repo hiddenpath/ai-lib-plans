@@ -2,7 +2,7 @@
 title: ZeroSpider ai-lib Migration — Executable Step Plan
 status: in_progress
 created: 2026-04-22
-updated: 2026-04-22
+updated: 2026-04-21
 completion_notes: >
   Single integration branch feat/zerospider-ai-lib-migration: Phase 0–3 + Phase 4 docs + Phase 7 minimal
   (quick-setup AI_PROTOCOL_DIR hint when using provider/model). Remaining: routing_mvp/metrics wiring,
@@ -18,6 +18,13 @@ execution_model: one GitHub PR per phase (sequential merge recommended)
 
 本文档定义 **zerospider** 从「自研 provider 工厂 + 多 vendor adapter」迁移到 **ai-protocol manifest + ai-lib-rust 唯一连接底座** 的分步执行方案。  
 **约定：每个 Phase 对应独立 PR，按顺序合并**，降低审查风险与回滚成本。
+
+## 可执行任务队列（ai-lib-plans）
+
+未完成的迁移工作已拆成带测试与 **PR/合并** 闭环的 task 清单，与本文档的 Phase/PR 列对应。入口：
+
+- [TASKS_INDEX.md](./TASKS_INDEX.md) — 任务表与状态
+- [tasks/](./tasks/) — 各条 task 的 YAML（`pr` / `testing` 完成定义）
 
 ## 目标与验收口径（终态）
 

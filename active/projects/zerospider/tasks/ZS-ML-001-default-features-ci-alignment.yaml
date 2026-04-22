@@ -1,0 +1,58 @@
+---
+id: "ZS-ML-001"
+title: "Default features + CI: align legacy default with migration plan + green matrix"
+status: "open"
+priority: "high"
+assignee: "@tbd"
+project: "zerospider"
+milestone: "ai-lib-migration"
+labels:
+  - "zerospider"
+  - "ai-lib"
+  - "ci"
+  - "features"
+created: "2026-04-22"
+updated: "2026-04-22"
+description: |
+  迁移计划 PR4/Phase3 要求：`legacy-providers` 默认 **off**；当前仓库默认
+  `["ai-protocol", "legacy-providers"]` 与计划文字不一致。本 task 在 **不破坏
+  可维护性** 的前提下，选择其一并写清：
+
+  1) 将 `default` 改为仅 `ai-protocol`，且 **所有** 依赖 `create_provider` 的
+  单测/集成在 CI 中显式加 `--features legacy-providers`；或
+  2) 保留当前默认，但在 `ZEROSPIDER_AI_LIB_MIGRATION_PLAN.md` + `CHANGELOG` +
+  本 task 的 `completion_notes` 中**正式修订**“默认 off”为“过渡期双开，直至 ZS-ML-005”。
+
+  同时保证 `.github/workflows/ci.yml` 与本地文档中的命令与矩阵一致（含 protocol-only `cargo check`）。
+
+acceptance_criteria:
+  - "计划文档、Cargo.toml 注释、CI 三处对 default features 的表述无矛盾"
+  - "cargo test --workspace --features ai-protocol 在 CI 所选矩阵下为绿色"
+  - "若改为仅 ai-protocol 默认：provider 工厂相关测试有明确 feature 或显式 all-features 任务"
+  - "CHANGELOG [Unreleased] 记录用户可见行为（若有）"
+
+pr:
+  repo: "ailib-official/zerospider"
+  branch_pattern: "feat/zs-ml-001-default-features-ci"
+  merge_target: "main"
+  required_checks:
+    - "cargo fmt --check"
+    - "cargo clippy --workspace --all-targets -- -D warnings"
+    - "configured cargo test / check jobs"
+
+testing:
+  unit_tests:
+    - "与 providers / protocol 相关单测在选定 feature 矩阵下通过"
+  integration_tests:
+    - "CI 工作流在 PR 上全绿"
+  evidence_on_complete:
+    - "PR 链接 + merge commit SHA 粘贴到本 YAML 与 TASKS_INDEX.md"
+
+dependencies: []
+related_plan_section: "PR4 — Phase 3 (feature 策略) + 跨计划测试矩阵"
+blocked_by: []
+blocks:
+  - "ZS-ML-005"
+
+tech_considerations:
+  risk: "改默认可能大面积测试失败；需分批或先文档修订。"

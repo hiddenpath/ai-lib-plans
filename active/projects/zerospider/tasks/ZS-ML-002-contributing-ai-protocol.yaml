@@ -1,0 +1,54 @@
+---
+id: "ZS-ML-002"
+title: "CONTRIBUTING: clone ai-protocol + env (Phase 0 optional deliverable) + doc contract test"
+status: "in_progress"
+priority: "medium"
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
+assignee: "@tbd"
+project: "zerospider"
+milestone: "ai-lib-migration"
+labels:
+  - "zerospider"
+  - "docs"
+  - "onboarding"
+created: "2026-04-22"
+updated: "2026-04-22"
+description: |
+  落实迁移计划 **PR1 / Phase 0** 中的可选项：在仓库根增加 `CONTRIBUTING.md`
+ （或等效单页）说明如何 **克隆 ai-protocol**、设置 `AI_PROTOCOL_DIR`、
+  与 `cargo build/test` 的推荐 feature 组合。README 中增加指向的贡献入口链接。
+
+  在 **zerospider** 中增加**轻量** `tests/*` 契约测试：`include_str!` 断言
+  `CONTRIBUTING.md` 与 `docs/ai-lib-migration.md` 含约定关键词（`AI_PROTOCOL`
+  等），防止文档被误删。
+
+acceptance_criteria:
+  - "存在 CONTRIBUTING.md 且含 ai-protocol 获取与 AI_PROTOCOL_DIR 说明"
+  - "README 或顶栏可发现贡献/协议文档链接"
+  - "cargo test 包含新的 docs 契约用例并稳定通过"
+  - "PR 合并到 main 后，本 task 的 pr.url 与 pr.merge_commit 已回填"
+
+pr:
+  repo: "ailib-official/zerospider"
+  branch_pattern: "feat/zs-ml-002-contributing"
+  merge_target: "main"
+  # 实现已推送到 fork，待对上游开 PR 并合并后回填 url / merge_commit
+  pushed_fork: "hiddenpath/zerospider"
+  branch: "feat/zs-ml-002-contributing"
+  compare_url: "https://github.com/hiddenpath/zerospider/compare/main...feat/zs-ml-002-contributing"
+  url: ""
+  merge_commit: ""
+
+testing:
+  unit_tests:
+    - "tests/docs_contract_*.rs（或等效）在默认 feature 下通过"
+  evidence_on_complete:
+    - "本地: cargo test -p zerospider --test docs_contract_contributing（2 passed）"
+  formatting: "cargo fmt --all -- --check"
+  lint: "cargo clippy -p zerospider -- -D warnings (若 CI 子集可接受则注明)"
+
+dependencies: []
+related_plan_section: "PR1 — Phase 0（可选 CONTRIBUTING 片段）"
+blocked_by: []
+blocks: []

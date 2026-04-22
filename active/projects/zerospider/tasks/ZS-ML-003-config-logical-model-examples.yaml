@@ -1,0 +1,44 @@
+---
+id: "ZS-ML-003"
+title: "Config: logical model id + fallbacks (Phase 2) — examples and regression tests"
+status: "open"
+priority: "medium"
+assignee: "@tbd"
+project: "zerospider"
+milestone: "ai-lib-migration"
+labels:
+  - "zerospider"
+  - "config"
+  - "ai-lib"
+created: "2026-04-22"
+updated: "2026-04-22"
+description: |
+  迁移计划 PR3/Phase2：用户配置以**逻辑 model id** 为主，并与现有
+  `reliability.fallback_providers` / `model_fallbacks` 的关系写清楚。
+
+  交付物：
+  - `docs/ai-lib-migration.md` 或 `docs/` 下片段：**示例 TOML**（`default_provider` 为
+    `openai/gpt-4o-mini` 等）+ `reliability` 与 protocol id 的对应关系。
+  - 至少一个 **serde/配置层回归测试**：`ReliabilityConfig` 或主 `Config` 的 JSON/TOML
+    样例在含 `provider/model` 字符串时可反序列化（不强制改 schema）。
+
+acceptance_criteria:
+  - "文档中有可复制粘贴的完整最小示例（含环境变量名引用）"
+  - "新测试在 CI 中执行并通过"
+  - "PR 已合并，YAML 中 pr 字段已回填"
+
+pr:
+  repo: "ailib-official/zerospider"
+  branch_pattern: "feat/zs-ml-003-config-model-examples"
+  merge_target: "main"
+
+testing:
+  unit_tests:
+    - "config schema / 反序列化或 docs 引用的样例的 Rust 单测"
+  integration_tests: []
+
+related_plan_section: "PR3 — Phase 2"
+blocked_by: []
+blocks: []
+
+---

@@ -1,0 +1,48 @@
+---
+id: "ZS-ML-004"
+title: "Optional: routing_mvp + AiClient::metrics() wiring and compile gates"
+status: "open"
+priority: "low"
+assignee: "@tbd"
+project: "zerospider"
+milestone: "ai-lib-migration"
+labels:
+  - "zerospider"
+  - "ai-lib"
+  - "observability"
+created: "2026-04-22"
+updated: "2026-04-22"
+description: |
+  迁移计划 PR5/Phase4：按需启用 `ai-lib-rust` 的 `routing_mvp` 等 feature，并
+  对接 `AiClient::metrics()`（若与当前执行路径适用）。
+
+  可分两子交付：
+  1) 仅 **Cargo feature 转发 + 文档** + `cargo check -p zerospider --features "ai-protocol,routing_mvp" --lib` 进 CI；或
+  2) 在**一条**有界路径上读取消耗指标并写入现有可观测性管道（不重复 OTel 计数，见
+     `docs/ai-lib-migration.md` Resilience 节）。
+
+  与 Phase1 `execute_chat_with_retry` 的边界在代码注释中**再次**明确。
+
+acceptance_criteria:
+  - "有明确 feature 开关；默认不破坏现有 build"
+  - "至少一项自动化测试或 compile-only job 防回归"
+  - "PR 合并后回填本 YAML"
+  - "若全 defer：在本 task 的 completion_notes 写 **explicit defer 理由** 并关 task"
+
+pr:
+  repo: "ailib-official/zerospider"
+  branch_pattern: "feat/zs-ml-004-routing-metrics"
+  merge_target: "main"
+
+testing:
+  unit_tests: []
+  optional_compile_job:
+    - "cargo check --features 'ai-protocol,routing_mvp' (exact flags TBD in PR)"
+
+related_plan_section: "PR5 — Phase 4"
+blocked_by: []
+blocks: []
+recommended_after:
+  - "ZS-ML-001"
+
+---

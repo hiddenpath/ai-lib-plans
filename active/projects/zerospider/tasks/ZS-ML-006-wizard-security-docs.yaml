@@ -1,0 +1,46 @@
+---
+id: "ZS-ML-006"
+title: "Wizard hardening, security, ai-protocol compatibility window (Phase 6)"
+status: "open"
+priority: "medium"
+assignee: "@tbd"
+project: "zerospider"
+milestone: "ai-lib-migration"
+labels:
+  - "zerospider"
+  - "ux"
+  - "security"
+  - "docs"
+created: "2026-04-22"
+updated: "2026-04-22"
+description: |
+  迁移计划 PR7/Phase6：在已存在的 quick-setup 提示（ZS-ML-快速迭代）之上：
+
+  - 更完整的**向导/错误**：缺失 `AI_PROTOCOL_DIR` 或缺 key 时路径可预期。
+  - 文档中固定 **ai-protocol 兼容 tag/commit 区间** 与**发版节奏**说明。
+  - 安全：日志/文档中不泄露 key；如 touch keyring/secret 路径，需单测或审查清单。
+
+  每项**至少一条**可自动化验证（单测、CLI `--help` 快照、或 doc link 存在性测）。
+
+acceptance_criteria:
+  - "用户可见错误信息经人工过一遍 + 关键路径有测"
+  - "docs/ 中含 compatibility window 表或段落"
+  - "PR 合并后回填本 YAML 与 ZEROSPIDER 计划 `completion_notes`（若关全局）"
+
+pr:
+  repo: "ailib-official/zerospider"
+  branch_pattern: "feat/zs-ml-006-wizard-security-docs"
+  merge_target: "main"
+
+testing:
+  unit_tests: "TBD: onboard / CLI 子集"
+  manual:
+    - "走一遍 onboard quick + protocol 模型名"
+
+related_plan_section: "PR7 — Phase 6"
+blocked_by: []
+blocks: []
+parallel_with:
+  - "ZS-ML-002"
+
+---
