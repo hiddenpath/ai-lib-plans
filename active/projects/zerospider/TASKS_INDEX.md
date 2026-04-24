@@ -4,9 +4,9 @@
 
 | ID | 文件 | 状态 | 依赖 | 对应计划 Phase / PR |
 |----|------|------|------|----------------------|
-| ZS-ML-001 | [tasks/ZS-ML-001-default-features-ci-alignment.yaml](./tasks/ZS-ML-001-default-features-ci-alignment.yaml) | `completed` ✅ | — | PR #12 (db21bfd) — 计划 PR4/Phase3 + CI 矩阵（legacy 默认与测试策略） |
-| ZS-ML-002 | [tasks/ZS-ML-002-contributing-ai-protocol.yaml](./tasks/ZS-ML-002-contributing-ai-protocol.yaml) | `completed` ✅ | — | PR #11 (5e0925d) — 计划 PR1/Phase0 可选项 + 可审性 |
-| ZS-ML-003 | [tasks/ZS-ML-003-config-logical-model-examples.yaml](./tasks/ZS-ML-003-config-logical-model-examples.yaml) | `open` | — | 计划 PR3/Phase2 配置与示例补全 |
+| ZS-ML-001 | [tasks/ZS-ML-001-default-features-ci-alignment.yaml](./tasks/ZS-ML-001-default-features-ci-alignment.yaml) | `completed` | — | [PR #12](https://github.com/ailib-official/zerospider/pull/12) (`db21bfd`) — PR4/Phase3 + CI |
+| ZS-ML-002 | [tasks/ZS-ML-002-contributing-ai-protocol.yaml](./tasks/ZS-ML-002-contributing-ai-protocol.yaml) | `completed` | — | [PR #11](https://github.com/ailib-official/zerospider/pull/11) (`5e0925d`) — PR1/Phase0 |
+| ZS-ML-003 | [tasks/ZS-ML-003-config-logical-model-examples.yaml](./tasks/ZS-ML-003-config-logical-model-examples.yaml) | `in_progress` | — | 计划 PR3/Phase2 配置与示例补全 |
 | ZS-ML-004 | [tasks/ZS-ML-004-routing-mvp-metrics-optional.yaml](./tasks/ZS-ML-004-routing-mvp-metrics-optional.yaml) | `open` | 建议 ZS-ML-001 后 | 计划 PR5/Phase4 |
 | ZS-ML-005 | [tasks/ZS-ML-005-legacy-removal-migration-guide.yaml](./tasks/ZS-ML-005-legacy-removal-migration-guide.yaml) | `open` | ZS-ML-001 | 计划 PR6/Phase5 |
 | ZS-ML-006 | [tasks/ZS-ML-006-wizard-security-docs.yaml](./tasks/ZS-ML-006-wizard-security-docs.yaml) | `open` | 可与 ZS-ML-002 并行 | 计划 PR7/Phase6 |
@@ -17,8 +17,8 @@
 2. 合并到 `main` 后，将 YAML 中 `pr.url`、`pr.merge_commit`、`status: completed` 与 `testing.evidence` 补全。
 3. `executor_name` / `executor_terminal` 在任务开始与标记完成时必填（见仓库 `.cursor/rules/task-executor-terminal.mdc`）。
 
-**ZS-ML-002 进展（与 GOV-001 对齐）**
+**进度摘要**
 
-- **正确定位**：`ailib-official/zerospider` 是公共 canonical 仓（**GOV-001**）；`hiddenpath` 侧为零 Spider 自 zeroclaw 迁出过程中的历史位置，**公共代码新开发不推 hiddenpath**（同规则：constitution/plans 等内部仓仍在 hiddenpath，与 runtime 公仓不同）。
-- **落地方式**：本地建议 `git remote set-url origin https://github.com/ailib-official/zerospider.git`（GOV-001），并另存 `ailib-official` remote 若需双远程。**分支 `feat/zs-ml-002-contributing` 已推至 `ailib-official/zerospider`。** 创建 PR： <https://github.com/ailib-official/zerospider/pull/new/feat/zs-ml-002-contributing> ；对比：<https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-002-contributing> 。
-- 合并到 `main` 后回填该 task 的 `pr.url` / `merge_commit` 并将状态标为 `completed`。
+- **ZS-ML-001** 已合并：[PR #12](https://github.com/ailib-official/zerospider/pull/12) / `db21bfd`（**ZS-ML-005** 的前置依赖已满足）。
+- **ZS-ML-002** 已合并：[PR #11](https://github.com/ailib-official/zerospider/pull/11) / `5e0925d`。
+- **进行中**：[ZS-ML-003](./tasks/ZS-ML-003-config-logical-model-examples.yaml) — 分支 `feat/zs-ml-003-config-model-examples`（开 PR 后回填 url / merge commit）。

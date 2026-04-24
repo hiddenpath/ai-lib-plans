@@ -4,9 +4,11 @@ status: in_progress
 created: 2026-04-22
 updated: 2026-04-21
 completion_notes: >
-  Single integration branch feat/zerospider-ai-lib-migration: Phase 0–3 + Phase 4 docs + Phase 7 minimal
-  (quick-setup AI_PROTOCOL_DIR hint when using provider/model). Remaining: routing_mvp/metrics wiring,
-  full legacy deletion (Phase 5–6), extended wizard/security hardening per original one-PR-per-phase ideal.
+  ZS-ML-002 (CONTRIBUTING + docs contract) merged PR #11. ZS-ML-001 in progress: default features = ai-protocol
+  only, legacy tests gated + CI job for protocol+legacy matrix.
+  Earlier single branch feat/zerospider-ai-lib-migration: Phase 0–3 + Phase 4 docs + Phase 7 minimal
+  (quick-setup AI_PROTOCOL_DIR hint). Remaining: routing_mvp/metrics wiring,
+  full legacy deletion (Phase 5–6), extended wizard/security hardening per one-PR-per-phase ideal.
 repo_target: https://github.com/ailib-official/zerospider
 related:
   - ai-protocol
