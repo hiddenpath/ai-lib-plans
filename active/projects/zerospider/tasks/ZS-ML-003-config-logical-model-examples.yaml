@@ -1,8 +1,10 @@
 ---
 id: "ZS-ML-003"
 title: "Config: logical model id + fallbacks (Phase 2) — examples and regression tests"
-status: "open"
+status: "in_progress"
 priority: "medium"
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
 assignee: "@tbd"
 project: "zerospider"
 milestone: "ai-lib-migration"
@@ -11,7 +13,7 @@ labels:
   - "config"
   - "ai-lib"
 created: "2026-04-22"
-updated: "2026-04-22"
+updated: "2026-04-25"
 description: |
   迁移计划 PR3/Phase2：用户配置以**逻辑 model id** 为主，并与现有
   `reliability.fallback_providers` / `model_fallbacks` 的关系写清楚。
@@ -31,6 +33,11 @@ pr:
   repo: "ailib-official/zerospider"
   branch_pattern: "feat/zs-ml-003-config-model-examples"
   merge_target: "main"
+  branch: "feat/zs-ml-003-config-model-examples"
+  compare_url: "https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-003-config-model-examples"
+  new_pr_url: "https://github.com/ailib-official/zerospider/pull/new/feat/zs-ml-003-config-model-examples"
+  url: ""
+  merge_commit: ""
 
 testing:
   unit_tests:

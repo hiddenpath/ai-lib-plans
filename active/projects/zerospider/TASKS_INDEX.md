@@ -21,4 +21,4 @@
 
 - **ZS-ML-001** 已合并：[PR #12](https://github.com/ailib-official/zerospider/pull/12) / `db21bfd`（**ZS-ML-005** 的前置依赖已满足）。
 - **ZS-ML-002** 已合并：[PR #11](https://github.com/ailib-official/zerospider/pull/11) / `5e0925d`。
-- **进行中**：[ZS-ML-003](./tasks/ZS-ML-003-config-logical-model-examples.yaml) — 分支 `feat/zs-ml-003-config-model-examples`（开 PR 后回填 url / merge commit）。
+- **进行中**：[ZS-ML-003](./tasks/ZS-ML-003-config-logical-model-examples.yaml)（Phase2 配置示例 + 反序列化回归测试）；分支 `feat/zs-ml-003-config-model-examples`（合并后回填 `pr.url` / `merge_commit`）。
