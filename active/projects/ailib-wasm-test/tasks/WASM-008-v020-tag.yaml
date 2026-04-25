@@ -1,0 +1,30 @@
+id: WASM-008
+title: "v0.2.0 tag: changelog + milestone alignment"
+status: open
+priority: P0
+project: ailib-wasm-test
+phase: wave1
+depends_on: ["WASM-004", "WASM-005", "WASM-006", "WASM-007"]
+assignee: ""
+created: "2026-04-26"
+updated: "2026-04-26"
+description: |
+  Tag v0.2.0 release after wave1 tasks complete:
+  - CHANGELOG.md with all wave1 changes (reproducible build, path fix, Docker, dual-WASM docs)
+  - Bump Cargo.toml versions to 0.2.0 (workspace + crates)
+  - Git tag v0.2.0 with annotated message
+  - Verify tag against milestone definition in project-overview.yaml
+  - GitHub release with summary + assets (Docker image if available)
+acceptance_criteria:
+  - All wave1 tasks completed and merged
+  - CHANGELOG.md lists all changes with PR references
+  - Version numbers bumped to 0.2.0 across workspace
+  - Git tag v0.2.0 created and pushed
+  - GitHub release published
+testing:
+  strategy: "Verify: git tag exists, CHANGELOG is complete, versions are 0.2.0, GitHub release is live"
+  evidence: ""
+pr:
+  url: ""
+  merge_commit: ""
+completion_notes: ""

@@ -1,0 +1,31 @@
+id: PR-V1-003
+title: "Provider/model navigation UI"
+status: open
+priority: P2
+project: vela
+phase: 1
+depends_on: ["PR-V1-001"]
+assignee: ""
+created: "2026-04-26"
+updated: "2026-04-26"
+description: |
+  Provider and model discovery interface:
+  - Fetch available providers/models from Prism /admin/health endpoint
+  - Provider cards: name, status (healthy/degraded/down), avg latency, models offered
+  - Model list per provider: model id, context window, pricing hint
+  - Quick-switch: click a model to route next message through it
+  - Basic sorting: by provider name, by latency, by cost (if pricing data available)
+  - Responsive layout for mobile viewport
+acceptance_criteria:
+  - Provider list shows all 5 P0 providers with health status
+  - Model list per provider shows available models
+  - Clicking a model switches active model for next message
+  - UI is usable on mobile viewport (>=375px width)
+  - Handles Prism API unavailability gracefully (offline indicator)
+testing:
+  strategy: "Manual: verify provider cards display correctly; test model switching; check mobile layout"
+  evidence: ""
+pr:
+  url: ""
+  merge_commit: ""
+completion_notes: ""

@@ -1,0 +1,36 @@
+id: PR-P1-007
+title: "Admin API (keys/users/usage CRUD)"
+status: open
+priority: P1
+project: prism
+phase: 1
+depends_on: ["PR-P1-003", "PR-P1-004"]
+assignee: ""
+created: "2026-04-25"
+updated: "2026-04-25"
+
+description: |
+  Management API endpoints (admin token required):
+  - POST /admin/keys — add provider API key
+  - DELETE /admin/keys/:id — remove key
+  - GET /admin/keys — list all keys + status (active/cooldown/disabled)
+  - POST /admin/users — create user + assign API key
+  - GET /admin/users/:id — user usage summary
+  - GET /admin/usage — usage query with date range filter
+  - GET /admin/health — per-provider health status
+
+acceptance_criteria:
+  - Admin endpoints require separate admin token (not user API key)
+  - CRUD operations on keys and users work correctly
+  - Usage query supports date range + user_id + provider_id filters
+  - Health endpoint shows per-provider success rate + avg latency
+
+testing:
+  strategy: "Integration test: admin API CRUD + auth enforcement"
+  evidence: ""
+
+pr:
+  url: ""
+  merge_commit: ""
+
+completion_notes: ""

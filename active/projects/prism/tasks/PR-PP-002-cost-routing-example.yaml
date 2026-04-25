@@ -1,0 +1,30 @@
+id: PP-002
+title: "P-layer minimal cost routing example (not production SLA)"
+status: open
+priority: P2
+project: prism
+phase: wave2
+depends_on: ["PR-P1-005", "PR-P1-008"]
+assignee: ""
+created: "2026-04-26"
+updated: "2026-04-26"
+description: |
+  Build a minimal cost-aware routing example in Prism:
+  - Cost routing strategy: given request, select provider with lowest per-token cost
+  - Pricing data source: static config (YAML/JSON) with per-provider per-model pricing
+  - Route decision: compare costs across available healthy providers for requested model class
+  - Explicit "NOT PRODUCTION SLA" warning in code + docs
+  - Example config with 5 P0 provider pricing (public pricing pages)
+  - Integration test: verify routing selects cheapest option
+acceptance_criteria:
+  - Cost routing selects lowest-cost provider for given model class
+  - Pricing config is external (YAML/JSON), not hardcoded
+  - Code and docs carry "not production SLA" warning
+  - Integration test demonstrates cost-based routing decision
+testing:
+  strategy: "Integration test: provide pricing config, send requests, verify routing decisions match expected cheapest provider"
+  evidence: ""
+pr:
+  url: ""
+  merge_commit: ""
+completion_notes: ""

@@ -1,0 +1,32 @@
+id: PR-V1-001
+title: "Vela Web skeleton (chat UI + Prism SDK integration)"
+status: open
+priority: P1
+project: vela
+phase: 1
+depends_on: ["PR-P1-006"]
+assignee: ""
+created: "2026-04-26"
+updated: "2026-04-26"
+description: |
+  Bootstrap Vela web client with minimal chat interface:
+  - Project scaffold: React or Vanilla JS + Vite (or equivalent lightweight bundler)
+  - Prism SDK integration (`@ailib/prism-sdk`) for API calls
+  - Chat UI: message input, response display, streaming support
+  - Model/provider selector (hardcoded list from Prism /admin/health)
+  - Environment config for Prism API endpoint (default: api.prism.ailib.info)
+  - Basic error handling and loading states
+  - README with setup instructions + architecture diagram
+acceptance_criteria:
+  - Vela can send a chat message and receive streaming response via Prism
+  - Model selector allows switching between available providers
+  - Streaming responses render token-by-token
+  - Connection errors display user-friendly messages
+  - README covers local dev setup + Prism endpoint configuration
+testing:
+  strategy: "Manual: open Vela in browser, chat via Prism API, verify streaming + model switch"
+  evidence: ""
+pr:
+  url: ""
+  merge_commit: ""
+completion_notes: ""

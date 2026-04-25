@@ -1,0 +1,30 @@
+id: PP-001
+title: "Pack contract draft: JSON Schema extension + 1 example"
+status: open
+priority: P2
+project: prism
+phase: wave2
+depends_on: ["PR-P1-008"]
+assignee: ""
+created: "2026-04-26"
+updated: "2026-04-26"
+description: |
+  Draft the Prism Pack capability contract:
+  - Define JSON Schema for Pack manifest (extends ai-protocol v2 manifest)
+  - Pack fields: id, name, version, provider_routes, signing_info, metadata
+  - provider_routes: array of {provider, model, priority, cost_weight, capability_tags}
+  - Create 1 concrete example: "deepseek-economy-pack" (routes to DeepSeek models with cost optimization)
+  - Document in docs/ or ai-protocol repo under "Pack Specification" section
+  - NOT a marketplace implementation — just the contract/schema
+acceptance_criteria:
+  - JSON Schema validates against example pack manifest
+  - Example pack is self-documenting (comments or README)
+  - Schema references ai-protocol v2 manifest where applicable
+  - No marketplace or registry implementation (contract only)
+testing:
+  strategy: "Validate: example JSON against schema; review schema completeness against report 5 §6 Pack description"
+  evidence: ""
+pr:
+  url: ""
+  merge_commit: ""
+completion_notes: ""

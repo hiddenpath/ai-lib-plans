@@ -1,0 +1,35 @@
+id: PR-P1-005
+title: "Fallback routing (primary provider fail → backup switch)"
+status: open
+priority: P0
+project: prism
+phase: 1
+depends_on: ["PR-P1-002", "PR-P1-003"]
+assignee: ""
+created: "2026-04-25"
+updated: "2026-04-25"
+
+description: |
+  Implement basic fallback routing:
+  - Configurable fallback_order per model (e.g., gpt-4o → [OpenAI, DeepSeek])
+  - Primary provider failure → automatic retry on next provider in chain
+  - Failure classification: retryable (5xx, timeout) vs non-retryable (4xx, auth)
+  - Only retryable errors trigger fallback
+  - Provider health tracking (success rate, avg latency)
+  - Round-robin across providers for same model when no explicit fallback
+
+acceptance_criteria:
+  - Primary provider 5xx → request retried on backup provider
+  - Auth error (401/403) does NOT trigger fallback (non-retryable)
+  - Fallback returns response with actual provider_id in metadata
+  - Health tracker updates on each request result
+
+testing:
+  strategy: "Integration test: mock primary failure, verify fallback to secondary"
+  evidence: ""
+
+pr:
+  url: ""
+  merge_commit: ""
+
+completion_notes: ""

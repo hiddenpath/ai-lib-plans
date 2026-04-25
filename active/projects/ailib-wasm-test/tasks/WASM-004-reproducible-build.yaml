@@ -1,0 +1,31 @@
+id: WASM-004
+title: "Reproducible build: run script / justfile + Windows notes + artifact paths"
+status: open
+priority: P0
+project: ailib-wasm-test
+phase: wave1
+depends_on: []
+assignee: ""
+created: "2026-04-26"
+updated: "2026-04-26"
+description: |
+  Create reproducible build infrastructure:
+  - justfile (preferred) or Makefile with targets: build-wasm, build-server, build-all, dev, clean
+  - `build-wasm`: wasm-pack build with correct target (web) and output path
+  - `build-server`: cargo build for server crate
+  - `dev`: build-all + start server on default port
+  - Document Windows-specific steps (wasm-pack install, MSVC toolchain, curl-static)
+  - Artifact paths documented in README (pkg/ for WASM, target/debug for server)
+  - .gitignore covers build artifacts (pkg/, target/, node_modules/)
+acceptance_criteria:
+  - `just build-all` produces working WASM + server from clean checkout
+  - Windows section in README covers known differences
+  - Artifact paths are documented and consistent
+  - .gitignore prevents build artifacts from being committed
+testing:
+  strategy: "Manual: fresh clone → just build-all → just dev → open browser → verify chat works"
+  evidence: ""
+pr:
+  url: ""
+  merge_commit: ""
+completion_notes: ""

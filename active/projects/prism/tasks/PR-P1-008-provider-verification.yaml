@@ -1,0 +1,41 @@
+id: PR-P1-008
+title: "5 P0 Providers integration verification"
+status: open
+priority: P0
+project: prism
+phase: 1
+depends_on: ["PR-P1-006"]
+assignee: ""
+created: "2026-04-25"
+updated: "2026-04-25"
+
+description: |
+  End-to-end verification of all 5 P0 providers:
+  - OpenAI (gpt-4o, gpt-4o-mini)
+  - Anthropic (claude-sonnet-4-20250514, claude-haiku-4-20250414)
+  - Gemini (gemini-2.5-pro, gemini-2.5-flash)
+  - DeepSeek (deepseek-chat, deepseek-reasoner)
+  - Qwen (qwen-max, qwen-plus)
+
+  For each provider:
+  - Sync + streaming requests verified
+  - Error handling (rate limit, auth, timeout) verified
+  - Usage metadata correctly recorded
+  - Fallback routing tested (primary → secondary)
+
+acceptance_criteria:
+  - All 5 providers return valid responses via Prism API
+  - Streaming works for all 5 providers
+  - Rate limit → cooldown + fallback works
+  - Usage records correctly captured for all providers
+  - External accessibility verified: curl from outside VPS
+
+testing:
+  strategy: "Manual integration test against live providers + automated smoke test script"
+  evidence: ""
+
+pr:
+  url: ""
+  merge_commit: ""
+
+completion_notes: ""

@@ -1,0 +1,35 @@
+id: PR-P1-002
+title: "Core proxy — /v1/chat/completions (sync + SSE streaming)"
+status: open
+priority: P0
+project: prism
+phase: 1
+depends_on: ["PR-P1-001"]
+assignee: ""
+created: "2026-04-25"
+updated: "2026-04-25"
+
+description: |
+  Implement the core chat completions proxy:
+  - POST /v1/chat/completions (OpenAI-compatible request/response)
+  - SSE streaming support (text/event-stream)
+  - GET /v1/models (available model list)
+  - Request → ai-lib-core client → Provider → standardize response
+  - Bearer token authentication middleware
+
+acceptance_criteria:
+  - `curl POST /v1/chat/completions` returns valid OpenAI-format response
+  - SSE streaming returns chunks + [DONE]
+  - `GET /v1/models` lists configured providers/models
+  - Invalid API key returns 401
+  - At least 2 providers reachable (OpenAI + Anthropic)
+
+testing:
+  strategy: "Integration test against live providers + unit tests for request/response mapping"
+  evidence: ""
+
+pr:
+  url: ""
+  merge_commit: ""
+
+completion_notes: ""

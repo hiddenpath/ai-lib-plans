@@ -1,0 +1,33 @@
+id: PR-V1-002
+title: "Local conversation history (IndexedDB + export)"
+status: open
+priority: P1
+project: vela
+phase: 1
+depends_on: ["PR-V1-001"]
+assignee: ""
+created: "2026-04-26"
+updated: "2026-04-26"
+description: |
+  Implement client-side conversation persistence:
+  - IndexedDB schema: conversations table (id, title, created_at, updated_at) + messages table (conversation_id, role, content, model, provider, timestamp)
+  - Save messages automatically after each exchange
+  - Conversation list sidebar with search
+  - Load/resume previous conversations
+  - Export conversation as Markdown
+  - Delete conversation with confirmation
+  - Data stays 100% client-side (no server storage in Phase 1)
+acceptance_criteria:
+  - New conversations are saved to IndexedDB automatically
+  - Conversation list shows all saved conversations with title + date
+  - Clicking a conversation loads full message history
+  - Export produces valid Markdown file
+  - Delete removes conversation and all associated messages
+  - Data persists across browser refreshes
+testing:
+  strategy: "Manual: create conversations, refresh browser, verify history persists; export + delete verification"
+  evidence: ""
+pr:
+  url: ""
+  merge_commit: ""
+completion_notes: ""

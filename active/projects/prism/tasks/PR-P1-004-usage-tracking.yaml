@@ -1,0 +1,35 @@
+id: PR-P1-004
+title: "Usage tracking (SQLite + Pricer)"
+status: open
+priority: P0
+project: prism
+phase: 1
+depends_on: ["PR-P1-002"]
+assignee: ""
+created: "2026-04-25"
+updated: "2026-04-25"
+
+description: |
+  Implement usage recording and basic pricing:
+  - UsageRecord: user_id, provider_id, model_id, prompt/completion/reasoning tokens, cost_usd, timestamp
+  - SQLite storage via rusqlite
+  - Pricer with static pricing table (config.toml)
+  - ExecutionMetadata.usage drives record creation
+  - Query API: GET /admin/usage (date range filter)
+
+acceptance_criteria:
+  - Every chat completion request creates a UsageRecord
+  - Pricer calculates cost from provider pricing table + token counts
+  - SQLite database auto-created on first run
+  - GET /admin/usage returns aggregated records by date range
+  - No conversation content stored (only metadata)
+
+testing:
+  strategy: "Unit tests for Pricer calculation + integration test for usage flow"
+  evidence: ""
+
+pr:
+  url: ""
+  merge_commit: ""
+
+completion_notes: ""

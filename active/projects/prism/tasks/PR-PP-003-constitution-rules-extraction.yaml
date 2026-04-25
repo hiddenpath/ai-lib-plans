@@ -1,0 +1,45 @@
+id: PP-003
+title: "Constitution备案: extract stable boundary rules from reports"
+status: open
+priority: P1
+project: prism
+phase: wave2
+depends_on: []
+assignee: ""
+created: "2026-04-26"
+updated: "2026-04-26"
+description: |
+  Extract long-term stable boundary rules from finalized reports into constitution:
+  - Create rules/business/ directory if not exists
+  - Rule 1: BIZ-001 — Three-zone product boundary (A/B/C band → product mapping)
+    - A-band = permanently open (E-layer, SDK, Vela client core)
+    - B-band = open but no SLA (E2E sync client, benchmark tooling)
+    - C-band = closed-source commercial (Prism routing, Key pool, billing, Admin API)
+  - Rule 2: BIZ-002 — Prism/Vela brand scope
+    - Prism = P-layer platform (closed-source C-band)
+    - Vela = A-layer client (open-source A-band + C-band premium)
+    - No product name may span both P-layer and A-layer as a single brand
+  - Rule 3: BIZ-003 — Context storage privacy boundary
+    - Phase 1: Prism stores only ExecutionMetadata (no conversation content)
+    - Phase 2: E2E encrypted sync = Prism stores ciphertext blobs only (zero-knowledge)
+    - No phase permits Prism to access plaintext conversation content
+  - Rule 4: BIZ-004 — Phase gate dependency
+    - Phase 1 does NOT block on PT-073 (uses published ai-lib-core)
+    - Phase 2+ features that depend on Contact API stability ARE blocked by PT-073
+  - Rule 5: BIZ-005 — Enterprise feature flag discipline
+    - Enterprise + Prism share codebase via Rust feature flags
+    - No separate repository for Enterprise; same repo + --features enterprise
+  - Remove duplicate long-form analysis from reports after extraction
+  - Update MEMORY.md with rule references
+acceptance_criteria:
+  - rules/business/ contains BIZ-001 through BIZ-005
+  - Each rule is concise (< 20 lines), stable, and references source report
+  - MEMORY.md updated with rule IDs and one-line summaries
+  - Duplicate long-form content in reports marked as "superseded by BIZ-xxx"
+testing:
+  strategy: "Review: confirm each rule is independent, stable, and accurately reflects report conclusions"
+  evidence: ""
+pr:
+  url: ""
+  merge_commit: ""
+completion_notes: ""

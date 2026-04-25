@@ -1,0 +1,36 @@
+id: PR-P1-006
+title: "Docker deployment + Caddy TLS + api.prism.ailib.info"
+status: open
+priority: P0
+project: prism
+phase: 1
+depends_on: ["PR-P1-005"]
+assignee: ""
+created: "2026-04-25"
+updated: "2026-04-25"
+
+description: |
+  Production deployment infrastructure:
+  - Multi-stage Dockerfile (Rust build → minimal runtime image)
+  - docker-compose.yml (gateway + caddy services)
+  - Caddyfile for api.prism.ailib.info (auto HTTPS via Let's Encrypt)
+  - Environment variable configuration (RUST_LOG, data paths)
+  - Volume mounts for SQLite data persistence
+  - Restart policy + health check in compose
+
+acceptance_criteria:
+  - `docker compose up` starts gateway + caddy
+  - `https://api.prism.ailib.info/health` returns 200 (after DNS + TLS setup)
+  - Auto-restart on failure
+  - SQLite data persists across container restarts
+  - TLS certificate auto-provisioned by Caddy
+
+testing:
+  strategy: "Manual: deploy to VPS, curl external endpoint"
+  evidence: ""
+
+pr:
+  url: ""
+  merge_commit: ""
+
+completion_notes: ""

@@ -1,0 +1,29 @@
+id: WASM-005
+title: "Static resource path: remove machine-specific absolute paths"
+status: open
+priority: P0
+project: ailib-wasm-test
+phase: wave1
+depends_on: []
+assignee: ""
+created: "2026-04-26"
+updated: "2026-04-26"
+description: |
+  Remove hardcoded absolute paths from server crate:
+  - Replace `/home/alex/ailib-wasm-test/static` with relative path resolution
+  - Use `std::env::current_dir()` + fallback to `env!("CARGO_MANIFEST_DIR")`
+  - Optional: add `--static-dir` CLI argument for custom path
+  - Verify static files are served correctly from both `cargo run` and `just dev`
+  - Update README if path configuration changes
+acceptance_criteria:
+  - No machine-specific absolute paths in server code
+  - `cargo run` from project root serves static files correctly
+  - Optional `--static-dir` CLI flag works
+  - Works on fresh clone without any manual path configuration
+testing:
+  strategy: "Manual: clone to different directory, cargo run, verify static files load"
+  evidence: ""
+pr:
+  url: ""
+  merge_commit: ""
+completion_notes: ""

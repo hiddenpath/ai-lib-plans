@@ -1,0 +1,33 @@
+id: PR-P1-001
+title: "Prism project skeleton (Axum + config + health endpoint)"
+status: open
+priority: P0
+project: prism
+phase: 1
+depends_on: []
+assignee: ""
+created: "2026-04-25"
+updated: "2026-04-25"
+
+description: |
+  Create the ai-lib-gateway project skeleton with:
+  - Cargo.toml workspace (gateway + core dependency)
+  - Axum server with `/health` endpoint
+  - TOML config loader (provider list, keys, ports)
+  - Basic project structure: src/{main,config,server/health}
+
+acceptance_criteria:
+  - `cargo build` succeeds with ai-lib-core as dependency
+  - `GET /health` returns 200 with version info
+  - Config loads from `config.toml` at startup
+  - Docker skeleton (Dockerfile + docker-compose.yml) present
+
+testing:
+  strategy: "cargo test + manual curl /health"
+  evidence: ""
+
+pr:
+  url: ""
+  merge_commit: ""
+
+completion_notes: ""

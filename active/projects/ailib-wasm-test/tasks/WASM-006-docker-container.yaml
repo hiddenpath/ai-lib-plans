@@ -1,0 +1,31 @@
+id: WASM-006
+title: "Docker container: single/multi-stage Dockerfile + env docs"
+status: open
+priority: P1
+project: ailib-wasm-test
+phase: wave1
+depends_on: ["WASM-004"]
+assignee: ""
+created: "2026-04-26"
+updated: "2026-04-26"
+description: |
+  Containerize the wasm-test project:
+  - Multi-stage Dockerfile: Rust build stage → minimal runtime image (debian-slim or scratch)
+  - Build WASM in first stage, server in first stage, copy both to runtime image
+  - Environment variables for API keys (PROXY_KEY_NVIDIA, PROXY_KEY_DEEPSEEK, etc.)
+  - Docker Compose for local dev (server + static files)
+  - .dockerignore to minimize build context
+  - Document env variable names and where to get keys
+acceptance_criteria:
+  - `docker compose up` builds and runs the full stack
+  - Chat works through Docker-hosted server
+  - API keys are passed via environment variables, not hardcoded
+  - Image size is reasonable (< 200MB runtime)
+  - .dockerignore excludes unnecessary files
+testing:
+  strategy: "Manual: docker compose up → open browser → chat → verify WASM + proxy work"
+  evidence: ""
+pr:
+  url: ""
+  merge_commit: ""
+completion_notes: ""

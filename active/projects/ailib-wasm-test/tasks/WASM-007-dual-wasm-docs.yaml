@@ -1,0 +1,30 @@
+id: WASM-007
+title: "Dual WASM line documentation: wasm-browser vs ai-lib-wasm (WASI)"
+status: open
+priority: P1
+project: ailib-wasm-test
+phase: wave1
+depends_on: []
+assignee: ""
+created: "2026-04-26"
+updated: "2026-04-26"
+description: |
+  Add documentation section clarifying the two WASM architectures:
+  - README section: "When to use wasm-browser vs ai-lib-wasm (WASI)"
+  - wasm-browser: browser-targeted, wasm-bindgen, JS interop, chat demo use case
+  - ai-lib-wasm: server-targeted, C ABI / wasmtime, protocol execution, platform use case
+  - Comparison table: ABI, target environment, exports, use cases, dependencies
+  - Decision flowchart or simple guide for choosing the right WASM path
+  - Link to ai-lib-wasm crate in ai-lib-rust monorepo
+acceptance_criteria:
+  - README has a clear "Which WASM?" section
+  - Comparison table covers all key differences
+  - Decision guide helps developers choose correctly
+  - Links to companion crate are accurate
+testing:
+  strategy: "Review: confirm README renders correctly and information is accurate against codebase"
+  evidence: ""
+pr:
+  url: ""
+  merge_commit: ""
+completion_notes: ""
