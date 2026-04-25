@@ -4,9 +4,9 @@ status: in_progress
 created: 2026-04-22
 updated: 2026-04-25
 completion_notes: >
-  ZS-ML-001 merged PR #12 (default features ai-protocol only; legacy tests + CI matrix). ZS-ML-002 PR #11.
-  ZS-ML-003 in progress: protocol logical id TOML examples + config regression tests.
-  Remaining: routing_mvp/metrics (ZS-ML-004), legacy removal (ZS-ML-005), wizard/security (ZS-ML-006).
+  ZS-ML-001 PR #12; ZS-ML-002 PR #11. ZS-ML-003 branch (config TOML examples) may still be in PR queue.
+  ZS-ML-004 in progress: optional routing_mvp Cargo feature + CI compile gate + docs.
+  Remaining: full metrics wiring if needed, legacy removal (ZS-ML-005), wizard/security (ZS-ML-006).
 repo_target: https://github.com/ailib-official/zerospider
 related:
   - ai-protocol

@@ -1,8 +1,10 @@
 ---
 id: "ZS-ML-004"
 title: "Optional: routing_mvp + AiClient::metrics() wiring and compile gates"
-status: "open"
+status: "in_progress"
 priority: "low"
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
 assignee: "@tbd"
 project: "zerospider"
 milestone: "ai-lib-migration"
@@ -11,7 +13,7 @@ labels:
   - "ai-lib"
   - "observability"
 created: "2026-04-22"
-updated: "2026-04-22"
+updated: "2026-04-25"
 description: |
   迁移计划 PR5/Phase4：按需启用 `ai-lib-rust` 的 `routing_mvp` 等 feature，并
   对接 `AiClient::metrics()`（若与当前执行路径适用）。
@@ -33,6 +35,11 @@ pr:
   repo: "ailib-official/zerospider"
   branch_pattern: "feat/zs-ml-004-routing-metrics"
   merge_target: "main"
+  branch: "feat/zs-ml-004-routing-metrics"
+  compare_url: "https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-004-routing-metrics"
+  new_pr_url: "https://github.com/ailib-official/zerospider/pull/new/feat/zs-ml-004-routing-metrics"
+  url: ""
+  merge_commit: ""
 
 testing:
   unit_tests: []
