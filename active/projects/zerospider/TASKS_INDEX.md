@@ -4,8 +4,8 @@
 
 | ID | 文件 | 状态 | 依赖 | 对应计划 Phase / PR |
 |----|------|------|------|----------------------|
-| ZS-ML-001 | [tasks/ZS-ML-001-default-features-ci-alignment.yaml](./tasks/ZS-ML-001-default-features-ci-alignment.yaml) | `open` | — | 计划 PR4/Phase3 + CI 矩阵（legacy 默认与测试策略） |
-| ZS-ML-002 | [tasks/ZS-ML-002-contributing-ai-protocol.yaml](./tasks/ZS-ML-002-contributing-ai-protocol.yaml) | `in_progress` | — | 计划 PR1/Phase0 可选项 + 可审性 |
+| ZS-ML-001 | [tasks/ZS-ML-001-default-features-ci-alignment.yaml](./tasks/ZS-ML-001-default-features-ci-alignment.yaml) | `completed` ✅ | — | PR #12 (db21bfd) — 计划 PR4/Phase3 + CI 矩阵（legacy 默认与测试策略） |
+| ZS-ML-002 | [tasks/ZS-ML-002-contributing-ai-protocol.yaml](./tasks/ZS-ML-002-contributing-ai-protocol.yaml) | `completed` ✅ | — | PR #11 (5e0925d) — 计划 PR1/Phase0 可选项 + 可审性 |
 | ZS-ML-003 | [tasks/ZS-ML-003-config-logical-model-examples.yaml](./tasks/ZS-ML-003-config-logical-model-examples.yaml) | `open` | — | 计划 PR3/Phase2 配置与示例补全 |
 | ZS-ML-004 | [tasks/ZS-ML-004-routing-mvp-metrics-optional.yaml](./tasks/ZS-ML-004-routing-mvp-metrics-optional.yaml) | `open` | 建议 ZS-ML-001 后 | 计划 PR5/Phase4 |
 | ZS-ML-005 | [tasks/ZS-ML-005-legacy-removal-migration-guide.yaml](./tasks/ZS-ML-005-legacy-removal-migration-guide.yaml) | `open` | ZS-ML-001 | 计划 PR6/Phase5 |

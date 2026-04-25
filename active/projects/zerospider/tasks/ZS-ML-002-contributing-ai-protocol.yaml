@@ -1,7 +1,6 @@
----
-id: "ZS-ML-002"
+--- id: "ZS-ML-002"
 title: "CONTRIBUTING: clone ai-protocol + env (Phase 0 optional deliverable) + doc contract test"
-status: "in_progress"
+status: "completed"
 priority: "medium"
 executor_name: "cursor-agent"
 executor_terminal: "cursor-shell"
@@ -13,36 +12,29 @@ labels:
   - "docs"
   - "onboarding"
 created: "2026-04-22"
-updated: "2026-04-22"
+updated: "2026-04-25"
+completed: "2026-04-25"
 description: |
-  落实迁移计划 **PR1 / Phase 0** 中的可选项：在仓库根增加 `CONTRIBUTING.md`
- （或等效单页）说明如何 **克隆 ai-protocol**、设置 `AI_PROTOCOL_DIR`、
-  与 `cargo build/test` 的推荐 feature 组合。README 中增加指向的贡献入口链接。
-
-  在 **zerospider** 中增加**轻量** `tests/*` 契约测试：`include_str!` 断言
-  `CONTRIBUTING.md` 与 `docs/ai-lib-migration.md` 含约定关键词（`AI_PROTOCOL`
-  等），防止文档被误删。
-
+  落实迁移计划 **PR1 / Phase 0** 中的可选项：在仓库根增加 `CONTRIBUTING.md` （或等效单页）说明如何 **克隆 ai-protocol**、设置 `AI_PROTOCOL_DIR`、 与 `cargo build/test` 的推荐 feature 组合。README 中增加指向的贡献入口链接。
+  在 **zerospider** 中增加**轻量** `tests/*` 契约测试：`include_str!` 断言 `CONTRIBUTING.md` 与 `docs/ai-lib-migration.md` 含约定关键词（`AI_PROTOCOL` 等），防止文档被误删。
 acceptance_criteria:
   - "存在 CONTRIBUTING.md 且含 ai-protocol 获取与 AI_PROTOCOL_DIR 说明"
   - "README 或顶栏可发现贡献/协议文档链接"
   - "cargo test 包含新的 docs 契约用例并稳定通过"
   - "PR 合并到 main 后，本 task 的 pr.url 与 pr.merge_commit 已回填"
-
 pr:
   repo: "ailib-official/zerospider"
   branch_pattern: "feat/zs-ml-002-contributing"
   merge_target: "main"
-  # GOV-001: 公共仓库唯一定位 ailib-official；在 **同仓** 推分支并开 PR（非「个人 fork → 上游」模型）
   branch: "feat/zs-ml-002-contributing"
-  compare_url: "https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-002-contributing"
-  # 分支已推送到 ailib-official；用此链接创建 PR 并填 pr.url
-  new_pr_url: "https://github.com/ailib-official/zerospider/pull/new/feat/zs-ml-002-contributing"
-  url: ""
-  merge_commit: ""
+  url: "https://github.com/ailib-official/zerospider/pull/11"
+  merge_commit: "5e0925d"
+  required_checks:
+    - "cargo fmt --check"
+    - "cargo clippy --workspace --all-targets -- -D warnings"
+    - "cargo test"
 governance:
   - "GOV-001: 本地 public 仓 origin 须指向 ailib-official/zerospider；hiddenpath 上历史公开副本为只读/归档，新开发不推那里"
-
 testing:
   unit_tests:
     - "tests/docs_contract_*.rs（或等效）在默认 feature 下通过"
@@ -50,7 +42,12 @@ testing:
     - "本地: cargo test -p zerospider --test docs_contract_contributing（2 passed）"
   formatting: "cargo fmt --all -- --check"
   lint: "cargo clippy -p zerospider -- -D warnings (若 CI 子集可接受则注明)"
-
+completion_notes: |
+  PR #11 merged (merge commit 5e0925d).
+  - CONTRIBUTING.md added with ai-protocol clone + AI_PROTOCOL_DIR instructions.
+  - README links added to CONTRIBUTING and ai-lib-migration docs.
+  - tests/docs_contract_contributing.rs added (include_str! contract tests).
+  - env_lock fix applied to listed_providers test to prevent parallel test env leak.
 dependencies: []
 related_plan_section: "PR1 — Phase 0（可选 CONTRIBUTING 片段）"
 blocked_by: []
