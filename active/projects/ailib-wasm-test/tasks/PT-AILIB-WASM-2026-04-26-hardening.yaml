@@ -1,0 +1,16 @@
+---
+# ailib-wasm-test + ai-lib-core browser alignment (2026-04-26)
+task_id: "PT-AILIB-WASM-2026-04-26"
+title: "ailib-wasm-test + ai-lib-core: usage unification, stream driver reuse, proxy header parity"
+status: completed
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
+created: "2026-04-26"
+updated: "2026-04-26"
+scope:
+  - "ai-lib-rust/crates/ai-lib-core: unified OpenAI-shaped usage parsing; OpenAI stream `reasoning` alias; Anthropic `input_json_delta` -> PartialToolCall"
+  - "ailib-wasm-test: core_logic uses OpenAiDriver::parse_chat_response + driver-based stream parse; server stream path uses build_proxy_curl_headers; CI-safe API key tests; remove dead wasm deps"
+completion_notes: |
+  Unit tests: `cargo test -p ai-lib-core` (lib + integration) pass; `ailib-wasm-browser` 31 tests pass;
+  `ailib-wasm-test-server` tests pass with network probes skipping on non-200.
+  Doc-tests for ai-lib-core may fail on disk-full linker errors (environmental).
