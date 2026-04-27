@@ -1,0 +1,67 @@
+---
+id: "ZS-ML-008"
+title: "Phase 4/5 rectification: protocol-only test gate + double-retry + reliable×protocol integration test"
+status: "todo"
+priority: "high"
+executor_name: ""
+executor_terminal: ""
+assignee: "@tbd"
+project: "zerospider"
+milestone: "ai-lib-migration"
+labels:
+  - "zerospider"
+  - "rectification"
+  - "phase-4"
+  - "phase-5"
+  - "ci"
+  - "tests"
+created: "2026-04-28"
+updated: "2026-04-28"
+description: |
+  迁移计划 Phase 4（fallback / 韧性边界）与 Phase 5（默认构建）测试覆盖不足。
+  审计 2026-04-27 与开发侧 2026-04-28 交叉核实确认以下缺口：
+
+  1. CI 当前仅运行 `cargo check --no-default-features --features ai-protocol --lib`
+     （`.github/workflows/ci.yml` 第 46 行），不跑 `cargo test`。任何 default
+     feature 的隐式渗漏不会被该步骤捕获。
+  2. `execute_chat_with_retry`（`src/providers/protocol_adapter.rs` 116–183 行）
+     与 `ReliableProvider`（`src/providers/reliable.rs`）边界仅靠注释声明，
+     缺单元测试证明两者 **不会重复重试同一 attempt**。
+  3. `ReliableProvider` 已能透明包裹 `ProtocolBackedProvider`（设计上 model
+     fallback 与 provider fallback 都 work），但缺端到端集成测试用例。
+
+  非范围：
+  - 不实现 ai-lib-rust 内部重试策略变更；
+  - 不引入新的 metrics 端点（属 ZS-ML-009 范围）；
+  - 不删除 legacy 源码（属未来 roadmap）。
+
+acceptance_criteria:
+  - "新增 CI 步骤：`cargo test -p zerospider --no-default-features --features ai-protocol`，全绿"
+  - "新增单元测试：模拟 5xx + retry_after，验证 ReliableProvider+ProtocolBackedProvider 链总尝试次数 ≤ `provider_retries × max_retries`，无叠加"
+  - "新增集成测试：`provider/model` 主路径 + `model_fallbacks` 配置 → 主模型失败后切到 fallback 模型并成功，至少 1 个用例"
+  - "测试 mock 不依赖外部网络；可在 GitHub Actions 默认 runner 通过"
+
+pr:
+  repo: "ailib-official/zerospider"
+  branch_pattern: "feat/zs-ml-008-ci-resilience-tests"
+  merge_target: "main"
+
+testing:
+  unit_tests:
+    - "protocol_retry_does_not_compound_with_reliable_provider"
+    - "reliable_provider_falls_back_for_protocol_backed_primary"
+  ci_steps:
+    - "cargo test -p zerospider --no-default-features --features ai-protocol"
+  evidence_on_complete:
+    - "PR url + merge_commit"
+    - "CI run url showing the new no-default-features test step"
+
+related_plan_section: "PR5 — Phase 4 / PR6 — Phase 5"
+related_audit:
+  - "AUDIT_2026-04-27.md §Phase 4 / §Phase 5 / Cross-Phase 2 / Cross-Phase 3"
+  - "AUDIT_2026-04-27_ADDENDUM.md C5, C6, F4"
+blocked_by:
+  - "ZS-ML-007"
+blocks: []
+
+completion_notes: ""

@@ -1,0 +1,65 @@
+---
+id: "ZS-ML-007"
+title: "Phase 1 rectification: streaming tool-call handling + multi-turn + streaming tests"
+status: "todo"
+priority: "high"
+executor_name: ""
+executor_terminal: ""
+assignee: "@tbd"
+project: "zerospider"
+milestone: "ai-lib-migration"
+labels:
+  - "zerospider"
+  - "rectification"
+  - "phase-1"
+  - "streaming"
+created: "2026-04-28"
+updated: "2026-04-28"
+description: |
+  迁移计划 Phase 1（适配层）实测覆盖不足，由 2026-04-27 审计与 2026-04-28
+  开发侧交叉核实确认。本任务关闭以下确认存在的真实缺口：
+
+  1. `ProtocolBackedProvider::stream_chat_with_system`（`src/providers/protocol_adapter.rs`
+     约 363–385 行）只处理 `PartialContentDelta` / `ThinkingDelta` / `StreamEnd`，
+     `Ok(_) => {}` 默默丢弃 `PartialToolCall` 等事件。流式 + 工具调用场景下
+     Agent 会无声地丢失工具决策，属高优先级缺陷。
+  2. `convert_messages` 仅有单轮 tool 测试（`tool_call_id` 一条），缺多轮工具
+     对话（assistant→tool_call→tool→assistant）覆盖。
+  3. `protocol_adapter.rs` 完全没有流式集成测试（含工具 / 不含工具）。
+
+  非范围：
+  - 不引入聚合平台或代理层；
+  - 不动 `ReliableProvider` 与 `[reliability]` 边界（由 ZS-ML-008 处理）；
+  - 不修改 ai-lib-rust 上游 API。
+
+acceptance_criteria:
+  - "`stream_chat_with_system` 显式处理 `PartialToolCall` 事件（实现累积或转发，至少不再静默丢弃；策略写入代码注释）"
+  - "新增多轮工具会话的 `convert_messages` 单元测试（≥1 个 user + tool_call + tool + assistant 完整序列）"
+  - "新增流式集成测试（mock 或 nightly）覆盖：纯文本流、ThinkingDelta 流、含工具调用流"
+  - "测试 `cargo test --workspace --features ai-protocol` 全绿"
+  - "PR 描述中说明对 ai-lib-rust 0.9.x StreamingEvent 枚举的对齐情况"
+
+pr:
+  repo: "ailib-official/zerospider"
+  branch_pattern: "feat/zs-ml-007-stream-toolcall"
+  merge_target: "main"
+
+testing:
+  unit_tests:
+    - "convert_messages_multi_turn_tool_conversation"
+    - "stream_chat_emits_partial_tool_call_events"
+    - "stream_chat_pure_content_path"
+  integration:
+    - "stream + tools end-to-end (mock client)"
+  evidence_on_complete:
+    - "PR url + merge_commit"
+
+related_plan_section: "PR2 — Phase 1"
+related_audit:
+  - "AUDIT_2026-04-27.md §Phase 1 / Cross-Phase 1"
+  - "AUDIT_2026-04-27_ADDENDUM.md C1, C2, C3"
+blocked_by: []
+blocks:
+  - "ZS-ML-008"
+
+completion_notes: ""

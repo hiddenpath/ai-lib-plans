@@ -1,0 +1,67 @@
+---
+id: "ZS-ML-010"
+title: "Reopen migration plan; backfill ZS-ML-006 deferred items; record design vs gap notes"
+status: "in_progress"
+priority: "medium"
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
+assignee: "@tbd"
+project: "zerospider"
+milestone: "ai-lib-migration"
+labels:
+  - "zerospider"
+  - "rectification"
+  - "docs"
+  - "governance"
+created: "2026-04-28"
+updated: "2026-04-28"
+description: |
+  根据 2026-04-27 审计 R1（建议 plan 状态回到 in_progress）与 2026-04-28
+  开发侧交叉核实结论（`AUDIT_2026-04-27_ADDENDUM.md`），完成纯 plan 文档
+  侧的整改：
+
+  1. 把 `ZEROSPIDER_AI_LIB_MIGRATION_PLAN.md` 的 `status` 从 `completed`
+     回退到 `in_progress`，并把 `completion_notes` 拆为
+     `progress_notes` + `pending_rectification`。
+  2. `TASKS_INDEX.md` 追加 ZS-ML-007 / 008 / 009 / 010 行；说明它们是
+     在审计后开启的整改任务。
+  3. 在 `tasks/ZS-ML-006-wizard-security-docs.yaml` 增补 `deferred_items`
+     字段（embeddings/batch 未接入、wizard 无交互修复流、AiClient::metrics
+     与 OTel 边界尚未审计）。
+  4. 维护 `AUDIT_2026-04-27_ADDENDUM.md`，把开发侧对审计中的 F1–F6 的
+     纠正归档（已在 ZS-ML-010 启动同时落盘）。
+  5. 完成后立即按 `plans-sync-automation.mdc` 推送 ai-lib-plans。
+
+  非范围：
+  - 不动 zerospider 仓库源码（由 ZS-ML-007/008/009 PR 处理）；
+  - 不评判审计本身的写法；只就 **代码事实** 做交叉核实。
+
+acceptance_criteria:
+  - "ZEROSPIDER_AI_LIB_MIGRATION_PLAN.md status = in_progress; progress_notes 记录已完成 6 task 与待整改 4 task"
+  - "TASKS_INDEX.md 追加 ZS-ML-007/008/009/010 行并标 todo / in_progress"
+  - "ZS-ML-006 YAML 含 deferred_items（embeddings/batch、interactive wizard、metrics 边界）"
+  - "AUDIT_2026-04-27_ADDENDUM.md 已纳入仓库（与本文 task 同 commit）"
+  - "ai-lib-plans 同步脚本以 post-doc-change 模式推送成功"
+
+pr:
+  repo: "hiddenpath/ai-lib-plans"
+  branch_pattern: "main (direct on plans repo)"
+  merge_target: "main"
+
+testing:
+  yaml_lint:
+    - "all updated task yamls parse with PyYAML safe_load"
+  evidence_on_complete:
+    - "ai-lib-plans commit hash for the plan reopen + addendum"
+
+related_plan_section: "Governance / Audit follow-up"
+related_audit:
+  - "AUDIT_2026-04-27.md R1, R7"
+  - "AUDIT_2026-04-27_ADDENDUM.md (full)"
+blocked_by: []
+blocks:
+  - "ZS-ML-007"
+  - "ZS-ML-008"
+  - "ZS-ML-009"
+
+completion_notes: ""

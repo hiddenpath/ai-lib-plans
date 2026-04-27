@@ -1,18 +1,26 @@
 ---
 title: ZeroSpider ai-lib Migration — Executable Step Plan
-status: completed
+status: in_progress
 created: 2026-04-22
-updated: 2026-04-27
-completion_notes: >
-  All 6 tasks completed. ZS-ML-001 (PR #12, db21bfd), ZS-ML-002 (PR #11, 5e0925d),
-  ZS-ML-003~006 (PR #14, aa3214a — batch PR; future: one task one PR).
-  Legacy factory gating done; full removal deferred. routing_mvp compile gate in CI.
-  Migration guide + compatibility window docs shipped.
+updated: 2026-04-28
+progress_notes: >
+  Phase 0–6 scaffolding shipped via ZS-ML-001~006. ZS-ML-001 (PR #12, db21bfd),
+  ZS-ML-002 (PR #11, 5e0925d), ZS-ML-003~006 (PR #14, aa3214a — batch PR;
+  future tasks return to one-task-one-PR). Legacy factory now default-feature
+  excluded behind `legacy-providers`; routing_mvp compile gate, migration guide,
+  and compatibility window docs are in tree.
+pending_rectification: >
+  2026-04-27 audit (`AUDIT_2026-04-27.md`) flagged Phase 1/4/5/6 runtime gaps.
+  Dev-side cross-check (`AUDIT_2026-04-27_ADDENDUM.md`, 2026-04-28) confirmed
+  4 real gaps and corrected 6 audit items that misread the codebase.
+  Rectification queue: ZS-ML-007 (streaming tool calls), ZS-ML-008 (CI test
+  matrix + resilience tests), ZS-ML-009 (ai-lib-rust feature decision),
+  ZS-ML-010 (this reopen + ZS-ML-006 deferred-items backfill).
 repo_target: https://github.com/ailib-official/zerospider
 related:
   - ai-protocol
   - ai-lib-rust
-execution_model: one GitHub PR per phase (sequential merge recommended)
+execution_model: one GitHub PR per phase (sequential merge recommended); rectification tasks follow one-task-one-PR strictly
 ---
 
 # ZeroSpider → ai-lib：可执行分步计划
@@ -22,10 +30,16 @@ execution_model: one GitHub PR per phase (sequential merge recommended)
 
 ## 可执行任务队列（ai-lib-plans）
 
-迁移工作已拆成带测试与 **PR/合并** 闭环的 task 清单（ZS-ML-001–006 已全部完成）；与本文档的 Phase/PR 列对应。入口：
+迁移工作分两个阶段管理：
+
+- **基础阶段（ZS-ML-001 ~ 006）**：已全部合入（见 PR #11、#12、#14）；scaffolding/feature-gate/docs 完成。
+- **整改阶段（ZS-ML-007 ~ 010）**：基于 [`AUDIT_2026-04-27.md`](./AUDIT_2026-04-27.md) 与 [`AUDIT_2026-04-27_ADDENDUM.md`](./AUDIT_2026-04-27_ADDENDUM.md) 的真实缺口清单，目标是把 Phase 1（流式 tool call）、Phase 4（韧性边界测试）、Phase 5（无 default features 测试矩阵）、Phase 6（feature 决策与延后项备注）补齐。
+
+入口：
 
 - [TASKS_INDEX.md](./TASKS_INDEX.md) — 任务表与状态
 - [tasks/](./tasks/) — 各条 task 的 YAML（`pr` / `testing` 完成定义）
+- [AUDIT_2026-04-27.md](./AUDIT_2026-04-27.md) / [AUDIT_2026-04-27_ADDENDUM.md](./AUDIT_2026-04-27_ADDENDUM.md) — 审计原文与开发侧交叉核实
 
 ## 目标与验收口径（终态）
 

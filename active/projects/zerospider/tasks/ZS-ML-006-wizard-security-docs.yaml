@@ -58,3 +58,17 @@ completion_notes: |
   - docs/ai-lib-migration.md: Compatibility window section.
   - onboard/wizard.rs: uses resolve_local_protocol_root; main.rs mounts protocol_registry for bin.
   - Security: messages reference env names only, not secret values.
+
+deferred_items:
+  - id: "wizard-interactive-fixup"
+    summary: "Wizard 仅 warn，不提供交互修复流（缺 AI_PROTOCOL_DIR 时让用户输入路径并立即校验）"
+    follow_up_in: "ZS-ML-009 (or future Phase 6 polish)"
+  - id: "embeddings-batch-not-wired"
+    summary: "ai-lib-rust 的 embeddings / batch feature 已声明但未接入；本期范围未含 embeddings 路径"
+    follow_up_in: "ZS-ML-009"
+  - id: "metrics-otel-boundary"
+    summary: "AiClient::metrics() 与现有 OTel 管道（observability-otel）的指标边界尚未审计；当前不导出 ai-lib-rust 指标"
+    follow_up_in: "ZS-ML-009"
+  - id: "systematic-key-leak-audit"
+    summary: "对 protocol_adapter / wizard 错误路径的系统性密钥泄露审计未执行；目前依赖 'env name only' 约定"
+    follow_up_in: "future security task"

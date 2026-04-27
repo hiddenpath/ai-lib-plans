@@ -1,0 +1,69 @@
+---
+id: "ZS-ML-009"
+title: "Phase 6 rectification: decide ai-lib-rust embeddings/batch/telemetry features (wire or remove)"
+status: "todo"
+priority: "medium"
+executor_name: ""
+executor_terminal: ""
+assignee: "@tbd"
+project: "zerospider"
+milestone: "ai-lib-migration"
+labels:
+  - "zerospider"
+  - "rectification"
+  - "phase-6"
+  - "deps"
+created: "2026-04-28"
+updated: "2026-04-28"
+description: |
+  `Cargo.toml` 第 147 行声明：
+  `ai-lib-rust = { version = "0.9.4", optional = true, features = ["embeddings", "batch", "telemetry"] }`。
+  审计与代码侧核实：这三个 feature 在 `src/` 中均无调用点，构成无效依赖权重，
+  也使审查者无法判断"声明意图 vs 当前未实现"。
+
+  本任务做出 **明确决策**：
+
+  - **wire**：若团队选择保留某个 feature，需新增至少一个调用点（最简的功能门）
+    并补 README/docs 说明用法；
+  - **remove**：若团队选择延后，需从 `Cargo.toml` 删除对应 feature，并在
+    `docs/ai-lib-migration.md` 兼容窗口章节追加"当前未启用 X，启用计划见
+    roadmap"的一行说明。
+
+  推荐路径（由开发侧）：
+  - `embeddings` → **defer / remove**：本期无 embedding 调用面；
+  - `batch` → **defer / remove**：同上；
+  - `telemetry` → **wire**：与现有 OTel 管道（`observability-otel`）共存策略
+    在审计 R5 中已被点名；至少做"显式延后并写出与 OTel 边界"的文档动作，避免重复计数。
+
+  非范围：
+  - 不实现完整 embeddings / batch 业务路径；
+  - 不动 OTel exporter 配置；
+  - 不修改 ai-lib-rust 源码。
+
+acceptance_criteria:
+  - "对每个 feature（embeddings / batch / telemetry）给出二选一决策（wire 或 remove）并落到 Cargo.toml + 1 处文档"
+  - "若选 wire：新增的调用点必须有最小测试或编译时门"
+  - "若选 remove：`docs/ai-lib-migration.md` 与 `docs/migration-legacy-to-protocol.md` 中相关段落同步更新"
+  - "PR 描述中包含与审计 R8（dead feature flags）和 R5（metrics 决策）的对照"
+
+pr:
+  repo: "ailib-official/zerospider"
+  branch_pattern: "feat/zs-ml-009-feature-decision"
+  merge_target: "main"
+
+testing:
+  unit_tests:
+    - "if wired: minimal compile/use test for the chosen feature"
+  docs_contract:
+    - "docs/ai-lib-migration.md updated with feature decision"
+  evidence_on_complete:
+    - "PR url + merge_commit"
+
+related_plan_section: "PR2 — Phase 1 / PR5 — Phase 4 / PR7 — Phase 6"
+related_audit:
+  - "AUDIT_2026-04-27.md R5 / R8 / Cross-Phase 4"
+  - "AUDIT_2026-04-27_ADDENDUM.md C4, C7, C9"
+blocked_by: []
+blocks: []
+
+completion_notes: ""
