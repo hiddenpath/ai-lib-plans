@@ -22,7 +22,7 @@ execution_model: one GitHub PR per phase (sequential merge recommended)
 
 ## 可执行任务队列（ai-lib-plans）
 
-未完成的迁移工作已拆成带测试与 **PR/合并** 闭环的 task 清单，与本文档的 Phase/PR 列对应。入口：
+迁移工作已拆成带测试与 **PR/合并** 闭环的 task 清单（ZS-ML-001–006 已全部完成）；与本文档的 Phase/PR 列对应。入口：
 
 - [TASKS_INDEX.md](./TASKS_INDEX.md) — 任务表与状态
 - [tasks/](./tasks/) — 各条 task 的 YAML（`pr` / `testing` 完成定义）

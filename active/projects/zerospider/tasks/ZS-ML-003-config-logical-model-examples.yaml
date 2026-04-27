@@ -33,9 +33,9 @@ pr:
   repo: "ailib-official/zerospider"
   branch_pattern: "feat/zs-ml-003-config-model-examples"
   merge_target: "main"
-  branch: "feat/zs-ml-003-config-model-examples"
-  compare_url: "https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-003-config-model-examples"
-  new_pr_url: "https://github.com/ailib-official/zerospider/pull/new/feat/zs-ml-003-config-model-examples"
+  branch: "feat/zs-ml-003-006-migration-wizard"
+  compare_url: "https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-003-006-migration-wizard"
+  new_pr_url: "https://github.com/ailib-official/zerospider/pull/new/feat/zs-ml-003-006-migration-wizard"
   url: "https://github.com/ailib-official/zerospider/pull/14"
   merge_commit: "aa3214a"
 
@@ -43,8 +43,14 @@ testing:
   unit_tests:
     - "config_toml_accepts_protocol_logical_ids_in_provider_and_reliability (src/config/schema.rs)"
   integration_tests: []
+  evidence_on_complete:
+    - "https://github.com/ailib-official/zerospider/pull/14 merge commit aa3214a (logical commit b35dc8b)"
 
 related_plan_section: "PR3 — Phase 2"
 blocked_by: []
 blocks: []
 
+completion_notes: |
+  Delivered in combined PR #14 (merge commit aa3214a; logical commit b35dc8b).
+  - docs/ai-lib-migration.md Phase2 minimal TOML for provider/model + [reliability].
+  - src/config/schema.rs: config_toml_accepts_protocol_logical_ids_in_provider_and_reliability.

@@ -35,9 +35,9 @@ pr:
   repo: "ailib-official/zerospider"
   branch_pattern: "feat/zs-ml-004-routing-metrics"
   merge_target: "main"
-  branch: "feat/zs-ml-004-routing-metrics"
-  compare_url: "https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-004-routing-metrics"
-  new_pr_url: "https://github.com/ailib-official/zerospider/pull/new/feat/zs-ml-004-routing-metrics"
+  branch: "feat/zs-ml-003-006-migration-wizard"
+  compare_url: "https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-003-006-migration-wizard"
+  new_pr_url: "https://github.com/ailib-official/zerospider/pull/new/feat/zs-ml-003-006-migration-wizard"
   url: "https://github.com/ailib-official/zerospider/pull/14"
   merge_commit: "aa3214a"
 
@@ -45,6 +45,8 @@ testing:
   unit_tests: []
   optional_compile_job:
     - "cargo check -p zerospider --features 'ai-protocol routing_mvp' --lib (CI step confirmed passing)"
+  evidence_on_complete:
+    - "https://github.com/ailib-official/zerospider/pull/14 merge commit aa3214a (logical commit 69d1ac1)"
 
 related_plan_section: "PR5 — Phase 4"
 blocked_by: []
@@ -52,3 +54,7 @@ blocks: []
 recommended_after:
   - "ZS-ML-001"
 
+completion_notes: |
+  Delivered in combined PR #14 (merge commit aa3214a; logical commit 69d1ac1).
+  - Cargo: routing_mvp feature; CI compile gate with ai-protocol + routing_mvp.
+  - AiClient::metrics wiring explicitly deferred (optional follow-up); scope = feature + docs + compile gate per task text.
