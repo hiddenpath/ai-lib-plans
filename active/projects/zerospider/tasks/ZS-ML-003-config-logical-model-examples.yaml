@@ -1,7 +1,7 @@
 ---
 id: "ZS-ML-003"
 title: "Config: logical model id + fallbacks (Phase 2) — examples and regression tests"
-status: "in_progress"
+status: "completed"
 priority: "medium"
 executor_name: "cursor-agent"
 executor_terminal: "cursor-shell"
@@ -13,7 +13,7 @@ labels:
   - "config"
   - "ai-lib"
 created: "2026-04-22"
-updated: "2026-04-25"
+updated: "2026-04-27"
 description: |
   迁移计划 PR3/Phase2：用户配置以**逻辑 model id** 为主，并与现有
   `reliability.fallback_providers` / `model_fallbacks` 的关系写清楚。
@@ -36,12 +36,12 @@ pr:
   branch: "feat/zs-ml-003-config-model-examples"
   compare_url: "https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-003-config-model-examples"
   new_pr_url: "https://github.com/ailib-official/zerospider/pull/new/feat/zs-ml-003-config-model-examples"
-  url: ""
-  merge_commit: ""
+  url: "https://github.com/ailib-official/zerospider/pull/14"
+  merge_commit: "aa3214a"
 
 testing:
   unit_tests:
-    - "config schema / 反序列化或 docs 引用的样例的 Rust 单测"
+    - "config_toml_accepts_protocol_logical_ids_in_provider_and_reliability (src/config/schema.rs)"
   integration_tests: []
 
 related_plan_section: "PR3 — Phase 2"

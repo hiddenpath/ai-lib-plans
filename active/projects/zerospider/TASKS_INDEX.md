@@ -1,4 +1,4 @@
-# ZeroSpider — ai-lib 迁移未完成任务（Task 队列）
+# ZeroSpider — ai-lib 迁移任务（Task 队列）
 
 与 `ZEROSPIDER_AI_LIB_MIGRATION_PLAN.md` 对齐。每条 task 的 **完成定义** 均包含：自动化测试、对 `ailib-official/zerospider` 的 **PR 打开 + `main` 合并**、以及在本文件中回填 PR 链接与 merge commit。
 
@@ -6,10 +6,10 @@
 |----|------|------|------|----------------------|
 | ZS-ML-001 | [tasks/ZS-ML-001-default-features-ci-alignment.yaml](./tasks/ZS-ML-001-default-features-ci-alignment.yaml) | `completed` | — | [PR #12](https://github.com/ailib-official/zerospider/pull/12) (`db21bfd`) — PR4/Phase3 + CI |
 | ZS-ML-002 | [tasks/ZS-ML-002-contributing-ai-protocol.yaml](./tasks/ZS-ML-002-contributing-ai-protocol.yaml) | `completed` | — | [PR #11](https://github.com/ailib-official/zerospider/pull/11) (`5e0925d`) — PR1/Phase0 |
-| ZS-ML-003 | [tasks/ZS-ML-003-config-logical-model-examples.yaml](./tasks/ZS-ML-003-config-logical-model-examples.yaml) | `in_progress` | — | 计划 PR3/Phase2 配置与示例补全 |
-| ZS-ML-004 | [tasks/ZS-ML-004-routing-mvp-metrics-optional.yaml](./tasks/ZS-ML-004-routing-mvp-metrics-optional.yaml) | `in_progress` | 建议 ZS-ML-001 后 | 计划 PR5/Phase4（`routing_mvp` + CI gate） |
-| ZS-ML-005 | [tasks/ZS-ML-005-legacy-removal-migration-guide.yaml](./tasks/ZS-ML-005-legacy-removal-migration-guide.yaml) | `open` | ZS-ML-001 | 计划 PR6/Phase5 |
-| ZS-ML-006 | [tasks/ZS-ML-006-wizard-security-docs.yaml](./tasks/ZS-ML-006-wizard-security-docs.yaml) | `open` | 可与 ZS-ML-002 并行 | 计划 PR7/Phase6 |
+| ZS-ML-003 | [tasks/ZS-ML-003-config-logical-model-examples.yaml](./tasks/ZS-ML-003-config-logical-model-examples.yaml) | `completed` | — | [PR #14](https://github.com/ailib-official/zerospider/pull/14) (`aa3214a`) — PR3/Phase2 配置与示例补全 |
+| ZS-ML-004 | [tasks/ZS-ML-004-routing-mvp-metrics-optional.yaml](./tasks/ZS-ML-004-routing-mvp-metrics-optional.yaml) | `completed` | 建议 ZS-ML-001 后 | [PR #14](https://github.com/ailib-official/zerospider/pull/14) (`aa3214a`) — PR5/Phase4（`routing_mvp` + CI gate） |
+| ZS-ML-005 | [tasks/ZS-ML-005-legacy-removal-migration-guide.yaml](./tasks/ZS-ML-005-legacy-removal-migration-guide.yaml) | `completed` | ZS-ML-001 | [PR #14](https://github.com/ailib-official/zerospider/pull/14) (`aa3214a`) — PR6/Phase5 |
+| ZS-ML-006 | [tasks/ZS-ML-006-wizard-security-docs.yaml](./tasks/ZS-ML-006-wizard-security-docs.yaml) | `completed` | 可与 ZS-ML-002 并行 | [PR #14](https://github.com/ailib-official/zerospider/pull/14) (`aa3214a`) — PR7/Phase6 |
 
 **执行约定**
 
@@ -19,6 +19,7 @@
 
 **进度摘要**
 
-- **ZS-ML-001** 已合并：[PR #12](https://github.com/ailib-official/zerospider/pull/12) / `db21bfd`（**ZS-ML-005** 的前置依赖已满足）。
-- **ZS-ML-002** 已合并：[PR #11](https://github.com/ailib-official/zerospider/pull/11) / `5e0925d`。
-- **进行中**：[ZS-ML-003](./tasks/ZS-ML-003-config-logical-model-examples.yaml)（Phase2 配置示例；分支 `feat/zs-ml-003-config-model-examples`）；[ZS-ML-004](./tasks/ZS-ML-004-routing-mvp-metrics-optional.yaml)（`routing_mvp` / CI；分支 `feat/zs-ml-004-routing-metrics`）。合并后分别回填 PR 字段。
+- **ZS-ML-001** 已合并：[PR #12](https://github.com/ailib-official/zerospider/pull/12) / `db21bfd`
+- **ZS-ML-002** 已合并：[PR #11](https://github.com/ailib-official/zerospider/pull/11) / `5e0925d`
+- **ZS-ML-003~006** 已合并：[PR #14](https://github.com/ailib-official/zerospider/pull/14) / `aa3214a`（四个任务合并开 PR；后续改为一个任务一个 PR）
+- **全部完成** ✅

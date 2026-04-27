@@ -1,12 +1,13 @@
 ---
 title: ZeroSpider ai-lib Migration — Executable Step Plan
-status: in_progress
+status: completed
 created: 2026-04-22
-updated: 2026-04-25
+updated: 2026-04-27
 completion_notes: >
-  ZS-ML-001 PR #12; ZS-ML-002 PR #11. ZS-ML-003 branch (config TOML examples) may still be in PR queue.
-  ZS-ML-004 in progress: optional routing_mvp Cargo feature + CI compile gate + docs.
-  Remaining: full metrics wiring if needed, legacy removal (ZS-ML-005), wizard/security (ZS-ML-006).
+  All 6 tasks completed. ZS-ML-001 (PR #12, db21bfd), ZS-ML-002 (PR #11, 5e0925d),
+  ZS-ML-003~006 (PR #14, aa3214a — batch PR; future: one task one PR).
+  Legacy factory gating done; full removal deferred. routing_mvp compile gate in CI.
+  Migration guide + compatibility window docs shipped.
 repo_target: https://github.com/ailib-official/zerospider
 related:
   - ai-protocol
