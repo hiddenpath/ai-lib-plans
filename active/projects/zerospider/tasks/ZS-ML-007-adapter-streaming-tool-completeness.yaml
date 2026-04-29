@@ -1,10 +1,10 @@
 ---
 id: "ZS-ML-007"
 title: "Phase 1 rectification: streaming tool-call handling + multi-turn + streaming tests"
-status: "todo"
+status: "in_progress"
 priority: "high"
-executor_name: ""
-executor_terminal: ""
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
 assignee: "@tbd"
 project: "zerospider"
 milestone: "ai-lib-migration"
@@ -14,7 +14,7 @@ labels:
   - "phase-1"
   - "streaming"
 created: "2026-04-28"
-updated: "2026-04-28"
+updated: "2026-04-30"
 description: |
   迁移计划 Phase 1（适配层）实测覆盖不足，由 2026-04-27 审计与 2026-04-28
   开发侧交叉核实确认。本任务关闭以下确认存在的真实缺口：
@@ -43,6 +43,11 @@ pr:
   repo: "ailib-official/zerospider"
   branch_pattern: "feat/zs-ml-007-stream-toolcall"
   merge_target: "main"
+  branch: "feat/zs-ml-007-stream-toolcall"
+  commit: "73a050d"
+  new_pr_url: "https://github.com/ailib-official/zerospider/pull/new/feat/zs-ml-007-stream-toolcall"
+  url: ""
+  merge_commit: ""
 
 testing:
   unit_tests:
@@ -53,6 +58,14 @@ testing:
     - "stream + tools end-to-end (mock client)"
   evidence_on_complete:
     - "PR url + merge_commit"
+  evidence_current:
+    - "Branch pushed to ailib-official/zerospider: feat/zs-ml-007-stream-toolcall"
+    - "Commit: 73a050d feat(ai-lib): preserve protocol stream tool-call deltas"
+    - "cargo fmt --all -- --check: PASS"
+    - "cargo +stable-x86_64-pc-windows-gnu check -p zerospider --lib --features ai-protocol --message-format short: PASS"
+    - "cargo +stable-x86_64-pc-windows-gnu test -p zerospider --features ai-protocol protocol_adapter -- --nocapture: PASS (8 protocol_adapter tests)"
+    - "cargo +stable-x86_64-pc-windows-gnu clippy -p zerospider --lib --features ai-protocol -- -D warnings: PASS"
+    - "cargo +stable-x86_64-pc-windows-gnu test --workspace --features ai-protocol: attempted; stopped after ~35 minutes with no progress beyond Compiling zerospider on local Windows GNU toolchain"
 
 related_plan_section: "PR2 — Phase 1"
 related_audit:
