@@ -1,10 +1,10 @@
 ---
 id: "ZS-ML-008"
 title: "Phase 4/5 rectification: protocol-only test gate + double-retry + reliable×protocol integration test"
-status: "todo"
+status: "in_progress"
 priority: "high"
-executor_name: ""
-executor_terminal: ""
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
 assignee: "@tbd"
 project: "zerospider"
 milestone: "ai-lib-migration"
@@ -16,7 +16,7 @@ labels:
   - "ci"
   - "tests"
 created: "2026-04-28"
-updated: "2026-04-28"
+updated: "2026-04-30"
 description: |
   迁移计划 Phase 4（fallback / 韧性边界）与 Phase 5（默认构建）测试覆盖不足。
   审计 2026-04-27 与开发侧 2026-04-28 交叉核实确认以下缺口：
