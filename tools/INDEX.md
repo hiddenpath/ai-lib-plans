@@ -172,3 +172,20 @@
   - 登录网站需额外配置凭证
   - 部分网站有反爬虫机制
   - 驱动文件较大（~280MB）
+
+## `win_dev_disk_cleanup.ps1`
+
+- **路径**: `tools/win_dev_disk_cleanup.ps1`
+- **用途**: Windows 本机 **短期、可重复** 腾出 C:（或其它盘报表）空间；面向开发机：**用户 Temp、可选系统 Temp、npm/pip 缓存、可选 AWS CLI / NuGet HTTP 缓存、可选回收站**。仅白名单路径（不碰仓库、`.rustup`、IDE 扩展树等）。
+- **安全模型**:
+  - **默认演练**（不加 `-Execute`）：只统计体积并报告可用空间，**不删除**、不执行 `npm cache clean` / `pip cache purge`。
+  - **真实清理**需 **`-Execute`**；临时目录只删子项，**锁定的文件会跳过**。
+- **验证**: 对指定盘符读取 **FreeSpace** 前后对比并打印 **Delta**。
+- **前置**: **Windows PowerShell 5.1+**（`powershell.exe`）；脚本 `#requires 5.1`。未单独安装 **PowerShell 7** 时 **没有 `pwsh` 命令**，请用下面 `powershell.exe` 行。
+- **示例**（路径按本机修改；在 `ai-lib-plans` 根目录可用 `tools\win_dev_disk_cleanup.ps1`）:
+  - 演练：`powershell.exe -NoProfile -ExecutionPolicy Bypass -File D:\ai-lib-plans\tools\win_dev_disk_cleanup.ps1`
+  - 已安装 PS7 时可选：`pwsh -NoProfile -File D:\ai-lib-plans\tools\win_dev_disk_cleanup.ps1`
+  - 执行 + 回收站：`powershell.exe -NoProfile -ExecutionPolicy Bypass -File D:\ai-lib-plans\tools\win_dev_disk_cleanup.ps1 -Execute -ClearRecycleBin`
+  - 可选：`-IncludeAwsCliCache`、`-IncludeNuGetHttpCache`、管理员下 `-IncludeWindowsTemp`、`-DriveLetter D`
+- **风险提示**:
+  - `-Execute` 前建议关闭 IDE/安装程序；`-ClearRecycleBin` 会清空该盘回收站。
