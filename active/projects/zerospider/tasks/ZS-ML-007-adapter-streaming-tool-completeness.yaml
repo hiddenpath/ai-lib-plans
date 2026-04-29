@@ -46,7 +46,8 @@ pr:
   branch: "feat/zs-ml-007-stream-toolcall"
   commit: "73a050d"
   new_pr_url: "https://github.com/ailib-official/zerospider/pull/new/feat/zs-ml-007-stream-toolcall"
-  url: ""
+  url: "https://github.com/ailib-official/zerospider/pull/19"
+  compare_url: "https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-007-stream-toolcall"
   merge_commit: ""
 
 testing:
@@ -66,6 +67,7 @@ testing:
     - "cargo +stable-x86_64-pc-windows-gnu test -p zerospider --features ai-protocol protocol_adapter -- --nocapture: PASS (8 protocol_adapter tests)"
     - "cargo +stable-x86_64-pc-windows-gnu clippy -p zerospider --lib --features ai-protocol -- -D warnings: PASS"
     - "cargo +stable-x86_64-pc-windows-gnu test --workspace --features ai-protocol: attempted; stopped after ~35 minutes with no progress beyond Compiling zerospider on local Windows GNU toolchain"
+    - "gh pr create: https://github.com/ailib-official/zerospider/pull/19 (title feat(ai-lib): preserve protocol stream tool-call deltas (ZS-ML-007))"
 
 related_plan_section: "PR2 — Phase 1"
 related_audit:
