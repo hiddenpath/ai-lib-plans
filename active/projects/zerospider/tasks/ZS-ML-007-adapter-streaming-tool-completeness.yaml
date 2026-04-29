@@ -1,7 +1,7 @@
 ---
 id: "ZS-ML-007"
 title: "Phase 1 rectification: streaming tool-call handling + multi-turn + streaming tests"
-status: "in_progress"
+status: "completed"
 priority: "high"
 executor_name: "cursor-agent"
 executor_terminal: "cursor-shell"
@@ -48,7 +48,7 @@ pr:
   new_pr_url: "https://github.com/ailib-official/zerospider/pull/new/feat/zs-ml-007-stream-toolcall"
   url: "https://github.com/ailib-official/zerospider/pull/19"
   compare_url: "https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-007-stream-toolcall"
-  merge_commit: ""
+  merge_commit: "a8f0392"
 
 testing:
   unit_tests:
@@ -77,4 +77,8 @@ blocked_by: []
 blocks:
   - "ZS-ML-008"
 
-completion_notes: ""
+completion_notes: |
+  PR #19 经代码审查通过后使用 git merge --no-ff 合并至 main。
+  2026-04-30: CI pass (GitHub Actions), cargo fmt/clippy/test 全部通过。
+  ai-lib 底层迁移不受影响（纯 protocol_adapter.rs + traits.rs 内部增强）。
+  合并 commit: a8f0392
