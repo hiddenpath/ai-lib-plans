@@ -1,11 +1,11 @@
 ---
 id: "ZS-ML-008"
 title: "Phase 4/5 rectification: protocol-only test gate + double-retry + reliable×protocol integration test"
-status: "in_progress"
+status: "completed"
 priority: "high"
-executor_name: "cursor-agent"
+executor_name: "cursor-agent, spider"
 executor_terminal: "cursor-shell"
-assignee: "@tbd"
+assignee: "@ai"
 project: "zerospider"
 milestone: "ai-lib-migration"
 labels:
@@ -80,4 +80,4 @@ blocked_by:
   - "ZS-ML-007"
 blocks: []
 
-completion_notes: ""
+completion_notes: "PR #20 merged to main @ 0148bdc. Added: (1) cargo test --no-default-features --features ai-protocol CI gate, (2) protocol_retry_does_not_compound_with_reliable_provider test, (3) reliable_provider_falls_back_for_protocol_style_model_ids test. Reviewed & merged by spider 2026-04-30."
