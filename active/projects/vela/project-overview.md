@@ -11,6 +11,7 @@
 | | To B | To C |
 |---|---|---|
 | **Vela** | ③ Vela Pro | ④ Vela |
+| **Eos**  | — | **⑤ Eos（逸思）** — 独立的 To C 消费者网站，区别于 Vela 的客户端定位。详见 `projects/eos/brand-rationale.md` |
 
 ## Key Decisions (Confirmed 2026-04-25)
 

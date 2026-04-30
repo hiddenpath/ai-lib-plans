@@ -11,6 +11,7 @@
 | | To B | To C |
 |---|---|---|
 | **Prism** | ① Prism Enterprise | ② Prism |
+| **Eos**  | — | **⑤ Eos（逸思）** — 详见 `projects/eos/brand-rationale.md` |
 
 ## Key Decisions (Confirmed 2026-04-25)
 

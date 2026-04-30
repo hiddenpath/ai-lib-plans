@@ -3,7 +3,7 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-04-21
+**Last Updated**: 2026-04-30
 
 ---
 
@@ -490,3 +490,20 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 - **论文公开发表**: 理论优先权 + 话语权，思想不是护城河
 - **API Key 复用**: 免费 key 短期可用验证闭环，长期必须走付费 key
 - **3 个 Driver 覆盖几乎所有 provider**: OpenAiDriver (OpenAI-compatible), AnthropicDriver, GeminiDriver
+
+---
+
+## 2026-04-30 — Eos（逸思）To C 平台品牌决策
+
+**品牌定名**：Eos（逸思）— ai-lib 生态的 To C 消费者平台网站
+
+**三品牌体系**：Prism（棱镜/平台）→ Eos（逸思/入口曙光）→ Vela（船帆/导航）
+
+**决策文件**：`active/projects/eos/brand-rationale.md`
+
+**决策要点**：
+- 放弃候选名 AnyAI（泛化、与 Prism/Vela 体系割裂、商标风险高）
+- Eos = 希腊黎明女神，寓意用户 AI 体验的第一抹曙光
+- 英文标识首字母大写 Eos（非全大写 EOS），视觉上小写 `eos` 搭配品牌色
+- 中文名「逸思」= 逸（自由/超越）+ 思（思考/AI），优雅有文化厚度
+- EOS 缩写与 EOS.IO（区块链，已式微）撞车风险中等，但与 Canon EOS（相机）领域完全不重叠；Eos AI 全称可有效区隔搜索结果
