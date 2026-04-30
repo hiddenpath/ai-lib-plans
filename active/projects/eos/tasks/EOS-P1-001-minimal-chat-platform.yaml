@@ -1,0 +1,153 @@
+---
+id: "EOS-P1-001"
+title: "Eos Phase 1 — 最小可用聊天平台"
+status: "pending"
+priority: "high"
+executor_name: ""
+executor_terminal: ""
+assignee: "@cursor"
+project: "eos"
+milestone: "eos-phase1"
+labels:
+  - "eos"
+  - "frontend"
+  - "backend"
+  - "deployment"
+created: "2026-04-30"
+updated: "2026-04-30"
+description: |
+  建立 Eos（逸思）To C 消费者 AI 服务平台最小闭环。
+  详见 active/projects/eos/PHASE1_PLAN.md
+
+  Phase 1 交付物：
+  1. 前端：聊天界面 + SSE 流式 + 多模型切换 + Markdown 渲染 + Web Search + 文件上传 + 图像生成
+  2. 后端：薄代理转发（Axum）+ 限流 + CORS + 模型列表 API
+  3. 部署：Docker Compose + Caddy + eos.ailib.info
+  4. 集成测试：端到端链路验证
+blocks:
+  - id: "EOS-FE-001"
+    title: "聊天界面骨架"
+    status: "pending"
+    description: "HTML 页面结构 + CSS + HTMX 集成。消息输入框、发送按钮、消息列表容器"
+  - id: "EOS-FE-002"
+    title: "SSE 流式接收"
+    status: "pending"
+    description: "HTMX SSE 扩展集成，流式消息渲染，光标/加载状态"
+    depends_on:
+      - "EOS-FE-001"
+  - id: "EOS-FE-003"
+    title: "多模型切换 UI"
+    status: "pending"
+    description: "模型选择下拉框（动态获取或静态列表），切换后发送请求携带模型参数"
+    depends_on:
+      - "EOS-FE-001"
+  - id: "EOS-FE-004"
+    title: "多轮对话上下文"
+    status: "pending"
+    description: "前端维护对话历史数组，请求时携带消息历史；支持清空/新建对话"
+    depends_on:
+      - "EOS-FE-002"
+  - id: "EOS-FE-005"
+    title: "Markdown 渲染"
+    status: "pending"
+    description: "集成 markdown-it，代码块语法高亮（highlight.js）"
+    depends_on:
+      - "EOS-FE-002"
+  - id: "EOS-FE-006"
+    title: "Web Search 功能"
+    status: "pending"
+    description: "搜索开关 + 后端集成 Tavily/SerpAPI，结果作为上下文传递给模型"
+    depends_on:
+      - "EOS-FE-001"
+  - id: "EOS-FE-007"
+    title: "文件上传 UI"
+    status: "pending"
+    description: "上传按钮+拖拽区，支持图片和文档上传"
+    depends_on:
+      - "EOS-FE-001"
+  - id: "EOS-FE-008"
+    title: "图像生成入口"
+    status: "pending"
+    description: "单独图像生成界面，调用 Flux/DALL-E API"
+    depends_on:
+      - "EOS-FE-001"
+  - id: "EOS-FE-009"
+    title: "导出/复制/截图"
+    status: "pending"
+    description: "导出 Markdown、复制对话、截图生成（html2canvas）"
+    depends_on:
+      - "EOS-FE-002"
+  - id: "EOS-BE-001"
+    title: "后端代理骨架"
+    status: "pending"
+    description: "Axum 项目初始化：路由结构 + 配置加载 + 日志"
+  - id: "EOS-BE-002"
+    title: "聊天代理 API"
+    status: "pending"
+    description: "POST /api/chat 转发到 Prism API，含 SSE 流式透传"
+    depends_on:
+      - "EOS-BE-001"
+  - id: "EOS-BE-003"
+    title: "模型列表 API"
+    status: "pending"
+    description: "GET /api/models 返回可用模型列表"
+    depends_on:
+      - "EOS-BE-001"
+  - id: "EOS-BE-004"
+    title: "Web Search 集成"
+    status: "pending"
+    description: "搜索 API 集成，搜索结果作为上下文传给模型"
+    depends_on:
+      - "EOS-BE-002"
+  - id: "EOS-BE-005"
+    title: "文件上传处理"
+    status: "pending"
+    description: "接收文件，判断类型和大小，转发给多模态模型"
+    depends_on:
+      - "EOS-BE-002"
+  - id: "EOS-BE-006"
+    title: "图像生成 API"
+    status: "pending"
+    description: "POST /api/images/generations 转发到对应 Provider"
+    depends_on:
+      - "EOS-BE-001"
+  - id: "EOS-BE-007"
+    title: "速率限制"
+    status: "pending"
+    description: "IP-based token bucket / sliding window 限流中间件"
+    depends_on:
+      - "EOS-BE-001"
+  - id: "EOS-BE-008"
+    title: "CORS 配置"
+    status: "pending"
+    description: "仅允许 eos.ailib.info 来源的跨域策略"
+    depends_on:
+      - "EOS-BE-001"
+  - id: "EOS-DEPLOY-001"
+    title: "Docker 部署"
+    status: "pending"
+    description: "Dockerfile（多阶段构建）+ docker-compose.yml + Caddy TLS"
+    depends_on:
+      - "EOS-BE-008"
+      - "EOS-FE-009"
+  - id: "EOS-DEPLOY-002"
+    title: "域名 + HTTPS"
+    status: "pending"
+    description: "配置 eos.ailib.info 域名 + Caddy 自动 HTTPS"
+    depends_on:
+      - "EOS-DEPLOY-001"
+  - id: "EOS-DEPLOY-003"
+    title: "集成测试"
+    status: "pending"
+    description: "端到端链路验证：前端→后端→Prism→Provider"
+    depends_on:
+      - "EOS-DEPLOY-002"
+testing:
+  - "后端 cargo test"
+  - "e2e 浏览器打开→输入→发送→接收→导出"
+blocks_summary:
+  total: 19
+  frontend: 9 (EOS-FE-001 ~ 009)
+  backend: 8 (EOS-BE-001 ~ 008)
+  deployment: 3 (EOS-DEPLOY-001 ~ 003)
+completion_notes: ""
