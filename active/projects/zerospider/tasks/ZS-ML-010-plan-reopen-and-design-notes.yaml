@@ -1,7 +1,7 @@
 ---
 id: "ZS-ML-010"
 title: "Reopen migration plan; backfill ZS-ML-006 deferred items; record design vs gap notes"
-status: "in_progress"
+status: "completed"
 priority: "medium"
 executor_name: "cursor-agent"
 executor_terminal: "cursor-shell"
@@ -14,7 +14,7 @@ labels:
   - "docs"
   - "governance"
 created: "2026-04-28"
-updated: "2026-04-28"
+updated: "2026-04-30"
 description: |
   根据 2026-04-27 审计 R1（建议 plan 状态回到 in_progress）与 2026-04-28
   开发侧交叉核实结论（`AUDIT_2026-04-27_ADDENDUM.md`），完成纯 plan 文档
@@ -53,6 +53,14 @@ testing:
     - "all updated task yamls parse with PyYAML safe_load"
   evidence_on_complete:
     - "ai-lib-plans commit hash for the plan reopen + addendum"
+  evidence_current:
+    - "Plan reopen + audit addendum + rectification queue commit: 47610b7"
+    - "ZEROSPIDER_AI_LIB_MIGRATION_PLAN.md status remains in_progress per audit R1 while rectification closure is tracked in task YAMLs"
+    - "TASKS_INDEX.md includes ZS-ML-007/008/009/010"
+    - "ZS-ML-006 includes deferred_items for wizard-interactive-fixup, embeddings/batch, metrics/OTel boundary, and security audit"
+    - "ZS-ML-007 completed via PR #19 @ a8f0392"
+    - "ZS-ML-008 completed via PR #20 @ 0148bdc"
+    - "ZS-ML-009 completed via PR #21 @ 6fe40cc"
 
 related_plan_section: "Governance / Audit follow-up"
 related_audit:
@@ -64,4 +72,10 @@ blocks:
   - "ZS-ML-008"
   - "ZS-ML-009"
 
-completion_notes: ""
+completion_notes: |
+  Completed as a plans-governance closeout task.
+  - Reopened the migration plan to in_progress and split prior completion text into progress_notes / pending_rectification.
+  - Added AUDIT_2026-04-27_ADDENDUM.md with dev-side C/F cross-check notes.
+  - Added and tracked ZS-ML-007 through ZS-ML-010 in TASKS_INDEX.md.
+  - Backfilled ZS-ML-006 deferred_items for wizard fix-up, embeddings/batch, metrics/OTel boundary, and future key-leak audit.
+  - Verified downstream rectification PRs #19, #20, and #21 are merged.

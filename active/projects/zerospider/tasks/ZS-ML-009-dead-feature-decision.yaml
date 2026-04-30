@@ -54,7 +54,7 @@ pr:
   commit: "b33fc9d"
   url: "https://github.com/ailib-official/zerospider/pull/21"
   compare_url: "https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-009-feature-decision"
-  merge_commit: ""
+  merge_commit: "6fe40cc"
 
 testing:
   unit_tests:

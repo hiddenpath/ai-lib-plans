@@ -13,7 +13,7 @@
 | ZS-ML-007 | [tasks/ZS-ML-007-adapter-streaming-tool-completeness.yaml](./tasks/ZS-ML-007-adapter-streaming-tool-completeness.yaml) | `completed` | — | [PR #19](https://github.com/ailib-official/zerospider/pull/19) → main (`a8f0392`) — Phase1 整改 |
 | ZS-ML-008 | [tasks/ZS-ML-008-ci-hardening-resilience-tests.yaml](./tasks/ZS-ML-008-ci-hardening-resilience-tests.yaml) | `completed` | ZS-ML-007 | [PR #20](https://github.com/ailib-official/zerospider/pull/20) → main (`0148bdc`) — 整改阶段：补 Phase4/5（`--no-default-features` 测试、双重重试边界证明、reliable×protocol 集成测试） |
 | ZS-ML-009 | [tasks/ZS-ML-009-dead-feature-decision.yaml](./tasks/ZS-ML-009-dead-feature-decision.yaml) | `completed` | — | [PR #21](https://github.com/ailib-official/zerospider/pull/21) → main (`6fe40cc`) — 整改阶段：决定 ai-lib-rust `embeddings`/`batch`/`telemetry` feature 的 wire/remove 与 OTel 边界 |
-| ZS-ML-010 | [tasks/ZS-ML-010-plan-reopen-and-design-notes.yaml](./tasks/ZS-ML-010-plan-reopen-and-design-notes.yaml) | `in_progress` | — | 整改阶段：plan 状态回退 + ZS-ML-006 deferred_items 回填 + addendum 归档 |
+| ZS-ML-010 | [tasks/ZS-ML-010-plan-reopen-and-design-notes.yaml](./tasks/ZS-ML-010-plan-reopen-and-design-notes.yaml) | `completed` | — | plans-governance closeout：plan 状态回退 + ZS-ML-006 deferred_items 回填 + addendum 归档 |
 
 **执行约定**
 
@@ -24,7 +24,7 @@
 **进度摘要**
 
 - **基础阶段（ZS-ML-001 ~ 006）** — 已合入：PR #11 / `5e0925d`、PR #12 / `db21bfd`、PR #14 / `aa3214a`（ZS-ML-003~006 组合 PR）。
-- **整改阶段（ZS-ML-007 ~ 010）** — 由 [`AUDIT_2026-04-27.md`](./AUDIT_2026-04-27.md) 与 [`AUDIT_2026-04-27_ADDENDUM.md`](./AUDIT_2026-04-27_ADDENDUM.md) 派生；推荐执行顺序：010（plan 文档）→ 007（流式）→ 008（CI/测试）→ 009（feature 决策）。
+- **整改阶段（ZS-ML-007 ~ 010）** — 已完成并合入/回填：PR #19 (`a8f0392`)、PR #20 (`0148bdc`)、PR #21 (`6fe40cc`)；ZS-ML-010 为 plans-governance 直推回填任务。
 
 **审计参考**
 
