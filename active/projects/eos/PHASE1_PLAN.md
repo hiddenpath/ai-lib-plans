@@ -1,11 +1,27 @@
 # Eos（逸思）— Phase 1 开发计划
 
-> **版本**：v1.0  
-> **日期**：2026-04-30  
-> **作者**：Spider 🕷️  
-> **定位**：ai-lib 生态的 To C 消费者平台网站（浏览即用，区别于 Vela 的客户端侧应用）  
-> **品牌文件**：`active/projects/eos/brand-rationale.md`  
-> **前置依赖**：Prism Gateway（P 层）可用，或采用 Proxy 直连模式  
+> **版本**：v2.0
+> **日期**：2026-04-30
+> **作者**：Spider 🕷️
+> **定位**：ai-lib 生态的 To C 消费者平台网站（浏览即用，区别于 Vela 的客户端侧应用）
+> **品牌文件**：`active/projects/eos/brand-rationale.md`
+> **基础项目**：[`ailib-official/ailib-wasm-test`](https://github.com/ailib-official/ailib-wasm-test) — WASM 协议运行时演示项目
+> **前置依赖**：Prism Gateway（P 层）或直连 Provider
+
+---
+
+## 0. 关键认识：Eos = ailib-wasm-test rebrand + 功能扩展
+
+**Eos 不是从零开始。** `ailib-wasm-test` 已经完成了：
+
+| 已有产物 | 说明 |
+|---------|------|
+| **WASM 浏览器模块** (`crates/wasm-browser`) | wasm-bindgen 封装，暴露 `build_chat_request()` / `parse_chat_response()`，在浏览器端完成协议执行 |
+| **后端代理** (`crates/server`) | Axum 服务器：`/api/proxy` 转发、`/api/proxy/stream` SSE 流式、`/health`、静态文件服务、libcurl TLS 指纹支持 |
+| **聊天 Demo UI** (`static/index.html`) | 已有：多 Provider 切换、WASM 加载状态、消息列表、流式渲染、New Chat |
+| **Provider 直连** | 已有 4 个 Provider：Groq / DeepSeek / OpenAI / NVIDIA |
+
+**Phase 1 任务 = rebrand + 功能扩展 + 部署上线**，不是重写。
 
 ---
 
@@ -19,8 +35,8 @@
 | **目标用户** | 大众消费者（非技术） | 技术用户/开发者 |
 | **核心价值** | "我想要的 AI 能力，直接就能用" | "帮我选最好的模型，数据留在本地" |
 | **复杂度** | 低（面向通用场景） | 高（可定制路由/协议级控制） |
-| **依赖关系** | 直接调用 Prism API 或 Provider API | 通过 Prism SDK 接入 Prism |
-| **Phase 1 范围** | 最小可用网站（聊天+多模型+功能面板） | 最小聊天 UI（验证 Prism） |
+| **依赖关系** | 直连 Provider API（Phase 1）或 Prism API（后期） | 通过 Prism SDK 接入 Prism |
+| **Phase 1 范围** | rebrand → 扩展功能 → 部署上线 | 最小聊天 UI（验证 Prism） |
 
 ### 1.2 三品牌服务链
 
@@ -29,7 +45,7 @@
                        │
                   ┌────▼────┐
                   │   Eos   │ ← 消费者直接访问的 AI 服务平台
-                  │ （逸思）  │    （AI 能力超市，要什么有什么）
+                  │ （逸思）  │    （AI 能力超市）
                   └────┬────┘
                        │
                   ┌────▼────┐
@@ -45,194 +61,178 @@
 
 ### 1.3 Phase 1 范围（最小闭环）
 
-**核心原则**：不重 UI、不搞花哨、不装用户管理。做到"用户在浏览器里打开就能用 AI"即完成。
-
 | 范围 | 内容 |
 |------|------|
-| **包含** | 通用聊天 + 多模型切换 + 功能面板 + Web Search + 文件上传 + 图像生成 + 导出 |
-| **不包含** | 用户注册/登录、付费、历史同步、智能路由、客户端 WASM |
-| **技术栈建议** | 纯前端（HTMX / Alpine.js 或 Vanilla JS）或轻量框架，后端薄代理 |
-| **部署形态** | `eos.ailib.info` 子域名，静态站点或简单容器 |
-| **Provider 策略** | Phase 1 调用 Prism API（见依赖关系） |
+| **包含** | Rebrand（Eos 品牌 UI）+ WASM 协议执行 + 聊天/流式 + 多 Provider + Web Search + 文件上传 + 图像生成 + 导出 + Docker 部署 |
+| **不包含** | 用户注册/登录、付费、历史同步、智能路由、Prism 集成 |
+| **技术栈** | **保持现有**：WASM (wasm-bindgen) + Axum (Rust) + 静态 HTML/JS/CSS |
+| **部署形态** | `eos.ailib.info` 子域名，Docker Compose |
+| **Provider 策略** | Phase 1 = 后端代理直连 Provider API（已有），后续可切 Prism |
 
 ---
 
 ## 2. 功能需求（最小闭环）
 
-### 2.1 核心聊天（P0）
+### 2.1 Rebrand + UI 升级（P0）
 
-| 需求 ID | 功能 | 描述 | 优先级 |
-|---------|------|------|:------:|
-| EOS-P1-001 | 聊天界面 | 标准对话式 UI：输入框 + 消息列表 + 滚动加载 | P0 |
-| EOS-P1-002 | 流式输出 | SSE / WebSocket 实时流式输出文字 | P0 |
-| EOS-P1-003 | 多模型切换 | 下拉框或按钮组选择不同 Provider/模型 | P0 |
-| EOS-P1-004 | 对话上下文 | 多轮对话保持上下文（当前 session 内） | P0 |
-| EOS-P1-005 | 模型列表动态获取 | 从后端 API 获取可用模型列表（无需硬编码） | P1 |
-| EOS-P1-006 | Markdown 渲染 | 代码块语法高亮、表格、列表渲染 | P1 |
-| EOS-P1-007 | 对话历史列表（本地存储） | 当前 session 内可回溯历史消息 | P1 |
+| ID | 功能 | 描述 | 优先级 |
+|----|------|------|:------:|
+| R1 | 品牌替换 `ailib-wasm-test` → **Eos** | 页面标题、Logo、页眉文案替换为 Eos（逸思） | P0 |
+| R2 | UI 主题改造 | 从深色科技风改为 Eos 品牌色调（晨曦暖色系），整体视觉升级 | P0 |
+| R3 | 中文首页默认 | HTML `lang="zh-CN"`，全部 UI 文字中文化 | P0 |
+| R4 | 中英文切换 | 保留英文版本，Header 加语言切换开关 | P1 |
 
-### 2.2 功能面板（P1）
+### 2.2 核心聊天增强（P0）
 
-| 需求 ID | 功能 | 描述 | 优先级 |
-|---------|------|------|:------:|
-| EOS-P1-008 | Web Search 功能 | 对话中调用搜索 API 获取实时信息（可选配置） | P1 |
-| EOS-P1-009 | 文件上传（图片/文档） | 支持常见格式上传到支持多模态的模型 | P1 |
-| EOS-P1-010 | 图像生成 | 调用 Flux/DALL-E API 生成图像并展示 | P1 |
+| ID | 功能 | 描述 | 优先级 |
+|----|------|------|:------:|
+| C1 | 保持 WASM 协议执行 | `wasm-browser` 模块继续可用，请求在浏览器 WASM 中构建 | P0 |
+| C2 | 多轮对话上下文 | 前端维护对话历史数组，SSE 请求携带消息历史；支持清空/新建对话 | P0 |
+| C3 | Markdown 渲染优化 | 代码块 highlight.js / LaTeX（可选） | P1 |
+| C4 | 模型列表动态获取 | 后端 `/api/models` 返回可用模型列表，前端下拉动态加载 | P1 |
 
-### 2.3 导出与分享（P2）
+### 2.3 功能面板扩展（P1）
 
-| 需求 ID | 功能 | 描述 | 优先级 |
-|---------|------|------|:------:|
-| EOS-P1-011 | 对话导出 | 支持导出为 Markdown / PDF / TXT | P2 |
-| EOS-P1-012 | 对话复制 | 一键复制对话内容到剪贴板 | P2 |
-| EOS-P1-013 | 对话截图 | 生成对话截图（分享到社交） | P2 |
+| ID | 功能 | 描述 | 优先级 |
+|----|------|------|:------:|
+| F1 | Web Search 按钮 | 搜索开关（后端集成 Tavily/SerpAPI），搜索结果注入模型上下文 | P1 |
+| F2 | 文件上传 | 图片上传（支持多模态模型），输入框旁加上传按钮 | P1 |
+| F3 | 图像生成模式 | 切换至图像生成模式，输入 prompt 调用 Flux/DALL-E，展示生成结果 | P1 |
 
-### 2.4 基础设施（P0）
+### 2.4 导出与分享（P2）
 
-| 需求 ID | 功能 | 描述 | 优先级 |
-|---------|------|------|:------:|
-| EOS-P1-014 | Eos 后端代理 | 后端薄代理层：转发请求到 Prism API + CORS + 限流 | P0 |
-| EOS-P1-015 | CORS 安全 | 浏览器安全策略，限制来源 | P1 |
-| EOS-P1-016 | 速率限制 | 防止滥用（单 IP/会话限流） | P1 |
-| EOS-P1-017 | 域名 + HTTPS | `eos.ailib.info` + Caddy 自动 TLS | P0 |
-| EOS-P1-018 | 监控 + 日志 | 基础错误日志 + 请求统计 | P2 |
+| ID | 功能 | 描述 | 优先级 |
+|----|------|------|:------:|
+| E1 | 对话导出 | 导出 Markdown / PDF（html2pdf.js） | P2 |
+| E2 | 对话复制 | 一键复制全部对话到剪贴板 | P2 |
+| E3 | 对话截图 | 生成截图（html2canvas），可分享社交 | P2 |
+
+### 2.5 基础设施（P0）
+
+| ID | 功能 | 描述 | 优先级 |
+|----|------|------|:------:|
+| I1 | 扩展后端路由 | 新增 `/api/models`、`/api/web-search`、`/api/upload`、`/api/images/generations` | P0 |
+| I2 | Web Search 集成 | 后端集成搜索 API，SSE 混合搜索+模型输出 | P1 |
+| I3 | 文件上传处理 | 后端接收文件，判断类型/大小，转发多模态模型 | P1 |
+| I4 | 图像生成代理 | 后端转发 Flux/DALL-E API，返回图像 URL 或 Base64 | P1 |
+| I5 | 限流中间件 | IP-based rate limiting | P1 |
+| I6 | Provider 配置外部化 | Provider Key/Endpoint 从 `.env` 文件读取（而非硬编码 env var 匹配） | P0 |
 
 ---
 
-## 3. 技术架构
-
-### 3.1 整体架构
+## 3. 技术架构（保持现有）
 
 ```
-用户浏览器
-    │
-    ├── HTTPS ──► Eos Web Frontend (eos.ailib.info)
-    │                  │
-    │                  ▼
-    │           Eos Backend Proxy (轻量)
-    │             (Axum / Go / Python FastAPI)
-    │                  │
-    │                  ▼
-    │            Prism API (api.prism.ailib.info)
-    │                  │
-    │                  ▼
-    │           Provider APIs (OpenAI / DeepSeek / ...)
-    │
-
-Eos Frontend:
-├── 静态 HTML + JS/CSS（无 SSR，纯客户端渲染）
-├── SSE 流式接收
-├── IndexedDB for localStorage 对话保留
-└── 通用组件（聊天消息、代码高亮、上传、图片展示）
-
-Eos Backend Proxy:
-├── 轻量反向代理（转发请求到 Prism API）
-├── 请求合并/重写（如需要）
-├── CORS 策略管理
-├── 速率限制（IP-based）
-└── 静态文件服务
+浏览器
+   │
+   ├── WASM (ailib-wasm-browser)
+   │      ├── build_chat_request()  ← 在浏览器 WASM 中构建请求
+   │      └── parse_chat_response() ← 在浏览器 WASM 中解析响应
+   │
+   ▼ HTTPS
+Eos 后端代理 (Axum, 已有 crates/server)
+   ├── /api/proxy                ← 非流式转发
+   ├── /api/proxy/stream         ← SSE 流式转发
+   ├── /api/models               ← (新增) 模型列表
+   ├── /api/web-search           ← (新增) Web Search
+   ├── /api/upload               ← (新增) 文件上传
+   ├── /api/images/generations   ← (新增) 图像生成
+   ├── /health                   ← 健康检查
+   └── /                         ← 静态文件（Eos UI）
+          │
+          ▼ (libcurl)
+Provider APIs (OpenAI / DeepSeek / Anthropic / Groq / NVIDIA / ...)
 ```
 
-### 3.2 技术选型建议
+### WASM vs 非 WASM 两线策略
 
-| 层 | 推荐 | 替代 | 理由 |
-|----|------|------|------|
-| **前端框架** | **HTMX + Alpine.js** | React / Vue / Svelte | 最小化依赖，极简 UI，快速上线。Phase 1 不搞 SPA 架构 |
-| **后端代理** | **Axum（Rust）** | Go / Python FastAPI | 与 ai-lib 生态一致，Rust 原生性能 |
-| **流式协议** | SSE 标准 | WebSocket | Phase 1 SSE 够用，Prism API 原生支持 |
-| **部署** | **Docker Compose** | Vercel / Fly.io | 自控制，与 Prism 同栈 |
-| **域名** | `eos.ailib.info` | `eos.ai`（待争取） | 统一子域名策略 |
+```
+┌─────────────────────────────────────────────────────────┐
+│                     Eos Frontend                          │
+│                                                           │
+│  ├── WASM 模式（默认）：请求构建在浏览器 WASM 中完成     │
+│  │    - build_chat_request() / parse_chat_response()       │
+│  │    - 调用 ai-lib-core 协议逻辑（标准化/一致性）        │
+│  │    - 证明 WASM 协议运行时可以在浏览器端运行             │
+│  │                                                          │
+│  ├── 非 WASM 模式（fallback）：直接通过后端转发            │
+│  │    - 浏览器不支持 WASM 时自动降级                       │
+│  │    - 后端直接构建请求转发给 Provider                    │
+│  │    - 对用户透明                                         │
+│  │                                                          │
+│  └── Provider/模型切换入口对两种模式保持一致               │
+└─────────────────────────────────────────────────────────┘
+```
 
-### 3.3 为什么选择 HTMX + Alpine.js？
-
-1. **最小化前端** — Phase 1 不需要 SPA 状态管理、路由、组件树
-2. **快速迭代** — 改 HTML 即可，无需构建工具链
-3. **后端渲染友好** — SSE 流式输出 + HTMX 的 SSE 扩展天然配对
-4. **低心智负担** — 先生可以快速理解和修改
+Phase 1 不重写 WASM 层。`crates/wasm-browser` 和 WASM 部分保持原样，只在前端 UI 叠加功能。
 
 ---
 
 ## 4. 依赖关系
 
-### 4.1 外部依赖
-
 | 依赖 | 类型 | 状态 | 说明 |
 |------|------|------|------|
-| Prism API（`api.prism.ailib.info`） | 强依赖 | Phase 1 规划中 | Eos 后端代理转发到 Prism |
-| ai-lib-core v0.9.4+ | 强依赖 | ✅ 已发布 | Prism 构建基础 |
-| 5 个 P0 Provider（OpenAI/Anthropic/Gemini/DeepSeek/Qwen） | 强依赖 | ✅ 已有 | Prism Phase 1 目标 |
-| Provider API Keys | 运营依赖 | ⚠️ 需要准备 | 先生需确认 Key 来源 |
+| `ailib-official/ailib-wasm-test` 代码 | 强依赖 | ✅ 已本地 | Eos 从此 fork/rename |
+| WASM 工具链 (`wasm-pack`, `wasm-bindgen`) | 构建依赖 | ✅ 已有 | ai-lib-rust 已集成 |
+| Provider API Keys | 运营依赖 | ⚠️ 需准备 | OpenAI / DeepSeek / Anthropic / Groq / NVIDIA |
+| 域名 `eos.ailib.info` | 运营依赖 | ⚠️ 需配置 | |
 
-### 4.2 与 Prism Phase 1 的配合
-
-```
-Prism Phase 1 (3 weeks)         Eos Phase 1 (可并行或与 Prism Phase 1 重叠)
-───────────────────────          ──────────────────────────────────────
-Week 1: P1-01~P1-03             Week 1: Mock Provider 模式下开发前端
-  (骨架 + 核心代理 + Key池)         (EOS-P1-001~004, 008~009)
-                                 
-Week 2: P1-04~P1-06             Week 2: 后端代理开发 + 前端完善
-  (用量 + 降级 + Docker)            (EOS-P1-005~007, 014~015)
-
-Week 3: P1-07~P1-08             Week 3: 联调 + 部署 + 测试
-  (管理API + Provider联调)          (EOS-P1-010~018)
-```
-
-**建议启动时机**：Prism P1-03 完成后（Week 1 末），或与 Prism 并行以 mock API 开发前端。
-
-### 4.3 无 Prism 的降级方案
-
-如果 Prism 在 Eos Phase 1 开发期间还未上线，Eos 后端代理可直接调用 Provider API：
+### Eos Phase 1 与 Prism Phase 1 并行
 
 ```
-Eos Backend ──► OpenAI API（直连）
-             ├── Anthropic API（直连）
-             ├── DeepSeek API（直连）
-             └── Qwen API（直连）
+Prism Phase 1 (3 weeks)       Eos Phase 1 (3 weeks)
+───────────────────────        ──────────────────────
+Week 1: 核心代理 + Key池       Week 1: Rebrand + Web Search + 文件上传
+Week 2: 用量 + 降级 + Docker   Week 2: 功能完善 + 图像生成 + 导出 + 部署
+Week 3: 管理API + 联调         Week 3: 集成测试 + 上线
 ```
 
-但这不是推荐路线 — 与 Prism 混合后需迁移，且失去 Key 池/降级能力。
+**完全并行** — Eos 直连 Provider（如现有 ailib-wasm-test），不依赖 Prism。后续迁 Prism 是 Phase 2。
 
 ---
 
-## 5. 任务包详情
+## 5. 任务包
 
-### 5.1 前端任务（EOS-FE-*）
+### Rebrand（EOS-P1-R*）
 
-| 任务 ID | 名称 | 描述 | 依赖 | 预估 |
-|---------|------|------|------|:----:|
-| EOS-FE-001 | 聊天界面骨架 | HTML 页面结构 + CSS + HTMX 集成。消息输入框、发送按钮、消息列表容器 | — | 2 天 |
-| EOS-FE-002 | SSE 流式接收 | HTMX SSE 扩展集成，流式消息渲染，光标/加载状态 | EOS-FE-001 | 1 天 |
-| EOS-FE-003 | 多模型切换 UI | 模型选择下拉框（动态获取或静态列表），切换后发送请求携带模型参数 | EOS-FE-001 | 1 天 |
-| EOS-FE-004 | 多轮对话上下文 | 前端维护对话历史数组，请求时携带消息历史；支持清空/新建对话 | EOS-FE-002 | 1 天 |
-| EOS-FE-005 | Markdown 渲染 | 集成 markdown-it 或类似库，代码块语法高亮（highlight.js） | EOS-FE-002 | 1 天 |
-| EOS-FE-006 | Web Search 按钮 | 搜索开关/配置入口，请求时添加搜索参数（由后端完成搜索） | EOS-FE-001 | 1 天 |
-| EOS-FE-007 | 文件上传 UI | 上传按钮+拖拽区，支持图片/jpg/png 和文档/pdf/txt 上传 | EOS-FE-001 | 1.5 天 |
-| EOS-FE-008 | 图像生成入口 | 单独的图像生成界面或按钮 + prompt 输入 + 展示区 | EOS-FE-001 | 1.5 天 |
-| EOS-FE-009 | 导出/复制/截图 | 导出 Markdown 按钮、复制对话按钮、截图生成（html2canvas） | EOS-FE-002 | 1.5 天 |
+| 任务 ID | 名称 | 预估 |
+|---------|------|:----:|
+| EOS-P1-R1 | Fork ailib-wasm-test 为新仓库 `eos` | 0.5d |
+| EOS-P1-R2 | HTML 页面文案替换（标题/页眉/描述 → Eos 逸思） | 0.5d |
+| EOS-P1-R3 | UI 主题色/品牌色替换（css 变量改色） | 1d |
+| EOS-P1-R4 | Full Chinese localization + language switch | 1.5d |
 
-### 5.2 后端任务（EOS-BE-*）
+### Frontend 增强（EOS-P1-F*）
 
 | 任务 ID | 名称 | 描述 | 依赖 | 预估 |
 |---------|------|------|------|:----:|
-| EOS-BE-001 | 后端代理骨架 | Axum 项目初始化：路由结构 + 配置加载 + 日志 | — | 1 天 |
-| EOS-BE-002 | 聊天代理 API | `POST /api/chat` 转发到 Prism API / Provider API，含 SSE 流式透传 | EOS-BE-001 | 1.5 天 |
-| EOS-BE-003 | 模型列表 API | `GET /api/models` 返回可用模型列表 | EOS-BE-001 | 0.5 天 |
-| EOS-BE-004 | Web Search 集成 | 集成搜索 API（Tavily / SerpAPI / Bing Search），搜索结果作为上下文传递给模型 | EOS-BE-002 | 1 天 |
-| EOS-BE-005 | 文件上传处理 | 接收文件，判断类型和大小，转发给支持多模态的模型 | EOS-BE-002 | 1 天 |
-| EOS-BE-006 | 图像生成 API | `POST /api/images/generations` 转发到 Prism API / 对应 Provider | EOS-BE-001 | 1 天 |
-| EOS-BE-007 | 速率限制 | IP-based 限流中间件（token bucket / sliding window） | EOS-BE-001 | 0.5 天 |
-| EOS-BE-008 | CORS 配置 | 安全的跨域策略：仅允许 `eos.ailib.info` 来源 | EOS-BE-001 | 0.5 天 |
+| EOS-P1-F1 | 多轮对话上下文 | 前端维护 `messages[]`，SSE 携带历史；New Chat 按钮 | — | 1d |
+| EOS-P1-F2 | Markdown 渲染增强 | 集成 highlight.js 语法高亮 | EOS-P1-F1 | 0.5d |
+| EOS-P1-F3 | Web Search 开关 UI | 输入框上方搜索切换按钮 | — | 1d |
+| EOS-P1-F4 | 文件上传按钮 | 上传图标按钮 + 文件选择器 | — | 1.5d |
+| EOS-P1-F5 | 图像生成模式切换 | 模式切换按钮（聊天↔图像生成），图像展示区 | — | 1.5d |
+| EOS-P1-F6 | 导出/复制/截图 | Markdown 导出、一键复制、html2canvas 截图 | EOS-P1-F1 | 1.5d |
+| EOS-P1-F7 | 模型下拉动态加载 | 调用 `/api/models` 填充下拉列表 | — | 0.5d |
 
-### 5.3 部署任务（EOS-DEPLOY-*）
+### Backend 扩展（EOS-P1-B*）
 
 | 任务 ID | 名称 | 描述 | 依赖 | 预估 |
 |---------|------|------|------|:----:|
-| EOS-DEPLOY-001 | Dockerfile | 多阶段构建：前端静态文件 + 后端二进制 | EOS-BE-008, EOS-FE-009 | 0.5 天 |
-| EOS-DEPLOY-002 | Docker Compose | `docker-compose.yml`：Eos 容器 + Caddy 反向代理 | EOS-DEPLOY-001 | 0.5 天 |
-| EOS-DEPLOY-003 | 域名 + TLS | 注册/配置 `eos.ailib.info`，Caddy 自动 HTTPS | EOS-DEPLOY-002 | 0.5 天 |
-| EOS-DEPLOY-004 | 集成测试 | 端到端验证：前端→后端→Prism→Provider 链路通 | EOS-DEPLOY-003 | 1 天 |
-| EOS-DEPLOY-005 | 监控 + 告警 | 基础健康检查端点 + 错误日志 | EOS-DEPLOY-003 | 0.5 天 |
+| EOS-P1-B1 | `/api/models` 端点 | 返回可用 Provider/模型列表（可从 config/env 加载） | — | 0.5d |
+| EOS-P1-B2 | Web Search 集成 | Tavily/SerpAPI 搜索 + 结果注入，支持 SSE 混合流式 | — | 1.5d |
+| EOS-P1-B3 | 文件上传处理 | 接收 multipart，类型/大小校验，转发多模态模型 | — | 1.5d |
+| EOS-P1-B4 | 图像生成代理 | 转发 Flux/DALL-E API，返回图像 | — | 1d |
+| EOS-P1-B5 | 限流中间件 | IP-based token bucket | — | 0.5d |
+| EOS-P1-B6 | Provider 配置外部化 | `AILIB_WASM_*.env` → 统一 `EOS_*.env` 配置 | — | 0.5d |
+
+### 部署（EOS-P1-D*）
+
+| 任务 ID | 名称 | 描述 | 依赖 | 预估 |
+|---------|------|------|------|:----:|
+| EOS-P1-D1 | Dockerfile 更新 | 多阶段：WASM 编译 → Rust 编译 → 静态文件打包 | — | 0.5d |
+| EOS-P1-D2 | Docker Compose | `docker-compose.yml` + Caddy TLS | EOS-P1-D1 | 0.5d |
+| EOS-P1-D3 | 域名配置 | `eos.ailib.info` DNS + Caddy | EOS-P1-D2 | 1d |
+| EOS-P1-D4 | E2E 集成测试 | 浏览器打开→输入→发送→接收→导出全链路 | EOS-P1-D3 | 1d |
 
 ---
 
@@ -240,38 +240,18 @@ Eos Backend ──► OpenAI API（直连）
 
 | 里程碑 | 时间 | 验收标准 |
 |--------|------|---------|
-| **M1: Chat Works** | Week 1 末 | 聊天界面 → 后端代理 → Provider（mock or 直连）链路跑通，支持流式输出 + 多模型切换 |
-| **M2: Feature Complete** | Week 2 末 | 功能面板（Web Search + 文件上传 + 图像生成）上线，Markdown 渲染 + 导出可用 |
-| **M3: Live** | Week 3 末 | `eos.ailib.info` 外部可访问，所有 P0/P1 功能可用，部署自动化 |
+| **M1: Rebranded + Core Chat** | Week 1 末 | `eos.ailib.info` (开发) 可访问，Eos 品牌 UI + 多轮对话 + WASM 执行 + markdown 渲染 |
+| **M2: Feature Complete** | Week 2 末 | Web Search + 文件上传 + 图像生成 + 导出全部可用 |
+| **M3: Live** | Week 3 末 | `eos.ailib.info` 正式上线 + 限流保护 + Docker 部署自动 |
 
 ---
 
-## 7. 测试计划
+## 7. 风险与缓解
 
-| 类型 | 覆盖范围 | 自动化程度 |
-|------|---------|:---------:|
-| 后端单元测试 | API handler、流式转发、限流、CORS | ✅ cargo test |
-| 后端集成测试 | 与 Prism API 联调（mock Provider） | ⚠️ 需 Prism 环境 |
-| 前端可视化测试 | UI 渲染、SSE 流式展示、模型切换 | ❌ Phase 1 手动测试 |
-| E2E 测试 | 浏览器打开→输入→发送→接收→导出的完整流程 | ❌ Phase 1 手动测试 |
-
----
-
-## 8. 风险与缓解
-
-| 风险 | 影响 | 概率 | 缓解措施 |
-|------|------|:----:|---------|
-| Prism Phase 1 延期 | Eos 前端联调受阻 | 中 | 采用直连 Provider 降级方案 |
-| HTMX + SSE 兼容性问题 | 流式渲染卡顿/不流畅 | 低 | 备选方案：EventSource polyfill |
-| 文件上传后端处理复杂 | 文件上传延期 | 中 | 缩小范围：Phase 1 仅支持图片上传 |
-| 图像生成 API 不稳定 | 图像生成用户体验差 | 低 | 错误提示友好，降低用户预期 |
-| CORS 配置错误 | 前端无法调用后端 | 低 | Phase 1 开发期间使用宽松策略 |
-
----
-
-## 9. 后续 Phase 规划（待决）
-
-| Phase | 时间 | 主要交付物 |
-|-------|------|-----------|
-| **Phase 2** | Phase 1 后 4-6 周 | 用户注册/登录、对话历史云端同步、免费配额、Web Search 增强 |
-| **Phase 3** | Phase 2 后 8-12 周 | 订阅套餐、智能路由推荐、本土支付、社区功能 |
+| 风险 | 影响 | 概率 | 缓解 |
+|------|------|:----:|------|
+| WASM 编译兼容性（浏览器版本） | 部分用户无法使用 WASM | 低 | 提供非 WASM fallback |
+| 文件上传后端处理复杂 | 文件上传延期 | 中 | Phase 1 仅支持图片 |
+| 图像生成 API 不稳定 | 用户体验差 | 低 | 错误提示友好 |
+| Provider Key 过期/不足 | 部分模型不可用 | 中 | 后端 clear 错误提示，UI 友好降级 |
+| ailib-wasm-test 未公开到 ailib-official | fork 阻塞 | 中 | 先本地开发，上线前再公开 |

@@ -2,8 +2,8 @@
 
 > **Type**: Consumer web platform (to-C, browser-accessible)
 > **Status**: Phase 1 planning
-> **Repo**: `ailib-official/eos` (to be created)
-> **Architecture**: Lightweight frontend + backend proxy → Prism API
+> **Repo**: `ailib-official/eos` (to be created, forked from `ailib-official/ailib-wasm-test`)
+> **Architecture**: WASM (wasm-bindgen) + Axum backend proxy + static frontend (forked from ailib-wasm-test)
 > **Brand File**: `active/projects/eos/brand-rationale.md`
 > **Phase 1 Plan**: `active/projects/eos/PHASE1_PLAN.md`
 
@@ -25,15 +25,20 @@
 ## Architecture
 
 ```
-User Browser
+User Browser (WASM executes build_chat_request)
     ↓ (HTTPS)
-Eos Frontend (HTMX + Alpine.js, static)
-    ↓
-Eos Backend Proxy (Axum, thin reverse proxy)
-    ↓
-Prism API (api.prism.ailib.info)
-    ↓
-Provider APIs
+Eos Backend Proxy (Axum, forked from ailib-wasm-test crates/server)
+    ├── /api/proxy         (non-streaming)
+    ├── /api/proxy/stream  (SSE streaming)
+    ├── /api/models        (model list)
+    ├── /api/web-search    (search integration)
+    ├── /api/upload        (file upload)
+    ├── /api/images/generations (image generation)
+    ├── /health
+    └── / → static files (Eos UI)
+         │
+         ▼ (libcurl)
+Provider APIs (OpenAI / DeepSeek / Anthropic / Groq / NVIDIA / ...)
 ```
 
 ## Three-Zone Alignment
