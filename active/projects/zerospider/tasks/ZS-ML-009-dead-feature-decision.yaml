@@ -1,10 +1,10 @@
 ---
 id: "ZS-ML-009"
 title: "Phase 6 rectification: decide ai-lib-rust embeddings/batch/telemetry features (wire or remove)"
-status: "todo"
+status: "in_progress"
 priority: "medium"
-executor_name: ""
-executor_terminal: ""
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
 assignee: "@tbd"
 project: "zerospider"
 milestone: "ai-lib-migration"
@@ -14,7 +14,7 @@ labels:
   - "phase-6"
   - "deps"
 created: "2026-04-28"
-updated: "2026-04-28"
+updated: "2026-04-30"
 description: |
   `Cargo.toml` 第 147 行声明：
   `ai-lib-rust = { version = "0.9.4", optional = true, features = ["embeddings", "batch", "telemetry"] }`。
