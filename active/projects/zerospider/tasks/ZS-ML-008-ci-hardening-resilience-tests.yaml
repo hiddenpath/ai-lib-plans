@@ -45,16 +45,32 @@ pr:
   repo: "ailib-official/zerospider"
   branch_pattern: "feat/zs-ml-008-ci-resilience-tests"
   merge_target: "main"
+  branch: "feat/zs-ml-008-ci-resilience-tests"
+  commit: "b47f757"
+  url: "https://github.com/ailib-official/zerospider/pull/20"
+  compare_url: "https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-008-ci-resilience-tests"
+  merge_commit: ""
 
 testing:
   unit_tests:
     - "protocol_retry_does_not_compound_with_reliable_provider"
-    - "reliable_provider_falls_back_for_protocol_backed_primary"
+    - "reliable_provider_falls_back_for_protocol_style_model_ids"
   ci_steps:
     - "cargo test -p zerospider --no-default-features --features ai-protocol"
   evidence_on_complete:
     - "PR url + merge_commit"
     - "CI run url showing the new no-default-features test step"
+  evidence_current:
+    - "Branch pushed to ailib-official/zerospider: feat/zs-ml-008-ci-resilience-tests"
+    - "Commit: b47f757 test(ai-lib): harden protocol-only resilience checks"
+    - "PR: https://github.com/ailib-official/zerospider/pull/20"
+    - "cargo fmt --all -- --check: PASS"
+    - "cargo +stable-x86_64-pc-windows-gnu check -p zerospider --lib --features ai-protocol --message-format short: PASS"
+    - "cargo +stable-x86_64-pc-windows-gnu clippy -p zerospider --lib --features ai-protocol -- -D warnings: PASS"
+    - "cargo +stable-x86_64-pc-windows-gnu test -p zerospider --lib --no-default-features --features ai-protocol protocol_retry_does_not_compound_with_reliable_provider -- --nocapture: PASS"
+    - "cargo +stable-x86_64-pc-windows-gnu test -p zerospider --lib --features ai-protocol reliable_provider_falls_back_for_protocol_style_model_ids -- --nocapture: PASS"
+    - "cargo +stable-x86_64-pc-windows-gnu test -p zerospider --lib --no-default-features --features ai-protocol: PASS"
+    - "cargo +stable-x86_64-pc-windows-gnu test -p zerospider --no-default-features --features ai-protocol: attempted; stopped after local Windows GNU full-target test build hung at Compiling zerospider; exact command is now enforced in GitHub Actions Linux CI"
 
 related_plan_section: "PR5 — Phase 4 / PR6 — Phase 5"
 related_audit:
