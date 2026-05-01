@@ -19,7 +19,8 @@ overview: |
 current_phase: |
   v1.0.0 gate track: PT-073 core-only compliance + RC. PT-065/PT-066 generative TS/Go adaptation **completed** (2026-04-21).
   WASM-001~003 **completed** in ai-lib-wasm + ailib-wasm-test docs. Wave-4 planning slice PT-054~PT-062 is **closed**
-  in per-task YAMLs.
+  in per-task YAMLs. PT-074 unified credential chain is now P0 for BYOK/runtime infrastructure readiness before downstream
+  agent applications such as ZeroSpider can be treated as release-ready on the protocol path.
 
 milestones:
   - id: "v0.7.4"
@@ -53,6 +54,13 @@ wave4_planning_tasks_completed:
     artifact drift issue (fixed 2026-04-21).
 
 active_tasks:
+  - id: "PT-074"
+    title: "Unified credential chain P0 across runtimes and WASM"
+    status: "in_progress"
+    priority: "critical"
+    description: "Cross-runtime BYOK credential resolution contract and implementation: explicit override, manifest env, conventional env, keyring/external resolver hooks, WASM-safe surface, and ZeroSpider release smoke."
+    task_file: "active/projects/ai-protocol/tasks/PT-074-unified-credential-chain-p0.yaml"
+
   - id: "PT-073"
     title: "Core-only compliance proof and v1.0.0 RC gate"
     status: "in_progress"
