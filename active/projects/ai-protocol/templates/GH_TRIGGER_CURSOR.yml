@@ -1,0 +1,71 @@
+# .github/workflows/trigger-cursor-fix.yml
+# 
+# Trigger Cursor Automation when Spider posts a review report with ⏳ items.
+# Place this file in: .github/workflows/trigger-cursor-fix.yml
+#
+# Secrets needed:
+#   CURSOR_TRIGGER_TOKEN - API token from Cursor Automations settings
+#   GH_TOKEN - PAT with write:issue and write:pr permissions
+#
+# on: issue_comment ensures this runs when Spider comments on a PR.
+# The `if` condition filters to only PR comments containing a review table.
+
+name: Trigger Cursor Fix
+
+on:
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  trigger:
+    # Only run when:
+    # 1. The comment is on a PR (not a plain issue)
+    # 2. The comment body contains "## Review Report" (Spider's review marker)
+    # 3. The comment author is the Spider bot (prevents self-trigger)
+    # 4. The table still has ⏳ items (prevents re-triggering completed reviews)
+    if: |
+      github.event.issue.pull_request != null &&
+      contains(github.event.comment.body, '## Review Report') &&
+      contains(github.event.comment.body, '⏳') &&
+      github.event.comment.user.login == 'spider-bot'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract review context
+        id: extract
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { issue, comment } = context.payload;
+            const pr = await github.rest.pulls.get({
+              ...context.repo,
+              pull_number: issue.number,
+            });
+            core.setOutput('head_sha', pr.data.head.sha);
+            core.setOutput('head_ref', pr.data.head.ref);
+            core.setOutput('pr_number', issue.number);
+            core.setOutput('comment_id', comment.id);
+
+      - name: Trigger Cursor Automation
+        run: |
+          curl -X POST https://cursor.com/api/automations/trigger \
+            -H "Authorization: Bearer ${{ secrets.CURSOR_TRIGGER_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "trigger_type": "spider_review",
+              "repo": "${{ github.repository }}",
+              "pr_number": ${{ steps.extract.outputs.pr_number }},
+              "head_sha": "${{ steps.extract.outputs.head_sha }}",
+              "head_ref": "${{ steps.extract.outputs.head_ref }}",
+              "comment_id": ${{ steps.extract.outputs.comment_id }},
+              "automation_name": "fix-feature-branch-issues"
+            }'
+
+      - name: Mark PR as under fix
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: ${{ steps.extract.outputs.pr_number }},
+              body: '🔄 Spider review received. Cursor Automation triggered for fixes.'
+            });

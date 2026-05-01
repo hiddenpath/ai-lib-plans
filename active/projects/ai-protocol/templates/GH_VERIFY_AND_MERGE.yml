@@ -1,0 +1,102 @@
+# .github/workflows/verify-and-merge.yml
+#
+# After cursor pushes fixes to a feat/* branch, run CI validation
+# and notify Spider (via comment) that the branch is ready for
+# final review and merge.
+#
+# Secrets needed:
+#   GH_TOKEN - PAT with write:issue, write:pr, and (for merge) write:code
+
+name: Verify and Gate
+
+on:
+  push:
+    branches:
+      - 'feat/**'
+      - 'fix/**'
+      - 'pt-*/**'
+
+jobs:
+  verify:
+    # Skip auto-runs when pushed by the merge bot (Spider itself)
+    # to prevent trigger loops when Spider merges.
+    if: github.actor != 'spider-bot' && github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        command:
+          - 'cargo fmt --all -- --check'
+          - 'cargo clippy --all-targets -- -D warnings'
+          - 'cargo test -p ai-lib-core'
+          - 'cargo build -p ai-lib-core --no-default-features'
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+
+      - name: Run ${{ matrix.command }}
+        run: ${{ matrix.command }}
+
+  notify:
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.ref }}
+
+      - name: Find associated PR
+        id: find_pr
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branch = context.payload.ref.replace('refs/heads/', '');
+            const { data: pulls } = await github.rest.pulls.list({
+              ...context.repo,
+              state: 'open',
+              head: `${context.repo.owner}:${branch}`,
+            });
+            if (pulls.length === 0) {
+              core.setOutput('pr_number', '');
+              return;
+            }
+            const pr = pulls[0];
+            core.setOutput('pr_number', pr.number);
+            core.setOutput('pr_url', pr.html_url);
+
+      - name: Notify Spider with merge gate comment
+        if: steps.find_pr.outputs.pr_number != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr_number = parseInt('${{ steps.find_pr.outputs.pr_number }}');
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: pr_number,
+              body: `## Merge Gate ✅
+
+All CI checks passed for commit \`${context.sha}\`.
+
+| Check | Status |
+|-------|--------|
+| cargo fmt | ✅ |
+| cargo clippy -Dwarnings | ✅ |
+| cargo test -p ai-lib-core | ✅ |
+| cargo build --no-default-features | ✅ |
+
+**Waiting for Spider final review and merge.**
+
+🕷️`
+            });
+
+      - name: Add ready label
+        if: steps.find_pr.outputs.pr_number != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr_number = parseInt('${{ steps.find_pr.outputs.pr_number }}');
+            await github.rest.issues.addLabels({
+              ...context.repo,
+              issue_number: pr_number,
+              labels: ['ready-for-spider']
+            });
