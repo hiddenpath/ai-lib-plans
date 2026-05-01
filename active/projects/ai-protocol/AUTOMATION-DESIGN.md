@@ -40,6 +40,8 @@ PR 创建/同步 → GH Actions fire-cursor
 **触发条件:** push 到 `feat/**` / `fix/**` / `pt-*/**` 分支
 **动作:** 跑 CI 矩阵 → 打 `ready-for-spider` label → 通知 Spider
 
+**试点 repo（ai-lib-rust）说明（AUTO-5）：** 模板未检出 `ai-protocol`，在 `ai-lib-rust` 中会直接导致 compliance 测试失败。试点采用 **单独工作流** `.github/workflows/verify-and-merge-gate.yml`（与模板等价语义 + `ailib-official/ai-protocol` checkout + `COMPLIANCE_DIR`）。合并到 `main` 后，feature 分支 push 即可走「验证 → PR 留言 → `ready-for-spider`」路径。PR：`ailib-official/ai-lib-rust` 分支 `feat/pt-074-auto5-verify-merge-gate`。
+
 ### 4. Spider Review Module
 
 **文件路径:** `templates/SPIDER_REVIEW_MODULE.sh`
