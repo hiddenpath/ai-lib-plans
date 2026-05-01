@@ -189,3 +189,105 @@ The catch-all `_ =>` handles `"bearer"` and any unknown types. For `"bearer"` th
 ---
 
 *End of review report. Send to author for responses/fixes before merging.*
+
+---
+
+## Author Response (2026-05-01)
+
+> **Author:** cursor-agent (terminal: cursor-shell)
+> **Branch:** `feat/pt-074-rust-credential-chain` (ai-lib-rust) and `feat/pt-074-credential-compliance` (ai-protocol)
+> **Decisions confirmed by Walex 2026-05-01 15:52 UTC+8.**
+
+All 5 issues and Q4 from this report are addressed in the same branch. The fix series is broken into 6 functional commits + 2 hygiene commits so this report can be re-reviewed commit-by-commit.
+
+### Issue 1 — keyring as unconditional dependency
+
+**Status:** Fixed in `506c9d3` (`feat(core): make keyring an opt-in feature (default on)`).
+
+- `ai-lib-core` and `ai-lib-rust` now declare `keyring = { version = "2.0", optional = true }` and a `keyring` Cargo feature.
+- `default = ["keyring"]` keeps desktop UX unchanged; **slim/container/CI builds opt out with `default-features = false`** and the `keyring` crate plus its D-Bus / libsecret / Security Framework chain disappear from the dep graph.
+- `credentials.rs` uses `#[cfg(feature = "keyring")]` to gate the import, the `keyring_value()` function, and the resolver's keyring branch.
+- Verified: `cargo build -p ai-lib-core --no-default-features` PASS; default `cargo build -p ai-lib-core` PASS; `wasm32-wasip1` release build PASS (1.2 MB binary unaffected).
+
+### Issue 2 — endpoint.auth vs top-level auth ambiguity
+
+**Status:** Fixed in `78fc5aa` (`refactor(core): single-source credential auth resolution`) and reinforced by `4f9c5d2` (`feat(transport): warn on dual-auth divergence and unknown auth_type`).
+
+- `credentials::required_envs()` now scans only the winning `primary_auth()` block (V2 `endpoint.auth` wins; V1 top-level `auth` is the fallback). Eliminates the "endpoint shape + top-level token" Frankenstein outcome.
+- New diagnostic helper `credentials::shadowed_auth(manifest)` returns the divergent V1 block when it's being shadowed.
+- `HttpTransport::new_with_base_url_and_credential` emits one `tracing::warn!` per construction when divergence is detected, naming both `(type, env)` pairs so operators can fix the manifest.
+- **Backported to ai-protocol compliance** as `cred-009` and `cred-010` (see `feat/pt-074-credential-compliance` commit `9e30251`) so Python/TS/Go runtimes inherit the same rule from the contract.
+
+### Issue 3 — conventional_envs duplicates
+
+**Status:** Fixed in `78fc5aa` alongside Issue 2.
+
+- `conventional_envs()` returns a single canonical `${PROVIDER_ID_UPPER_WITH_UNDERSCORES}_API_KEY`. Non-conventional aliases must be declared via `auth.token_env`/`auth.key_env` in the manifest. Module rustdoc explains the choice.
+
+### Issue 4 — Missing test coverage
+
+**Status:** Fixed in `f29cd4c` (`test(core): cover credential resolver and apply_auth corner cases`).
+
+- `credentials::tests::missing_credential_lists_required_and_conventional_envs` — locks down the missing path including required/conventional env diagnostics.
+- `credentials::tests::shadowed_auth_returns_none_when_only_endpoint_present` / `shadowed_auth_returns_none_when_blocks_match` / `shadowed_auth_flags_divergent_blocks` — covers the dual-auth helper across all three states.
+- `credentials::tests::keyring_value_is_resolved` (`#[cfg(feature = "keyring")]`, `#[ignore]`) — documents how to manually exercise the keyring branch on macOS/Windows/Linux.
+- `transport::http::tests::apply_auth_with_no_secret_leaves_request_unchanged` — verifies missing secret leaves request untouched.
+- `transport::http::tests::apply_auth_query_param_attaches_param` — exercises the `query_param` branch end-to-end via `RequestBuilder::build`.
+- `transport::http::tests::apply_auth_unknown_type_falls_back_to_bearer` — pins down Issue 5's behavior.
+
+`cargo test -p ai-lib-core --lib`: 91 passed, 1 ignored, 0 failed.
+
+### Issue 5 — apply_auth catch-all
+
+**Status:** Fixed in `4f9c5d2`.
+
+- `apply_auth` now distinguishes `"bearer"` (silent default) from truly unknown `auth_type` values. Unknown types still fall back to `Authorization: Bearer …` (reversibility — a manifest typo must not nuke the provider) but emit a `tracing::warn!` once per process per offending value via a `OnceLock<Mutex<HashSet<String>>>` dedup.
+- Test `apply_auth_unknown_type_falls_back_to_bearer` covers behavior; warn-once dedup is internal and not asserted in tests (the OnceLock would leak across other tests in the same process).
+
+### Q1: Why was keyring unconditional?
+
+Inherited from the legacy `http.rs::get_api_key()` path; no intentional design reason. The PT-074 refactor surfaced it cleanly enough to fix it via Issue 1.
+
+### Q2: Container behavior of `keyring::Entry::new()`
+
+On Linux without D-Bus, `Entry::new(...)` itself does not panic — it returns a `Result` whose subsequent `get_password()` errors out. The existing `.ok().and_then(|e| e.get_password().ok())` chain already degrades to `None` gracefully. The real cost was the **always-on link to D-Bus / libsecret** at compile time and an unnecessary probe at every resolve. Issue 1's feature flag eliminates both.
+
+### Q3: Dual-level auth semantics
+
+Single source of truth: `endpoint.auth` wins, top-level `auth` is V1 fallback only. When both are declared and differ in `(type, token_env, key_env)`, runtime emits one `tracing::warn!` naming both blocks. Encoded as compliance cases `cred-009` and `cred-010` so Python/TS/Go runtimes inherit the same contract.
+
+### Q4: `header_name` vs V2 schema's `header`
+
+**Status:** Fixed in `e7c4c7d` (`refactor(protocol): align AuthConfig with V2 schema field name 'header'`).
+
+- Audit confirmed `AuthConfig` is only deserialized in production paths (no `to_yaml` round-trip exists in `ai-lib-core`).
+- Field now uses `#[serde(rename = "header", alias = "header_name")]`. V2 manifests serialize/deserialize with `header` (canonical). V1 manifests using `header_name` still parse via the alias. Rust struct identifier `header_name` stays for source-level backward compatibility.
+
+### Validation matrix run on `feat/pt-074-rust-credential-chain`
+
+| Check | Command | Result |
+|---|---|---|
+| Format | `cargo fmt --all -- --check` | PASS |
+| Lint | `cargo clippy -p ai-lib-core --all-targets -- -D warnings` | PASS (1 pre-existing nit fixed in `8be42bf`) |
+| Unit + integ tests | `cargo test -p ai-lib-core` | 91+4+12 PASS, 1 + 4 ignored |
+| Slim build | `cargo build -p ai-lib-core --no-default-features` | PASS (no keyring transitive dep) |
+| Default build | `cargo build -p ai-lib-core` | PASS |
+| WASM | `cargo build -p ai-lib-wasm --target wasm32-wasip1 --release` | PASS (binary size unchanged) |
+
+### Commit map (re-review path)
+
+| # | Commit | Issue / Q |
+|---|---|---|
+| 1 | `506c9d3` | Issue 1 (keyring opt-in) |
+| 2 | `78fc5aa` | Issue 2 single-source + Issue 3 conventional simplification |
+| 3 | `4f9c5d2` | Issue 2 diagnostic warn + Issue 5 unknown auth_type warn-once |
+| 4 | `e7c4c7d` | Q4 (`header_name` → `header`) |
+| 5 | `f29cd4c` | Issue 4 (5 new tests + 1 ignored keyring path) |
+| 6 | `72f1f60` | CHANGELOG |
+| 7 | `df90d12` | `cargo fmt` |
+| 8 | `8be42bf` | pre-existing clippy nit cleanup |
+
+**ai-protocol companion commit:** `9e30251` on `feat/pt-074-credential-compliance` adds `cred-009` + `cred-010` and the `mock-credential-dual-auth.yaml` fixture so the single-source rule is part of the cross-runtime contract before PT-074-C starts.
+
+Branch is ready for re-review.
+
