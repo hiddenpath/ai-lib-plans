@@ -14,6 +14,26 @@ PR 创建/同步 → GH Actions fire-cursor
   → Spider 最终验证 + 合并 + 回填 plans
 ```
 
+## 新增分支 Workflow 同步协议
+
+新分支创建时 **必须确保 workflow 文件存在**，否则 CI 可能从 `main` 读取不匹配的版本（或其他分支上没有 workflow 文件时 Actions 无法执行）。
+
+### 原则
+
+- CI 触发时使用 **分支 HEAD 上的 workflow 文件**（而非默认分支）。
+- 如果分支没有 workflow 文件，GitHub Actions 会回退到默认分支（`main`）的文件。这种回退不安全，因为：
+  - 默认分支的 workflow 可能与分支代码不兼容（如参数变更、新增步骤）
+  - 分支覆盖可能因缺失 workflow 文件导致空洞
+- **设计约束**：分支创建后，Spider 自动检查 `/.github/workflows/` 下是否有必要 workflow，若缺失则 **从 main 同步**。
+
+### 流程
+
+1. Cursor push 新分支 → GH Actions 触发（若分支有 workflow 文件）。
+2. Spider 检测分支状态：
+   - 若分支缺少 `.github/workflows/verify-and-merge-*.yml`
+   - Spider 从 main 同步完整 workflow，push 到该分支
+3. workflow 同步后重新触发 CI。
+
 ## 组件清单
 
 ### 1. 审查报告模板
