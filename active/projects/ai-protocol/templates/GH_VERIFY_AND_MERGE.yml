@@ -73,20 +73,22 @@ jobs:
             await github.rest.issues.createComment({
               ...context.repo,
               issue_number: pr_number,
-              body: `## Merge Gate ✅
-
-All CI checks passed for commit \`${context.sha}\`.
-
-| Check | Status |
-|-------|--------|
-| cargo fmt | ✅ |
-| cargo clippy -Dwarnings | ✅ |
-| cargo test -p ai-lib-core | ✅ |
-| cargo build --no-default-features | ✅ |
-
-**Waiting for Spider final review and merge.**
-
-🕷️`
+              body: [
+                '## Merge Gate ✅',
+                '',
+                'All CI checks passed for commit `' + context.sha + '`.',
+                '',
+                '| Check | Status |',
+                '|-------|--------|',
+                '| cargo fmt | ✅ |',
+                '| cargo clippy -Dwarnings | ✅ |',
+                '| cargo test -p ai-lib-core | ✅ |',
+                '| cargo build --no-default-features | ✅ |',
+                '',
+                '**Waiting for Spider final review and merge.**',
+                '',
+                '🕷️',
+              ].join('\\n'),
             });
 
       - name: Add ready label
