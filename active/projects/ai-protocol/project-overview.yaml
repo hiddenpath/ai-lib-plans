@@ -19,8 +19,8 @@ overview: |
 current_phase: |
   v1.0.0 gate track: PT-073 core-only compliance + RC. PT-065/PT-066 generative TS/Go adaptation **completed** (2026-04-21).
   WASM-001~003 **completed** in ai-lib-wasm + ailib-wasm-test docs. Wave-4 planning slice PT-054~PT-062 is **closed**
-  in per-task YAMLs. PT-074 unified credential chain is now P0 for BYOK/runtime infrastructure readiness before downstream
-  agent applications such as ZeroSpider can be treated as release-ready on the protocol path.
+  in per-task YAMLs. **PT-074 unified credential chain completed** (2026-05-03); primary open engineering gate remains **PT-073**
+  plus **runtime patch releases** (crates.io / PyPI / npm / Go module tags) to align consumers. Spider↔Cursor 自动化协作已**提升为全局流程治理**，不再挂在 PT-074 下。
 
 milestones:
   - id: "v0.7.4"
@@ -54,13 +54,6 @@ wave4_planning_tasks_completed:
     artifact drift issue (fixed 2026-04-21).
 
 active_tasks:
-  - id: "PT-074"
-    title: "Unified credential chain P0 across runtimes and WASM"
-    status: "in_progress"
-    priority: "critical"
-    description: "Cross-runtime BYOK credential resolution contract and implementation: explicit override, manifest env, conventional env, keyring/external resolver hooks, WASM-safe surface, and ZeroSpider release smoke."
-    task_file: "active/projects/ai-protocol/tasks/PT-074-unified-credential-chain-p0.yaml"
-
   - id: "PT-073"
     title: "Core-only compliance proof and v1.0.0 RC gate"
     status: "in_progress"
@@ -69,6 +62,13 @@ active_tasks:
     task_file: "active/projects/ai-protocol/tasks/PT-073-core-compliance-proof-v1-rc.yaml"
 
 recently_completed_runtime_tasks:
+  - id: "PT-074"
+    title: "Unified credential chain P0 across runtimes and WASM"
+    status: "completed"
+    completed: "2026-05-03"
+    task_file: "active/projects/ai-protocol/tasks/PT-074-unified-credential-chain-p0.yaml"
+    notes: "AUTO slice superseded — global governance follow-up"
+
   - id: "PT-065"
     title: "ai-lib-ts generative LLM capability adaptation"
     status: "completed"
