@@ -434,11 +434,11 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 
 | Repo | Purpose | Latest Version |
 |------|---------|---------------|
-| ai-protocol | Spec, schemas, provider manifests | v0.8.3 (target v1.0.x) |
+| ai-protocol | Spec, schemas, provider manifests | v0.8.4 (`@ailib-official/ai-protocol` on npm; target v1.0.x) |
 | ai-lib-rust | Rust runtime | v0.9.4 |
 | ai-lib-python | Python runtime | v0.8.3 |
 | ai-lib-ts | TypeScript runtime | v0.5.3 |
-| ai-lib-go | Go runtime | v0.0.1 |
+| ai-lib-go | Go runtime | v0.5.1 |
 | ai-protocol-mock | Mock server | v0.1.11 |
 | ailib-wasm-test | Browser WASM chat demo + server proxy | v0.1.0 |
 | spiderswitch | MCP-based model switching | v0.4.2 |
