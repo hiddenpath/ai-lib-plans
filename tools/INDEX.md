@@ -173,6 +173,24 @@
   - 部分网站有反爬虫机制
   - 驱动文件较大（~280MB）
 
+## `ubuntu_dev_disk_cleanup.sh`
+
+- **路径**: `tools/ubuntu_dev_disk_cleanup.sh`
+- **用途**: Ubuntu 开发机 **短期、可重复** 腾出磁盘空间；面向开发机：用户临时目录、apt 缓存、残余内核包、snap 旧版本、包管理器缓存（npm/pip/cargo/go）、浏览器缓存（Chrome/Playwright）、回收站、systemd journal、缩略图、JetBrains 旧版数据、字体缓存、node-gyp 缓存。仅白名单路径（不碰仓库、`.rustup/toolchains`、IDE 扩展树等）。融合 `~/cleansnapd.sh` 的 snap 旧版本清理功能。
+- **安全模型**:
+  - **默认演练**（不加 `--execute`）：只统计体积并报告可用空间，**不删除**。
+  - **真实清理**需 **`--execute`**；执行前有确认提示（`-y` 跳过）。
+  - **验证**: 对分区 `/` 读取可用空间前后对比并打印 **Delta**。
+- **前置**: **bash 4+**、Ubuntu 22.04/24.04；部分操作需 `sudo`（apt clean、残余内核包、journal、/var/tmp）。
+- **示例**:
+  - 演练全部：`bash tools/ubuntu_dev_disk_cleanup.sh --all`
+  - 执行全部：`bash tools/ubuntu_dev_disk_cleanup.sh --all --execute`
+  - 仅缓存类：`bash tools/ubuntu_dev_disk_cleanup.sh --npm-cache --pip-cache --cargo-cache --go-cache --execute`
+  - 安全项执行：`bash tools/ubuntu_dev_disk_cleanup.sh --user-temp --trash --thumbnails --apt-cache --execute`
+  - 含内核清理：`bash tools/ubuntu_dev_disk_cleanup.sh --old-kernels --snap-disabled --apt-cache --journal --execute -y`
+- **风险提示**:
+  - `--execute` 前建议关闭 IDE 和浏览器；`--old-kernels` 会 purging 残余内核包（dpkg rc 状态）；`--snap-disabled` 需先关闭对应 snap 应用；`--playwright-cache` 删除后下次运行需重新下载驱动。
+
 ## `win_dev_disk_cleanup.ps1`
 
 - **路径**: `tools/win_dev_disk_cleanup.ps1`

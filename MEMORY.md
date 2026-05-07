@@ -449,11 +449,30 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 | Repo | Purpose | Latest Version |
 |------|---------|---------------|
 | ai-protocol | Spec, schemas, provider manifests | v0.8.4 (`@ailib-official/ai-protocol` on npm; target v1.0.x) |
-| ai-lib-rust | Rust runtime | v0.9.4 |
-| ai-lib-python | Python runtime | v0.8.3 |
-| ai-lib-ts | TypeScript runtime | v0.5.3 |
-| ai-lib-go | Go runtime | v0.5.1 |
+| ai-lib-rust | Rust runtime | v0.9.6 (crates.io: ai-lib-core, ai-lib-contact, ai-lib-rust) |
+| ai-lib-python | Python runtime | v0.8.3 (PyPI pending: ailib-official org approval) |
+| ai-lib-ts | TypeScript runtime | v0.5.3 (`@ailib-official/ai-lib-ts` on npm; CI release.yml ready) |
+| ai-lib-go | Go runtime | v0.6.0 (GitHub Release; CI release.yml verified) |
 | ai-protocol-mock | Mock server | v0.1.11 |
+
+## CI Release Automation Status (2026-05-08)
+
+| Runtime | Registry | CI Workflow | Secret | Status |
+|---------|----------|-------------|--------|--------|
+| ai-lib-go | GitHub Release | `release.yml` (v* tag → gofmt/vet/test → gh-release) | GITHUB_TOKEN (default) | ✅ verified (v0.6.0) |
+| ai-lib-rust | crates.io + GitHub Release | `release-crates.yml` (v* tag → dry-run per crate → publish per crate → gh-release) | CARGO_REGISTRY_TOKEN | ✅ verified (v0.9.6) |
+| ai-lib-ts | npmjs + GitHub Release | `release.yml` (v* tag → lint/typecheck/test/build → npm publish → gh-release) | NPM_TOKEN | ✅ secret set |
+| ai-protocol | npmjs + GitHub Release | `release.yml` (v* tag → npm ci/build → npm publish → gh-release) | NPM_TOKEN | ✅ secret set |
+| ai-lib-python | PyPI + GitHub Release | `ci.yml` release job (v* tag → build → PyPI OIDC → gh-release) | Trusted Publisher (OIDC) | ⏳ ailib-official org pending on PyPI |
+
+**发布流程 (固定)**：
+1. 确保代码已合并到 main 且测试通过
+2. `git tag v<版本号> && git push origin v<版本号>`
+3. CI 自动触发 release workflow → 验证 + 发布 + GitHub Release
+
+**npm token**: automation token (bypass_2fa=true, @ailib-official scope), stored as repo secret `NPM_TOKEN` on ai-lib-ts and ai-protocol
+
+**Go flaky test fix (v0.6.0)**: `ExecutionLatencyMs` 在 httptest sub-ms 场景下可为 0，断言从 `!= 0` 放宽为验证字段被填充（uint64 天然非负）
 | ailib-wasm-test | Browser WASM chat demo + server proxy | v0.1.0 |
 | spiderswitch | MCP-based model switching | v0.4.2 |
 | ai-lib-constitution | Rules for AI agents | - |
