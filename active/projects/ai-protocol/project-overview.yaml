@@ -21,6 +21,7 @@ current_phase: |
   WASM-001~003 **completed** in ai-lib-wasm + ailib-wasm-test docs. Wave-4 planning slice PT-054~PT-062 is **closed**
   in per-task YAMLs. **PT-074 unified credential chain completed** (2026-05-03); primary open engineering gate remains **PT-073**
   plus **runtime patch releases** (crates.io / PyPI / npm / Go module tags) to align consumers. Spider↔Cursor 自动化协作已**提升为全局流程治理**，不再挂在 PT-074 下。
+  **Version policy (2026-05-07):** PT-073 is **readiness for v1.0**, not an auto-bump switch; **1.0.0 train requires maintainer approval**; until then ship **0.x patch-only** increments — see `MEMORY.md` (Pre-v1.0 versioning).
 
 milestones:
   - id: "v0.7.4"

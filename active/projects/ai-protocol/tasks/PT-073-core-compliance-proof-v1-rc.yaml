@@ -13,13 +13,18 @@ labels:
   - "v1"
   - "compliance"
 created: "2026-04-01"
-updated: "2026-04-15"
+updated: "2026-05-07"
 executor_name: "alex"
 executor_terminal: "cursor-shell"
 
 description: |
-  Final gate before v1.0.0 release. Proves that the minimal execution layer
-  (Paper1 §3) is engineering-complete across all supported targets.
+  **Readiness work for v1.0.0** — proves the minimal execution layer (Paper1 §3)
+  is engineering-complete across supported targets **without** acting as an automatic
+  "flip switch" to 1.0. **Tagging and publishing v1.0.0** (release train below)
+  requires **explicit maintainer approval**. Until then, ship only **patch bumps**
+  on the current **0.x** series (e.g. 0.8.5 → 0.8.6). Rationale: after 1.0,
+  SemVer expects **backward-compatible** evolution for 1.x; preparation must stay
+  cautious as the gate fills in.
 
   Pre-1.0 policy (WAVE5 plan §1.4): backward compatibility is not a release gate;
   migration documentation and CHANGELOG are blocking instead.
@@ -68,7 +73,7 @@ description: |
   - [ ] MEMORY.md updated with v1.0.0 decision record
   - [ ] CHANGELOG for all packages
 
-  ## Release train (if gate PASS)
+  ## Release train (only after maintainer approves v1.0.0)
 
   1. Tag ai-protocol v1.0.0
   2. Tag ai-lib-core (Rust) v1.0.0
@@ -89,10 +94,10 @@ description: |
   - Undocumented breaking surface (CHANGELOG/migration missing) for intentional layout changes
 
 acceptance_criteria:
-  - "All gate checklist items PASS"
-  - "v1.0.0 release train executed with evidence"
-  - "Release notes published"
-  - "MEMORY.md records v1.0.0 decision"
+  - "All gate checklist items PASS (readiness proof complete on maintainer-approved criteria)"
+  - "If maintainer approves v1.0.0: release train executed with evidence; if not yet approved: documented deferral and continued 0.x patch releases only"
+  - "Release notes published for whatever version is actually shipped"
+  - "MEMORY.md records readiness status and maintainer decision (or pending) on v1.0.0 timing"
 
 dependencies:
   - "PT-068"

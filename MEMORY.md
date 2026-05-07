@@ -3,7 +3,21 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-04-30
+**Last Updated**: 2026-05-07
+
+---
+
+## Product cadence — matrix vs validation vs tooling (2026-05-07)
+
+- **主线**：多运行时 **合规矩阵** 与 **协议/运行时代码演进**（治理能力、语义对齐、WASM、文档）是工程主线。
+- **ZeroSpider 迁移**：视为代码库 **成熟度验证**（消费者集成、BYOK、缺省路径），不是替代主线本身。
+- **PR / CI / release 自动化**：工作中 **理顺协作与发版方法**，提高效率与可重复性；**不**等同于“产品已 ready”或“应自动升主版本”。
+
+## Pre-v1.0 versioning and PT-073 scope (2026-05-07)
+
+- **PT-073** 的目标是 **v1.0 的充分准备**（证据、门禁、迁移文档、治理检查），**不是**在代码或 CI 里自动判定“可以升级到 v1.0”的开关。
+- **将版本提升至 v1.0.0**（及各包 1.0.0 发布列车）**必须由 maintainer 明确批准**；在此之前，对外版本号 **仅按当前 0.x 系列的 patch（第三位）递增**（例如 0.8.x → 0.8.x+1），不擅自跨入 1.0.0。
+- **原因**：接近 v1.0 时工作量与风险集中；**v1.0 之后** SemVer 下 **1.x 默认承担向后兼容义务**，因此事前准备与变更节奏需更谨慎。
 
 ---
 
