@@ -37,6 +37,8 @@ pr:
   merge_target: "main"
   branch_pattern: "feat/zs-ml-phase7-011-014-protocol-ci"
   merge_commit: ""
+  related_repos:
+    - "ailib-official/ai-protocol"
 
 completion_notes: |
   Parity ledger: `docs/internal/legacy-manifest-parity.md`; integration test `tests/protocol_manifest_parity.rs`; fixture synced from canonical `openai.yaml` upstream.
