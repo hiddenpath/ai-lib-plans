@@ -36,13 +36,12 @@ pr:
   merge_commit: "bd15a62133445d6ef5a1c94ca6d59161c9c4ce08"
 
 completion_notes: |
-  Removed 11,833 lines across 24 files: 8 vendor HTTP adapter modules (anthropic, bedrock,
-  compatible, copilot, gemini, ollama, openai, openrouter), the `legacy-providers` Cargo
-  feature, the rust-legacy-regression CI job, and legacy test files. Provider construction
-  now exclusively uses the protocol-backed path (provider/model ids + ai-protocol manifests).
-  
-  PR #32 — reviewed and merged by Spider per GOV-003. CI passed (rust-protocol-required).
-  CHANGELOG Breaking section updated. Squash merge commit: bd15a62.
+  PR #32 reviewed and merged by Spider per GOV-003. Removed 11,833 lines across 24
+  files: 8 vendor HTTP adapter modules (anthropic, bedrock, compatible, copilot,
+  gemini, ollama, openai, openrouter), the `legacy-providers` Cargo feature, the
+  rust-legacy-regression CI job, and legacy test files. Provider construction now
+  exclusively uses the protocol-backed path (provider/model ids + ai-protocol
+  manifests). CI passed (rust-protocol-required). CHANGELOG Breaking section updated.
 
 testing:
   evidence_on_complete:
