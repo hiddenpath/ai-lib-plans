@@ -26,7 +26,7 @@
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|------|------|------|
 
-| ZS-ML-015 | [tasks/ZS-ML-015-remove-legacy-providers-implementation.yaml](./tasks/ZS-ML-015-remove-legacy-providers-implementation.yaml) | `pending` | 012, 014 | 删除/外置 legacy 实现 |
+| ZS-ML-015 | [tasks/ZS-ML-015-remove-legacy-providers-implementation.yaml](./tasks/ZS-ML-015-remove-legacy-providers-implementation.yaml) | `completed` | 012, 014 | [PR #32](https://github.com/ailib-official/zerospider/pull/32) (`bd15a62`) — Phase 7 删除 legacy HTTP provider factory |
 | ZS-ML-016 | [tasks/ZS-ML-016-docs-wizard-deprecation-ux.yaml](./tasks/ZS-ML-016-docs-wizard-deprecation-ux.yaml) | `pending` | 015 | 文档/向导/弃用信息终稿 |
 
 **执行约定**

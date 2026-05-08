@@ -1,7 +1,7 @@
 ---
 id: "ZS-ML-015"
 title: "Remove or extract legacy-providers HTTP factory (no default build surface)"
-status: "pending"
+status: "completed"
 priority: "critical"
 executor_name: "composer-agent"
 executor_terminal: "cursor-agent-p7-zsml"
@@ -32,14 +32,24 @@ pr:
   repo: "ailib-official/zerospider"
   merge_target: "main"
   branch_pattern: "feat/zs-ml-015-remove-legacy-providers"
-  url: ""
+  url: "https://github.com/ailib-official/zerospider/pull/32"
+  merge_commit: "bd15a62133445d6ef5a1c94ca6d59161c9c4ce08"
 
 completion_notes: |
-  DELAYED intentionally after ZS-ML-014 merges: requires deleting ~large `#[cfg(feature = \"legacy-providers\")]` surface, updating defaults (`openrouter`), list_providers/onboard/wizards, embeddings paths, TG7 tests, optional removal of redundant provider modules (~3k LOC risk). Open a dedicated PR after #31 lands.
+  Removed 11,833 lines across 24 files: 8 vendor HTTP adapter modules (anthropic, bedrock,
+  compatible, copilot, gemini, ollama, openai, openrouter), the `legacy-providers` Cargo
+  feature, the rust-legacy-regression CI job, and legacy test files. Provider construction
+  now exclusively uses the protocol-backed path (provider/model ids + ai-protocol manifests).
+  
+  PR #32 — reviewed and merged by Spider per GOV-003. CI passed (rust-protocol-required).
+  CHANGELOG Breaking section updated. Squash merge commit: bd15a62.
 
 testing:
   evidence_on_complete:
-    - "PR + merge_commit + optional pre-removal tag name"
+    - "CI passed (rust-protocol-required)"
+    - "PR #32: https://github.com/ailib-official/zerospider/pull/32"
+    - "merge_commit: bd15a62133445d6ef5a1c94ca6d59161c9c4ce08"
+    - "rg legacy-providers src .github Cargo.toml tests -> no matches"
 
 blocked_by:
   - "ZS-ML-014"
