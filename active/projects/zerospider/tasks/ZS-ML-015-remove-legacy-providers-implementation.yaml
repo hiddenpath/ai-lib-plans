@@ -1,0 +1,47 @@
+---
+id: "ZS-ML-015"
+title: "Remove or extract legacy-providers HTTP factory (no default build surface)"
+status: "pending"
+priority: "critical"
+assignee: "@ai"
+project: "zerospider"
+milestone: "ai-lib-migration-phase7"
+labels:
+  - "zerospider"
+  - "breaking"
+  - "legacy-removal"
+created: "2026-05-08"
+updated: "2026-05-08"
+description: |
+  Physical removal of legacy vendor match arms from `src/providers/mod.rs` (or move to a
+  separate optional crate). Remove `legacy-providers` feature once unused. Update doctor,
+  tests, and CI to drop legacy-regression job **after** code removal.
+
+  Semver: follow maintainer policy for 0.x (patch vs minor); document in CHANGELOG
+  Breaking section (removed string keys list).
+
+acceptance_criteria:
+  - "`rg legacy-providers src .github` shows no executable references (docs history optional)"
+  - "`cargo build/test --features ai-protocol --locked` full matrix green"
+  - "CHANGELOG Breaking + migration pointer"
+  - "Rollback tag or revert plan noted in PR body"
+
+pr:
+  repo: "ailib-official/zerospider"
+  merge_target: "main"
+  branch_pattern: "feat/zs-ml-015-remove-legacy-providers"
+
+testing:
+  commands_must_pass:
+    - "cargo test -p zerospider --features ai-protocol --locked"
+    - "cargo clippy -p zerospider --features ai-protocol -- -D warnings"
+  negative_checks:
+    - "Legacy keys return structured error with migration doc URL (smoke test or unit test)"
+  evidence_on_complete:
+    - "PR + merge_commit + optional pre-removal tag name"
+
+blocked_by:
+  - "ZS-ML-014"
+  - "ZS-ML-012"
+
+related_plan: "active/projects/zerospider/ZEROSPIDER_PHASE7_LEGACY_ELIMINATION_PLAN_2026-05-08.md#zs-ml-015--删除--迁出-legacy-providers"

@@ -2,13 +2,17 @@
 title: ZeroSpider ai-lib Migration — Executable Step Plan
 status: in_progress
 created: 2026-04-22
-updated: 2026-04-28
+updated: 2026-05-08
 progress_notes: >
   Phase 0–6 scaffolding shipped via ZS-ML-001~006. ZS-ML-001 (PR #12, db21bfd),
   ZS-ML-002 (PR #11, 5e0925d), ZS-ML-003~006 (PR #14, aa3214a — batch PR;
   future tasks return to one-task-one-PR). Legacy factory now default-feature
   excluded behind `legacy-providers`; routing_mvp compile gate, migration guide,
   and compatibility window docs are in tree.
+phase7_plan: >
+  **Phase 7 (2026-05-08):** semantic semver pin, CI protocol-primary, manifest parity
+  audit, and **physical removal** of legacy HTTP factory — see
+  `ZEROSPIDER_PHASE7_LEGACY_ELIMINATION_PLAN_2026-05-08.md` and task YAMLs ZS-ML-011~016.
 pending_rectification: >
   2026-04-27 audit (`AUDIT_2026-04-27.md`) flagged Phase 1/4/5/6 runtime gaps.
   Dev-side cross-check (`AUDIT_2026-04-27_ADDENDUM.md`, 2026-04-28) confirmed

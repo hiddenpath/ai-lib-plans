@@ -1,0 +1,40 @@
+---
+id: "ZS-ML-012"
+title: "Replace ai-lib-rust git pin with crates.io semver + Cargo.lock (--locked)"
+status: "pending"
+priority: "critical"
+assignee: "@ai"
+project: "zerospider"
+milestone: "ai-lib-migration-phase7"
+labels:
+  - "zerospider"
+  - "dependencies"
+  - "ai-lib-rust"
+created: "2026-05-08"
+updated: "2026-05-08"
+description: |
+  `Cargo.toml` currently pins `ai-lib-rust` via git `rev` (PT-074 rollout).
+  Publish path is now 0.9.6+ on crates.io with credential chain APIs.
+
+  Switch to `version = "…"` (exact or conservative range per team policy). Regenerate
+  lockfile minimally. Ensure optional `routing_mvp` / other forwarded features still resolve.
+
+acceptance_criteria:
+  - "No `git =` / `rev =` for ai-lib-rust in Cargo.toml (except documented `[patch]` for local dev)"
+  - "`cargo tree -p ai-lib-rust` shows crates.io/registry source"
+  - "CI uses `--locked` where applicable; all required jobs green"
+
+pr:
+  repo: "ailib-official/zerospider"
+  merge_target: "main"
+  branch_pattern: "feat/zs-ml-012-ai-lib-rust-crates-io"
+
+testing:
+  commands_must_pass:
+    - "cargo fetch --locked"
+    - "cargo test -p zerospider --features ai-protocol --locked"
+    - "cargo test -p zerospider --features \"ai-protocol legacy-providers\" --locked"
+  evidence_on_complete:
+    - "PR link + merge_commit + before/after cargo tree snippet"
+
+related_plan: "active/projects/zerospider/ZEROSPIDER_PHASE7_LEGACY_ELIMINATION_PLAN_2026-05-08.md#zs-ml-012--ailib-rust-cratesio-与-lockfile"

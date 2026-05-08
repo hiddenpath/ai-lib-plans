@@ -1,0 +1,43 @@
+---
+id: "ZS-ML-016"
+title: "Docs + wizard/doctor UX: protocol-only path, deprecation messaging, smoke checklist"
+status: "pending"
+priority: "medium"
+assignee: "@ai"
+project: "zerospider"
+milestone: "ai-lib-migration-phase7"
+labels:
+  - "zerospider"
+  - "docs"
+  - "ux"
+created: "2026-05-08"
+updated: "2026-05-08"
+description: |
+  Align README, migration guides, and runtime errors so users are always steered to
+  `provider/model` + `AI_PROTOCOL_DIR`. Update doctor / CLI paths when legacy keys
+  are detected post-ZS-ML-015.
+
+  Refresh docs contract tests if present.
+
+acceptance_criteria:
+  - "README quickstart uses protocol path only"
+  - "docs/migration-legacy-to-protocol.md states removal version and last legacy-capable version if applicable"
+  - "PR template manual checklist for fresh-clone protocol smoke (or scripted)"
+  - "docs_contract tests green if repo has them"
+
+pr:
+  repo: "ailib-official/zerospider"
+  merge_target: "main"
+  branch_pattern: "docs/zs-ml-016-protocol-only-ux"
+
+testing:
+  commands_must_pass:
+    - "cargo test -p zerospider --test docs_contract_contributing --features ai-protocol --locked"
+    - "# or equivalent docs gate defined in repo"
+  manual_checklist_in_pr:
+    - "Fresh clone: set AI_PROTOCOL_DIR, run one mock or smoke command without legacy feature"
+
+blocked_by:
+  - "ZS-ML-015"
+
+related_plan: "active/projects/zerospider/ZEROSPIDER_PHASE7_LEGACY_ELIMINATION_PLAN_2026-05-08.md#zs-ml-016--文档向导与用户体验"

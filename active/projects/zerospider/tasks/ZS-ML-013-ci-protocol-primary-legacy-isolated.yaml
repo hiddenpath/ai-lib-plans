@@ -1,0 +1,41 @@
+---
+id: "ZS-ML-013"
+title: "CI: required jobs protocol-only; legacy-providers in isolated regression job(s)"
+status: "pending"
+priority: "high"
+assignee: "@ai"
+project: "zerospider"
+milestone: "ai-lib-migration-phase7"
+labels:
+  - "zerospider"
+  - "ci"
+  - "ai-protocol"
+created: "2026-05-08"
+updated: "2026-05-08"
+description: |
+  Merge gate must not implicitly require `legacy-providers` for default correctness.
+
+  Refactor `.github/workflows/*.yml` so **required** matrix uses `--features ai-protocol`
+  (matching `default`). Add explicit **legacy-regression** job that runs
+  `cargo test … --features \"ai-protocol legacy-providers\"` until ZS-ML-015 removes legacy.
+
+  Document local commands for contributors touching `providers/mod.rs` legacy arms.
+
+acceptance_criteria:
+  - "Branch protection / merge requirements attach only to protocol-primary jobs"
+  - "Legacy job still exists and passes on main until ZS-ML-015"
+  - "CONTRIBUTING or docs mention when to run legacy command locally"
+
+pr:
+  repo: "ailib-official/zerospider"
+  merge_target: "main"
+  branch_pattern: "feat/zs-ml-013-ci-protocol-primary"
+
+testing:
+  evidence_on_complete:
+    - "Links to two CI runs: required (protocol) + legacy-regression"
+  commands_must_pass_locally:
+    - "cargo test -p zerospider --features ai-protocol --locked"
+    - "cargo test -p zerospider --features \"ai-protocol legacy-providers\" --locked"
+
+related_plan: "active/projects/zerospider/ZEROSPIDER_PHASE7_LEGACY_ELIMINATION_PLAN_2026-05-08.md#zs-ml-013--ciail-protocol-为主legacy-providers-为隔离回归"
