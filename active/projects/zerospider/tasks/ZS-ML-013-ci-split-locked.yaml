@@ -1,0 +1,64 @@
+---
+id: "ZS-ML-013"
+title: "Phase 7: CI split — rust-protocol-required vs rust-legacy-regression"
+status: "completed"
+priority: "high"
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
+assignee: "@tbd"
+project: "zerospider"
+milestone: "ai-lib-migration"
+labels:
+  - "zerospider"
+  - "phase-7"
+  - "ci"
+created: "2026-05-08"
+updated: "2026-05-08"
+description: |
+  Phase 7 — Split CI into two independent jobs so merge gate does not implicitly
+  require legacy-providers feature.
+
+  - `rust-protocol-required` (merge gate): fmt, clippy, check + test with default
+    features and ai-protocol-only (no legacy-providers).
+  - `rust-legacy-regression`: cargo fetch --locked, fmt, clippy, test with
+    ai-protocol + legacy-providers (regression detection, not merge blocking).
+  - All cargo invocations use `--locked` to enforce Cargo.lock reproducibility.
+  - Add no-default-features protocol-only check + test steps.
+
+acceptance_criteria:
+  - "CI has two independent jobs: rust-protocol-required and rust-legacy-regression"
+  - "Merge gate (rust-protocol-required) does not use legacy-providers"
+  - "All cargo invocations use --locked"
+  - "rust-legacy-regression includes cargo fmt + cargo clippy + cargo test"
+  - "GitHub Actions CI passes on the PR branch"
+
+pr:
+  repo: "ailib-official/zerospider"
+  branch_pattern: "feat/zs-ml-phase7-011-014-*"
+  merge_target: "main"
+  branch: "feat/zs-ml-phase7-011-014-protocol-ci"
+  url: "https://github.com/ailib-official/zerospider/pull/31"
+  compare_url: "https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-phase7-011-014-protocol-ci"
+  merge_commit: "83ff308"
+
+testing:
+  unit_tests: []
+  integration:
+    - "GitHub Actions CI pass (both jobs)"
+  evidence_on_complete:
+    - "PR #31 merged (83ff308) — combined PR for ZS-ML-011..014"
+  evidence_current:
+    - "PR url: https://github.com/ailib-official/zerospider/pull/31"
+    - "Merge commit: 83ff308"
+    - "CI: GitHub Actions success (2 runs)"
+
+related_plan_section: "Phase 7"
+blocked_by:
+  - "ZS-ML-012"
+blocks: []
+
+completion_notes: |
+  Merged as part of combined PR #31 (ZS-ML-011..014).
+  Phase 7 exception to "one task, one PR" convention due to tight cross-dependencies.
+  Reviewed by Spider. CI passed. rust-legacy-regression includes fmt+clippy (added
+  during review fix cycle). Merge commit 83ff308.

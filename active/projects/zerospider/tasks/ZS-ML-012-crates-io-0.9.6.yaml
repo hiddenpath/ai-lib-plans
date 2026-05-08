@@ -1,0 +1,60 @@
+---
+id: "ZS-ML-012"
+title: "Phase 7: ai-lib-rust from crates.io 0.9.6 with updated Cargo.lock"
+status: "completed"
+priority: "high"
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
+assignee: "@tbd"
+project: "zerospider"
+milestone: "ai-lib-migration"
+labels:
+  - "zerospider"
+  - "phase-7"
+  - "dependencies"
+created: "2026-05-08"
+updated: "2026-05-08"
+description: |
+  Phase 7 — Switch ai-lib-rust dependency from git pin to crates.io.
+
+  - Replace `ai-lib-rust = { git = "...", rev = "..." }` with
+    `ai-lib-rust = { version = "0.9.6", optional = true }`
+  - Update Cargo.lock to match crates.io resolution (ai-lib-core 0.9.6,
+    ai-lib-contact 0.9.6, ai-lib-rust 0.9.6)
+  - Update docs/ai-lib-migration.md version matrix to recommend 0.9.6+
+  - Document local [patch.crates-io] alternative in migration doc
+
+acceptance_criteria:
+  - "Cargo.toml uses `version = \"0.9.6\"` (not git pin)"
+  - "cargo fetch --locked + git diff --exit-code Cargo.lock passes"
+  - "cargo test --workspace --features ai-protocol --locked passes"
+  - "docs/ai-lib-migration.md updated with 0.9.6+ recommendation and [patch.crates-io] guidance"
+
+pr:
+  repo: "ailib-official/zerospider"
+  branch_pattern: "feat/zs-ml-phase7-011-014-*"
+  merge_target: "main"
+  branch: "feat/zs-ml-phase7-011-014-protocol-ci"
+  url: "https://github.com/ailib-official/zerospider/pull/31"
+  compare_url: "https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-phase7-011-014-protocol-ci"
+  merge_commit: "83ff308"
+
+testing:
+  unit_tests: []
+  integration:
+    - "cargo test --workspace --features ai-protocol --locked"
+  evidence_on_complete:
+    - "PR #31 merged (83ff308) — combined PR for ZS-ML-011..014"
+  evidence_current:
+    - "PR url: https://github.com/ailib-official/zerospider/pull/31"
+    - "Merge commit: 83ff308"
+
+related_plan_section: "Phase 7"
+blocked_by:
+  - "ZS-ML-011"
+blocks: []
+
+completion_notes: |
+  Merged as part of combined PR #31 (ZS-ML-011..014).
+  Phase 7 exception to "one task, one PR" convention due to tight cross-dependencies.
+  Reviewed by Spider. CI passed. Merge commit 83ff308.

@@ -1,0 +1,57 @@
+---
+id: "ZS-ML-011"
+title: "Phase 7: CONTRIBUTING + docs canonical remote / upstream hygiene"
+status: "completed"
+priority: "high"
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
+assignee: "@tbd"
+project: "zerospider"
+milestone: "ai-lib-migration"
+labels:
+  - "zerospider"
+  - "phase-7"
+  - "docs"
+created: "2026-05-08"
+updated: "2026-05-08"
+description: |
+  Phase 7 — Document canonical git remote hygiene and upstream conventions.
+
+  - Add "Canonical Git remote" section to CONTRIBUTING.md explaining
+    ailib-official/zerospider as the single canonical remote, how to fix
+    mismatched `origin` from archived hiddenpath clones.
+  - Update docs/ai-lib-migration.md to reference the new CONTRIBUTING section.
+  - Remove any stale hiddenpath references.
+
+acceptance_criteria:
+  - "CONTRIBUTING.md includes canonical remote setup instructions"
+  - "docs/ai-lib-migration.md references the CONTRIBUTING canonical remote section"
+  - "No hiddenpath URLs remain in public repo docs (GOV-001)"
+
+pr:
+  repo: "ailib-official/zerospider"
+  branch_pattern: "feat/zs-ml-phase7-011-014-*"
+  merge_target: "main"
+  branch: "feat/zs-ml-phase7-011-014-protocol-ci"
+  url: "https://github.com/ailib-official/zerospider/pull/31"
+  compare_url: "https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-phase7-011-014-protocol-ci"
+  merge_commit: "83ff308"
+
+testing:
+  unit_tests: []
+  integration: []
+  evidence_on_complete:
+    - "PR #31 merged (83ff308) — combined PR for ZS-ML-011..014"
+  evidence_current:
+    - "PR url: https://github.com/ailib-official/zerospider/pull/31"
+    - "Merge commit: 83ff308"
+
+related_plan_section: "Phase 7"
+blocked_by: []
+blocks:
+  - "ZS-ML-012"
+
+completion_notes: |
+  Merged as part of combined PR #31 (ZS-ML-011..014).
+  Phase 7 exception to "one task, one PR" convention due to tight cross-dependencies.
+  Reviewed by Spider. CI passed. Merge commit 83ff308.

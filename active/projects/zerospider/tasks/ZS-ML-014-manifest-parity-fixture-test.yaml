@@ -1,0 +1,70 @@
+---
+id: "ZS-ML-014"
+title: "Phase 7: Legacy manifest parity docs + openai V2 fixture + integration test"
+status: "completed"
+priority: "high"
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
+assignee: "@tbd"
+project: "zerospider"
+milestone: "ai-lib-migration"
+labels:
+  - "zerospider"
+  - "phase-7"
+  - "docs"
+  - "testing"
+created: "2026-05-08"
+updated: "2026-05-08"
+description: |
+  Phase 7 — Document legacy factory ↔ ai-protocol manifest parity, add
+  checked-in openai V2 YAML fixture for CI reproducibility, and add
+  integration test.
+
+  - `docs/internal/legacy-manifest-parity.md`: coverage table mapping legacy
+    provider names (openrouter, anthropic, openai, gemini, ollama, bedrock)
+    to ai-protocol provider IDs.
+  - `tests/fixtures/ai-protocol-min/v2/providers/openai.yaml`: checked-in copy
+    of openai V2 manifest for offline CI.
+  - `tests/protocol_manifest_parity.rs`: integration test resolving
+    `openai/gpt-5.2` via fixture without legacy-providers.
+  - Negative test: unknown provider without AI_PROTOCOL_DIR produces
+    informative error message.
+
+acceptance_criteria:
+  - "docs/internal/legacy-manifest-parity.md written with coverage of ≥6 legacy provider families"
+  - "openai V2 fixture YAML checked in under tests/fixtures/ai-protocol-min/"
+  - "protocol_manifest_parity.rs tests protocol-only resolution (no legacy-providers)"
+  - "Negative test verifies informative error on unknown provider without AI_PROTOCOL_DIR"
+  - "All tests pass with --no-default-features --features ai-protocol --locked"
+
+pr:
+  repo: "ailib-official/zerospider"
+  branch_pattern: "feat/zs-ml-phase7-011-014-*"
+  merge_target: "main"
+  branch: "feat/zs-ml-phase7-011-014-protocol-ci"
+  url: "https://github.com/ailib-official/zerospider/pull/31"
+  compare_url: "https://github.com/ailib-official/zerospider/compare/main...feat/zs-ml-phase7-011-014-protocol-ci"
+  merge_commit: "83ff308"
+
+testing:
+  unit_tests:
+    - "protocol_fixture_resolves_openai_without_legacy"
+    - "protocol_unknown_provider_surfaces_hint_without_protocol_env"
+  integration: []
+  evidence_on_complete:
+    - "PR #31 merged (83ff308) — combined PR for ZS-ML-011..014"
+  evidence_current:
+    - "PR url: https://github.com/ailib-official/zerospider/pull/31"
+    - "Merge commit: 83ff308"
+    - "Negative test: ProtocolRootsClearedGuard + protocol_unknown_provider_surfaces_hint_without_protocol_env"
+
+related_plan_section: "Phase 7"
+blocked_by:
+  - "ZS-ML-013"
+blocks: []
+
+completion_notes: |
+  Merged as part of combined PR #31 (ZS-ML-011..014).
+  Phase 7 exception to "one task, one PR" convention due to tight cross-dependencies.
+  Reviewed by Spider. CI passed. Negative test and ProtocolRootsClearedGuard added
+  during review fix cycle (Cursor). Merge commit 83ff308.
