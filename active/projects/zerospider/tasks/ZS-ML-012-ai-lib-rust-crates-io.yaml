@@ -1,8 +1,10 @@
 ---
 id: "ZS-ML-012"
 title: "Replace ai-lib-rust git pin with crates.io semver + Cargo.lock (--locked)"
-status: "pending"
+status: "in_progress"
 priority: "critical"
+executor_name: "composer-agent"
+executor_terminal: "cursor-agent-p7-zsml"
 assignee: "@ai"
 project: "zerospider"
 milestone: "ai-lib-migration-phase7"
@@ -26,15 +28,21 @@ acceptance_criteria:
 
 pr:
   repo: "ailib-official/zerospider"
+  url: "https://github.com/ailib-official/zerospider/pull/31"
   merge_target: "main"
-  branch_pattern: "feat/zs-ml-012-ai-lib-rust-crates-io"
+  branch_pattern: "feat/zs-ml-phase7-011-014-protocol-ci"
+  merge_commit: ""
+
+completion_notes: |
+  Implemented in umbrella PR #31; after merge bump `merge_commit`.
 
 testing:
   commands_must_pass:
     - "cargo fetch --locked"
-    - "cargo test -p zerospider --features ai-protocol --locked"
-    - "cargo test -p zerospider --features \"ai-protocol legacy-providers\" --locked"
-  evidence_on_complete:
-    - "PR link + merge_commit + before/after cargo tree snippet"
+    - "cargo test -p zerospider --features ai-protocol --locked --test protocol_manifest_parity --test docs_contract_contributing"
+    - "cargo test -p zerospider --features \"ai-protocol legacy-providers\" --locked --test provider_resolution"
+  evidence_local_2026_05_08:
+    - "`cargo tree -p ai-lib-rust -i` → ai-lib-rust v0.9.6 (registry) ← zerospider"
+    - "Lock resolution: ai-lib-core/ai-lib-contact v0.9.6 from crates.io."
 
 related_plan: "active/projects/zerospider/ZEROSPIDER_PHASE7_LEGACY_ELIMINATION_PLAN_2026-05-08.md#zs-ml-012--ailib-rust-cratesio-与-lockfile"

@@ -21,10 +21,10 @@
 
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|------|------|------|
-| ZS-ML-011 | [tasks/ZS-ML-011-canonical-remote-upstream.yaml](./tasks/ZS-ML-011-canonical-remote-upstream.yaml) | `pending` | — | `ailib-official` 为默认远端 / `main` 上游 |
-| ZS-ML-012 | [tasks/ZS-ML-012-ai-lib-rust-crates-io.yaml](./tasks/ZS-ML-012-ai-lib-rust-crates-io.yaml) | `pending` | 建议 011 后 | `ai-lib-rust` crates.io + `--locked` |
-| ZS-ML-013 | [tasks/ZS-ML-013-ci-protocol-primary-legacy-isolated.yaml](./tasks/ZS-ML-013-ci-protocol-primary-legacy-isolated.yaml) | `pending` | — | 合并必选 job 不隐式依赖 legacy |
-| ZS-ML-014 | [tasks/ZS-ML-014-legacy-manifest-parity-audit.yaml](./tasks/ZS-ML-014-legacy-manifest-parity-audit.yaml) | `pending` | — | legacy 臂 ↔ ai-protocol 覆盖表 + 单测 |
+| ZS-ML-011 | [tasks/ZS-ML-011-canonical-remote-upstream.yaml](./tasks/ZS-ML-011-canonical-remote-upstream.yaml) | `in_progress (PR)` | — | [PR #31](https://github.com/ailib-official/zerospider/pull/31) — 与同 PR 内含 012–014；合入后再标 `completed` |
+| ZS-ML-012 | [tasks/ZS-ML-012-ai-lib-rust-crates-io.yaml](./tasks/ZS-ML-012-ai-lib-rust-crates-io.yaml) | `in_progress (PR)` | 建议 011 后 | 同上 PR #31 |
+| ZS-ML-013 | [tasks/ZS-ML-013-ci-protocol-primary-legacy-isolated.yaml](./tasks/ZS-ML-013-ci-protocol-primary-legacy-isolated.yaml) | `in_progress (PR)` | — | 同上 PR #31 |
+| ZS-ML-014 | [tasks/ZS-ML-014-legacy-manifest-parity-audit.yaml](./tasks/ZS-ML-014-legacy-manifest-parity-audit.yaml) | `in_progress (PR)` | — | 同上 PR #31 |
 | ZS-ML-015 | [tasks/ZS-ML-015-remove-legacy-providers-implementation.yaml](./tasks/ZS-ML-015-remove-legacy-providers-implementation.yaml) | `pending` | 012, 014 | 删除/外置 legacy 实现 |
 | ZS-ML-016 | [tasks/ZS-ML-016-docs-wizard-deprecation-ux.yaml](./tasks/ZS-ML-016-docs-wizard-deprecation-ux.yaml) | `pending` | 015 | 文档/向导/弃用信息终稿 |
 
@@ -38,7 +38,7 @@
 
 - **基础阶段（ZS-ML-001 ~ 006）** — 已合入：PR #11 / `5e0925d`、PR #12 / `db21bfd`、PR #14 / `aa3214a`（ZS-ML-003~006 组合 PR）。
 - **整改阶段（ZS-ML-007 ~ 010）** — 已完成并合入/回填：PR #19 (`a8f0392`)、PR #20 (`0148bdc`)、PR #21 (`6fe40cc`)；ZS-ML-010 为 plans-governance 直推回填任务。
-- **Phase 7（ZS-ML-011 ~ 016）** — **进行中（pending）**：见 `ZEROSPIDER_PHASE7_LEGACY_ELIMINATION_PLAN_2026-05-08.md`（crates.io 收口、CI 语义、manifest 审计、legacy 物理删除）。
+- **Phase 7（ZS-ML-011 ~ 016）** — **011–014 已开 PR #31**（合入后回填 merge commit + 标 completed）；015–016 仍为待办（legacy 物理删除 + UX 终稿）。
 
 **审计参考**
 

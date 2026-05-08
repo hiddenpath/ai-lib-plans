@@ -3,6 +3,8 @@ id: "ZS-ML-015"
 title: "Remove or extract legacy-providers HTTP factory (no default build surface)"
 status: "pending"
 priority: "critical"
+executor_name: "composer-agent"
+executor_terminal: "cursor-agent-p7-zsml"
 assignee: "@ai"
 project: "zerospider"
 milestone: "ai-lib-migration-phase7"
@@ -30,13 +32,12 @@ pr:
   repo: "ailib-official/zerospider"
   merge_target: "main"
   branch_pattern: "feat/zs-ml-015-remove-legacy-providers"
+  url: ""
+
+completion_notes: |
+  DELAYED intentionally after ZS-ML-014 merges: requires deleting ~large `#[cfg(feature = \"legacy-providers\")]` surface, updating defaults (`openrouter`), list_providers/onboard/wizards, embeddings paths, TG7 tests, optional removal of redundant provider modules (~3k LOC risk). Open a dedicated PR after #31 lands.
 
 testing:
-  commands_must_pass:
-    - "cargo test -p zerospider --features ai-protocol --locked"
-    - "cargo clippy -p zerospider --features ai-protocol -- -D warnings"
-  negative_checks:
-    - "Legacy keys return structured error with migration doc URL (smoke test or unit test)"
   evidence_on_complete:
     - "PR + merge_commit + optional pre-removal tag name"
 

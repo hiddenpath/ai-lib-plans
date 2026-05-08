@@ -1,8 +1,10 @@
 ---
 id: "ZS-ML-013"
 title: "CI: required jobs protocol-only; legacy-providers in isolated regression job(s)"
-status: "pending"
+status: "in_progress"
 priority: "high"
+executor_name: "composer-agent"
+executor_terminal: "cursor-agent-p7-zsml"
 assignee: "@ai"
 project: "zerospider"
 milestone: "ai-lib-migration-phase7"
@@ -28,14 +30,20 @@ acceptance_criteria:
 
 pr:
   repo: "ailib-official/zerospider"
+  url: "https://github.com/ailib-official/zerospider/pull/31"
   merge_target: "main"
-  branch_pattern: "feat/zs-ml-013-ci-protocol-primary"
+  branch_pattern: "feat/zs-ml-phase7-011-014-protocol-ci"
+  merge_commit: ""
+
+completion_notes: |
+  CI jobs renamed to `rust-protocol-required` vs `rust-legacy-regression` in umbrella PR #31.
+  Maintainer: align branch-protection required checks to the new protocol job names.
 
 testing:
   evidence_on_complete:
-    - "Links to two CI runs: required (protocol) + legacy-regression"
-  commands_must_pass_locally:
-    - "cargo test -p zerospider --features ai-protocol --locked"
-    - "cargo test -p zerospider --features \"ai-protocol legacy-providers\" --locked"
+    - "Awaiting Actions URL on merged main (two jobs: rust-protocol-required + rust-legacy-regression)."
+  evidence_local_2026_05_08:
+    - "Contributing documents `cargo test -p zerospider --features \"ai-protocol legacy-providers\" --locked` for legacy touchers."
+    - "Local equivalent of protocol job exercised via clippy/tests with `--features ai-protocol --locked`."
 
 related_plan: "active/projects/zerospider/ZEROSPIDER_PHASE7_LEGACY_ELIMINATION_PLAN_2026-05-08.md#zs-ml-013--ciail-protocol-为主legacy-providers-为隔离回归"

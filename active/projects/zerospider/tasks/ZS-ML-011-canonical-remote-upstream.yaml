@@ -1,8 +1,10 @@
 ---
 id: "ZS-ML-011"
 title: "Canonical Git remote: ailib-official as default + main tracks official main"
-status: "pending"
+status: "in_progress"
 priority: "high"
+executor_name: "composer-agent"
+executor_terminal: "cursor-agent-p7-zsml"
 assignee: "@maintainer"
 project: "zerospider"
 milestone: "ai-lib-migration-phase7"
@@ -30,15 +32,21 @@ acceptance_criteria:
 
 pr:
   repo: "ailib-official/zerospider"
+  url: "https://github.com/ailib-official/zerospider/pull/31"
   merge_target: "main"
-  branch_pattern: "chore/zs-ml-011-canonical-remote-docs"
+  branch_pattern: "feat/zs-ml-phase7-011-014-protocol-ci"
+  merge_commit: ""
+
+completion_notes: |
+  Landed alongside ZS-ML-012/013/014 in a single Phase-7 umbrella PR (#31).
+  After merge to main, flip `merge_commit`, set task `completed`, run required CI checks on main.
 
 testing:
   evidence_on_complete:
-    - "Paste output of: git remote -v; git branch -vv; git rev-parse main ailib-official/main"
-  commands_must_pass:
-    - "git rev-parse main"
-    - "git rev-parse ailib-official/main"
-    - "# expect: equal SHAs when synced"
+    - "`git branch --set-upstream-to=ailib-official/main main`; `git rev-parse main` = `git rev-parse ailib-official/main` = d04b00985badb191507a5694e2ad0bbcf2925d06 (baseline before umbrella PR merge)."
+  evidence_local_2026_05_08:
+    - "CONTRIBUTING § Canonical Git remote + clone wording; docs/ai-lib-migration clone hygiene paragraph."
+    - "`git remote -v` still shows archived origin pointing at hiddenpath in this executor clone — pushes for PR opened via remote `ailib-official` (GOV-001 — do not rely on hiddenpath as canonical push target)."
+    - "ZS-ML-015+ MUST repoint clone `origin` or avoid pushing feature branches only to archived remote."
 
 related_plan: "active/projects/zerospider/ZEROSPIDER_PHASE7_LEGACY_ELIMINATION_PLAN_2026-05-08.md#zs-ml-011--远端与跟踪分支"
