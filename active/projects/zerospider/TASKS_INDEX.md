@@ -26,7 +26,7 @@
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|------|------|------|
 
-| ZS-ML-015 | [tasks/ZS-ML-015-remove-legacy-providers-implementation.yaml](./tasks/ZS-ML-015-remove-legacy-providers-implementation.yaml) | `pending` | 012, 014 | 删除/外置 legacy 实现 |
+| ZS-ML-015 | [tasks/ZS-ML-015-remove-legacy-providers-implementation.yaml](./tasks/ZS-ML-015-remove-legacy-providers-implementation.yaml) | `in_progress (PR)` | 012, 014 | [PR #32](https://github.com/ailib-official/zerospider/pull/32) — 删除 legacy HTTP factory |
 | ZS-ML-016 | [tasks/ZS-ML-016-docs-wizard-deprecation-ux.yaml](./tasks/ZS-ML-016-docs-wizard-deprecation-ux.yaml) | `pending` | 015 | 文档/向导/弃用信息终稿 |
 
 **执行约定**
@@ -39,7 +39,7 @@
 
 - **基础阶段（ZS-ML-001 ~ 006）** — 已合入：PR #11 / `5e0925d`、PR #12 / `db21bfd`、PR #14 / `aa3214a`（ZS-ML-003~006 组合 PR）。
 - **整改阶段（ZS-ML-007 ~ 010）** — 已完成并合入/回填：PR #19 (`a8f0392`)、PR #20 (`0148bdc`)、PR #21 (`6fe40cc`)；ZS-ML-010 为 plans-governance 直推回填任务。
-- **Phase 7（ZS-ML-011 ~ 016）** — **011–014 已合入**：PR #31 / `83ff308`（组合 PR，因跨依赖紧密获例外）；015–016 仍为待办（legacy 物理删除 + UX 终稿）。
+- **Phase 7（ZS-ML-011 ~ 016）** — **011–014 已合入**：PR #31 / `83ff308`（组合 PR，因跨依赖紧密获例外）；015 已开 PR #32（legacy 物理删除）；016 仍为待办（UX 终稿）。
 
 **审计参考**
 

@@ -1,7 +1,7 @@
 ---
 id: "ZS-ML-015"
 title: "Remove or extract legacy-providers HTTP factory (no default build surface)"
-status: "pending"
+status: "in_progress"
 priority: "critical"
 executor_name: "composer-agent"
 executor_terminal: "cursor-agent-p7-zsml"
@@ -32,14 +32,23 @@ pr:
   repo: "ailib-official/zerospider"
   merge_target: "main"
   branch_pattern: "feat/zs-ml-015-remove-legacy-providers"
-  url: ""
+  url: "https://github.com/ailib-official/zerospider/pull/32"
 
 completion_notes: |
-  DELAYED intentionally after ZS-ML-014 merges: requires deleting ~large `#[cfg(feature = \"legacy-providers\")]` surface, updating defaults (`openrouter`), list_providers/onboard/wizards, embeddings paths, TG7 tests, optional removal of redundant provider modules (~3k LOC risk). Open a dedicated PR after #31 lands.
+  PR #32 opened after ZS-ML-011..014 merged. Implementation hard-removes the
+  `legacy-providers` feature, old vendor HTTP adapter modules, legacy CI job,
+  and `tests/provider_resolution.rs`; provider construction now errors on old
+  string keys with a migration pointer to `provider/model` + ai-protocol.
 
 testing:
   evidence_on_complete:
     - "PR + merge_commit + optional pre-removal tag name"
+  evidence_pr_32_local_2026_05_08:
+    - "`rg legacy-providers src .github Cargo.toml tests` -> no matches."
+    - "`cargo check -p zerospider --features ai-protocol --locked` -> pass."
+    - "`cargo check -p zerospider --no-default-features --features ai-protocol --lib --locked` -> pass."
+    - "`cargo clippy -p zerospider --all-targets --features ai-protocol --locked -- -D warnings` -> pass."
+    - "`cargo test -p zerospider --features ai-protocol --locked` -> unit/integration tests pass; doctest link failed on Windows with `No space left on device` from mingw linker."
 
 blocked_by:
   - "ZS-ML-014"
