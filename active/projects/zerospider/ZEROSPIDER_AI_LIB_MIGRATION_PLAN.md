@@ -1,8 +1,8 @@
 ---
 title: ZeroSpider ai-lib Migration — Executable Step Plan
-status: in_progress
+status: completed
 created: 2026-04-22
-updated: 2026-05-08
+updated: 2026-05-10
 progress_notes: >
   Phase 0–6 scaffolding shipped via ZS-ML-001~006. ZS-ML-001 (PR #12, db21bfd),
   ZS-ML-002 (PR #11, 5e0925d), ZS-ML-003~006 (PR #14, aa3214a — batch PR;

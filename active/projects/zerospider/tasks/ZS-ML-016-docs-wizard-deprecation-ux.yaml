@@ -32,6 +32,7 @@ pr:
   merge_target: "main"
   branch_pattern: "docs/zs-ml-016-protocol-only-ux"
   url: "https://github.com/ailib-official/zerospider/pull/33"
+  merge_commit: "21831717d39b22f924e792dea18c72569590a2c0"
 
 blocked_by:
   - "ZS-ML-015"
