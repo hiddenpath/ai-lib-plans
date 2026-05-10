@@ -1,7 +1,7 @@
 ---
 id: "ZS-ML-016"
 title: "Docs + wizard/doctor UX: protocol-only path, deprecation messaging, smoke checklist"
-status: "in_progress"
+status: "completed"
 priority: "medium"
 executor_name: "composer-agent"
 executor_terminal: "cursor-agent-p7-zsml"
@@ -13,7 +13,7 @@ labels:
   - "docs"
   - "ux"
 created: "2026-05-08"
-updated: "2026-05-09"
+updated: "2026-05-10"
 description: |
   Align README, migration guides, and runtime errors so users are always steered to
   `provider/model` + `AI_PROTOCOL_DIR`. Update doctor / CLI paths when legacy keys
@@ -36,11 +36,12 @@ pr:
 blocked_by:
   - "ZS-ML-015"
 
-completion_notes: |
-  PR #33 opened after ZS-ML-015 merge/backfill. It aligns runtime fallbacks, onboarding, Docker/bootstrap examples, README/docs references, and the PR template around protocol-only `provider/model` ids backed by `AI_PROTOCOL_DIR`.
+completion_notes: | 
+  PR #33 opened after ZS-ML-015 merge/backfill. It aligns runtime fallbacks, onboarding, Docker/bootstrap examples, README/docs references, and the PR template around protocol-only `provider/model` ids backed by `AI_PROTOCOL_DIR`. 
+  
+  Review round 1 (2026-05-10): Two ⏳ items raised — (I1) hardcoded `"openai/gpt-5.2"` in 7+ locations, (I2) Tier 2 gateway placeholder IDs with no manifests. Developer fixed both: I1 → new `src/config/defaults.rs` with `pub const DEFAULT_PROTOCOL_MODEL_ID`, all Rust files now use the constant; I2 → Tier 2 trimmed to Bedrock only + `print_gateway_tier_manifest_hints()` explaining manifest requirement. All issues resolved, CI green, squash-merged 2026-05-10.
 
-  Local branch: `docs/zs-ml-016-protocol-only-ux`
-  Commit: `bd3b613` (`feat(ux): make protocol-only provider path the default`)
+  Merge commit: squash-merged via `gh pr merge --squash` on 2026-05-10T16:03:35Z.
 
 testing:
   evidence_pr_33_local_2026_05_09: |
@@ -51,5 +52,8 @@ testing:
     PASS: `cargo clippy -p zerospider --all-targets --features ai-protocol --locked -- -D warnings`
     PASS: `git diff --check`
     PASS: `rg "--provider openrouter|default_provider = \"openrouter\"|PROVIDER=openrouter|custom:https://your|anthropic-custom:https://your|28 built-in"` returned no matches.
+  evidence_pr_33_ci_2026_05_10: |
+    PASS: rust-protocol-required (GitHub Actions run 25626310037)
+    PASS: All ⏳ review items resolved (I1: constant centralization, I2: gateway manifest hints)
 
 related_plan: "active/projects/zerospider/ZEROSPIDER_PHASE7_LEGACY_ELIMINATION_PLAN_2026-05-08.md#zs-ml-016--文档向导与用户体验"
