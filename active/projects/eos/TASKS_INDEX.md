@@ -4,7 +4,12 @@
 
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|------|------|------|
+| EOS-P0-001 | [tasks/EOS-P0-001-prelaunch-hardening.yaml](./tasks/EOS-P0-001-prelaunch-hardening.yaml) | `pending` | 公网/生产部署前 | **上线闸门**：限流、Docker CI、前端供应链、E2E、panic 清理、元数据与模型列表一致性等 |
 | EOS-P1-001 | [tasks/EOS-P1-001-minimal-chat-platform.yaml](./tasks/EOS-P1-001-minimal-chat-platform.yaml) | `pending` | Prism API 可用 | Phase 1 最小闭环：聊天 + 多模型 + Web Search + 文件上传 + 图像生成 |
+
+## 上线前专项（Pre-launch）
+
+与功能清单分离、**面向公网部署前必须验收**的事项已全部落入 **EOS-P0-001**，避免与 Phase 1 开发任务混排后遗漏。
 
 ## 里程碑
 

@@ -1,0 +1,78 @@
+---
+id: "EOS-P0-001"
+title: "Eos 上线前加固与验收（Pre-launch gate）"
+status: "pending"
+priority: "critical"
+executor_name: ""
+executor_terminal: ""
+assignee: "@cursor"
+project: "eos"
+milestone: "eos-prelaunch"
+labels:
+  - "eos"
+  - "security"
+  - "deployment"
+  - "quality"
+created: "2026-05-11"
+updated: "2026-05-11"
+description: |
+  与 Phase 1 功能开发（EOS-P1-001）并列的**上线闸门**任务：不替代 P1 功能清单，
+  但要求在面向公网或 production-like 环境部署**之前**逐项完成或显式豁免并记录理由。
+
+  代码仓库：`hiddenpath/eos`（当前 canonical；若日后迁移至 ailib-official 须更新任务与环境文档）。
+
+  关联审查结论：代理 URL allowlist、CORS 收紧、Dockerfile 完整性、前端供应链、E2E、限流等。
+blocks:
+  - id: "EOS-P0-R1"
+    title: "公网限流与滥用防护"
+    status: "pending"
+    description: "IP 或连接级 token bucket / 并发上限；与 EOS-P1-B5 对齐或合并实现；上线前必须可观测（metrics 或日志计数）"
+    depends_on: []
+  - id: "EOS-P0-R2"
+    title: "Docker 镜像构建与 CI 守门"
+    status: "pending"
+    description: "在具备 Docker 的环境验证 docker build（多阶段 + prism-core + wasm-pack）；可选 GitHub Actions 或内部 CI 门禁"
+    depends_on: []
+  - id: "EOS-P0-R3"
+    title: "前端静态资源供应链（CDN → 固定版本或 vendor）"
+    status: "pending"
+    description: "Alpine/HTMX/marked/highlight.js 等：固定版本、SRI 或仓库内静态资源；消除 3.x 浮动 CDN"
+    depends_on: []
+  - id: "EOS-P0-R4"
+    title: "扩展 API 面收紧（Web Search / Upload / Image）"
+    status: "pending"
+    description: "若上线前实现 EOS-P1 B2~B4：须 URL/method allowlist、体大小与类型校验、错误边界与审计日志；禁止扩大开放代理面"
+    depends_on: []
+  - id: "EOS-P0-R5"
+    title: "浏览器 E2E 冒烟（WASM + 代理 + 流式）"
+    status: "pending"
+    description: "Playwright 或等价：加载 WASM、/api/models、发送、SSE、New Chat；可在 mock 上游或 staging key 下运行"
+    depends_on: []
+  - id: "EOS-P0-R6"
+    title: "许可证与仓库元数据口径一致"
+    status: "pending"
+    description: "Cargo/README（MIT OR Apache-2.0）与规划文档（Apache-2.0 A-band）对齐；必要时更新 overview + CHANGELOG"
+    depends_on: []
+  - id: "EOS-P0-R7"
+    title: "prism-core 运行时路径零 panic"
+    status: "pending"
+    description: "SqliteUsageStore::query 等库路径禁止 unwrap/panic；Mutex 中毒策略；集成测试代理用 #[ignore] 或显式 CI secret 分支"
+    depends_on: []
+  - id: "EOS-P0-R8"
+    title: "/api/models 与前端 endpoint 单一来源"
+    status: "pending"
+    description: "下拉仅展示有关 key 的模型，或返回 available 标志；静态 index.html 中 provider base URL 由后端配置驱动，避免双份漂移"
+    depends_on: []
+  - id: "EOS-P0-R9"
+    title: "非 WASM 降级路径（可选闸门）"
+    status: "pending"
+    description: "若 Phase 1 承诺浏览器无 WASM 仍可用：后端构建请求路径 + UI 提示；否则在 PHASE1_PLAN 与对外说明中标注 WASM 必选"
+    depends_on: []
+testing:
+  - "cargo test / clippy（eos 仓库）"
+  - "docker build（CI 或本地）"
+  - "E2E 冒烟（EOS-P0-R5）"
+blocks_summary:
+  total: 9
+  theme: "prelaunch-gate"
+  note: "P0 不阻塞 EOS-P1-001 本地开发；在 go-live 前必须关闭或豁免"

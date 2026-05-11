@@ -2,7 +2,7 @@
 
 > **Type**: Consumer web platform (to-C, browser-accessible)
 > **Status**: Phase 1 planning
-> **Repo**: `ailib-official/eos` (to be created, forked from `ailib-official/ailib-wasm-test`)
+> **Repo**: `hiddenpath/eos`（私有产品仓；公开镜像策略见治理文档 GOV-001）
 > **Architecture**: WASM (wasm-bindgen) + Axum backend proxy + static frontend (forked from ailib-wasm-test)
 > **Brand File**: `active/projects/eos/brand-rationale.md`
 > **Phase 1 Plan**: `active/projects/eos/PHASE1_PLAN.md`
@@ -59,3 +59,7 @@ Provider APIs (OpenAI / DeepSeek / Anthropic / Groq / NVIDIA / ...)
 
 - Phase 1: Prism API live (or mock); Provider API keys
 - Phase 1: `eos.ailib.info` domain configured
+
+## Pre-launch (go-live gate)
+
+- 上线前加固与验收见任务索引中的 **EOS-P0-001**（`tasks/EOS-P0-001-prelaunch-hardening.yaml`），与 **EOS-P1-001** 功能开发并列跟踪。

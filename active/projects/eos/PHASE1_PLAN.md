@@ -7,6 +7,7 @@
 > **品牌文件**：`active/projects/eos/brand-rationale.md`
 > **基础项目**：[`ailib-official/ailib-wasm-test`](https://github.com/ailib-official/ailib-wasm-test) — WASM 协议运行时演示项目
 > **前置依赖**：Prism Gateway（P 层）或直连 Provider
+> **上线闸门**：公网/生产部署前的加固与验收单独跟踪 — [`tasks/EOS-P0-001-prelaunch-hardening.yaml`](./tasks/EOS-P0-001-prelaunch-hardening.yaml)（索引见 [`TASKS_INDEX.md`](./TASKS_INDEX.md)）
 
 ---
 
