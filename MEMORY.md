@@ -540,3 +540,49 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 - 英文标识首字母大写 Eos（非全大写 EOS），视觉上小写 `eos` 搭配品牌色
 - 中文名「逸思」= 逸（自由/超越）+ 思（思考/AI），优雅有文化厚度
 - EOS 缩写与 EOS.IO（区块链，已式微）撞车风险中等，但与 Canon EOS（相机）领域完全不重叠；Eos AI 全称可有效区隔搜索结果
+
+## 2026-05-09 — Eos 仓库归属决策
+
+**决策**：Eos 作为商业产品，**不公开源代码**，不在 ailib-official 上建仓库。
+
+**理由**：
+- ailib-wasm-test 已承担开源验证+展示角色，足以证明 ai-lib 生态的技术来源与优越性
+- Eos 是 To C 商业产品，闭源是合理选择；GOV-001 约束的是"公开代码放 ailib-official"，不公开则不受此约束
+- 商业逻辑（计费/配额/策略/auth）与 P 层代码天然不应公开
+
+**仓库归属路径**：
+1. 当前：本地 `/home/alex/eos` 开发，不推任何 remote
+2. 需要远程协作时：推到 `hiddenpath/eos`（私有）
+3. 生产级：推到本地企业内 git 服务器（最终归宿）
+
+**与 ai-lib-gateway 一致**：gateway 也在 hiddenpath，Eos 遵循相同模式
+
+## 2026-05-10 — prism-core 架构决策（从 eos-server 拆出）
+
+**决策**：拆分 eos-server → prism-core（A-band 开源 crate）+ eos-server（C-band 闭源薄壳）
+
+**理由**：
+- eos-server 的核心逻辑（Axum proxy + libcurl 转发 + Provider 配置）是所有 ai-lib 应用共同需求
+- ZeroSpider 迁移即将完成，需要接入 Gateway；从 Eos 已验证代码出发比从零开始更高效
+- prism-core 开源（A-band, Apache-2.0）符合 ai-lib 生态模式：基础层开源，商业策略逻辑闭源
+
+**仓库位置**：prism-core 当前在 Eos workspace `/home/alex/eos/crates/prism-core/`
+
+**独立路径**：从 Eos workspace 复制到独立仓库 → 改 Cargo.toml → cargo publish crates.io
+
+**关键架构决策**：
+- **ProviderEntry.api_key_env**：保留字段（EnvConfig 依赖它 resolve 环境变量），而非 DESIGN 初始设想的"不包含"
+- **KeyState::Cooldown { until_secs: u64 }**：用 unix epoch 秒替代 `Instant`（Instant 不可 Serialize）
+- **UserStore trait &self + Mutex**：替代 `&mut self`，支持 `Arc<dyn UserStore>` 安全共享
+- **UsageRecord.timestamp: i64**：unix epoch 秒，避免 chrono 依赖传播
+- **SelectionStrategy pub(crate) trait**：sealed 实现细节，外部消费者用 `KeyPool::new()` 默认 RoundRobin
+- **Feature flags**：default=config+proxy, auth(+thiserror), key-pool, router(→key-pool), usage-tracking(+rusqlite bundled+chrono+thiserror), admin(→auth+key-pool+usage+uuid), full
+- **KeyPool 状态机**：Active→Cooldown(60s) on 429, →Disabled on 401/403, →Cooldown(300s) after 5 consecutive errors
+- **ConfigProvider trait**：开发者可注入任意配置源，EnvConfig 为默认实现（向后兼容 EOS_* / PRISM_* 前缀）
+
+**当前验证状态**：
+- commit `8263f38`：57 tests 全绿（prism-core 39 + eos-wasm-browser 15 + eos-server 3）
+- DESIGN.md 与代码 5 处偏差已同步
+- openclaw 修复 3 个关键 bug：router 双计数、key_id 硬编码、proxy 悬垂引用
+
+**ZeroSpider 接入路径**：最小(default proxy) → key-pool → router → full，增量式
