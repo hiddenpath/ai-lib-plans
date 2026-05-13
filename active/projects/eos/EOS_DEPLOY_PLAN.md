@@ -219,10 +219,11 @@ GET /api/files/{filename} → 从 /tmp/eos/uploads/ 提供文件
 
 ### 6.1 Dockerfile 完善
 
-当前是单阶段镜像。需要：
+当前仓库已是三阶段镜像（WASM → Rust → 运行时）。上线前仍需：
 - ✅ 已有三阶段构建（WASM → Rust → 运行时）
-- ❌ 缺少 `static/` 目录中的 html 及其他静态资源复制
-- ❌ 缺少 `.env` 注入机制
+- ⚠️ Docker build 必须在有 Docker 的环境实际验证
+- ❌ 静态资源复制策略仍只覆盖当前最小文件；若增加 CSS/JS/assets 需同步 Dockerfile
+- ❌ `.env.production` 注入机制需由部署脚本/Compose 提供，禁止提交真实密钥
 - ❌ 缺少 Caddy 配置（上线阶段加）
 
 ### 6.2 Docker Compose 配置
@@ -252,7 +253,10 @@ volumes:
 EOS_OPENAI_API_KEY=sk-xxx
 EOS_DEEPSEEK_API_KEY=sk-xxx
 EOS_TAVILY_API_KEY=tvly-xxx
+EOS_BIND_ADDR=0.0.0.0
 EOS_PORT=3000
+EOS_UPLOAD_DIR=/tmp/eos/uploads
+EOS_TRUST_PROXY_HEADERS=true  # 仅当 Caddy/可信反代覆盖 X-Forwarded-For 时启用
 # EOS_GROQ_API_KEY=   # 可用则填
 # EOS_NVIDIA_API_KEY=  # 可用则填
 ```
@@ -344,7 +348,7 @@ curl http://localhost:3000/health
 | **B：Caddy + DNS** | 解析 eos.ailib.info → IP + Let's Encrypt | 免费 TLS |
 | **C：Cloudflare Tunnel** | Cloudflare Tunnel 无需开放端口 | 免费，但需 NS 托管 |
 
-**推荐路径：** 内测用方案 A（自签 HTTP）跑通功能 → 正式上线切方案 B（Caddy + Let's Encrypt）
+**推荐路径：** 本机/内网用 HTTP 跑通功能 → 公网内测直接使用方案 B（Caddy + Let's Encrypt）；自签仅用于无法配置 DNS 的临时排障，不作为用户可访问入口。
 
 ---
 
@@ -365,7 +369,7 @@ curl http://localhost:3000/health
 | ID | 决策 | 理由 |
 |----|------|------|
 | D1 | 香港服务器，免备案 | 国内备案周期 10-20 工作日，与"先跑起来"矛盾 |
-| D2 | HTTP 内测，后续加 HTTPS | Phase 1 无用户数据敏感，HTTP 够用 |
+| D2 | 公网内测也走 Caddy + Let's Encrypt；仅本机/内网调试可用 HTTP | 聊天内容、上传图片与 Provider 代理请求都可能敏感，公网明文不作为上线方案 |
 | D3 | Web Search 用 Tavily (1000次/月免费) | 最小成本验证搜索功能 |
 | D4 | Phase 1 仅支持图片上传 | 文字提取/PDF 等在 Phase 2 |
 | D5 | 不自带编排模型服务器 | 用 API 小模型替代，后续按需再加 |

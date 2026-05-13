@@ -17,7 +17,7 @@
 | 里程碑 | 时间 | 状态 |
 |--------|------|:----:|
 | M1: Chat Works（聊天+流式+多模型） | Week 1 末 | ✅ |
-| M2: Feature Complete（功能面板完整） | Week 2 末 | ✅ |
+| M2: Feature Complete（功能面板完整） | Week 2 末 | ⏳ 后端雏形已合入；前端入口、E2E、上线闸门未完成 |
 | M3: Live（eos.ailib.info 上线） | Week 3 末 | ⬜ |
 
 ## 依赖
