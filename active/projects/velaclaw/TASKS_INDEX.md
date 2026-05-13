@@ -45,3 +45,15 @@
 
 - [AUDIT_2026-04-27.md](./AUDIT_2026-04-27.md) — Spider 审查端审计原文（建议 plan 状态回退）。
 - [AUDIT_2026-04-27_ADDENDUM.md](./AUDIT_2026-04-27_ADDENDUM.md) — 开发侧基于 `main @ aa3214a` 的代码交叉核实，区分了真实缺口（C1–C10）与审计中误读的 6 项（F1–F6）。
+
+## 更名阶段 — ZeroSpider → VelaClaw（2026-05-13 ~）
+
+主计划：**[ZS-RENAME-001.md](./ZS-RENAME-001.md)**
+
+前置条件：ZS-ML-001~016 全部 completed + 合入 main ✅
+
+| ID | 文件 | 状态 | 依赖 | 说明 |
+|----|------|------|------|------|
+| ZS-RN-001 | [tasks/ZS-RN-001-crate-name-and-code-rename.yaml](./tasks/ZS-RN-001-crate-name-and-code-rename.yaml) | `pending` | — | Rust crate 名 zerospider → velaclaw + ZeroClaw/zeroclaw → VelaClaw/velaclaw 全代码+CI |
+| ZS-RN-002 | [tasks/ZS-RN-002-docs-and-firmware-rename.yaml](./tasks/ZS-RN-002-docs-and-firmware-rename.yaml) | `pending` | ZS-RN-001 | 文档 + firmware + Docker + scripts 全量更名 |
+| ZS-RN-003 | [tasks/ZS-RN-003-repo-rename-and-external-refs.yaml](./tasks/ZS-RN-003-repo-rename-and-external-refs.yaml) | `pending` | ZS-RN-001, ZS-RN-002 | GitHub 仓库改名 + 外部引用更新 + 最终审核 |

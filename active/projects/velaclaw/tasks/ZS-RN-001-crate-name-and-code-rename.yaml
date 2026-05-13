@@ -1,0 +1,51 @@
+---
+id: "ZS-RN-001"
+title: "Rust crate name rename: zerospider → velaclaw (Cargo.toml + use statements + CLI name + doc comments)"
+status: "done"
+priority: "critical"
+executor_name: "ai"
+executor_terminal: "opencode"
+assignee: "@ai"
+project: "velaclaw"
+milestone: "rename-velaclaw"
+labels:
+- "zerospider"
+- "breaking"
+- "rename"
+created: "2026-05-13"
+updated: "2026-05-13"
+completed: "2026-05-13"
+merge_commit: "36b9a5ca94443dd9b6cc0c1e079002b95c6950b7"
+description: |
+  Rename the Rust crate from `zerospider` to `velaclaw`. This is the core mechanical
+  rename that affects Cargo.toml package name, binary name, all `use zerospider::`
+  imports, CLI command name (`#[command(name = "zerospider")]`), and in-code
+  string references to `zerospider`/`ZeroSpider`.
+
+  Additionally rename all `ZeroClaw`/`zeroclaw` references in Rust source to
+  `VelaClaw`/`velaclaw` (doc comments, path references like `~/.zeroclaw/`,
+  binary names like `zeroclaw-led`, crate name `zeroclaw-robot-kit`).
+
+  Sub-crate `robot-kit` Cargo.toml also needs package name update.
+
+acceptance_criteria:
+  - "Cargo.toml: name = \"velaclaw\", repository URL updated"
+  - "crates/robot-kit/Cargo.toml: name = \"velaclaw-robot-kit\""
+  - "All `use zerospider::` → `use velaclaw::` (42 occurrences across ~30 files)"
+  - "CLI command name `zerospider` → `velaclaw` in main.rs"
+  - "CI ci.yml: `cargo check/test -p zerospider` → `-p velaclaw`"
+  - "`cargo build --features ai-protocol --locked` passes"
+  - "`cargo test --features ai-protocol --locked` passes"
+  - "`cargo clippy --features ai-protocol --locked -- -D warnings` passes"
+  - "`grep -r 'zerospider' src/ Cargo.toml crates/ .github/` returns no matches"
+  - "`grep -r 'zeroclaw\\|ZeroClaw' src/ Cargo.toml crates/ .github/` returns no matches"
+
+pr:
+  repo: "ailib-official/zerospider"
+  merge_target: "main"
+  branch_pattern: "rename/zs-rn-001-crate-name-rename"
+  url: "https://github.com/ailib-official/zerospider/pull/38"
+  note: "ZS-RN-001 + ZS-RN-002 combined into single PR for atomicity"
+
+blocked_by: []
+related_plan: "active/projects/velaclaw/ZS-RENAME-001.md"

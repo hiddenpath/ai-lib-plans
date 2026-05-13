@@ -2,11 +2,11 @@
 
 Status: `in_progress`
 Owner: ai-lib ecosystem
-Scope: ai-protocol, ai-lib-rust, ai-lib-python, ai-lib-ts, ai-lib-go, ai-lib-wasm, first downstream consumer ZeroSpider
+Scope: ai-protocol, ai-lib-rust, ai-lib-python, ai-lib-ts, ai-lib-go, ai-lib-wasm, first downstream consumer VelaClaw (formerly ZeroSpider)
 
 ## Background
 
-ZeroSpider's ai-lib migration exposed a platform-level gap: ai-protocol can describe providers and models, but the runtimes do not yet expose a consistent credential resolution contract. Without a central hosted platform, every agent application would otherwise reimplement API-key discovery, keyring use, configuration overrides, and provider availability checks.
+VelaClaw's (formerly ZeroSpider) ai-lib migration exposed a platform-level gap: ai-protocol can describe providers and models, but the runtimes do not yet expose a consistent credential resolution contract. Without a central hosted platform, every agent application would otherwise reimplement API-key discovery, keyring use, configuration overrides, and provider availability checks.
 
 This P0 turns credential resolution into ai-lib infrastructure rather than application glue.
 
@@ -20,7 +20,7 @@ ai-lib applications should express a logical target such as `openai/gpt-5.2`. Th
 4. whether the provider/model is available on this machine, and
 5. how to attach the resolved credential to transport requests without leaking secrets.
 
-Agent applications such as ZeroSpider should not hardcode provider-specific API-key names except as temporary compatibility shims.
+Agent applications such as VelaClaw should not hardcode provider-specific API-key names except as temporary compatibility shims.
 
 ## Architecture Principles
 
@@ -96,16 +96,16 @@ The audit confirms PT-074-A must define fixtures before runtime implementation s
   - query-param/custom-header auth attachment
   - missing credential diagnostics
 
-## Downstream ZeroSpider Gate
+## Downstream VelaClaw Gate
 
-ZeroSpider may proceed with a thin compatibility layer only after the Rust reference has:
+VelaClaw may proceed with a thin compatibility layer only after the Rust reference has:
 
 - explicit credential override,
 - manifest env availability,
 - safe missing-key diagnostics,
 - no secret logging.
 
-ZeroSpider should then:
+VelaClaw should then:
 
 - normalize `default_provider` + `default_model` into a logical model id,
 - show ai-lib availability results in wizard/doctor,
@@ -116,7 +116,7 @@ ZeroSpider should then:
 1. PT-074-A: protocol contract + compliance fixtures.
 2. PT-074-B: Rust reference implementation + WASM-safe surface.
 3. PT-074-C: Python/TS/Go parity.
-4. PT-074-D: ZeroSpider consumer integration and release smoke.
+4. PT-074-D: VelaClaw consumer integration and release smoke.
 5. PT-074-E: docs, changelogs, release notes.
 
 ## Immediate Implementation Cut
@@ -126,7 +126,7 @@ Start with PT-074-A because it defines the shared semantics that every runtime m
 - `ai-protocol`: add credential-chain compliance fixtures and clarify `endpoint.auth` vs top-level `auth` precedence.
 - `ai-protocol-mock`: add deterministic auth expectations for bearer, custom-header, and query-param cases if the current mock cannot assert them.
 - `ai-lib-rust`: consume the fixture first as a failing/reference test before adding the resolver implementation.
-- `ZeroSpider`: wait for Rust reference API shape, then integrate as a downstream smoke rather than inventing a parallel credential table.
+- `VelaClaw`: wait for Rust reference API shape, then integrate as a downstream smoke rather than inventing a parallel credential table.
 
 First PR acceptance:
 
@@ -139,7 +139,7 @@ First PR acceptance:
 
 - Four runtimes pass shared credential compliance fixtures.
 - WASM exposes a host-supplied or explicit credential path and does not depend on OS env/keyring.
-- At least one downstream app (ZeroSpider) can run in default ai-protocol mode using BYOK env credentials without `legacy-providers`.
+- At least one downstream app (VelaClaw) can run in default ai-protocol mode using BYOK env credentials without `legacy-providers`.
 - Missing credentials produce actionable, redacted diagnostics.
 - No runtime logs raw credential values in normal or debug paths.
 

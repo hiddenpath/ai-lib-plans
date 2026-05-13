@@ -1,0 +1,51 @@
+---
+id: "ZS-RN-002"
+title: "Docs + firmware + config rename: ZeroClaw/ZeroSpider → VelaClaw across all non-code artifacts"
+status: "done"
+priority: "high"
+executor_name: "ai"
+executor_terminal: "opencode"
+assignee: "@ai"
+project: "velaclaw"
+milestone: "rename-velaclaw"
+labels:
+- "zerospider"
+- "docs"
+- "rename"
+created: "2026-05-13"
+updated: "2026-05-13"
+completed: "2026-05-13"
+merge_commit: "36b9a5ca94443dd9b6cc0c1e079002b95c6950b7"
+description: |
+  Rename all ZeroClaw/ZeroSpider/zerospider/zeroclaw references in documentation,
+  firmware source, Docker/config files, and scripts to VelaClaw/velaclaw.
+
+  This covers:
+  - README*.md (6 language versions)
+  - CHANGELOG.md, CONTRIBUTING.md, CLAUDE.md, AGENTS.md
+  - docs/ directory (~64 files)
+  - firmware/ directory (ESP32/Nucleo source with ZeroClaw strings)
+  - Dockerfile, docker-compose.yml
+  - .github/ templates, CODEOWNERS
+  - scripts/ (bootstrap.sh, install.sh)
+  - Any remaining config files
+
+acceptance_criteria:
+  - "All README files use VelaClaw branding"
+  - "All docs/ files use VelaClaw and velaclaw URLs"
+  - "firmware/ ZeroClaw → VelaClaw"
+  - "Dockerfile/docker-compose.yml references updated"
+  - "scripts/ references updated"
+  - "`grep -ri 'zerospider\\|zeroclaw\\|ZeroSpider\\|ZeroClaw' --include='*.md' --include='*.sh' --include='Dockerfile*' --include='docker-compose*' .` returns no matches (excluding .git/ and target/)"
+  - "CHANGELOG has Breaking section entry for the rename"
+
+pr:
+  repo: "ailib-official/zerospider"
+  merge_target: "main"
+  branch_pattern: "rename/zs-rn-001-crate-name-rename"
+  url: "https://github.com/ailib-official/zerospider/pull/38"
+  note: "Combined with ZS-RN-001 in same PR for atomicity"
+
+blocked_by:
+  - "ZS-RN-001"
+related_plan: "active/projects/velaclaw/ZS-RENAME-001.md"

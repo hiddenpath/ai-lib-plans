@@ -1,0 +1,55 @@
+---
+id: "ZS-RN-003"
+title: "GitHub repo rename + external reference updates + final audit"
+status: "done"
+priority: "critical"
+executor_name: "ai"
+executor_terminal: "opencode"
+assignee: "@ai"
+project: "velaclaw"
+milestone: "rename-velaclaw"
+labels:
+- "velaclaw"
+- "infra"
+- "rename"
+created: "2026-05-13"
+updated: "2026-05-13"
+completed: "2026-05-13"
+completion_notes: |
+  - GitHub repo renamed: ailib-official/zerospider → ailib-official/velaclaw
+  - Local remote URL updated to https://github.com/ailib-official/velaclaw.git
+  - ai-lib-plans MEMORY.md references updated (3 occurrences)
+  - ai-protocol CREDENTIAL_CHAIN_P0_PLAN references updated (8 occurrences)
+  - PT-074 task YAML references updated
+  - Project directory renamed: active/projects/zerospider/ → active/projects/velaclaw/
+  - No zerospider references found in other ailib-official repos (gh search code)
+  - CI on renamed repo: PR #38 CI already green before merge
+description: |
+  Post-merge tasks after code+docs rename PRs are merged:
+
+  1. GitHub repository rename: ailib-official/zerospider → ailib-official/velaclaw
+  2. Update local clone remote URLs
+  3. Update ai-lib-plans references (project directory + all task YAMLs + MEMORY.md)
+  4. Update ai-lib-constitution references if any
+  5. Search other ailib-official repos for zerospider references
+  6. Final audit: comprehensive grep across entire codebase + ecosystem
+
+  Note: GitHub auto-301 redirects old URLs. Issues/PRs/wiki preserved.
+  crates.io: zerospider not yet published, so no crate deprecation needed.
+
+acceptance_criteria:
+  - "GitHub repo renamed to ailib-official/velaclaw"
+  - "Local clone remote URL updated"
+  - "ai-lib-plans references updated"
+  - "No zerospider/zeroclaw/ZeroSpider/ZeroClaw references remain in codebase (excluding .git history)"
+  - "CI green on renamed repo"
+
+pr:
+  repo: "ailib-official/velaclaw"
+  merge_target: "main"
+  branch_pattern: "N/A — infra task, no PR"
+
+blocked_by:
+  - "ZS-RN-001"
+  - "ZS-RN-002"
+related_plan: "active/projects/velaclaw/ZS-RENAME-001.md"

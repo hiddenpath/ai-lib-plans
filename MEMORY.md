@@ -10,7 +10,7 @@
 ## Product cadence — matrix vs validation vs tooling (2026-05-07)
 
 - **主线**：多运行时 **合规矩阵** 与 **协议/运行时代码演进**（治理能力、语义对齐、WASM、文档）是工程主线。
-- **ZeroSpider 迁移**：视为代码库 **成熟度验证**（消费者集成、BYOK、缺省路径），不是替代主线本身。
+- **VelaClaw 迁移**（原 ZeroSpider，已更名 2026-05-13）：视为代码库 **成熟度验证**（消费者集成、BYOK、缺省路径），不是替代主线本身。
 - **PR / CI / release 自动化**：工作中 **理顺协作与发版方法**，提高效率与可重复性；**不**等同于“产品已 ready”或“应自动升主版本”。
 
 ## Pre-v1.0 versioning and PT-073 scope (2026-05-07)
@@ -563,7 +563,7 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 
 **理由**：
 - eos-server 的核心逻辑（Axum proxy + libcurl 转发 + Provider 配置）是所有 ai-lib 应用共同需求
-- ZeroSpider 迁移即将完成，需要接入 Gateway；从 Eos 已验证代码出发比从零开始更高效
+- VelaClaw（原 ZeroSpider）迁移已完成，需要接入 Gateway；从 Eos 已验证代码出发比从零开始更高效
 - prism-core 开源（A-band, Apache-2.0）符合 ai-lib 生态模式：基础层开源，商业策略逻辑闭源
 
 **仓库位置**：prism-core 当前在 Eos workspace `/home/alex/eos/crates/prism-core/`
@@ -585,4 +585,4 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 - DESIGN.md 与代码 5 处偏差已同步
 - openclaw 修复 3 个关键 bug：router 双计数、key_id 硬编码、proxy 悬垂引用
 
-**ZeroSpider 接入路径**：最小(default proxy) → key-pool → router → full，增量式
+**VelaClaw 接入路径**：最小(default proxy) → key-pool → router → full，增量式
