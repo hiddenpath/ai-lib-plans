@@ -194,7 +194,7 @@
 ## `win_dev_disk_cleanup.ps1`
 
 - **路径**: `tools/win_dev_disk_cleanup.ps1`
-- **用途**: Windows 本机 **短期、可重复** 腾出 C:（或其它盘报表）空间；面向开发机：**用户 Temp、可选系统 Temp、npm/pip 缓存、可选 AWS CLI / NuGet HTTP 缓存、可选回收站**。仅白名单路径（不碰仓库、`.rustup`、IDE 扩展树等）。
+- **用途**: Windows 本机 **短期、可重复** 腾出 C:（或其它盘报表）空间；面向开发机：**用户 Temp、可选系统 Temp、npm/pip 缓存、可选 AWS CLI / NuGet HTTP 缓存、可选回收站**；**可选高烈度**：**Windows.old**（旧系统目录）、**DISM** 收缩 WinSxS、**卷影副本（还原点）**、传递优化缓存、**WU `SoftwareDistribution\Download`**。
 - **安全模型**:
   - **默认演练**（不加 `-Execute`）：只统计体积并报告可用空间，**不删除**、不执行 `npm cache clean` / `pip cache purge`。
   - **真实清理**需 **`-Execute`**；临时目录只删子项，**锁定的文件会跳过**。
@@ -205,5 +205,30 @@
   - 已安装 PS7 时可选：`pwsh -NoProfile -File D:\ai-lib-plans\tools\win_dev_disk_cleanup.ps1`
   - 执行 + 回收站：`powershell.exe -NoProfile -ExecutionPolicy Bypass -File D:\ai-lib-plans\tools\win_dev_disk_cleanup.ps1 -Execute -ClearRecycleBin`
   - 可选：`-IncludeAwsCliCache`、`-IncludeNuGetHttpCache`、管理员下 `-IncludeWindowsTemp`、`-DriveLetter D`
+  - **激进（须管理员 `-Execute`）示例**：旧系统 + WinSxS + 还原点 + 传递优化 + WU 下载缓存：  
+    `powershell.exe -NoProfile -ExecutionPolicy Bypass -File D:\ai-lib-plans\tools\win_dev_disk_cleanup.ps1 -Execute -IncludeWindowsOldRemoval -IncludeDismComponentCleanup -IncludeVolumeShadowCopies -IncludeDeliveryOptimizationCache -IncludeWindowsUpdateDownloadCache`
+  - **更激进 WinSxS**（清理后通常无法卸载此前累积更新）：追加 `-IncludeDismResetBase`（可替代单独 `IncludeDismComponentCleanup`，或与之一同用时以 ResetBase 为准）。
 - **风险提示**:
   - `-Execute` 前建议关闭 IDE/安装程序；`-ClearRecycleBin` 会清空该盘回收站。
+  - `-IncludeWindowsOldRemoval`：无法再回滚到上一版本 Windows；`-IncludeVolumeShadowCopies`：删除该盘 **全部** 还原点；`-IncludeDismResetBase`：WinSxS 极简基底，**丢卸载更新能力**；`-IncludeWindowsUpdateDownloadCache`：勿在系统正在安装更新时执行。
+
+## `win_appdata_relocate_to_drive.ps1`
+
+- **路径**: `tools/win_appdata_relocate_to_drive.ps1`
+- **用途**: 把 **Cursor / VS Code Roaming / Chrome User Data / `.rustup`+`.cargo`** 从 C: **迁到 D:**（或任意 `TargetRoot`）：前三者用 **目录联接（junction）** 保持原路径；Rust 用 **用户环境变量** `RUSTUP_HOME` / `CARGO_HOME` 并调整 PATH，避免破坏 rustup。
+- **与 WinSxS**: **不能把** `C:\Windows\WinSxS` 整体迁盘；仅能 **提升权限** 后用 `win_dev_disk_cleanup.ps1` 的 `-IncludeDismComponentCleanup` / `-IncludeDismResetBase` **收缩**（不能当「搬家」）。
+- **安全模型**: 默认 **演练**；**`-Execute`** 才 `robocopy`、重命名原目录为 `*_relocate_backup_*`、`mklink /J`（或写环境变量）。执行前须 **退出** 对应程序（可用 `-SkipProcessCheck` 跳过检查，不推荐）。
+- **已知坑**: 见配套文档 [`APPDATA_RELOCATE_LESSONS.md`](APPDATA_RELOCATE_LESSONS.md)
+  - Electron WAL 模式 SQLite：进程未退出时复制导致 DB 损坏
+  - CacheStorage NTFS 特殊权限：`takeown` + `icacls` 也无法删除，须用全新路径
+  - 迁移后自动清理 `*-shm`/`*-wal`/`LOCK` 残留
+- **示例**:
+  - 演练：`powershell.exe -NoProfile -ExecutionPolicy Bypass -File D:\ai-lib-plans\tools\win_appdata_relocate_to_drive.ps1 -TargetRoot D:\ProfileMigrate -All`
+  - 执行：`... -TargetRoot D:\ProfileMigrate -All -Execute`
+  - 单项：`-Cursor`、`-VSCode`、`-ChromeUserData`、`-Rust`
+- **风险提示**: 先 **DRY-RUN**；`robocopy`/联接失败会尝试恢复原名；确认 Cursor/Chrome/编译正常后再 **手动删** `*_relocate_backup_*` 以真正释放 C:；Rust 后需 **重新登录或新开终端** 再运行 `where.exe rustc`。
+
+## `APPDATA_RELOCATE_LESSONS.md`
+
+- **路径**: `tools/APPDATA_RELOCATE_LESSONS.md`
+- **用途**: 2026-05-10 实战经验总结。记录了迁移 Cursor/VS Code/Chrome User Data 时遇到的三个关键坑：WAL 模式 SQLite 损坏、Electron CacheStorage NTFS 不可删权限、robocopy 参数引号问题。含修正后的安全迁移流程和验证清单。
