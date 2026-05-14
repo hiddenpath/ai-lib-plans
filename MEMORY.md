@@ -3,9 +3,15 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-05-07
+**Last Updated**: 2026-05-14
 
 ---
+
+## Rust toolchain / MSRV alignment (2026-05-14)
+
+- **Eos（`hiddenpath/eos`）**：`Cargo.toml` 中 `[workspace.package] rust-version` 必须与 `Dockerfile` 的 `ARG RUST_IMAGE`（例如 `rust:1.86-slim`）所隐含的 **rustc 最低要求**一致；每次 `cargo update` 或引入会使依赖链 MSRV 上移的 crate 后，应 **本地**用与 CI 同大版本的 Rust 跑一次 `cargo build` / `cargo test`，并 **同步**更新 `rust-version` 与 Docker builder 镜像，避免“本地/PR 用 stable 过、Docker CI 才暴露要 bump”的反模式。
+- **其他 Rust 仓库**（如 `ai-lib-rust`、`ai-protocol`）：**不要求**与 Eos 同号 MSRV，但开发习惯上应在 **依赖升级后**核对关键传递依赖的 `rustc` 版本要求（crates.io `rust-version` / 构建报错提示 / 可选 `cargo-msrv`）；若工作流含 **Docker 多阶段 Rust 镜像**，应保持镜像中的 rustc **不低于** crate 标注的 MSRV。
+- **检查点**：合并前对比三处——根 `Cargo.toml` 的 `rust-version`、`Dockerfile`/CI 选用的 Rust 版本、以及最近一次 `cargo build --locked`（或等价 CI）是否在 **三者较低者**之上仍能编过。
 
 ## Product cadence — matrix vs validation vs tooling (2026-05-07)
 

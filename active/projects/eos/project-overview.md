@@ -60,6 +60,10 @@ Provider APIs (OpenAI / DeepSeek / Anthropic / Groq / NVIDIA / ...)
 - Phase 1: Prism API live (or mock); Provider API keys
 - Phase 1: `eos.ailib.info` domain configured
 
+## Toolchain (Rust / Docker)
+
+- 仓库 **[workspace.package] `rust-version`** 与 **`Dockerfile` 内 Rust builder 镜像**（如 `rust:1.86-slim`）必须对齐；依赖升级拉高 MSRV 时同步 bump，不要等到仅 Docker CI 报错再修 — 参见根 `MEMORY.md`「Rust toolchain / MSRV alignment (2026-05-14)」。
+
 ## Pre-launch (go-live gate)
 
 - 上线前加固与验收见任务索引中的 **EOS-P0-001**（`tasks/EOS-P0-001-prelaunch-hardening.yaml`），与 **EOS-P1-001** 功能开发并列跟踪。
