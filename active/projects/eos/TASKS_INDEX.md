@@ -4,7 +4,7 @@
 
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|------|------|------|
-| EOS-P0-001 | [tasks/EOS-P0-001-prelaunch-hardening.yaml](./tasks/EOS-P0-001-prelaunch-hardening.yaml) | `pending` | 公网/生产部署前 | **上线闸门**：限流、Docker CI、前端供应链、E2E、panic 清理、元数据与模型列表一致性等 |
+| EOS-P0-001 | [tasks/EOS-P0-001-prelaunch-hardening.yaml](./tasks/EOS-P0-001-prelaunch-hardening.yaml) | `pending` | 公网/生产部署前 | **上线闸门**：R1–R4 已对代码标 completed；剩余 R5–R9（E2E / 许可证与 panic 审计 / endpoint 单一来源 / WASM 说明） |
 | EOS-P1-001 | [tasks/EOS-P1-001-minimal-chat-platform.yaml](./tasks/EOS-P1-001-minimal-chat-platform.yaml) | `in_progress` | — | Phase 1 最小闭环：聊天 + 多模型 + Web Search + 文件上传 + 图像生成 |
 | EOS-DPL-001 | [EOS_DEPLOY_PLAN.md](./EOS_DEPLOY_PLAN.md) | `ready` | 香港云服务器就绪 | 部署实施计划（5 块分片），2026-05-11 先生确认上线策略 |
 
@@ -17,8 +17,8 @@
 | 里程碑 | 时间 | 状态 |
 |--------|------|:----:|
 | M1: Chat Works（聊天+流式+多模型） | Week 1 末 | ✅ |
-| M2: Feature Complete（功能面板完整） | Week 2 末 | ⏳ 后端雏形已合入；前端入口、E2E、上线闸门未完成 |
-| M3: Live（eos.ailib.info 上线） | Week 3 末 | ⬜ |
+| M2: Feature Complete（功能面板完整） | Week 2 末 | ⏳ 后端 API（搜索/上传/图像）已合入并通过 CI Docker；前端 F3–F6 仍为 pending；E2E 与域名待办 |
+| M3: Live（eos.ailib.info 上线） | Week 3 末 | ⏳ VPS 可先 IP:3000 内测；正式域名 + TLS + 收口 P0 闸门 |
 
 ## 依赖
 

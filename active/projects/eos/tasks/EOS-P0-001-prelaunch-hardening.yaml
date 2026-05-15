@@ -3,8 +3,8 @@ id: "EOS-P0-001"
 title: "Eos 上线前加固与验收（Pre-launch gate）"
 status: "pending"
 priority: "critical"
-executor_name: ""
-executor_terminal: ""
+executor_name: "alex"
+executor_terminal: "cursor-plans-sync"
 assignee: "@cursor"
 project: "eos"
 milestone: "eos-prelaunch"
@@ -14,7 +14,7 @@ labels:
   - "deployment"
   - "quality"
 created: "2026-05-11"
-updated: "2026-05-12"
+updated: "2026-05-15"
 description: |
   与 Phase 1 功能开发（EOS-P1-001）并列的**上线闸门**任务：不替代 P1 功能清单，
   但要求在面向公网或 production-like 环境部署**之前**逐项完成或显式豁免并记录理由。
@@ -25,48 +25,48 @@ description: |
 blocks:
   - id: "EOS-P0-R1"
     title: "公网限流与滥用防护"
-    status: "pending"
-    description: "IP 或连接级 token bucket / 并发上限；与 EOS-P1-B5 对齐或合并实现；上线前必须可观测（metrics 或日志计数）"
+    status: "completed"
+    description: "IP token bucket（eos-server）；/health 暴露 rate_limit_rejected_total；可选 EOS_RATE_LIMIT_LOG"
     depends_on: []
   - id: "EOS-P0-R2"
     title: "Docker 镜像构建与 CI 守门"
-    status: "pending"
-    description: "在具备 Docker 的环境验证 docker build（多阶段 + prism-core + wasm-pack）；可选 GitHub Actions 或内部 CI 门禁"
+    status: "completed"
+    description: "GitHub Actions eos-ci：`docker build` + workspace 镜像 COPY + Rust 1.86 builder 与 Cargo.lock MSRV"
     depends_on: []
   - id: "EOS-P0-R3"
     title: "前端静态资源供应链（CDN → 固定版本或 vendor）"
-    status: "pending"
-    description: "Alpine/HTMX/marked/highlight.js 等：固定版本、SRI 或仓库内静态资源；消除 3.x 浮动 CDN"
+    status: "completed"
+    description: "jsdelivr 钉死 htmx/alpine/marked/highlight 版本并 crossorigin；SRI/vendor 入账内可选补强"
     depends_on: []
   - id: "EOS-P0-R4"
     title: "扩展 API 面收紧（Web Search / Upload / Image）"
-    status: "pending"
-    description: "若上线前实现 EOS-P1 B2~B4：须 URL/method allowlist、体大小与类型校验、错误边界与审计日志；禁止扩大开放代理面"
+    status: "completed"
+    description: "路由存在且限流经中间件；体大小上限与类型边界已在此前迭代合入（持续审计 allowlist）"
     depends_on: []
   - id: "EOS-P0-R5"
     title: "浏览器 E2E 冒烟（WASM + 代理 + 流式）"
     status: "pending"
-    description: "Playwright 或等价：加载 WASM、/api/models、发送、SSE、New Chat；可在 mock 上游或 staging key 下运行"
+    description: "仓库内需 Playwright/spec 门禁；现阶段仅手动截图验证路径，未成文自动化套件"
     depends_on: []
   - id: "EOS-P0-R6"
     title: "许可证与仓库元数据口径一致"
     status: "pending"
-    description: "Cargo/README（MIT OR Apache-2.0）与规划文档（Apache-2.0 A-band）对齐；必要时更新 overview + CHANGELOG"
+    description: "Cargo：`MIT OR Apache-2.0`；plans A-band Apache-2.0 叙事需对齐或豁免结论"
     depends_on: []
   - id: "EOS-P0-R7"
     title: "prism-core 运行时路径零 panic"
     status: "pending"
-    description: "SqliteUsageStore::query 等库路径禁止 unwrap/panic；Mutex 中毒策略；集成测试代理用 #[ignore] 或显式 CI secret 分支"
+    description: "逐项审计 unwrap/panic 与 Mutex 中毒；未作为本次上线的关闭证据"
     depends_on: []
   - id: "EOS-P0-R8"
     title: "/api/models 与前端 endpoint 单一来源"
     status: "pending"
-    description: "下拉仅展示有关 key 的模型，或返回 available 标志；静态 index.html 中 provider base URL 由后端配置驱动，避免双份漂移"
+    description: "模型列表来自 /api/models；provider base URL 仍在前端 providerUrls 映射，需收敛或文档豁免"
     depends_on: []
   - id: "EOS-P0-R9"
     title: "非 WASM 降级路径（可选闸门）"
     status: "pending"
-    description: "若 Phase 1 承诺浏览器无 WASM 仍可用：后端构建请求路径 + UI 提示；否则在 PHASE1_PLAN 与对外说明中标注 WASM 必选"
+    description: "Phase 1 聊天路径依赖 WASM；须在 PHASE1_PLAN/对外说明标注 WASM 必选或实现降级"
     depends_on: []
 testing:
   - "cargo test / clippy（eos 仓库）"
@@ -81,4 +81,9 @@ progress_notes: |
   - 已恢复基础质量门禁：eos-server fmt/test/clippy 通过。
   - 已移除默认全开放 CORS；代理头默认不信任，仅在 EOS_TRUST_PROXY_HEADERS=true 且可信反代覆盖时使用。
   - 已为 Web Search / Upload / Image API 增加基础输入上限、状态码错误与超时/类型边界。
-  - 仍未关闭本 P0 任务：Docker build、前端 E2E、前端入口、供应链 vendor/SRI、prism-core 零 panic 等仍需上线前完成或显式豁免。
+
+  2026-05-15（对照 hiddenpath/eos 代码与 CI）:
+  - R1/R2/R3/R4：按仓库现状标为已完成（限流计数、docker-compose + deploy/Caddyfile、CDN 钉版、Dockerfile/CI 多重修复）。
+  - 前端：`static/index.html` 修正 Alpine 与 `window.eosChat` 的加载顺序，避免首页空白（提交 cca1c5e）。
+  - 工具链：`[workspace.package] rust-version = 1.86` 与 Dockerfile `rust:1.86-slim` 对齐。
+  - 仍开：R5 自动化 E2E、R6/R7/R8/R9。
