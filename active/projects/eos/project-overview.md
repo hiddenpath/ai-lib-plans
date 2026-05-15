@@ -1,7 +1,7 @@
 # Eos（逸思）— To C AI 服务平台
 
 > **Type**: Consumer web platform (to-C, browser-accessible)
-> **Status**: Phase 1 in_progress（前端 F3–F6 工具栏已接线；域名与系统化 E2E 仍为开放项）
+> **Status**: Phase 1 in_progress（`eos.ailib.info` DNS 已配置生效；系统化 E2E 与 EOS-P0 上线闸门仍为开放项）
 > **Repo**: `hiddenpath/eos`（私有产品仓；公开镜像策略见治理文档 GOV-001）
 > **Architecture**: WASM (wasm-bindgen) + Axum backend proxy + static frontend (forked from ailib-wasm-test)
 > **Brand File**: `active/projects/eos/brand-rationale.md`

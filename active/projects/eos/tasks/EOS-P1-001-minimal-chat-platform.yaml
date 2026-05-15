@@ -109,8 +109,8 @@ blocks:
     depends_on: ["EOS-P1-D1"]
   - id: "EOS-P1-D3"
     title: "域名配置"
-    status: "pending"
-    description: "DNS → 公网 IP + Caddy 证书；当前可用 IP:3000 内测先行"
+    status: "completed"
+    description: "DNS（`eos.ailib.info` / ailib.info 区划）已解析至 VPS/Caddy 入口；与 D2 Compose+Caddy TLS 路径一致并已验证生效"
     depends_on: ["EOS-P1-D2"]
   - id: "EOS-P1-D4"
     title: "E2E 集成测试"
@@ -130,5 +130,6 @@ blocks_summary:
 completion_notes: |
   2026-05-15：已与 hiddenpath/eos 代码快照对齐条目状态。
   - 后端 Phase 1 面板 API 已合入并通过 eos-ci（含 docker-build）。
-  - 前端 F3–F6：`static/index.html` 工具栏与接线已完成（eos `main` 88deeb6）；剩余 Phase 1 开放项主要为域名（D3）与系统化 E2E（D4 / P0-R5）。
-  - 云服务已可 HTTP 直连验证。
+  - 前端 F3–F6：`static/index.html` 工具栏与接线已完成（eos `main` 88deeb6）。
+  - 域名 **EOS-P1-D3**：DNS 已与公网入口/Caddy 对齐并生效（运维确认）；Phase 1 剩余主要开放项为系统化 E2E（**EOS-P1-D4** / **EOS-P0-R5**）与 P0 上线闸门其它条目。
+  - 云服务可在域名或 IP 下联调验证。
