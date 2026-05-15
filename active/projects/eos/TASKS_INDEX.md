@@ -17,7 +17,7 @@
 | 里程碑 | 时间 | 状态 |
 |--------|------|:----:|
 | M1: Chat Works（聊天+流式+多模型） | Week 1 末 | ✅ |
-| M2: Feature Complete（功能面板完整） | Week 2 末 | ⏳ 后端 API（搜索/上传/图像）已合入并通过 CI Docker；前端 F3–F6 仍为 pending；E2E 与域名待办 |
+| M2: Feature Complete（功能面板完整） | Week 2 末 | ⏳ 前端 F3–F6 已在 `static/index.html` 接线（eos `main` 88deeb6）；E2E 与域名待办 |
 | M3: Live（eos.ailib.info 上线） | Week 3 末 | ⏳ VPS 可先 IP:3000 内测；正式域名 + TLS + 收口 P0 闸门 |
 
 ## 依赖
