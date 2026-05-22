@@ -592,3 +592,18 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 - openclaw 修复 3 个关键 bug：router 双计数、key_id 硬编码、proxy 悬垂引用
 
 **VelaClaw 接入路径**：最小(default proxy) → key-pool → router → full，增量式
+
+## 2026-05-22 — 上下文容量（context window）与策略层运行时边界（Eos / Velaclaw / Prism / Vela）
+
+**动因**：多模型与同一会话并行子任务并存时，`context_window` 不匹配易导致反复 compaction/tool 膨胀与失败；协议若缺少可消费的容量元数据，各产品只能硬编码，行为分裂。
+
+**原则（真源 vs 运行时）**
+
+- **协议 / manifest 唯一承诺**：每个模型可被校验或人工维护的 **`context_window`**、**`max_output`（tokens）** 等整数；必要时用 `verification` 标明来源；未知用 **0** 表示并由运行时保守处理。
+- **不进入协议**：压缩策略、上下文 shaping、`ContextProfile`（有效窗口拐点、摘要保真度等）属于 **宿主或产品侧学习与启发式**，不写入 Ring 3 承诺；`dist/v2-alpha/spec.json` 中 `context_policy` / `routing` 占位保持 *(future)* 亦可。
+- **策略层优先级**：先做 **确定性** 步骤——tool 大块转储（artifact）、历史条目标引、线性截断、`tool_call`/`tool_result` **成对与边界对齐**——再讨论 **可选** 的小模型摘要；避免把可由代码解决的膨胀交给模型总结。
+- **SKU 分界**
+  - **Velaclaw / 桌面类 Agent**：可用 **磁盘** 做大容量 session 镜像 + 结构化索引。
+  - **Eos（浏览器 WASM）**：WASM **无原生文件语义**；**任务图状态 + artifact 指针** 在逻辑层，字节落盘经 **宿主（IndexedDB / OPFS 等）** 或 Phase 3 的云同步；实现前见 `active/projects/eos/CONTEXT_STRATEGY_BOUNDARY.md`。
+
+**执行任务索引（计划中）**：`PT-075`（ai-protocol）、`ALR-P2-001`（ai-lib-rust 共享组装逻辑）、`EOS-P2-001`（Eos 浏览器宿主接入），按依赖顺序：`PT-075` → `ALR-P2-001` → `EOS-P2-001`。

@@ -40,6 +40,14 @@ features:
     - "Computer use abstraction"
 
 active_tasks:
+  - id: "ALR-P2-001"
+    title: "Shared Rust ContextBudget assembler (deterministic, no HTTP)"
+    status: "pending"
+    priority: "high"
+    assignee: "@ai"
+    description: "Upstream PT-075; crates + unit tests — see ai-lib-plans task file."
+    task_file: "active/projects/ai-lib-rust/tasks/ALR-P2-001-context-budget-assembler.yaml"
+
   - id: "RUST-001"
     title: "V2 Manifest Parser"
     status: "in_progress"
