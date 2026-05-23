@@ -1,7 +1,7 @@
 # Eos（逸思）— To C AI 服务平台
 
 > **Type**: Consumer web platform (to-C, browser-accessible)
-> **Status**: Phase 1 planning
+> **Status**: Phase 1 **completed**（编码与契约 E2E 已入 CI；go-live 前建议完成 **EOS-P0-R7** panic 审计）
 > **Repo**: `hiddenpath/eos`（私有产品仓；公开镜像策略见治理文档 GOV-001）
 > **Architecture**: WASM (wasm-bindgen) + Axum backend proxy + static frontend (forked from ailib-wasm-test)
 > **Brand File**: `active/projects/eos/brand-rationale.md`
@@ -52,7 +52,7 @@ Provider APIs (OpenAI / DeepSeek / Anthropic / Groq / NVIDIA / ...)
 ## Phase Roadmap
 
 - **Phase 1** (3 weeks): Minimal viable platform (chat + multi-model + Web Search + file/image)
-- **Phase 2** (TBD): User registration + cloud history sync + free tier
+- **Phase 2** (TBD): User registration + cloud history sync + free tier — **并行工程预备**：浏览器侧会话镜像与确定性上下文组装见 `CONTEXT_STRATEGY_BOUNDARY.md`、任务 **EOS-P2-001**；上游 **`PT-075` → `ALR-P2-001`**（见根 `MEMORY.md` 2026-05-22）。
 - **Phase 3** (TBD): Subscription + smart recommendation + China payments
 
 ## Dependencies

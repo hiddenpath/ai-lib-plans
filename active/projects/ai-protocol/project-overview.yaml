@@ -19,8 +19,9 @@ overview: |
 current_phase: |
   v1.0.0 gate track: PT-073 core-only compliance + RC. PT-065/PT-066 generative TS/Go adaptation **completed** (2026-04-21).
   WASM-001~003 **completed** in ai-lib-wasm + ailib-wasm-test docs. Wave-4 planning slice PT-054~PT-062 is **closed**
-  in per-task YAMLs. **PT-074 unified credential chain completed** (2026-05-03); primary open engineering gate remains **PT-073**
+  in per-task YAMLs.   **PT-074 unified credential chain completed** (2026-05-03); primary open engineering gate remains **PT-073**
   plus **runtime patch releases** (crates.io / PyPI / npm / Go module tags) to align consumers. Spider↔Cursor 自动化协作已**提升为全局流程治理**，不再挂在 PT-074 下。
+  **Capacity track (2026-05-22):** **`PT-075`** adds V2-alpha `context_window` / `max_output` parity vs v1 for downstream deterministic context assembly (see `MEMORY.md`).
   **Version policy (2026-05-07):** PT-073 is **readiness for v1.0**, not an auto-bump switch; **1.0.0 train requires maintainer approval**; until then ship **0.x patch-only** increments — see `MEMORY.md` (Pre-v1.0 versioning).
 
 milestones:
@@ -62,6 +63,14 @@ active_tasks:
     description: "Final gate before v1.0.0 — four runtimes + E/P + migration docs; see task file for checklist."
     task_file: "active/projects/ai-protocol/tasks/PT-073-core-compliance-proof-v1-rc.yaml"
 
+  - id: "PT-075"
+    title: "V2-alpha model capacity metadata parity with V1 (context_window / max_output)"
+    status: "pending"
+    priority: "high"
+    description: |
+      Manifest + schema work for declarative capacity; compliance parity v1↔v2-alpha; see task file.
+      Unblocks downstream context assembly runtimes (ALR-P2-001 / EOS-P2-001).
+    task_file: "active/projects/ai-protocol/tasks/PT-075-v2-model-context-capacity-v1-parity.yaml"
 recently_completed_runtime_tasks:
   - id: "PT-074"
     title: "Unified credential chain P0 across runtimes and WASM"

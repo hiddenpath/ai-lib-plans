@@ -1,0 +1,57 @@
+---
+id: "PT-075"
+title: "V2-alpha 模型上下文容量元数据与 V1 对等（context_window / max_output）"
+status: "pending"
+priority: "high"
+executor_name: "alex"
+executor_terminal: "cursor-agent"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "v2-alpha-capacity"
+labels:
+  - "ai-protocol"
+  - "v2-alpha"
+  - "manifest"
+  - "compliance"
+created: "2026-05-22"
+updated: "2026-05-22"
+description: |
+  为策略层与运行时容量感知路由提供**可机器消费**的真源：在 V2-alpha provider / model 定义中恢复并规范
+  `context_window` 与 `max_output`（或与 v1 `pricing`/`models` 对齐的 max output tokens 字段名，须与 schema 一致），
+  与 `dist/v1/models/**` 对齐；增加合规测试防止 v1 有而 v2 丢的回归。
+
+  **显式不做**：在协议中固化压缩、shaping、routing 策略或 ContextProfile（见 `ai-lib-plans/MEMORY.md` 2026-05-22）。
+
+  **下游依赖**：`ALR-P2-001`（共享组装）、`EOS-P2-001`（浏览器宿主）在完成本任务定义的 schema + 数据迁徙后再实现消费侧。
+
+blocks:
+  - id: "PT-075-R1"
+    title: "schemas/v2/provider.json：模型级整数 capacity 字段"
+    status: "pending"
+    description: |
+      为每个 model 条目增加 `context_window`、`max_output_tokens`（或等价命名，与 v1 对齐后落盘）；
+      约定 0 = unknown；与现有 `capabilities` 字符串枚举解耦（容量为 model 元数据，非 boolean capability 名）。
+    depends_on: []
+  - id: "PT-075-R2"
+    title: "dist/v2-alpha/providers/*.json：从 v1 迁移数值"
+    status: "pending"
+    description: "自 `dist/v1/models/**` 映射 context_window、max_output、verification；保持 model_id 可追溯。"
+    depends_on: ["PT-075-R1"]
+  - id: "PT-075-R3"
+    title: "dist/v2-alpha/spec.json 文档化 capacity 语义"
+    status: "pending"
+    description: |
+      Ring 2 叙述中明确：standard_capabilities 仍为能力名列表；context window 等为 **model 级容量元数据**，
+      不混入 capability 字符串枚举。`context_policy`(future) 可不实现。
+    depends_on: ["PT-075-R1"]
+  - id: "PT-075-R4"
+    title: "合规测试：v1↔v2 模型容量对等"
+    status: "pending"
+    description: "ai-protocol/tests/compliance/ 或等价脚本：同源 model 的 context_window/max 一致；缺失报错。"
+    depends_on: ["PT-075-R2"]
+testing:
+  - "JSON Schema 校验全量 v2-alpha providers"
+  - "v1↔v2 容量字段矩阵测试"
+blocks_summary:
+  total: 4
+completion_notes: ""

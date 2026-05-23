@@ -228,6 +228,31 @@
   - 单项：`-Cursor`、`-VSCode`、`-ChromeUserData`、`-Rust`
 - **风险提示**: 先 **DRY-RUN**；`robocopy`/联接失败会尝试恢复原名；确认 Cursor/Chrome/编译正常后再 **手动删** `*_relocate_backup_*` 以真正释放 C:；Rust 后需 **重新登录或新开终端** 再运行 `where.exe rustc`。
 
+## `deploy_eos.sh`
+
+- **路径**: `tools/deploy_eos.sh`
+- **用途**: Eos（逸思）一键 Docker 部署脚本，自动化完整部署流水线：git pull → docker build → docker save → scp 上传 → 远程 docker load + 容器重启 + 健康检查
+- **目标服务器**: `43.159.226.236`（CentOS 7），Caddy 反代 `eos.ailib.info`
+- **网络策略**: Docker 构建注入代理（默认 `192.168.2.13:8887`），CN 镜像源（aliyun apt、USTC cargo/rustup）已在 Dockerfile 中固化
+- **步骤**:
+  1. `git pull --rebase --autostash` 拉取最新代码
+  2. `docker build` 带 proxy build-arg 构建镜像
+  3. `docker save | gzip` 导出镜像到本地临时文件
+  4. `scp` 上传镜像到远程服务器
+  5. SSH 远程执行：`docker load` → 停止旧容器 → `docker run` 启动新容器 → 健康检查 `/health` → 清理远程镜像文件
+  6. 清理本地临时镜像文件
+- **示例**:
+  - 完整部署：`bash tools/deploy_eos.sh`
+  - 跳过 git pull：`bash tools/deploy_eos.sh --skip-pull`
+  - 演练模式：`bash tools/deploy_eos.sh --dry-run`
+  - 自定义远程服务器：`bash tools/deploy_eos.sh --remote 1.2.3.4 --remote-pass mypass`
+  - 仅重新构建（不上传）：`bash tools/deploy_eos.sh --skip-upload --skip-restart`
+- **前置依赖**: `docker`, `sshpass`（若用密码认证）, `scp`, `ssh`, `git`
+- **风险提示**:
+  - 远程部署会 `docker stop/rm` 同名容器，短暂服务中断
+  - `--remote-pass` 参数会出现在进程列表中，生产环境建议使用 SSH key 认证（设 `REMOTE_PASS` 环境变量或省略以用 key）
+  - 健康检查最多等待 10 秒，超时仅警告不阻断
+
 ## `APPDATA_RELOCATE_LESSONS.md`
 
 - **路径**: `tools/APPDATA_RELOCATE_LESSONS.md`
