@@ -5,13 +5,13 @@
 
 .DESCRIPTION
     中文说明：
-    - 将 **Cursor / VS Code / Chrome User Data** 等大目录 **复制到 D:（或指定根目录）** 后，在原位置建立 **目录联接（junction）**，应用仍读写原路径，实际数据在目标盘。
+    - 将 **Cursor / VS Code / Chrome User Data / OpenCode 桌面版 Roaming / `.rustup`+`.cargo`** 等大目录 **复制到 D:（或指定根目录）** 后，在原位置建立 **目录联接（junction）**，应用仍读写原路径，实际数据在目标盘。
     - **Rust**：推荐 **搬家 + 设置用户环境变量** `RUSTUP_HOME` / `CARGO_HOME`（并修正 PATH 中的 `.cargo\bin`），**不用** junction，避免与 rustup 假设冲突。
     - 默认 **演练**；加 **`-Execute`** 才执行 **robocopy、重命名原目录、mklink**（Rust 另写环境变量）。
     - 执行前须 **完全退出** 对应进程（脚本可选强制检查）。
 
     **已知坑**：见 `APPDATA_RELOCATE_LESSONS.md`。
-    - Electron（Cursor/VS Code/Chrome）的 WAL 模式 SQLite：进程未完全退出时 robocopy 会复制不一致快照导致 DB 损坏。
+    - Electron（Cursor/VS Code/Chrome/OpenCode 桌面版）的 WAL 模式 SQLite：进程未完全退出时 robocopy 会复制不一致快照导致 DB 损坏。
     - CacheStorage NTFS 权限：`Remove-Item -Recurse -Force` + `takeown` 均无法删除，必须用**全新路径**避免冲突。
     - `Start-Process` + robocopy 参数引号问题：路径含空格时失败，需改用直接调用。
 
@@ -24,7 +24,7 @@
     真正执行迁移；未指定时只打印计划与路径。
 
 .PARAMETER All
-    等价于同时启用 Cursor、VS Code、Chrome、Rust。
+    等价于同时启用 Cursor、VS Code、Chrome、Rust、MigrateOpenCode。
 
 .PARAMETER Cursor
     迁移 `%APPDATA%\Cursor`。
@@ -34,6 +34,9 @@
 
 .PARAMETER ChromeUserData
     迁移 `%LOCALAPPDATA%\Google\Chrome\User Data`。
+
+.PARAMETER MigrateOpenCode
+    迁移 OpenCode **桌面版** 常见 Roaming 目录（存在的都会处理）：`%APPDATA%\ai.opencode.desktop`、`%APPDATA%\opencode`、`%APPDATA%\OpenCode`（去重；与 Cursor 一样是 **Electron**，须完全退出后再执行）。
 
 .PARAMETER Rust
     将 `%USERPROFILE%\.rustup`、`.cargo` 复制到 `TargetRoot\Rust\`，并设置用户级 `RUSTUP_HOME` / `CARGO_HOME` 与 PATH（关闭所有终端后再开新会话验证）。
@@ -60,6 +63,7 @@ param(
     [switch] $Cursor,
     [switch] $VSCode,
     [switch] $ChromeUserData,
+    [switch] $MigrateOpenCode,
     [switch] $Rust,
     [switch] $SkipProcessCheck
 )
@@ -72,10 +76,11 @@ if ($All) {
     $VSCode = $true
     $ChromeUserData = $true
     $Rust = $true
+    $MigrateOpenCode = $true
 }
 
-if (-not ($Cursor -or $VSCode -or $ChromeUserData -or $Rust)) {
-    Write-Host 'Choose at least one: -Cursor -VSCode -ChromeUserData -Rust, or -All.'
+if (-not ($Cursor -or $VSCode -or $ChromeUserData -or $MigrateOpenCode -or $Rust)) {
+    Write-Host 'Choose at least one: -Cursor -VSCode -ChromeUserData -MigrateOpenCode -Rust, or -All.'
     exit 1
 }
 
@@ -253,6 +258,9 @@ if ($Execute -and -not $SkipProcessCheck) {
     if ($Rust) {
         Assert-ProcessesClosed -Names @('rustc', 'cargo', 'rustup') -Label 'Rust toolchain'
     }
+    if ($MigrateOpenCode) {
+        Assert-ProcessesClosed -Names @('OpenCode', 'opencode') -Label 'OpenCode desktop'
+    }
 }
 
 Write-Host "=== win_appdata_relocate_to_drive ==="
@@ -272,6 +280,34 @@ if ($VSCode) {
 if ($ChromeUserData) {
     $dest = Join-Path $TargetRoot 'AppData\Local\Google\Chrome\User Data'
     Invoke-JunctionRelocate -SourceDir (Join-Path $env:LOCALAPPDATA 'Google\Chrome\User Data') -DestDir $dest -Label 'Chrome User Data'
+}
+
+if ($MigrateOpenCode) {
+    # NOTE: Do not use `Split-Path -Leaf` on paths like `...\ai.opencode.desktop` — PowerShell 5.1
+    # can raise AmbiguousParameterSet (extension-like suffix confuses parameter binding).
+    $candidates = @(
+        (Join-Path $env:APPDATA 'ai.opencode.desktop'),
+        (Join-Path $env:APPDATA 'opencode'),
+        (Join-Path $env:APPDATA 'OpenCode')
+    )
+    $seenDirKeys = @{}
+    $processedAny = $false
+    foreach ($eachRoaming in $candidates) {
+        if (-not (Test-Path -LiteralPath $eachRoaming)) { continue }
+        $normPath = [System.IO.Path]::GetFullPath($eachRoaming)
+        if (-not [System.IO.Directory]::Exists($normPath)) { continue }
+        $dirKey = $normPath.TrimEnd('\', '/').ToLowerInvariant()
+        if ($seenDirKeys.ContainsKey($dirKey)) { continue }
+        $dirLeaf = [System.IO.Path]::GetFileName($normPath.TrimEnd('\', '/'))
+        if ([string]::IsNullOrEmpty($dirLeaf)) { continue }
+        $seenDirKeys[$dirKey] = $true
+        $processedAny = $true
+        $destPath = Join-Path $TargetRoot (Join-Path 'AppData\Roaming' $dirLeaf)
+        Invoke-JunctionRelocate -SourceDir $normPath -DestDir $destPath -Label ('OpenCode Roaming ({0})' -f $dirLeaf)
+    }
+    if (-not $processedAny) {
+        Write-Host "`n[MigrateOpenCode] No known Roaming folders found (ai.opencode.desktop / opencode / OpenCode)."
+    }
 }
 
 if ($Rust) {

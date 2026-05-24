@@ -215,7 +215,7 @@
 ## `win_appdata_relocate_to_drive.ps1`
 
 - **路径**: `tools/win_appdata_relocate_to_drive.ps1`
-- **用途**: 把 **Cursor / VS Code Roaming / Chrome User Data / `.rustup`+`.cargo`** 从 C: **迁到 D:**（或任意 `TargetRoot`）：前三者用 **目录联接（junction）** 保持原路径；Rust 用 **用户环境变量** `RUSTUP_HOME` / `CARGO_HOME` 并调整 PATH，避免破坏 rustup。
+- **用途**: 把 **Cursor / VS Code Roaming / Chrome User Data / OpenCode 桌面 Roaming / `.rustup`+`.cargo`** 从 C: **迁到 D:**（或任意 `TargetRoot`）：除 Rust 外均为 **目录联接（junction）**；Rust 用环境变量。
 - **与 WinSxS**: **不能把** `C:\Windows\WinSxS` 整体迁盘；仅能 **提升权限** 后用 `win_dev_disk_cleanup.ps1` 的 `-IncludeDismComponentCleanup` / `-IncludeDismResetBase` **收缩**（不能当「搬家」）。
 - **安全模型**: 默认 **演练**；**`-Execute`** 才 `robocopy`、重命名原目录为 `*_relocate_backup_*`、`mklink /J`（或写环境变量）。执行前须 **退出** 对应程序（可用 `-SkipProcessCheck` 跳过检查，不推荐）。
 - **已知坑**: 见配套文档 [`APPDATA_RELOCATE_LESSONS.md`](APPDATA_RELOCATE_LESSONS.md)
@@ -225,7 +225,7 @@
 - **示例**:
   - 演练：`powershell.exe -NoProfile -ExecutionPolicy Bypass -File D:\ai-lib-plans\tools\win_appdata_relocate_to_drive.ps1 -TargetRoot D:\ProfileMigrate -All`
   - 执行：`... -TargetRoot D:\ProfileMigrate -All -Execute`
-  - 单项：`-Cursor`、`-VSCode`、`-ChromeUserData`、`-Rust`
+  - 单项：`-Cursor`、`-VSCode`、`-ChromeUserData`、`-MigrateOpenCode`、`-Rust`
 - **风险提示**: 先 **DRY-RUN**；`robocopy`/联接失败会尝试恢复原名；确认 Cursor/Chrome/编译正常后再 **手动删** `*_relocate_backup_*` 以真正释放 C:；Rust 后需 **重新登录或新开终端** 再运行 `where.exe rustc`。
 
 ## `deploy_eos.sh`
@@ -256,4 +256,4 @@
 ## `APPDATA_RELOCATE_LESSONS.md`
 
 - **路径**: `tools/APPDATA_RELOCATE_LESSONS.md`
-- **用途**: 2026-05-10 实战经验总结。记录了迁移 Cursor/VS Code/Chrome User Data 时遇到的三个关键坑：WAL 模式 SQLite 损坏、Electron CacheStorage NTFS 不可删权限、robocopy 参数引号问题。含修正后的安全迁移流程和验证清单。
+- **用途**: 2026-05-10 实战经验总结。记录迁移 Cursor/VS Code/Chrome/OpenCode User Data 时的关键坑：WAL 模式 SQLite、CacheStorage NTFS、robocopy 引号、`ai.opencode.desktop` 与 `Split-Path -Leaf` 绑定异常等；含安全迁移流程与验证清单。

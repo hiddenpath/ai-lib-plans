@@ -1,10 +1,10 @@
 ---
 id: "EOS-P1-001"
 title: "Eos Phase 1 — 最小可用聊天平台（基于 ailib-wasm-test rebrand）"
-status: "done"
+status: "completed"
 priority: "high"
-executor_name: "@cursor @alex"
-executor_terminal: ""
+executor_name: "alex"
+executor_terminal: "cursor-agent"
 assignee: "@cursor"
 project: "eos"
 milestone: "eos-phase1"
@@ -15,9 +15,7 @@ labels:
   - "wasm"
   - "deployment"
 created: "2026-04-30"
-updated: "2026-05-15"
-completed: "2026-05-15"
-close_notes: "2026-05-15: Phase 1 全功能已部署至香港云服务器 43.159.226.236:3000, health check 通过. 最新 commit 88deeb6 (Cursor 完成前端 4 个缺失 UI 功能: Web Search 开关/上传按钮/图像模式/导出复制截图)."
+updated: "2026-05-19"
 description: |
   从 ailib-wasm-test rebrand + 功能扩展，建立 Eos（逸思）To C 消费者 AI 服务平台最小闭环。
   详见 active/projects/eos/PHASE1_PLAN.md
@@ -30,107 +28,108 @@ description: |
 blocks:
   - id: "EOS-P1-R1"
     title: "Fork ailib-wasm-test → eos repo"
-    status: "done"
-    description: "GitHub hiddenpath/eos 已创建（含 prism-core 提取）"
+    status: "completed"
+    description: "canonical：`hiddenpath/eos` workspace（prism-core + eos-server + eos-wasm-browser）"
   - id: "EOS-P1-R2"
     title: "HTML 文案替换（Eos 品牌）"
-    status: "done"
-    description: "页面标题 Eos 逸思，品牌文案已替换"
+    status: "completed"
+    description: "static/index.html 标题与品牌文案已为 Eos 逸思"
   - id: "EOS-P1-R3"
     title: "UI 主题色替换"
-    status: "done"
-    description: "晨曦暖色系 CSS 变量 (dawn-* palette)"
+    status: "completed"
+    description: "晨曦暖色 CSS 变量主题"
   - id: "EOS-P1-R4"
     title: "中文本地化 + 语言切换"
-    status: "done"
-    description: "x-data 管理 lang 状态，Header 中英文切换 toggle"
+    status: "completed"
+    description: "Header EN/中 toggle + 中英文系统提示"
   - id: "EOS-P1-F1"
     title: "多轮对话上下文"
-    status: "done"
-    description: "messages[] + chatHistory[] 维护，SSE 携带历史，New Chat 按钮清空"
+    status: "completed"
+    description: "chatHistory、SSE/non-stream New Chat"
+    depends_on: []
   - id: "EOS-P1-F2"
     title: "Markdown 渲染增强"
-    status: "done"
-    description: "marked 15.0.7 + highlight.js 11.10.0 集成，thinking block 折叠"
+    status: "completed"
+    description: "marked + highlight.js"
     depends_on: ["EOS-P1-F1"]
   - id: "EOS-P1-F3"
     title: "Web Search 开关 UI"
-    status: "done"
-    description: "后端 search.rs + 前端 toolbar Web Search 切换按钮，集成到聊天调用流 (88deeb6)"
+    status: "completed"
+    description: "工具栏开关；发送前 POST /api/web-search，结果写入 system 上下文再走 WASM + /api/proxy(/stream)"
   - id: "EOS-P1-F4"
     title: "文件上传按钮"
-    status: "done"
-    description: "后端 upload.rs + 前端上传按钮，支持图片选择/预览/移除 (88deeb6)"
+    status: "completed"
+    description: "multipart POST /api/upload；附件预览与用户消息内 [Uploaded image: …]；发送成功后清空附件"
   - id: "EOS-P1-F5"
     title: "图像生成模式切换"
-    status: "done"
-    description: "后端 images.rs + 前端模式切换按钮（聊天/图像），图像展示 image-grid (88deeb6)"
+    status: "completed"
+    description: "聊天/图像模式切换；POST /api/images/generations（dall-e-3）；assistant 气泡展示返回图片"
   - id: "EOS-P1-F6"
     title: "导出/复制/截图"
-    status: "done"
-    description: "exportMarkdown 导出、copyText/copyLastAssistant 复制、html2canvas captureChat 截图 (88deeb6)"
+    status: "completed"
+    description: "复制回答、导出 Markdown、html2canvas 截图 #chat-container（CDN）"
     depends_on: ["EOS-P1-F1"]
   - id: "EOS-P1-F7"
     title: "模型下拉动态加载"
-    status: "done"
-    description: "fetch /api/models 填充下拉，动态选择模型"
+    status: "completed"
+    description: "fetch /api/models 填充 selectedModel"
   - id: "EOS-P1-B1"
     title: "/api/models 端点"
-    status: "done"
-    description: "返回可用 Provider/模型列表，配置驱动"
+    status: "completed"
+    description: "GET /api/models 返回 providers/models"
   - id: "EOS-P1-B2"
     title: "Web Search 后端集成"
-    status: "done"
-    description: "Tavily 搜索 API 集成，search.rs 含请求构建/错误处理/类型校验"
+    status: "completed"
+    description: "POST /api/web-search（Tavily 等，见路由 mod search）"
   - id: "EOS-P1-B3"
     title: "文件上传后端处理"
-    status: "done"
-    description: "multipart 接收，图片类型校验（image/*），大小限制（10MB），UUID 重命名（9a646db）"
+    status: "completed"
+    description: "POST /api/upload + GET /api/files/*"
   - id: "EOS-P1-B4"
     title: "图像生成代理"
-    status: "done"
-    description: "转发 DALL-E API（POST /api/images/generations），返回图像 URL 列表"
+    status: "completed"
+    description: "POST /api/images/generations"
   - id: "EOS-P1-B5"
     title: "限流中间件"
-    status: "done"
-    description: "IP-based token bucket rate limiting，rate_limit.rs 含单元测试"
+    status: "completed"
+    description: "API 路由层 token bucket；/health 可观测被拒次数"
   - id: "EOS-P1-B6"
     title: "Provider 配置外部化"
-    status: "done"
-    description: "统一 EOS_* 环境变量，.env.example + .env.production 模板"
+    status: "completed"
+    description: "dotenvy + EOS_* / prism-core EnvConfig"
   - id: "EOS-P1-D1"
     title: "Dockerfile 更新"
-    status: "done"
-    description: "三阶段构建：WASM (wasm-pack) → Rust (cargo build --release) → bookworm-slim runtime"
+    status: "completed"
+    description: "多阶段 wasm-pack + eos-server；完整 workspace COPY；Rust 1.86"
     depends_on: ["EOS-P1-B6"]
   - id: "EOS-P1-D2"
     title: "Docker Compose + Caddy"
-    status: "done"
-    description: "docker-compose.yml（含 eos + caddy tls profile），deploy/Caddyfile"
+    status: "completed"
+    description: "根 docker-compose.yml + deploy/Caddyfile；profile tls"
     depends_on: ["EOS-P1-D1"]
   - id: "EOS-P1-D3"
     title: "域名配置"
-    status: "done"
-    description: "DNS (eos.ailib.info) 已解析至 43.159.226.236; Caddy TLS 自动签发"
+    status: "completed"
+    description: "DNS（`eos.ailib.info` / ailib.info 区划）已解析至 VPS/Caddy 入口；与 D2 Compose+Caddy TLS 路径一致并已验证生效"
     depends_on: ["EOS-P1-D2"]
   - id: "EOS-P1-D4"
     title: "E2E 集成测试"
-    status: "pending"
-    description: "全链路门禁待补（与 EOS-P0-R5 协同）"
-    depends_on: ["EOS-P1-D3"]
+    status: "completed"
+    description: "e2e/ Playwright 契约套件（mocked stream、sanitize、history）；eos-ci 增加 wasm-pack + test:e2e；live-* 用 playwright.live.config.ts 单独跑"
     depends_on: ["EOS-P1-D3"]
 testing:
   - "后端 cargo test"
   - "e2e 浏览器端到端测试"
 blocks_summary:
-  total: 21
-  rebrand: 4 (全部 done ✅)
-  frontend: 7 (全部 done ✅)
-  backend: 6 (全部 done ✅)
-  deployment: 4 (D1 done D2 done D3 done D4 pending)
+  total: 22
+  rebrand: 4 (EOS-P1-R1~R4)
+  frontend: 7 (EOS-P1-F1~F7)
+  backend: 6 (EOS-P1-B1~B6)
+  deployment: 4 (EOS-P1-D1~D4)
   milestone_plan: "M1:Week1 R1~R4+F1+F2+F7+B1+B6 | M2:Week2 F3~F6+B2~B5 | M3:Week3 D1~D4"
 completion_notes: |
-  2026-05-15:
-  - **已部署至 43.159.226.236:3000**，health check 通过
-  - 全部 22 sub-tasks done ✅（commit 88deeb6 由 Cursor 补齐前端 4 个缺失 UI）
-  - E2E 集成测试未做，DNS/HTTPS 未配置（P0 项）
+  2026-05-19：Phase 1 编码与收尾闭环。
+  - D4/R5：Playwright 契约测试入 eos-ci；默认配置忽略 live-*（部署联调用 EOS_E2E_LIVE_URL + playwright.live.config.ts）。
+  - R8：`/api/models` 返回 `chat_completions_url`，前端移除 providerUrls 硬编码；仅返回已配置 API Key 的 Provider。
+  - 文档：README/.env.example 补 Gemini；README 标明 Phase 1 WASM 必选。
+  - 2026-05-15 基线：F3–F6、D1–D3、B1–B6、R1–R4 均已合入 hiddenpath/eos main。

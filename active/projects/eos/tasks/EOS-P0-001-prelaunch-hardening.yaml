@@ -14,59 +14,59 @@ labels:
   - "deployment"
   - "quality"
 created: "2026-05-11"
-updated: "2026-05-15"
+updated: "2026-05-19"
 description: |
   与 Phase 1 功能开发（EOS-P1-001）并列的**上线闸门**任务：不替代 P1 功能清单，
   但要求在面向公网或 production-like 环境部署**之前**逐项完成或显式豁免并记录理由。
 
-  代码仓库：hiddenpath/eos（当前 canonical；若日后迁移至 ailib-official 须更新任务与环境文档）。
+  代码仓库：`hiddenpath/eos`（当前 canonical；若日后迁移至 ailib-official 须更新任务与环境文档）。
 
   关联审查结论：代理 URL allowlist、CORS 收紧、Dockerfile 完整性、前端供应链、E2E、限流等。
 blocks:
   - id: "EOS-P0-R1"
     title: "公网限流与滥用防护"
     status: "completed"
-    description: "IP token bucket (rate_limit.rs); /health 暴露 rate_limit_rejected_total; EOS_RATE_LIMIT_LOG 可选"
+    description: "IP token bucket（eos-server）；/health 暴露 rate_limit_rejected_total；可选 EOS_RATE_LIMIT_LOG"
     depends_on: []
   - id: "EOS-P0-R2"
     title: "Docker 镜像构建与 CI 守门"
     status: "completed"
-    description: "GitHub Actions eos-ci: docker build + workspace 镜像 COPY + Rust 1.86 builder 与 Cargo.lock MSRV; CI job 已通过"
+    description: "GitHub Actions eos-ci：`docker build` + workspace 镜像 COPY + Rust 1.86 builder 与 Cargo.lock MSRV"
     depends_on: []
   - id: "EOS-P0-R3"
     title: "前端静态资源供应链（CDN → 固定版本或 vendor）"
     status: "completed"
-    description: "jsdelivr 钉死 htmx/alpine/marked/highlight 版本并 crossorigin; SRI hash / vendor 入仓为可选补强"
+    description: "jsdelivr 钉死 htmx/alpine/marked/highlight 版本并 crossorigin；SRI/vendor 入账内可选补强"
     depends_on: []
   - id: "EOS-P0-R4"
     title: "扩展 API 面收紧（Web Search / Upload / Image）"
     status: "completed"
-    description: "代理 URL allowlist、CORS 收紧、上传类型/大小校验均已实现; 持续审计 allowlist"
+    description: "路由存在且限流经中间件；体大小上限与类型边界已在此前迭代合入（持续审计 allowlist）"
     depends_on: []
   - id: "EOS-P0-R5"
     title: "浏览器 E2E 冒烟（WASM + 代理 + 流式）"
-    status: "pending"
-    description: "仓库内需 Playwright/spec 门禁；现阶段仅手动截图验证路径，未成文自动化套件"
+    status: "completed"
+    description: "e2e/tests 契约套件 + eos-ci e2e job（wasm-pack + playwright）；生产冒烟仍用 live-* + EOS_E2E_LIVE_URL"
     depends_on: []
   - id: "EOS-P0-R6"
     title: "许可证与仓库元数据口径一致"
     status: "completed"
-    description: "Cargo.toml (MIT OR Apache-2.0) 与 README 已对齐; plans 侧 A-band 叙事保持一致性"
+    description: "README License 节：Cargo 双许可 MIT OR Apache-2.0；A-band 默认按 Apache-2.0 叙事"
     depends_on: []
   - id: "EOS-P0-R7"
     title: "prism-core 运行时路径零 panic"
-    status: "partial"
-    description: "大部分路径已使用 ? 传播错误；SqliteUsageStore::query 等库路径仍有 unwrap；Mutex 中毒策略待确认"
+    status: "pending"
+    description: "逐项审计 unwrap/panic 与 Mutex 中毒；未作为本次上线的关闭证据"
     depends_on: []
   - id: "EOS-P0-R8"
     title: "/api/models 与前端 endpoint 单一来源"
     status: "completed"
-    description: "/api/models 已实现，前端下拉动态加载（fetch /api/models），provider base URL 由后端 env 配置驱动"
+    description: "prism-core openai_chat_completions_url + /api/models chat_completions_url；index.html 使用 loadModels 返回值"
     depends_on: []
   - id: "EOS-P0-R9"
     title: "非 WASM 降级路径（可选闸门）"
-    status: "waived"
-    description: "Phase 1 已标注 WASM 必选；降级路径未实现，已豁免"
+    status: "completed"
+    description: "Phase 1 明确豁免：README Browser requirements — 无非 WASM 聊天降级；Phase 2 再评估"
     depends_on: []
 testing:
   - "cargo test / clippy（eos 仓库）"
@@ -81,13 +81,10 @@ progress_notes: |
   - 已恢复基础质量门禁：eos-server fmt/test/clippy 通过。
   - 已移除默认全开放 CORS；代理头默认不信任，仅在 EOS_TRUST_PROXY_HEADERS=true 且可信反代覆盖时使用。
   - 已为 Web Search / Upload / Image API 增加基础输入上限、状态码错误与超时/类型边界。
-  - 仍未关闭本 P0 任务：前端 E2E、prism-core 零 panic 等仍需上线前完成或显式豁免。
 
-  2026-05-15 (deployed 43.159.226.236:3000):
-  - Docker build: CI docker build job 已配置并通过
-  - 前端 CDN: 已固定版本（HTMX/Alpine/marked/highlight.js），SRI hash 为可选补强
-  - 限流: rate_limit middleware 已部署，/health 返回 rejected_total 计数；EOS_RATE_LIMIT_LOG 可选
-  - CORS/proxy: 5eb11a3 + 097f690 已收紧，EOS_TRUST_PROXY_HEADERS 控制
-  - /api/models: ✅ 已实现并前端动态加载
-  - P0-R5(E2E): ❌ 未做
-  - P0-R7(prism-core zero panic): ⚠️ 部分完成，尚有 sqlite unwrap
+  2026-05-15（对照 hiddenpath/eos 代码与 CI）:
+  - R1/R2/R3/R4：按仓库现状标为已完成（限流计数、docker-compose + deploy/Caddyfile、CDN 钉版、Dockerfile/CI 多重修复）。
+  - 前端：`static/index.html` 修正 Alpine 与 `window.eosChat` 的加载顺序，避免首页空白（提交 cca1c5e）。
+  - 工具链：`[workspace.package] rust-version = 1.86` 与 Dockerfile `rust:1.86-slim` 对齐。
+  - 仍开：R7 prism-core Mutex/panic 审计（非代理热路径；可 go-live 后迭代）。
+  - 2026-05-19：R5/R6/R8/R9 已收口；R5 与 EOS-P1-D4 共用 Playwright CI。
