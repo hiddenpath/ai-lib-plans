@@ -1,0 +1,58 @@
+---
+id: "EOS-ARCH-001"
+title: "Eos 区域合规路由架构决策（方案 B：双入口隔离）"
+status: "completed"
+priority: "high"
+executor_name: "alex"
+executor_terminal: "cursor-agent"
+assignee: "@cursor"
+project: "eos"
+milestone: "eos-architecture"
+labels:
+  - "eos"
+  - "architecture"
+  - "compliance"
+  - "routing"
+  - "decision-record"
+created: "2026-05-24"
+updated: "2026-05-24"
+description: |
+  在 Eos 产品架构讨论中识别到区域合规路由需求。经三层可选路径分析
+  （A=纯国内合规、B=双入口隔离、C=BYOK 灰色地带），选定方案 B。
+  核心设计：zh-cn 入口仅路由已备案模型，global 入口路由全球模型；
+  manifest 新增 region 字段；合规策略在 P 层（闭源），E 层（开源
+  prism-core）只做标签过滤，保持技术中立。
+
+blocks:
+  - id: "EOS-ARCH-R1"
+    title: "决策记录文档完成"
+    status: "completed"
+    description: "COMPLIANCE_REGIONAL_ROUTING.md 已编写，覆盖法律框架、方案对比、数据模型、请求生命周期、部署拓扑、影响评估。"
+    depends_on: []
+  - id: "EOS-ARCH-R2"
+    title: "Manifest region schema 定义"
+    status: "pending"
+    description: "在 ai-protocol v2-alpha manifest 中新增 region 结构字段（cn/global 二级 endpoint + 备案编号），需与 ai-protocol 团队对齐。"
+    depends_on: []
+  - id: "EOS-ARCH-R3"
+    title: "P 层区域合规过滤器"
+    status: "pending"
+    description: "Eos 后端闭源层新增模块：来源识别 → region 标签 → 已备案模型过滤器。需对接动态更新模型清单。"
+    depends_on: ["EOS-ARCH-R2"]
+  - id: "EOS-ARCH-R4"
+    title: "E 层 router region 过滤参数"
+    status: "pending"
+    description: "prism-core router 新增可选 region 参数，按标签过滤可用 endpoints。保持向后兼容（不传则不过滤）。"
+    depends_on: ["EOS-ARCH-R2"]
+  - id: "EOS-ARCH-R5"
+    title: "已备案清单同步工具"
+    status: "pending"
+    description: "从网信办公示页面定期同步已备案模型清单的自动化工具，沉淀到 ai-lib-plans/tools/。"
+    depends_on: []
+blocks_summary:
+  total: 5
+  completed: 1
+  pending: 4
+completion_notes: |
+  架构选型讨论完成，文档已写入 active/projects/eos/COMPLIANCE_REGIONAL_ROUTING.md。
+  后续执行需要按依赖顺序推进 R2→R3/R4 以及并行推进 R5。

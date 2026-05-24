@@ -8,6 +8,7 @@
 | EOS-P1-001 | [tasks/EOS-P1-001-minimal-chat-platform.yaml](./tasks/EOS-P1-001-minimal-chat-platform.yaml) | `completed` | — | Phase 1 最小闭环已交付（含 D4 E2E + CI） |
 | EOS-P2-001 | [tasks/EOS-P2-001-context-strategy-browser.yaml](./tasks/EOS-P2-001-context-strategy-browser.yaml) | `pending` | PT-075、ALR-P2-001 | Phase 2 预备：**浏览器 SKU** 上下文镜像 + artifact + 确定性组装接上 WASM `build_request`（见 CONTEXT_STRATEGY_BOUNDARY.md） |
 | EOS-DPL-001 | [EOS_DEPLOY_PLAN.md](./EOS_DEPLOY_PLAN.md) | `ready` | 香港云服务器就绪 | 部署实施计划（5 块分片），2026-05-11 先生确认上线策略 |
+| EOS-ARCH-001 | [tasks/EOS-ARCH-001-compliance-regional-routing.yaml](./tasks/EOS-ARCH-001-compliance-regional-routing.yaml) | `completed` | — | **区域合规路由架构决策**：选定双入口隔离方案（zh-cn/global），manifest region 字段，E/P 层职责切割 |
 
 ## 上线前专项（Pre-launch）
 

@@ -3,7 +3,7 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-05-14
+**Last Updated**: 2026-05-24
 
 ---
 
@@ -621,3 +621,19 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
   - **Eos（浏览器 WASM）**：WASM **无原生文件语义**；**任务图状态 + artifact 指针** 在逻辑层，字节落盘经 **宿主（IndexedDB / OPFS 等）** 或 Phase 3 的云同步；实现前见 `active/projects/eos/CONTEXT_STRATEGY_BOUNDARY.md`。
 
 **执行任务索引（计划中）**：`PT-075`（ai-protocol）、`ALR-P2-001`（ai-lib-rust 共享组装逻辑）、`EOS-P2-001`（Eos 浏览器宿主接入），按依赖顺序：`PT-075` → `ALR-P2-001` → `EOS-P2-001`。
+
+---
+
+## Eos 区域合规路由架构决策 (2026-05-24)
+
+**决策**：Eos 采用 **区域隔离双栈（方案 B）**——zh-cn 入口仅路由已备案模型，global 入口路由全球模型。
+
+**决策文件**：`active/projects/eos/COMPLIANCE_REGIONAL_ROUTING.md`
+**任务记录**：`active/projects/eos/tasks/EOS-ARCH-001-compliance-regional-routing.yaml`
+
+**决策要点**：
+- **三层路径分析**：A（纯国内合规，丢失全球市场）、B（双入口隔离 ✅）、C（BYOK 灰色地带，不可持续）
+- **E/P 分离与合规一致**：合规策略（P 层闭源）与基础设施路由（E 层开源）在同一条切割线上——法律风险即架构边界
+- **Manifest region 字段**：ai-protocol manifest 新增 `region` 结构，是解决方案的原点，不是代码 if-else
+- **动态模型清单**：已备案模型列表动态变化，manifest 不可硬编码；需同步工具定时从网信办公示拉取
+- **配套任务**：`EOS-ARCH-R2` manifest region schema → `EOS-ARCH-R3` P 层合规过滤器 + `EOS-ARCH-R4` E 层 router region 过滤 → `EOS-ARCH-R5` 已备案清单同步工具
