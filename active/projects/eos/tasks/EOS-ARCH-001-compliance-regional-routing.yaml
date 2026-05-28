@@ -15,7 +15,7 @@ labels:
   - "routing"
   - "decision-record"
 created: "2026-05-24"
-updated: "2026-05-24"
+updated: "2026-05-29"
 description: |
   在 Eos 产品架构讨论中识别到区域合规路由需求。经三层可选路径分析
   （A=纯国内合规、B=双入口隔离、C=BYOK 灰色地带），选定方案 B。
@@ -47,7 +47,47 @@ blocks:
   - id: "EOS-ARCH-R5"
     title: "已备案清单同步工具"
     status: "pending"
-    description: "从网信办公示页面定期同步已备案模型清单的自动化工具，沉淀到 ai-lib-plans/tools/。"
+    description: |
+      ## 目标
+      自动化工具，从国家网信办生成式 AI 服务备案公示页面提取已备案模型清单，
+      输出为机器可读格式（YAML/JSON），供 P 层合规过滤器消费。
+
+      ## 数据来源
+      - 国家网信办公示页面：`https://www.cac.gov.cn` 生成式 AI 备案公告
+      - 地方网信办（北京/上海/广东/浙江等）补充公告
+      - 首批结构化摄取目标：截至 2026-02 全国 796 款已备案模型
+
+      ## 输出格式
+      ```yaml
+      # 位置: ai-lib-plans/data/compliance/registered_models.yaml
+      # 或作为 ai-protocol manifest 扩展字段
+      last_updated: "2026-05-29"
+      source: "https://www.cac.gov.cn/..."
+      models:
+        - name: "DeepSeek Chat"
+          provider: "深度求索"
+         备案编号: "SHSH-2023-00123"
+         备案日期: "2023-08-31"
+         类型: "大语言模型"
+        - name: "通义千问"
+          provider: "阿里巴巴"
+         备案编号: "ZJBJ-2023-00456"
+         # ...
+      ```
+
+      ## 实现步骤
+      1. 在 `ai-lib-plans/tools/` 创建 `sync_compliance_registry.py`
+      2. 爬虫/解析逻辑：
+         - 先用硬编码方式：手动维护 YAML，附来源链接
+         - Phase 2 可选：基于 Playwright 自动化抓取 CAC 页面
+      3. 维护更新 SOP：当有新备案公告时，人工复核 + 脚本增量更新
+      4. 产出 `ai-lib-plans/data/compliance/registered_models.yaml`
+
+      ## 验收标准
+      - [ ] `registered_models.yaml` 存在且为合法 YAML
+      - [ ] 包含至少 5 个主流国产模型条目（DeepSeek/Qwen/GLM/MiniMax/Baichuan 等）
+      - [ ] 每个条目含 `备案编号` 和 `备案日期`
+      - [ ] 脚本 `sync_compliance_registry.py` 可被调用（初始为手动维护 + 校验，非全自动抓取）
     depends_on: []
 blocks_summary:
   total: 5

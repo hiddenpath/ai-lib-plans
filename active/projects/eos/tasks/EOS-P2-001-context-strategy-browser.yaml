@@ -14,7 +14,7 @@ labels:
   - "browser"
   - "strategy"
 created: "2026-05-22"
-updated: "2026-05-22"
+updated: "2026-05-29"
 description: |
   在 `hiddenpath/eos` 将 **会话历史镜像**（事件流 + 大体量 artifact 指针）落在 **浏览器宿主**（先内存 mock，
   再 OPFS/IndexedDB），发送前调用 `ALR-P2-001` 产出的组装逻辑得到规范化 `messages`，再进入现有 `eos-wasm-browser` `build_request`。
@@ -25,7 +25,56 @@ blocks:
   - id: "EOS-P2-R1"
     title: "宿主存储抽象（SessionMirror + ArtifactRef）"
     status: "pending"
-    description: "TS/JS trait 等价：append、capped、按 id 取块；首版可纯内存。"
+    description: |
+      ## 目标
+      在 `static/js/session_mirror.js` 实现纯内存的会话镜像存储，待后续升级为 OPFS/IndexedDB。
+
+      ## 接口定义（TypeScript 伪码）
+      ```typescript
+      interface ArtifactRef {
+        id: string;           // uuid, 对应大段 tool 输出/附件
+        sizeBytes: number;    // 预估大小
+        mime: string;         // "text/markdown" | "image/png" | ...
+      }
+
+      interface SessionMirror {
+        // 追加对话事件
+        append(entry: ChatEntry): void;
+        // 按 id 获取 artifact 引用（不取载荷）
+        getArtifactRef(id: string): ArtifactRef | null;
+        // 按 id 获取 artifact 完整载荷
+        getArtifactPayload(id: string): string | null;
+        // 获取组装后的 messages 数组（不带超额 artifact 载荷）
+        assembleMessages(maxTokens: number): Message[];
+        // 当前总 token 估算
+        estimatedTokens(): number;
+        // 清空
+        clear(): void;
+      }
+
+      interface ChatEntry {
+        role: "user" | "assistant" | "system" | "tool";
+        content: string;
+        artifacts?: ArtifactRef[];   // tool 输出不内联，用引用
+        timestamp: number;
+      }
+      ```
+
+      ## 实现步骤
+      1. 在 `static/js/session_mirror.js` 创建模块（ES module，不依赖框架）
+      2. 实现 `SessionMirror` 类：内部用 `ChatEntry[]` + `Map<string, ArtifactRef>` + `Map<string, string>`（id→payload）
+      3. 实现 `assembleMessages(maxTokens)`：
+         - 从最新消息开始累计 token 估算（粗估：1 token ≈ 4 chars）
+         - 直到接近 maxTokens 时截断，丢弃最旧消息
+         - 对于有 artifact 的条目：只保留 ref，不展开 payload
+      4. 单元测试：用 Jest 或最小 Node.js 脚本验证 append/assemble/clear 行为
+      5. 在 `static/index.html` 的 `window.eosChat` 中挂载 mirror 实例
+
+      ## 验收标准
+      - [ ] `SessionMirror` 类可通过浏览器 console 直接创建和操作
+      - [ ] `append()` 追加 100 条消息后 `estimatedTokens()` 返回非零值
+      - [ ] `assembleMessages(500)` 在超容时截断返回 ≤500 token 预算的消息列表
+      - [ ] `clear()` 后 `estimatedTokens()` 返回 0
     depends_on: []
   - id: "EOS-P2-R2"
     title: "接入 ALR-P2-001 组装结果到发送路径"
@@ -35,9 +84,9 @@ blocks:
       依赖 ALR-P2-001 API 冻结。
     depends_on: ["EOS-P2-R1"]
   - id: "EOS-P2-R3"
-    title: "模型清单携带 capacity（后端 /api/models 或与 PT-075 对齐的静态嵌入）"
-    status: "pending"
-    description: "消费 `context_window`/`max_output`；未知模型走保守默认并记录控制台/遥测钩子位。"
+    title: "模型清单携带 capacity（后端 /api/models）"
+    status: "completed"
+    description: "已在 PR #3 实现：ModelEntry/ModeInfo 新增 context_window/max_output 字段。"
     depends_on: []
   - id: "EOS-P2-R4"
     title: "契约或 E2E：大 tool 仿真不撑爆单次请求"
