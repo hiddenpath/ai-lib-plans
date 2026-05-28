@@ -4,11 +4,11 @@
 
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|------|------|------|
-| EOS-P0-001 | [tasks/EOS-P0-001-prelaunch-hardening.yaml](./tasks/EOS-P0-001-prelaunch-hardening.yaml) | `pending` | 公网/生产部署前 | **上线闸门**：R1–R6、R8–R9 已完成；**R7**（prism-core panic 审计）仍为 go-live 前建议项 |
-| EOS-P1-001 | [tasks/EOS-P1-001-minimal-chat-platform.yaml](./tasks/EOS-P1-001-minimal-chat-platform.yaml) | `completed` | — | Phase 1 最小闭环已交付（含 D4 E2E + CI） |
+| EOS-P0-001 | [tasks/EOS-P0-001-prelaunch-hardening.yaml](./tasks/EOS-P0-001-prelaunch-hardening.yaml) | `pending` | — | **上线闸门**：R1–R6、R8–R9 已完成；**已 go-live**（2026-05-27）；生产已确认 `main@299575a`（2026-05-28）；**R7**、密钥轮换为 post-go-live 跟进 |
+| EOS-P1-001 | [tasks/EOS-P1-001-minimal-chat-platform.yaml](./tasks/EOS-P1-001-minimal-chat-platform.yaml) | `completed` | — | Phase 1 最小闭环已交付；2026-05-17~28 追加 PR #1 Gemini、PR #2 NVIDIA/流式修复与 post-merge E2E |
 | EOS-P2-001 | [tasks/EOS-P2-001-context-strategy-browser.yaml](./tasks/EOS-P2-001-context-strategy-browser.yaml) | `pending` | PT-075、ALR-P2-001 | Phase 2 预备：**浏览器 SKU** 上下文镜像 + artifact + 确定性组装接上 WASM `build_request`（见 CONTEXT_STRATEGY_BOUNDARY.md） |
-| EOS-DPL-001 | [EOS_DEPLOY_PLAN.md](./EOS_DEPLOY_PLAN.md) | `ready` | 香港云服务器就绪 | 部署实施计划（5 块分片），2026-05-11 先生确认上线策略 |
-| EOS-ARCH-001 | [tasks/EOS-ARCH-001-compliance-regional-routing.yaml](./tasks/EOS-ARCH-001-compliance-regional-routing.yaml) | `completed` | — | **区域合规路由架构决策**：选定双入口隔离方案（zh-cn/global），manifest region 字段，E/P 层职责切割 |
+| EOS-DPL-001 | [EOS_DEPLOY_PLAN.md](./EOS_DEPLOY_PLAN.md) | `completed` | — | 香港 VPS + Caddy TLS + `deploy_eos.sh`；生产 `https://eos.ailib.info` 已确认 `main@299575a`（2026-05-28） |
+| EOS-ARCH-001 | [tasks/EOS-ARCH-001-compliance-regional-routing.yaml](./tasks/EOS-ARCH-001-compliance-regional-routing.yaml) | `completed` | — | **决策记录已完成**（方案 B）；执行块 R2–R5 仍 pending，见任务 YAML |
 
 ## 上线前专项（Pre-launch）
 
@@ -20,7 +20,7 @@
 |--------|------|:----:|
 | M1: Chat Works（聊天+流式+多模型） | Week 1 末 | ✅ |
 | M2: Feature Complete（功能面板完整） | Week 2 末 | ✅ |
-| M3: Live（eos.ailib.info 上线） | Week 3 末 | ⏳ DNS/TLS 已就绪；**EOS-P0-R7** 审计与生产密钥轮换为剩余闸门 |
+| M3: Live（eos.ailib.info 上线） | Week 3 末 | ✅ 已上线；生产已确认 `main@299575a`（alex，2026-05-28）；**EOS-P0-R7**、密钥轮换仍为跟进项 |
 
 ## 依赖
 

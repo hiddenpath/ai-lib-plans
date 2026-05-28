@@ -12,6 +12,8 @@
 - **Eos（`hiddenpath/eos`）**：`Cargo.toml` 中 `[workspace.package] rust-version` 必须与 `Dockerfile` 的 `ARG RUST_IMAGE`（例如 `rust:1.86-slim`）所隐含的 **rustc 最低要求**一致；每次 `cargo update` 或引入会使依赖链 MSRV 上移的 crate 后，应 **本地**用与 CI 同大版本的 Rust 跑一次 `cargo build` / `cargo test`，并 **同步**更新 `rust-version` 与 Docker builder 镜像，避免“本地/PR 用 stable 过、Docker CI 才暴露要 bump”的反模式。
 - **其他 Rust 仓库**（如 `ai-lib-rust`、`ai-protocol`）：**不要求**与 Eos 同号 MSRV，但开发习惯上应在 **依赖升级后**核对关键传递依赖的 `rustc` 版本要求（crates.io `rust-version` / 构建报错提示 / 可选 `cargo-msrv`）；若工作流含 **Docker 多阶段 Rust 镜像**，应保持镜像中的 rustc **不低于** crate 标注的 MSRV。
 - **检查点**：合并前对比三处——根 `Cargo.toml` 的 `rust-version`、`Dockerfile`/CI 选用的 Rust 版本、以及最近一次 `cargo build --locked`（或等价 CI）是否在 **三者较低者**之上仍能编过。
+- **`rustup` / CI 选型补充**：可选用 **固定补丁版本镜像**、`rust-toolchain.toml` pin，或自愿跟随 `stable`；以各仓 `Cargo.toml` `[workspace.package] rust-version` 与 Dockerfile `ARG RUST_IMAGE` 对齐为准。Docker 镜像与 `Cargo.toml` 的 **`rust-version` 不得低于**三者中最低合规版本。
+- **内嵌构建工具二进制（PL-ENGINE-019）**：任何将 `wasm-pack`、`wasm-bindgen` 等预编译二进制纳入 Git 的路径，必须符合 `ai-lib-plans/docs/engineering/VENDORED_BUILD_TOOL_BINARIES.md`（平台、上游版本记录、SHA-256、更新说明）；示例：`hiddenpath/eos` 根目录 `wasm-pack-bin` / `wasm-bindgen-bin`（`main@299575a` 无 `docs/` 子目录）。Prism-Core 若以相同方式规避风险，沿用同一文档。
 
 ## Product cadence — matrix vs validation vs tooling (2026-05-07)
 
@@ -637,3 +639,26 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 - **Manifest region 字段**：ai-protocol manifest 新增 `region` 结构，是解决方案的原点，不是代码 if-else
 - **动态模型清单**：已备案模型列表动态变化，manifest 不可硬编码；需同步工具定时从网信办公示拉取
 - **配套任务**：`EOS-ARCH-R2` manifest region schema → `EOS-ARCH-R3` P 层合规过滤器 + `EOS-ARCH-R4` E 层 router region 过滤 → `EOS-ARCH-R5` 已备案清单同步工具
+
+## 2026-05-27 — Eos 生产 go-live（hiddenpath/eos）
+
+**状态**：`https://eos.ailib.info` 已公网可访问；`/health` 返回 `{"status":"ok",...}`。
+
+**证据**：
+- hiddenpath/eos [PR #2](https://github.com/hiddenpath/eos/pull/2)（`fix/nvidia-glm-streaming`）merge `bbd4231`，PR 描述记录生产部署。
+- 部署自动化：`ai-lib-plans/tools/deploy_eos.sh`；目标 VPS `43.159.226.236`，Caddy 反代。
+- Plans 回填：`EOS-DPL-001` → completed；M3 Live → ✅（见 `active/projects/eos/TASKS_INDEX.md`）。
+
+**go-live 闸门**：`EOS-P0-001` 整体仍 `pending`（R7 未关）；R1–R6、R8–R9 已完成；**R7 在首次 go-live 时显式豁免**为 post-go-live 建议项。
+
+**跟进（2026-05-28）**：alex 确认生产与 `main@299575a` 一致；密钥轮换与 `EOS-P0-R7` panic 审计仍为 post-go-live 建议项。
+
+## 2026-05-28 — Eos NVIDIA 默认模型策略（HK 部署）
+
+**决策/现状**：从香港 VPS 调用 NVIDIA NIM 时，`z-ai/glm-5.1` chat completions **长时间 stall**；默认暴露模型改为已验证可响应的：
+- `nvidia/llama-3.3-nemotron-super-49b-v1`
+- `meta/llama-3.1-8b-instruct`
+
+**代码**：hiddenpath/eos `299575a`（main 直推，无 PR）；单测 `nvidia_defaults_expose_verified_chat_models` 断言 GLM-5.1 不在默认列表。
+
+**说明**：GLM-5.1 仍可通过 manifest/配置扩展；默认列表只反映 HK 部署实测可用的 chat 模型。

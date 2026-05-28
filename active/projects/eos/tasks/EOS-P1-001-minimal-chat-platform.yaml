@@ -15,7 +15,7 @@ labels:
   - "wasm"
   - "deployment"
 created: "2026-04-30"
-updated: "2026-05-19"
+updated: "2026-05-28"
 description: |
   从 ailib-wasm-test rebrand + 功能扩展，建立 Eos（逸思）To C 消费者 AI 服务平台最小闭环。
   详见 active/projects/eos/PHASE1_PLAN.md
@@ -133,3 +133,10 @@ completion_notes: |
   - R8：`/api/models` 返回 `chat_completions_url`，前端移除 providerUrls 硬编码；仅返回已配置 API Key 的 Provider。
   - 文档：README/.env.example 补 Gemini；README 标明 Phase 1 WASM 必选。
   - 2026-05-15 基线：F3–F6、D1–D3、B1–B6、R1–R4 均已合入 hiddenpath/eos main。
+
+  2026-05-17~28：Phase 1 后生产化迭代（仍属 P1 维护，不新开任务）：
+  - PR #1 `pr/gemini-endpoint-and-first-load` → merge `c8ca144`：Gemini OpenAI-compat URL、`/api/models` 动态 endpoint、首屏 JS 优化。
+  - PR #2 `fix/nvidia-glm-streaming` → merge `bbd4231`：NVIDIA GLM-5.1 流式/空响应修复、model ID 去前缀剥离、reasoning-only fallback；已部署 `https://eos.ailib.info`。
+  - Post-merge：`8e2d346`~`299575a` E2E 补强、HK 构建去掉 USTC cargo 镜像（`a78b462`）、vendored wasm-pack/wasm-bindgen 二进制于仓库根（`69a1b42`，`main@299575a` 无 `docs/` 说明文件）、NVIDIA 默认模型改为 Nemotron + Llama 3.1 8B（GLM-5.1 从 HK 部署 stall）。
+  - 2026-05-28：alex 确认生产与 `main@299575a` 一致（`/health` + `/api/models` 验收）。
+  - PR：`https://github.com/hiddenpath/eos/pull/1`、`https://github.com/hiddenpath/eos/pull/2`

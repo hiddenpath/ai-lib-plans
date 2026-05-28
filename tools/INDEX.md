@@ -11,6 +11,12 @@
 
 ## 治理文档
 
+## `docs/engineering/VENDORED_BUILD_TOOL_BINARIES.md`
+
+- **用途**: 记录在 Git 内嵌 **构建工具二进制**（如 wasm-pack / wasm-bindgen）时的必选元数据：平台、上游版本、SHA-256、更新流程；（规则编号 **PL-ENGINE-019**）
+- **适用范围**: eos、Prism 侧构建链及任何为解决 CI 网络所做的 vendoring
+- **落地示例**: `hiddenpath/eos` 根目录 `wasm-pack-bin` / `wasm-bindgen-bin`（见 `docs/engineering/VENDORED_BUILD_TOOL_BINARIES.md`）
+
 ## `docs/governance/REMOTE_MIGRATION.md`
 - **用途**: 远端迁移指令（GOV-001 v2）——所有编程代理在操作公开仓库前必须检查 `origin` 是否指向 `ailib-official/*`，若仍指向 `hiddenpath/*` 则立即重指向
 - **适用范围**: ai-protocol, ai-lib-rust, ai-lib-python, ai-lib-ts, ai-lib-go, ai-protocol-mock

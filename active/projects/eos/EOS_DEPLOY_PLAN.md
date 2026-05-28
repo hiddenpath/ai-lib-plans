@@ -1,9 +1,10 @@
 # Eos（逸思）部署与功能上线计划
 
-> 版本：v1.0
-> 日期：2026-05-11
+> 版本：v1.1
+> 日期：2026-05-11（执行回填：2026-05-28）
 > 决策背景：先生（Alex）× Spider 讨论
 > 先决条件：香港云服务器（免备案）、国际域名 eos.ailib.info、公网 IP
+> **执行状态**：**completed** — 块 A–E 已落地；生产 `https://eos.ailib.info` 已确认 **`main@299575a`**（alex，2026-05-28）；自动化脚本 `ai-lib-plans/tools/deploy_eos.sh`。
 
 ---
 
