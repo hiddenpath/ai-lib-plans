@@ -31,8 +31,11 @@ blocks:
     depends_on: []
   - id: "EOS-ARCH-R2"
     title: "Manifest region schema 定义"
-    status: "pending"
-    description: "在 ai-protocol v2-alpha manifest 中新增 region 结构字段（cn/global 二级 endpoint + 备案编号），需与 ai-protocol 团队对齐。"
+    status: "in_progress"
+    description: |
+      ai-protocol v2 `availability.regions` 首次落地 + 可选 `approval_ids`。
+      Phase 0–1 已提交 ailib-official/ai-protocol PR #2（DeepSeek 样板、NVIDIA/Groq 新建、OpenAI/Google global）。
+      剩余：cn 栈 provider 全量 region + approval_ids 实例、PT-075 正式 capacity schema。
     depends_on: []
   - id: "EOS-ARCH-R3"
     title: "P 层区域合规过滤器"
@@ -92,7 +95,8 @@ blocks:
 blocks_summary:
   total: 5
   completed: 1
-  pending: 4
+  in_progress: 1
+  pending: 3
 completion_notes: |
   架构选型讨论完成，文档已写入 active/projects/eos/COMPLIANCE_REGIONAL_ROUTING.md。
-  后续执行需要按依赖顺序推进 R2→R3/R4 以及并行推进 R5。
+  2026-05-29：transfer.md combo 评估见 TRANSFER_COMBO_EVAL.md；ai-protocol PR #2 启动 EOS-ARCH-R2 Phase 0–1。
