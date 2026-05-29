@@ -651,7 +651,7 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 
 **go-live 闸门**：`EOS-P0-001` 整体仍 `pending`（R7 未关）；R1–R6、R8–R9 已完成；**R7 在首次 go-live 时显式豁免**为 post-go-live 建议项。
 
-**跟进（2026-05-28）**：alex 确认生产与 `main@299575a` 一致；密钥轮换与 `EOS-P0-R7` panic 审计仍为 post-go-live 建议项。
+**跟进（2026-05-29）**：EOS-P0-R7 已于 eos PR #3 关闭；combo 任务见 `active/projects/eos/TRANSFER_COMBO_EVAL.md`；ai-protocol [PR #2](https://github.com/ailib-official/ai-protocol/pull/2) 推进 EOS-ARCH-R2 Phase 0–1。
 
 ## 2026-05-28 — Eos NVIDIA 默认模型策略（HK 部署）
 

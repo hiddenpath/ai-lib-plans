@@ -1,7 +1,7 @@
 ---
 id: "EOS-P0-001"
 title: "Eos 上线前加固与验收（Pre-launch gate）"
-status: "pending"
+status: "completed"
 priority: "critical"
 executor_name: "alex"
 executor_terminal: "cursor-agent"
@@ -58,8 +58,8 @@ blocks:
     depends_on: []
   - id: "EOS-P0-R7"
     title: "prism-core 运行时路径零 panic"
-    status: "pending"
-    description: "逐项审计 unwrap/panic 与 Mutex 中毒；2026-05-27 go-live 时显式豁免，作为 post-go-live 建议项"
+    status: "completed"
+    description: "hiddenpath/eos PR #3（1271ef0）：admin/auth/key_pool/router/usage unwrap 审计与修复"
     depends_on: []
   - id: "EOS-P0-R8"
     title: "/api/models 与前端 endpoint 单一来源"
@@ -97,4 +97,4 @@ progress_notes: |
   - PR #2（fix/nvidia-glm-streaming）：model ID 标准化、GLM reasoning-only UI fallback、curl 慢首包超时；CI rust/docker/e2e 全绿。
   - main 直推跟进：E2E 覆盖 GLM fallback、Linux 静态资源路径、native model ID；`299575a` 将 NVIDIA 默认模型从 stall 的 GLM-5.1 换为 Nemotron + Llama 3.1 8B（CI run 26556891779 全绿）。
   - R7 仍为 open：go-live 时已记录豁免；非代理热路径，可迭代关闭。
-  - 2026-05-28：alex 确认生产与 `main@299575a` 一致（`/health` ok；`/api/models` NVIDIA 为 Nemotron + Llama 3.1 8B）；密钥轮换未在本任务关闭。
+  - 2026-05-29：EOS-P0-R7 关闭 — hiddenpath/eos PR #3 merge `1271ef0`（panic audit + model capacity on `/api/models`）。
