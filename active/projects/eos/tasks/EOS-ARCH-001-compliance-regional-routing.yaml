@@ -31,11 +31,10 @@ blocks:
     depends_on: []
   - id: "EOS-ARCH-R2"
     title: "Manifest region schema 定义"
-    status: "in_progress"
+    status: "completed"
     description: |
       ai-protocol v2 `availability.regions` 首次落地 + 可选 `approval_ids`。
-      Phase 0–1 已提交 ailib-official/ai-protocol PR #2（DeepSeek 样板、NVIDIA/Groq 新建、OpenAI/Google global）。
-      剩余：cn 栈 provider 全量 region + approval_ids 实例、PT-075 正式 capacity schema。
+      PR #2 (e042e2b) 已合并到 ailib-official/ai-protocol main。
     depends_on: []
   - id: "EOS-ARCH-R3"
     title: "P 层区域合规过滤器"
@@ -96,7 +95,8 @@ blocks_summary:
   total: 5
   completed: 1
   in_progress: 1
-  pending: 3
+  pending: 2
 completion_notes: |
   架构选型讨论完成，文档已写入 active/projects/eos/COMPLIANCE_REGIONAL_ROUTING.md。
   2026-05-29：transfer.md combo 评估见 TRANSFER_COMBO_EVAL.md；ai-protocol PR #2 启动 EOS-ARCH-R2 Phase 0–1。
+  2026-05-29：ai-protocol PR #2 (e042e2b) 合并，EOS-ARCH-R2 Phase 0-1 完整交付（availability.regions、approval_ids、NVIDIA/Groq v2 provider）。剩余 pending：R3（P 层过滤器）、R4（E 层 region 过滤）。
