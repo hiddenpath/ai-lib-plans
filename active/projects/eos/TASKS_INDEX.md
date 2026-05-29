@@ -20,7 +20,7 @@
 |--------|------|:----:|
 | M1: Chat Works（聊天+流式+多模型） | Week 1 末 | ✅ |
 | M2: Feature Complete（功能面板完整） | Week 2 末 | ✅ |
-| M3: Live（eos.ailib.info 上线） | Week 3 末 | ✅ 已上线；生产已确认 `main@299575a`（alex，2026-05-28）；**EOS-P0-R7**、密钥轮换仍为跟进项 |
+| M3: Live（eos.ailib.info 上线） | Week 3 末 | ✅ 已上线；PR #3 已合并（capacity + R7）；**EOS-ARCH-R2** 进行中 |
 
 ## 依赖
 
@@ -35,3 +35,4 @@
 - `project-overview.md` — 项目总览
 - `brand-rationale.md` — 品牌命名决策记录
 - `CONTEXT_STRATEGY_BOUNDARY.md` — 上下文策略层与浏览器 SKU 边界（2026-05-22）
+- `TRANSFER_COMBO_EVAL.md` — transfer.md 组合任务评估与 PR 切片（2026-05-29）
