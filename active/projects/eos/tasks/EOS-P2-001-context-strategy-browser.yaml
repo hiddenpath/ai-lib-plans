@@ -24,7 +24,7 @@ description: |
 blocks:
   - id: "EOS-P2-R1"
     title: "宿主存储抽象（SessionMirror + ArtifactRef）"
-    status: "pending"
+    status: "completed"
     description: |
       ## 目标
       在 `static/js/session_mirror.js` 实现纯内存的会话镜像存储，待后续升级为 OPFS/IndexedDB。
@@ -106,7 +106,7 @@ blocks:
     depends_on: []
   - id: "EOS-P2-R2"
     title: "接入 ALR-P2-001 组装结果到发送路径"
-    status: "pending"
+    status: "completed"
     description: |
       wasm-pack 或通过 ai-lib-rust 编译为 wasm 由宿主调用皆可；原则是 **I/O 在宿主**，核心变换可测。
       依赖 ALR-P2-001 API 冻结。
@@ -118,7 +118,7 @@ blocks:
     depends_on: []
   - id: "EOS-P2-R4"
     title: "契约或 E2E：大 tool 仿真不撑爆单次请求"
-    status: "pending"
+    status: "completed"
     description: "Playwright 或 Rust 契约：模拟超大 assistant/tool 段落后仍能 build_request 成功。"
     depends_on: ["EOS-P2-R2", "EOS-P2-R3"]
 testing:
