@@ -4,7 +4,7 @@
 
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|------|------|------|
-| EOS-P0-001 | [tasks/EOS-P0-001-prelaunch-hardening.yaml](./tasks/EOS-P0-001-prelaunch-hardening.yaml) | `pending` | — | **上线闸门**：R1–R6、R8–R9 已完成；**已 go-live**（2026-05-27）；生产已确认 `main@299575a`（2026-05-28）；**R7**、密钥轮换为 post-go-live 跟进 |
+| EOS-P0-001 | [tasks/EOS-P0-001-prelaunch-hardening.yaml](./tasks/EOS-P0-001-prelaunch-hardening.yaml) | `completed` | — | **上线闸门**：全部 R1–R9 已完成。PR #3 (1271ef0f) 关闭 R7（panic audit），R5(E2E) 前期已关闭 |
 | EOS-P1-001 | [tasks/EOS-P1-001-minimal-chat-platform.yaml](./tasks/EOS-P1-001-minimal-chat-platform.yaml) | `completed` | — | Phase 1 最小闭环已交付；2026-05-17~28 追加 PR #1 Gemini、PR #2 NVIDIA/流式修复与 post-merge E2E |
 | EOS-P2-001 | [tasks/EOS-P2-001-context-strategy-browser.yaml](./tasks/EOS-P2-001-context-strategy-browser.yaml) | `pending` | PT-075、ALR-P2-001 | Phase 2 预备：**浏览器 SKU** 上下文镜像 + artifact + 确定性组装接上 WASM `build_request`（见 CONTEXT_STRATEGY_BOUNDARY.md）；**R3 `/api/models` capacity 字段已完成**（PR #3 2026-05-29）；R1 已落地 spec |
 | EOS-DPL-001 | [EOS_DEPLOY_PLAN.md](./EOS_DEPLOY_PLAN.md) | `completed` | — | 香港 VPS + Caddy TLS + `deploy_eos.sh`；生产 `https://eos.ailib.info` 已确认 `main@299575a`（2026-05-28） |

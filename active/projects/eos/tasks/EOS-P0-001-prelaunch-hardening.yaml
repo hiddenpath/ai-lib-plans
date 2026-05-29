@@ -1,7 +1,7 @@
 ---
 id: "EOS-P0-001"
 title: "Eos 上线前加固与验收（Pre-launch gate）"
-status: "pending"
+status: "completed"
 priority: "critical"
 executor_name: "alex"
 executor_terminal: "cursor-agent"
@@ -14,7 +14,7 @@ labels:
   - "deployment"
   - "quality"
 created: "2026-05-11"
-updated: "2026-05-28"
+updated: "2026-05-29"
 description: |
   与 Phase 1 功能开发（EOS-P1-001）并列的**上线闸门**任务：不替代 P1 功能清单，
   但要求在面向公网或 production-like 环境部署**之前**逐项完成或显式豁免并记录理由。
@@ -98,3 +98,6 @@ progress_notes: |
   - main 直推跟进：E2E 覆盖 GLM fallback、Linux 静态资源路径、native model ID；`299575a` 将 NVIDIA 默认模型从 stall 的 GLM-5.1 换为 Nemotron + Llama 3.1 8B（CI run 26556891779 全绿）。
   - R7 仍为 open：go-live 时已记录豁免；非代理热路径，可迭代关闭。
   - 2026-05-28：alex 确认生产与 `main@299575a` 一致（`/health` ok；`/api/models` NVIDIA 为 Nemotron + Llama 3.1 8B）；密钥轮换未在本任务关闭。
+
+  2026-05-29:
+  - PR #3 (1271ef0f) 关闭 R7：替换所有生产代码 `Mutex::lock().unwrap()` 为 `unwrap_or_else(|e| e.into_inner())`，替换 `panic!("query failed")` 为 `Vec::new()` 兜底。测验 `unwrap`/`expect` 保留。CI clippy/tests 全绿。
