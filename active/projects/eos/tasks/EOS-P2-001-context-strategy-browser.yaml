@@ -26,6 +26,8 @@ blocks:
     title: "宿主存储抽象（SessionMirror + ArtifactRef）"
     status: "completed"
     description: |
+      PR #4 (`3a0c713`) 已合并；strategy 扩展点 follow-up 见 eos PR #5。
+
       ## 目标
       在 `static/js/session_mirror.js` 实现纯内存的会话镜像存储，待后续升级为 OPFS/IndexedDB。
       SessionMirror 本质是一个 **context optimizer**：在发送请求前按模型容量预算裁切上下文。
@@ -106,10 +108,10 @@ blocks:
     depends_on: []
   - id: "EOS-P2-R2"
     title: "接入 ALR-P2-001 组装结果到发送路径"
-    status: "completed"
+    status: "pending"
     description: |
       wasm-pack 或通过 ai-lib-rust 编译为 wasm 由宿主调用皆可；原则是 **I/O 在宿主**，核心变换可测。
-      依赖 ALR-P2-001 API 冻结。
+      依赖 ALR-P2-001 API 冻结。SessionMirror 当前为 JS flat 截断占位，尚未接入 Rust 组装器。
     depends_on: ["EOS-P2-R1"]
   - id: "EOS-P2-R3"
     title: "模型清单携带 capacity（后端 /api/models）"
@@ -118,7 +120,7 @@ blocks:
     depends_on: []
   - id: "EOS-P2-R4"
     title: "契约或 E2E：大 tool 仿真不撑爆单次请求"
-    status: "completed"
+    status: "pending"
     description: "Playwright 或 Rust 契约：模拟超大 assistant/tool 段落后仍能 build_request 成功。"
     depends_on: ["EOS-P2-R2", "EOS-P2-R3"]
 testing:

@@ -93,10 +93,9 @@ blocks:
     depends_on: []
 blocks_summary:
   total: 5
-  completed: 1
-  in_progress: 1
-  pending: 2
+  completed: 2
+  in_progress: 0
+  pending: 3
 completion_notes: |
   架构选型讨论完成，文档已写入 active/projects/eos/COMPLIANCE_REGIONAL_ROUTING.md。
-  2026-05-29：transfer.md combo 评估见 TRANSFER_COMBO_EVAL.md；ai-protocol PR #2 启动 EOS-ARCH-R2 Phase 0–1。
-  2026-05-29：ai-protocol PR #2 (e042e2b) 合并，EOS-ARCH-R2 Phase 0-1 完整交付（availability.regions、approval_ids、NVIDIA/Groq v2 provider）。剩余 pending：R3（P 层过滤器）、R4（E 层 region 过滤）。
+  2026-05-29：ai-protocol PR #2+#3 合并，EOS-ARCH-R2 完整交付。剩余 pending：R3（P 层过滤器）、R4（E 层 region 过滤）、R5（备案清单）。
