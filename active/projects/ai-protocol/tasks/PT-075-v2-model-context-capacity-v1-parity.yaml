@@ -1,7 +1,7 @@
 ---
 id: "PT-075"
 title: "V2-alpha 模型上下文容量元数据与 V1 对等（context_window / max_output）"
-status: "pending"
+status: "in_progress"
 priority: "high"
 executor_name: "alex"
 executor_terminal: "cursor-agent"
@@ -14,7 +14,7 @@ labels:
   - "manifest"
   - "compliance"
 created: "2026-05-22"
-updated: "2026-05-22"
+updated: "2026-05-31"
 description: |
   为策略层与运行时容量感知路由提供**可机器消费**的真源：在 V2-alpha provider / model 定义中恢复并规范
   `context_window` 与 `max_output`（或与 v1 `pricing`/`models` 对齐的 max output tokens 字段名，须与 schema 一致），
@@ -27,7 +27,7 @@ description: |
 blocks:
   - id: "PT-075-R1"
     title: "schemas/v2/provider.json：模型级整数 capacity 字段"
-    status: "pending"
+    status: "completed"
     description: |
       为每个 model 条目增加 `context_window`、`max_output_tokens`（或等价命名，与 v1 对齐后落盘）；
       约定 0 = unknown；与现有 `capabilities` 字符串枚举解耦（容量为 model 元数据，非 boolean capability 名）。
@@ -54,4 +54,6 @@ testing:
   - "v1↔v2 容量字段矩阵测试"
 blocks_summary:
   total: 4
-completion_notes: ""
+completion_notes: |
+  2026-05-31:
+  - R1: ai-protocol PR #4 (0f1cfb2) 合并。新 schema metadata-model-entry.json 含 context_window / max_output_tokens / status / verification；provider.json metadata.models 引用更新。合规测试 case load-017/018 通过。
