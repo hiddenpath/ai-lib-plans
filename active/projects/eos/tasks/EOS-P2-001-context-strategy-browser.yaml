@@ -1,7 +1,7 @@
 ---
 id: "EOS-P2-001"
 title: "Eos 浏览器 SKU：宿主镜像/artifact + 接上共享组装管线"
-status: "pending"
+status: "in_progress"
 priority: "medium"
 executor_name: "alex"
 executor_terminal: "cursor-agent"
@@ -14,7 +14,7 @@ labels:
   - "browser"
   - "strategy"
 created: "2026-05-22"
-updated: "2026-05-29"
+updated: "2026-06-01"
 description: |
   在 `hiddenpath/eos` 将 **会话历史镜像**（事件流 + 大体量 artifact 指针）落在 **浏览器宿主**（先内存 mock，
   再 OPFS/IndexedDB），发送前调用 `ALR-P2-001` 产出的组装逻辑得到规范化 `messages`，再进入现有 `eos-wasm-browser` `build_request`。
@@ -26,6 +26,8 @@ blocks:
     title: "宿主存储抽象（SessionMirror + ArtifactRef）"
     status: "completed"
     description: |
+      PR #4 (`3a0c713`) 已合并；strategy 扩展点 follow-up 见 eos PR #5（仅 session_mirror.js，待合并）。
+
       ## 目标
       在 `static/js/session_mirror.js` 实现纯内存的会话镜像存储，待后续升级为 OPFS/IndexedDB。
       SessionMirror 本质是一个 **context optimizer**：在发送请求前按模型容量预算裁切上下文。
@@ -52,64 +54,20 @@ blocks:
       | 2+ | `summary` | LLM 压缩旧消息为摘要注入 system prompt |
       | 3 | `layered` | 分层预算：system(固定) + 最近N轮(50%) + 摘要(20%) + pinned(10%) + 搜索上下文(剩余) |
 
-      ## 接口定义（TypeScript 伪码）
-      ```typescript
-      type AssembleStrategy = "flat" | "summary" | "layered";
-
-      interface ArtifactRef {
-        id: string;           // uuid, 对应大段 tool 输出/附件
-        sizeBytes: number;    // 预估大小
-        mime: string;         // "text/markdown" | "image/png" | ...
-      }
-
-      interface SessionMirror {
-        // 追加对话事件
-        append(entry: ChatEntry): void;
-        // 按 id 获取 artifact 引用（不取载荷）
-        getArtifactRef(id: string): ArtifactRef | null;
-        // 按 id 获取 artifact 完整载荷
-        getArtifactPayload(id: string): string | null;
-        // 获取组装后的 messages 数组（不带超额 artifact 载荷）
-        // strategy 默认 "flat"，预留给后续分层预算扩展
-        assembleMessages(maxTokens: number, strategy?: AssembleStrategy): Message[];
-        // 当前总 token 估算
-        estimatedTokens(): number;
-        // 清空
-        clear(): void;
-      }
-
-      interface ChatEntry {
-        role: "user" | "assistant" | "system" | "tool";
-        content: string;
-        artifacts?: ArtifactRef[];   // tool 输出不内联，用引用
-        timestamp: number;
-      }
-      ```
-
-      ## 实现步骤
-      1. 在 `static/js/session_mirror.js` 创建模块（ES module，不依赖框架）
-      2. 实现 `SessionMirror` 类：内部用 `ChatEntry[]` + `Map<string, ArtifactRef>` + `Map<string, string>`（id→payload）
-      3. 实现 `assembleMessages(maxTokens, strategy="flat")`：
-         - "flat" 策略：从最新消息开始累计 token 估算（粗估：1 token ≈ 4 chars）
-         - 直到接近 maxTokens 时截断，丢弃最旧消息
-         - 对于有 artifact 的条目：只保留 ref，不展开 payload
-         - 其他 strategy 值返回 "flat" 行为 + console.warn（显式声明未实现）
-      4. 单元测试：用 Jest 或最小 Node.js 脚本验证 append/assemble/clear 行为
-      5. 在 `static/index.html` 的 `window.eosChat` 中挂载 mirror 实例
-
       ## 验收标准
-      - [ ] `SessionMirror` 类可通过浏览器 console 直接创建和操作
-      - [ ] `append()` 追加 100 条消息后 `estimatedTokens()` 返回非零值
-      - [ ] `assembleMessages(500)` 在超容时截断返回 ≤500 token 预算的消息列表
-      - [ ] `assembleMessages(500, "summary")` 返回 flat 行为 + console.warn（strategy 扩展点已验证）
-      - [ ] `clear()` 后 `estimatedTokens()` 返回 0
+      - [x] `SessionMirror` 类可通过浏览器 console 直接创建和操作
+      - [x] `append()` 追加 100 条消息后 `estimatedTokens()` 返回非零值
+      - [x] `assembleMessages(500)` 在超容时截断返回 ≤500 token 预算的消息列表
+      - [x] `assembleMessages(500, "summary")` 返回 flat 行为 + console.warn（strategy 扩展点已验证）
+      - [x] `clear()` 后 `estimatedTokens()` 返回 0
     depends_on: []
   - id: "EOS-P2-R2"
     title: "接入 ALR-P2-001 组装结果到发送路径"
-    status: "completed"
+    status: "in_progress"
     description: |
-      wasm-pack 或通过 ai-lib-rust 编译为 wasm 由宿主调用皆可；原则是 **I/O 在宿主**，核心变换可测。
-      依赖 ALR-P2-001 API 冻结。
+      eos PR #6：`assemble_context_messages` WASM 导出 + index.html enforceContextWindow 调用；
+      使用 /api/models 的 context_window/max_output 驱动 ContextBudget。
+      ai-lib-contact git pin @ 8dfa9eb（context 模块尚未 crates.io 发布）。
     depends_on: ["EOS-P2-R1"]
   - id: "EOS-P2-R3"
     title: "模型清单携带 capacity（后端 /api/models）"
@@ -118,7 +76,7 @@ blocks:
     depends_on: []
   - id: "EOS-P2-R4"
     title: "契约或 E2E：大 tool 仿真不撑爆单次请求"
-    status: "completed"
+    status: "pending"
     description: "Playwright 或 Rust 契约：模拟超大 assistant/tool 段落后仍能 build_request 成功。"
     depends_on: ["EOS-P2-R2", "EOS-P2-R3"]
 testing:

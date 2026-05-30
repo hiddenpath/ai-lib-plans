@@ -8,46 +8,43 @@
 | 主张 | 判定 | 说明 |
 |------|------|------|
 | EOS PR #3 已合并（capacity + R7） | ✅ 正确 | `1271ef0` / PR #3 merged |
-| v2 schema 已有 `availability.regions` | ✅ 正确 | 但 **0/10 v2 YAML 曾使用** |
-| R2 = 填充 region + approval_id | ⚠️ 部分正确 | schema 已有 regions enum；缺 `approval_ids`（本 PR 补） |
-| 立即强行对齐 Eos model ID ↔ v2 manifest | ❌ 过度 | §7.4 正确：合规路由仅需 provider 级 region；ID 对齐属 Phase 2 manifest 消费 |
-| §4.2 Groq 模型列表 | ⚠️ 需修正 | 应以 **Eos 运营模型**为准（`llama-3.1-8b-instant`），非 transfer 表中的 mixtral/3.2 系列 |
-| §4.2 Google preview ID | ⚠️ 需修正 | 用 Eos 实际暴露的 `gemini-2.5-*` / `gemini-3.1-flash-lite-preview` |
-| model 级 region 双层覆盖 | ❌ 本阶段不做 | §7.5：无业务驱动，先 provider 级 |
-| Phase 1–3 可完全并行 | ❌ 需调整 | §7.6：新建 provider 必须先存在再标注 region |
-| P2-R1 SessionMirror 可并行 | ✅ 正确 | 不阻塞 ARCH；独立 track |
+| v2 schema 已有 `availability.regions` | ✅ 正确 | 全 12 v2 provider 已标注（PR #2+#3） |
+| R2 = 填充 region + approval_id | ✅ 完成 | PR #2 Phase 0–1 + PR #3 Phase 3 backfill |
+| 立即强行对齐 Eos model ID ↔ v2 manifest | ❌ 过度 | §7.4：合规路由仅需 provider 级 region |
+| P2-R1 SessionMirror 可并行 | ✅ 正确 | PR #4 已合并；strategy 扩展 PR #5 待合并 |
 
-## 执行切片（已启动）
+## 执行切片（状态）
 
-### PR-1 — ai-protocol（**已提交**）
+### PR-1 — ai-protocol（**已合并** `e042e2b`）
 
-- 仓库：`ailib-official/ai-protocol`
 - PR：https://github.com/ailib-official/ai-protocol/pull/2
-- 范围：Phase 0–1
-  - `approval_ids` on `availability.json`
-  - DeepSeek reference `availability` (cn+global)
-  - NVIDIA + Groq v2 providers（Eos 模型 + capacity）
-  - OpenAI / Google global availability + Eos 模型 capacity 条目
-  - 修复 v2 `parameter_mappings` schema 违规（validate 52/52）
+- Phase 0–1：availability.regions、approval_ids、NVIDIA/Groq、OpenAI/Google capacity
 
-### PR-2 — ai-protocol（待 PR-1 合并）
+### PR-2 — ai-protocol（**已合并** `d295ff0`）
 
-- Phase 3 剩余：qwen / zhipu / moonshot / doubao / anthropic / cohere / jina 补 `availability.regions`
-- cn provider 示例：`approval_ids.cn`（需真实备案号来源，禁止编造）
-- PT-075-R1 正式 schema（`metadata.models` 类型化）可与此 PR 或独立 PR
+- PR：https://github.com/ailib-official/ai-protocol/pull/3
+- Phase 3：anthropic/cohere/jina/qwen/zhipu/moonshot/doubao availability backfill
 
-### PR-3 — eos（可选，Phase 2+）
+### PR-3 — ai-protocol（**已提交** PT-075-R1）
+
+- PR：https://github.com/ailib-official/ai-protocol/pull/4
+- `metadata-model-entry.json` 类型化 capacity 字段
+
+### eos SessionMirror
+
+- PR #4 `3a0c713` — R1 基础 ✅
+- PR #5 — strategy 扩展点（`assembleMessages(maxTokens, strategy?)`）待合并
+
+### eos manifest 消费（Phase 2+，可选）
 
 - 从 manifest 读取 provider/model（替换 `config.rs` 硬编码）
-- **依赖**：PT-075 + ARCH R2 合并 + 产品决策
-
-### 并行 track — EOS-P2-R1
-
-- SessionMirror 内存版（`static/js/session_mirror.js`）
-- 不依赖 ai-protocol PR
+- **依赖**：PT-075 + 产品决策
 
 ## Plans 回填
 
-- `EOS-P0-R7` → completed（PR #3）
-- `EOS-ARCH-R2` → in_progress（PR #2 部分交付）
-- `PT-075` → 仍 pending；本 combo 在 metadata.models 填 capacity，**不替代** R1 正式 schema
+- `EOS-P0-R7` → completed（eos PR #3）
+- `EOS-ARCH-R2` → completed（ai-protocol PR #2+#3）
+- `EOS-P2-R3` → completed（eos PR #3 capacity）
+- `EOS-P2-R1` → completed（PR #4）；strategy follow-up PR #5
+- `EOS-P2-R2/R4` → pending（ALR-P2-001 未实现，勿误标 completed）
+- `PT-075-R1` → in_progress（ai-protocol PR 待合并）
