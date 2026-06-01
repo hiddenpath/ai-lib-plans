@@ -37,11 +37,11 @@ blocks:
     depends_on: ["ALR-P2-R1"]
   - id: "ALR-P2-R3"
     title: "可选：从 PT-075 manifest fixture 集成读模型容量"
-    status: "pending"
-    description: "在 PT-075 合并后，将 parser 接至真实 v2-alpha 片段；在此之前用 tests/fixtures。"
+    status: "in_progress"
+    description: "ai-lib-rust PR #6：`ModelCapacity::from_metadata_model_entry` + unit test。"
     depends_on: ["ALR-P2-R2"]
 testing:
   - "cargo test（新增模块，无网络）"
 blocks_summary:
   total: 3
-completion_notes: "PR #4 merged (ef872b8). Compliance runner path fix PR #5 merged (8dfa9eb)."
+completion_notes: "PR #4–#5 merged. PR #6 (R3 parser) pending merge."

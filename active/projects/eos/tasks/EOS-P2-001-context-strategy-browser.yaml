@@ -1,7 +1,7 @@
 ---
 id: "EOS-P2-001"
 title: "Eos 浏览器 SKU：宿主镜像/artifact + 接上共享组装管线"
-status: "in_progress"
+status: "completed"
 priority: "medium"
 executor_name: "alex"
 executor_terminal: "cursor-agent"
@@ -26,67 +26,25 @@ blocks:
     title: "宿主存储抽象（SessionMirror + ArtifactRef）"
     status: "completed"
     description: |
-      PR #4 (`3a0c713`) 已合并；strategy 扩展点 follow-up 见 eos PR #5（仅 session_mirror.js，待合并）。
-
-      ## 目标
-      在 `static/js/session_mirror.js` 实现纯内存的会话镜像存储，待后续升级为 OPFS/IndexedDB。
-      SessionMirror 本质是一个 **context optimizer**：在发送请求前按模型容量预算裁切上下文。
-
-      ## 设计决策：Flat Truncation First，Strategy 可插拔
-
-      Phase 2 不做分层预算（layer-based budget），先做最简单的 flat truncation。
-      理由：
-      - Phase 2 的 core pain 是**小窗口模型溢出**，flat 直接解决
-      - 分层需要 LLM summarizer 集成 → 额外 LLM 调用 → 成本 + 延迟
-      - Phase 2 无用户系统/云同步，对话不会太长，不会触发"丢错东西"的问题
-
-      但接口**现在就预留 strategy 扩展点**：
-
-      ```
-      assembleMessages(maxTokens: number, strategy?: "flat" | "summary" | "layered"): Message[]
-      ```
-
-      默认 `"flat"`。后续演进：
-
-      | Phase | Strategy | 做什么 |
-      |-------|----------|--------|
-      | 2 (现在) | `flat` | 从最新消息倒序累加 token，超容截断丢弃旧消息 |
-      | 2+ | `summary` | LLM 压缩旧消息为摘要注入 system prompt |
-      | 3 | `layered` | 分层预算：system(固定) + 最近N轮(50%) + 摘要(20%) + pinned(10%) + 搜索上下文(剩余) |
-
-      ## 验收标准
-      - [x] `SessionMirror` 类可通过浏览器 console 直接创建和操作
-      - [x] `append()` 追加 100 条消息后 `estimatedTokens()` 返回非零值
-      - [x] `assembleMessages(500)` 在超容时截断返回 ≤500 token 预算的消息列表
-      - [x] `assembleMessages(500, "summary")` 返回 flat 行为 + console.warn（strategy 扩展点已验证）
-      - [x] `clear()` 后 `estimatedTokens()` 返回 0
+      PR #4 (`3a0c713`) + PR #5 (`4883a5d`) 已合并：SessionMirror + strategy 扩展点。
     depends_on: []
   - id: "EOS-P2-R2"
     title: "接入 ALR-P2-001 组装结果到发送路径"
-    status: "in_progress"
+    status: "completed"
     description: |
-      eos PR #6：`assemble_context_messages` WASM 导出 + index.html enforceContextWindow 调用；
+      PR #6 (`74b2132`) 已合并：`assemble_context_messages` WASM + enforceContextWindow；
       使用 /api/models 的 context_window/max_output 驱动 ContextBudget。
-      ai-lib-contact git pin @ 8dfa9eb（context 模块尚未 crates.io 发布）。
     depends_on: ["EOS-P2-R1"]
   - id: "EOS-P2-R3"
     title: "模型清单携带 capacity（后端 /api/models）"
     status: "completed"
-    description: "已在 PR #3 实现：ModelEntry/ModeInfo 新增 context_window/max_output 字段。"
+    description: "PR #3：ModelEntry/ModeInfo 新增 context_window/max_output 字段。"
     depends_on: []
   - id: "EOS-P2-R4"
     title: "契约或 E2E：大 tool 仿真不撑爆单次请求"
     status: "completed"
-    description: "Playwright 或 Rust 契约：模拟超大 assistant/tool 段落后仍能 build_request 成功。"
+    description: "PR #7 (`b5c5534`)：Rust 契约 + Playwright large-tool-context.spec.ts。"
     depends_on: ["EOS-P2-R2", "EOS-P2-R3"]
-    completion_notes: |
-      PR #7 (b5c5534) 已合并：
-      - `crates/eos-wasm-browser/src/core_logic.rs`: 新增 Rust 单测 `oversized_tool_assemble_then_build_request_succeeds`
-      - `e2e/tests/large-tool-context.spec.ts`: Playwright E2E 覆盖 WASM 路径 + index.html history 注入
-      - 验证超大 tool(50K) / assistant(60K) 上下文在 assemble 后 body ≤32K
-    testing:
-      - Rust: `cargo test` workspace (core_logic::tests::oversized_tool_assemble_then_build_request_succeeds)
-      - E2E: `npm run test:e2e` (large-tool-context.spec.ts: wasm + history 两条)
 testing:
   - "宿主单元测试（如有）或最小 Playwright"
   - "与 Prism 网关无关则可 mock provider"
@@ -97,4 +55,6 @@ depends_on_projects:
     task_file: "active/projects/ai-lib-rust/tasks/ALR-P2-001-context-budget-assembler.yaml"
 blocks_summary:
   total: 4
-completion_notes: ""
+completion_notes: |
+  Milestone eos-phase2-context complete (2026-06-02).
+  Merge chain: #4 SessionMirror → #5 strategy → #6 WASM assembler → #7 large-tool contract.

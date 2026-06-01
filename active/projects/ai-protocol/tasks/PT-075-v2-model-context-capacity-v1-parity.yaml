@@ -14,7 +14,7 @@ labels:
   - "manifest"
   - "compliance"
 created: "2026-05-22"
-updated: "2026-06-01"
+updated: "2026-06-02"
 description: |
   为策略层与运行时容量感知路由提供**可机器消费**的真源：在 V2-alpha provider / model 定义中恢复并规范
   `context_window` 与 `max_output`（或与 v1 `pricing`/`models` 对齐的 max output tokens 字段名，须与 schema 一致），
@@ -39,15 +39,15 @@ blocks:
     depends_on: ["PT-075-R1"]
   - id: "PT-075-R3"
     title: "dist/v2-alpha/spec.json 文档化 capacity 语义"
-    status: "pending"
+    status: "in_progress"
     description: |
-      Ring 2 叙述中明确：standard_capabilities 仍为能力名列表；context window 等为 **model 级容量元数据**，
-      不混入 capability 字符串枚举。`context_policy`(future) 可不实现。
+      ai-protocol PR #6：`model_capacity_metadata` section in spec.json。
+      standard_capabilities 仍为能力名；context window 为 model 级 metadata.models 整数。
     depends_on: ["PT-075-R1"]
   - id: "PT-075-R4"
     title: "合规测试：v1↔v2 模型容量对等"
-    status: "pending"
-    description: "ai-protocol/tests/compliance/ 或等价脚本：同源 model 的 context_window/max 一致；缺失报错。"
+    status: "in_progress"
+    description: "ai-protocol PR #6：`scripts/verify-v1-v2-capacity-parity.js` + npm run verify:v1-v2-capacity (12 models)。"
     depends_on: ["PT-075-R2"]
 testing:
   - "JSON Schema 校验全量 v2-alpha providers"
