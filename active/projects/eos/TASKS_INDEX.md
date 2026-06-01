@@ -6,7 +6,7 @@
 |----|------|------|------|------|
 | EOS-P0-001 | [tasks/EOS-P0-001-prelaunch-hardening.yaml](./tasks/EOS-P0-001-prelaunch-hardening.yaml) | `completed` | — | 上线闸门 R1–R9 全部完成（R7 于 PR #3 关闭）；密钥轮换为运营跟进 |
 | EOS-P1-001 | [tasks/EOS-P1-001-minimal-chat-platform.yaml](./tasks/EOS-P1-001-minimal-chat-platform.yaml) | `completed` | — | Phase 1 + PR #3 capacity；见 [TRANSFER_COMBO_EVAL.md](./TRANSFER_COMBO_EVAL.md) |
-| EOS-P2-001 | [tasks/EOS-P2-001-context-strategy-browser.yaml](./tasks/EOS-P2-001-context-strategy-browser.yaml) | `pending` | PT-075、ALR-P2-001 | Phase 2 预备：R1 (SessionMirror) ✅ PR #4 已合并；R2 (ALR 接入) mark completed by Cursor 但未验证；R3 (capacity) ✅ PR #3；R4 (WASM integration) pending；PT-075-R1 (schema) ✅ 已合并 PR #4 (0f1cfb2) |
+| EOS-P2-001 | [tasks/EOS-P2-001-context-strategy-browser.yaml](./tasks/EOS-P2-001-context-strategy-browser.yaml) | `in_progress` | PT-075、ALR-P2-001 | R1 ✅ PR #4；strategy 扩展 PR #5 open；R3 ✅ PR #3；R2 进行中（eos PR #6）；R4 pending |
 | EOS-DPL-001 | [EOS_DEPLOY_PLAN.md](./EOS_DEPLOY_PLAN.md) | `completed` | — | 香港 VPS + Caddy TLS + `deploy_eos.sh`；生产 `https://eos.ailib.info` 已确认 `main@299575a`（2026-05-28） |
 | EOS-ARCH-001 | [tasks/EOS-ARCH-001-compliance-regional-routing.yaml](./tasks/EOS-ARCH-001-compliance-regional-routing.yaml) | `completed`（决策） | — | R2 **completed** — ai-protocol PR #2 (e042e2b) merged. R3/P 层过滤器、R4/E 层 region 过滤仍 pending |
 
@@ -20,7 +20,7 @@
 |--------|------|:----:|
 | M1: Chat Works（聊天+流式+多模型） | Week 1 末 | ✅ |
 | M2: Feature Complete（功能面板完整） | Week 2 末 | ✅ |
-| M3: Live（eos.ailib.info 上线） | Week 3 末 | ✅ 已上线；PR #3 已合并（capacity + R7）；R2 已完成 |
+| M3: Live（eos.ailib.info 上线） | Week 3 末 | ✅ 已上线；PR #3 已合并（capacity + R7）；R2 进行中 |
 
 ## 依赖
 

@@ -1,7 +1,7 @@
 ---
 id: "ALR-P2-001"
 title: "Rust 共享层：ContextBudget 与确定性消息组装（策略层核心，无网络）"
-status: "pending"
+status: "completed"
 priority: "high"
 executor_name: "alex"
 executor_terminal: "cursor-agent"
@@ -13,7 +13,7 @@ labels:
   - "context"
   - "library"
 created: "2026-05-22"
-updated: "2026-05-22"
+updated: "2026-06-01"
 description: |
   在 `ailib-official/ai-lib-rust`（或未来拆出的极小 crate）实现**可单测**的策略层核心：
   `ContextBudget`、`ModelCapacity`（从 manifest 读入的声明值 + unknown 策略）、对标准 message 列表的
@@ -27,13 +27,13 @@ description: |
 blocks:
   - id: "ALR-P2-R1"
     title: "类型与管线 API 设计（serde 友好）"
-    status: "pending"
-    description: "Budget / Capacity / Assembler 输入输出与错误类型；无 HTTP。"
+    status: "completed"
+    description: "Budget / Capacity / Assembler 输入输出与错误类型；无 HTTP。ai-lib-rust PR #4 已合并。"
     depends_on: []
   - id: "ALR-P2-R2"
     title: "确定性截断与 tool 对齐全绿单测"
-    status: "pending"
-    description: "覆盖：越界窗口、仅尾部保留、tool 链不拆断、巨型 tool 内容折叠为占位。"
+    status: "completed"
+    description: "覆盖：越界窗口、仅尾部保留、tool 链不拆断、巨型 tool 内容折叠为占位。7 单测通过。"
     depends_on: ["ALR-P2-R1"]
   - id: "ALR-P2-R3"
     title: "可选：从 PT-075 manifest fixture 集成读模型容量"
@@ -44,4 +44,4 @@ testing:
   - "cargo test（新增模块，无网络）"
 blocks_summary:
   total: 3
-completion_notes: ""
+completion_notes: "PR #4 merged (ef872b8). Compliance runner path fix PR #5 merged (8dfa9eb)."
