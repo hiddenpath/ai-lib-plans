@@ -14,7 +14,7 @@ labels:
   - "browser"
   - "strategy"
 created: "2026-05-22"
-updated: "2026-06-01"
+updated: "2026-06-02"
 description: |
   在 `hiddenpath/eos` 将 **会话历史镜像**（事件流 + 大体量 artifact 指针）落在 **浏览器宿主**（先内存 mock，
   再 OPFS/IndexedDB），发送前调用 `ALR-P2-001` 产出的组装逻辑得到规范化 `messages`，再进入现有 `eos-wasm-browser` `build_request`。
@@ -76,9 +76,17 @@ blocks:
     depends_on: []
   - id: "EOS-P2-R4"
     title: "契约或 E2E：大 tool 仿真不撑爆单次请求"
-    status: "pending"
+    status: "completed"
     description: "Playwright 或 Rust 契约：模拟超大 assistant/tool 段落后仍能 build_request 成功。"
     depends_on: ["EOS-P2-R2", "EOS-P2-R3"]
+    completion_notes: |
+      PR #7 (b5c5534) 已合并：
+      - `crates/eos-wasm-browser/src/core_logic.rs`: 新增 Rust 单测 `oversized_tool_assemble_then_build_request_succeeds`
+      - `e2e/tests/large-tool-context.spec.ts`: Playwright E2E 覆盖 WASM 路径 + index.html history 注入
+      - 验证超大 tool(50K) / assistant(60K) 上下文在 assemble 后 body ≤32K
+    testing:
+      - Rust: `cargo test` workspace (core_logic::tests::oversized_tool_assemble_then_build_request_succeeds)
+      - E2E: `npm run test:e2e` (large-tool-context.spec.ts: wasm + history 两条)
 testing:
   - "宿主单元测试（如有）或最小 Playwright"
   - "与 Prism 网关无关则可 mock provider"
