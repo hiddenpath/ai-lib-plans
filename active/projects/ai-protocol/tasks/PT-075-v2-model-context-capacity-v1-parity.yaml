@@ -1,7 +1,7 @@
 ---
 id: "PT-075"
 title: "V2-alpha 模型上下文容量元数据与 V1 对等（context_window / max_output）"
-status: "in_progress"
+status: "completed"
 priority: "high"
 executor_name: "alex"
 executor_terminal: "cursor-agent"
@@ -39,15 +39,13 @@ blocks:
     depends_on: ["PT-075-R1"]
   - id: "PT-075-R3"
     title: "dist/v2-alpha/spec.json 文档化 capacity 语义"
-    status: "in_progress"
-    description: |
-      ai-protocol PR #6：`model_capacity_metadata` section in spec.json。
-      standard_capabilities 仍为能力名；context window 为 model 级 metadata.models 整数。
+    status: "completed"
+    description: "PR #6 (695cd7b) 已合并：`model_capacity_metadata` section in spec.json。"
     depends_on: ["PT-075-R1"]
   - id: "PT-075-R4"
     title: "合规测试：v1↔v2 模型容量对等"
-    status: "in_progress"
-    description: "ai-protocol PR #6：`scripts/verify-v1-v2-capacity-parity.js` + npm run verify:v1-v2-capacity (12 models)。"
+    status: "completed"
+    description: "PR #6 (695cd7b) 已合并：`scripts/verify-v1-v2-capacity-parity.js` + npm run verify:v1-v2-capacity。"
     depends_on: ["PT-075-R2"]
 testing:
   - "JSON Schema 校验全量 v2-alpha providers"
@@ -56,4 +54,5 @@ blocks_summary:
   total: 4
 completion_notes: |
   2026-05-31: R1 merged (ai-protocol PR #4, 0f1cfb2).
-  2026-06-01: R2 merged (ai-protocol PR #5, 8740d21). ai-lib-rust compliance runner path fix (PR #5, 8dfa9eb) unblocked load-017–021 on main.
+  2026-06-01: R2 merged (ai-protocol PR #5, 8740d21).
+  2026-06-02: R3+R4 merged (ai-protocol PR #6, 695cd7b). All PT-075 blocks completed.
