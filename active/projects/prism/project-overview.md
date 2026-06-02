@@ -29,6 +29,37 @@ User → Prism (P-layer) → ai-lib-core (E-layer) → Provider APIs
     (closed-source C-band)
 ```
 
+## 远期架构预留（2026-06-02）
+
+### 智能路由策略：多语言插件能力
+
+智能路由是 Phase 2 核心功能。为未来外部化路由策略预留架构地基，避免远期反复：
+
+**总原则：Plugin-first, WASM-first。**
+
+| 层 | 方案 | 何时落地 |
+|----|------|---------|
+| 1 | 内置 DSL（YAML 规则模板：成本/延迟/区域优先） | Phase 2 内置路由策略时一起做，覆盖 80% 场景 |
+| 2 | **WASM 插件接口**（wasmtime 加载用户编写的策略 .wasm） | Phase 2+，覆盖 20% 需要自定义策略的用户 |
+| 3 | gRPC sidecar（用户自建策略服务） | 企业版高阶选项（如果有客户坚持其他语言） |
+
+**Phase 1 约束**：不做插件化，不引入 WASM 运行时依赖。内置硬编码路由策略（fallback、轮询）足够。
+但路由模块（`Router` trait / `RouteStrategy` trait）的设计应为将来插件化留好 trait 边界：
+
+```rust
+trait RouteStrategy: Send + Sync {
+    fn select(
+        &self,
+        request: &ChatRequest,
+        pool: &KeyPoolSnapshot,
+    ) -> Result<ProviderTarget, RouteError>;
+}
+```
+
+WASM 插件仅需实现此 trait → 编译为 wasm → Prism 加载。trait 签名保持稳定即可。
+
+**不做的决策**：gRPC sidecar 不在 Phase 1-3 roadmaps 内，仅当有企业客户明确需求时再议。
+
 ## Three-Zone Alignment
 
 | Component | Band | License |
