@@ -30,11 +30,13 @@
 
 - PR #4–#7 ✅；main `@b5c5534`
 
-### 下一队列：EOS-ARCH R3–R5
+### EOS-ARCH R1–R5 ✅ ALL COMPLETED
 
-- **R4** ✅：eos PR #8 (`19544d2`) `route_with_region`
-- **R3**（PR 待审）：eos-server `compliance` 模块 + `EOS_DEPLOYMENT_REGION`
-- **R5**（PR 待审）：`data/compliance/registered_models.yaml` + `sync_compliance_registry.py`
+- **R1** ✅ 架构决策文档
+- **R2** ✅ region manifest schema
+- **R3** ✅ eos-server `compliance` 模块（eos PR #9, `6a39ef4`）
+- **R4** ✅ prism-core `route_with_region`（eos PR #8, `19544d2`）
+- **R5** ✅ 已备案清单 + 校验工具（plans PR #6, `cc0f551`）
 
 ### eos manifest 消费（Phase 2+，可选）
 
