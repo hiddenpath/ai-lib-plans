@@ -87,10 +87,10 @@ blocks:
       4. 产出 `ai-lib-plans/data/compliance/registered_models.yaml`
 
       ## 验收标准
-      - [ ] `registered_models.yaml` 存在且为合法 YAML
-      - [ ] 包含至少 5 个主流国产模型条目（DeepSeek/Qwen/GLM/MiniMax/Baichuan 等）
-      - [ ] 每个条目含 `备案编号` 和 `备案日期`
-      - [ ] 脚本 `sync_compliance_registry.py` 可被调用（初始为手动维护 + 校验，非全自动抓取）
+      - [x] `registered_models.yaml` 存在且为合法 YAML
+      - [x] 包含至少 5 个主流国产模型条目（DeepSeek/Qwen/GLM/MiniMax/Baichuan 等）
+      - [x] 每个条目含 `备案编号` 和 `备案日期`
+      - [x] 脚本 `sync_compliance_registry.py` 可被调用（初始为手动维护 + 校验，非全自动抓取）
     depends_on: []
 blocks_summary:
   total: 5
