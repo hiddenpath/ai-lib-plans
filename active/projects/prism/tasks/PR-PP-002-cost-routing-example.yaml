@@ -9,6 +9,7 @@ assignee: ""
 created: "2026-04-26"
 updated: "2026-04-26"
 description: |
+  ⚠️ Repo: `hiddenpath/gateway` — C-band closed-source; do NOT push to `ailib-official` public org.
   Build a minimal cost-aware routing example in Prism:
   - Cost routing strategy: given request, select provider with lowest per-token cost
   - Pricing data source: static config (YAML/JSON) with per-provider per-model pricing

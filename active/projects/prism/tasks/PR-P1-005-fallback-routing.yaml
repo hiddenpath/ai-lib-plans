@@ -10,6 +10,7 @@ created: "2026-04-25"
 updated: "2026-04-25"
 
 description: |
+  ⚠️ Repo: `hiddenpath/gateway` — C-band closed-source; do NOT push to `ailib-official` public org.
   Implement basic fallback routing:
   - Configurable fallback_order per model (e.g., gpt-4o → [OpenAI, DeepSeek])
   - Primary provider failure → automatic retry on next provider in chain

@@ -9,6 +9,7 @@ assignee: ""
 created: "2026-04-26"
 updated: "2026-04-26"
 description: |
+  ⚠️ Repo: `hiddenpath/gateway` — C-band closed-source; do NOT push to `ailib-official` public org.
   Draft the Prism Pack capability contract:
   - Define JSON Schema for Pack manifest (extends ai-protocol v2 manifest)
   - Pack fields: id, name, version, provider_routes, signing_info, metadata

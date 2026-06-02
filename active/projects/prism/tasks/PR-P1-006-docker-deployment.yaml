@@ -10,6 +10,7 @@ created: "2026-04-25"
 updated: "2026-04-25"
 
 description: |
+  ⚠️ Repo: `hiddenpath/gateway` — C-band closed-source; do NOT push to `ailib-official` public org.
   Production deployment infrastructure:
   - Multi-stage Dockerfile (Rust build → minimal runtime image)
   - docker-compose.yml (gateway + caddy services)

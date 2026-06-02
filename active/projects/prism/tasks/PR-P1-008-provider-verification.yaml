@@ -10,6 +10,7 @@ created: "2026-04-25"
 updated: "2026-04-25"
 
 description: |
+  ⚠️ Repo: `hiddenpath/gateway` — C-band closed-source; do NOT push to `ailib-official` public org.
   End-to-end verification of all 5 P0 providers:
   - OpenAI (gpt-4o, gpt-4o-mini)
   - Anthropic (claude-sonnet-4-20250514, claude-haiku-4-20250414)

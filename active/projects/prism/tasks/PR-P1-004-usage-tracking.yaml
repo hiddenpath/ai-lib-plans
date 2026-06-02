@@ -10,6 +10,7 @@ created: "2026-04-25"
 updated: "2026-04-25"
 
 description: |
+  ⚠️ Repo: `hiddenpath/gateway` — C-band closed-source; do NOT push to `ailib-official` public org.
   Implement usage recording and basic pricing:
   - UsageRecord: user_id, provider_id, model_id, prompt/completion/reasoning tokens, cost_usd, timestamp
   - SQLite storage via rusqlite
