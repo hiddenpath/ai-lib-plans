@@ -1,0 +1,52 @@
+---
+id: "EOS-CI-001"
+title: "Eos CI debt cleanup — fix pre-existing compliance CI failures"
+status: open
+priority: P0
+assignee: "@cursor"
+project: "eos"
+milestone: "ci-stabilization"
+labels:
+  - "eos"
+  - "ci"
+  - "debt"
+  - "prerequisite"
+created: "2026-06-02"
+updated: "2026-06-02"
+
+description: |
+  ## Problem
+  Eos CI currently fails on `main` branch. The root cause mirrors what ai-lib-rust #5 fixed:
+  compliance test runner's `../../../../v2/providers/` relative path doesn't resolve 
+  correctly when `ai-protocol` is checked out as a repository subdirectory.
+  This means **every PR will show red CI** until fixed.
+
+  ## Affected CI runs
+  - `chore(compliance): align shipped registry with 5-model canonical list` — failure
+  - `feat(eos-server): EOS-ARCH-R3 P-layer compliance filter` — failure
+  - `feat(router): EOS-ARCH-R4 route_with_region + bump ai-lib-rust pin` — failure
+
+  ## Scope
+  Fix the compliance test path resolution so CI goes green on `main`.
+  Do NOT touch production code.
+
+  ## Reference
+  - ai-lib-rust #5: `fix/compliance-manifest-path-resolution` (commit 1bfd438)
+  - The approach was: resolve manifest paths from the `compliance_dir` case directory,
+    not from a hardcoded relative path traversal.
+
+acceptance_criteria:
+  - All CI workflows pass on `main` branch after fix
+  - Compliance tests run correctly (10 provider manifest load tests)
+  - No changes to production chat/proxy/search/upload/image routes
+  - PR title convention: `fix(ci): resolve compliance manifest path resolution`
+
+testing:
+  strategy: "CI green on main after merge"
+  evidence: "All GitHub Actions checkmarks green"
+
+pr:
+  url: ""
+  merge_commit: ""
+
+completion_notes: ""

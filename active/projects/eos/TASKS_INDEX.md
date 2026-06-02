@@ -9,6 +9,7 @@
 | EOS-P2-001 | [tasks/EOS-P2-001-context-strategy-browser.yaml](./tasks/EOS-P2-001-context-strategy-browser.yaml) | `completed` | PT-075、ALR-P2-001 | R1–R4 ✅ PR #4–#7；milestone **eos-phase2-context** done |
 | EOS-DPL-001 | [EOS_DEPLOY_PLAN.md](./EOS_DEPLOY_PLAN.md) | `completed` | — | 香港 VPS + Caddy TLS + `deploy_eos.sh`；生产 `https://eos.ailib.info` 已确认 `main@299575a`（2026-05-28） |
 | EOS-ARCH-001 | [tasks/EOS-ARCH-001-compliance-regional-routing.yaml](./tasks/EOS-ARCH-001-compliance-regional-routing.yaml) | `completed` | — | ✅ R1–R5 all completed: R3 ⏺ eos PR #9 (6a39ef4), R4 ⏺ eos PR #8 (19544d2), R5 ⏺ plans PR #6 (cc0f551) |
+| EOS-CI-001 | [tasks/EOS-CI-001-ci-debt-cleanup.yaml](./tasks/EOS-CI-001-ci-debt-cleanup.yaml) | `open` | — | Fix pre-existing compliance CI failures; reference ai-lib-rust #5 |
 
 ## 上线前专项（Pre-launch）
 
