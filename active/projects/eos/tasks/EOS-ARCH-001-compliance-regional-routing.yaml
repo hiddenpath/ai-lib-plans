@@ -38,13 +38,14 @@ blocks:
     depends_on: []
   - id: "EOS-ARCH-R3"
     title: "P 层区域合规过滤器"
-    status: "pending"
-    description: "Eos 后端闭源层新增模块：来源识别 → region 标签 → 已备案模型过滤器。需对接动态更新模型清单。"
+    status: "in_progress"
+    description: "Eos 后端闭源层新增模块：来源识别 → region 标签 → 已备案模型过滤器。需对接动态更新模型清单。branch: feat/eos-arch-r3-compliance-filter"
     depends_on: ["EOS-ARCH-R2"]
+    branch: "feat/eos-arch-r3-compliance-filter"
   - id: "EOS-ARCH-R4"
     title: "E 层 router region 过滤参数"
-    status: "pending"
-    description: "prism-core router 新增可选 region 参数，按标签过滤可用 endpoints。保持向后兼容（不传则不过滤）。"
+    status: "completed"
+    description: "prism-core router 新增可选 region 参数 + `route_with_region`（eos PR #8, 19544d2）。保持向后兼容（不传则不过滤）。"
     depends_on: ["EOS-ARCH-R2"]
   - id: "EOS-ARCH-R5"
     title: "已备案清单同步工具"
@@ -93,9 +94,11 @@ blocks:
     depends_on: []
 blocks_summary:
   total: 5
-  completed: 2
-  in_progress: 0
-  pending: 3
+  completed: 3
+  in_progress: 1
+  pending: 1
 completion_notes: |
   架构选型讨论完成，文档已写入 active/projects/eos/COMPLIANCE_REGIONAL_ROUTING.md。
-  2026-05-29：ai-protocol PR #2+#3 合并，EOS-ARCH-R2 完整交付。剩余 pending：R3（P 层过滤器）、R4（E 层 region 过滤）、R5（备案清单）。
+  2026-05-29：ai-protocol PR #2+#3 合并，EOS-ARCH-R2 完整交付。
+  2026-06-02：R4 合并 (eos PR #8, 19544d2)。R3 分支已推送 (feat/eos-arch-r3-compliance-filter)。
+  剩余 pending：R5（备案清单）。
