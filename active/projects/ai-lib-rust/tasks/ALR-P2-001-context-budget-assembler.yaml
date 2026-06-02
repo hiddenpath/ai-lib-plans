@@ -44,4 +44,4 @@ testing:
   - "cargo test（新增模块，无网络）"
 blocks_summary:
   total: 3
-completion_notes: "PR #4–#5 merged. PR #6 (R3 parser) pending merge."
+completion_notes: "PR #4–#6 merged. Milestone context-strategy-shared complete (2026-06-02)."
