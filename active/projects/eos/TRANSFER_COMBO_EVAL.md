@@ -49,4 +49,6 @@
 - `ALR-P2-001` → completed
 - `EOS-P2-001` → completed
 - `EOS-ARCH-R2` → completed
-- `EOS-ARCH-R3/R4/R5` → pending / in_progress
+- `EOS-ARCH-R3` → completed (eos #9, `6a39ef4`)
+- `EOS-ARCH-R4` → completed (eos #8, `19544d2`)
+- `EOS-ARCH-R5` → completed (plans #6, `cc0f551`)

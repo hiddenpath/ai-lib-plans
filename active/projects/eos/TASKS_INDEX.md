@@ -21,6 +21,7 @@
 | M1: Chat Works（聊天+流式+多模型） | Week 1 末 | ✅ |
 | M2: Feature Complete（功能面板完整） | Week 2 末 | ✅ |
 | M3: Live（eos.ailib.info 上线） | Week 3 末 | ✅ 已上线；Phase 2 context milestone ✅ (PR #4–#7) |
+| M4: Regional compliance（EOS-ARCH R1–R5） | 2026-06-02 | ✅ eos #8–#9 + plans #6 |
 
 ## 依赖
 
