@@ -17,8 +17,9 @@ description: |
   - TOML config loader (provider list, keys, ports)
   - Basic project structure: src/{main,config,server/health}
 
-  **Repo**: to be created at `ailib-official/ai-lib-gateway`
-  - Or if workspace already exists, use that.
+  **Repo**: private at `hiddenpath` — determine repo name with maintainer.
+  - ⚠️ C-band closed-source product; do NOT create under `ailib-official` public org.
+  - A-band components (Prism SDK) may be published separately later under `ailib-official`.
 
 acceptance_criteria:
   - `cargo build` succeeds with ai-lib-core as dependency

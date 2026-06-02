@@ -2,8 +2,9 @@
 
 > **Type**: Commercial product (C-band core)
 > **Status**: Phase 1 planning
-> **Repo**: `ailib-official/ai-lib-gateway` (to be created)
+> **Repo**: private under `hiddenpath` (to be created); ⚠️ NOT `ailib-official` public org
 > **Architecture**: P-layer in S=(A,P,E), closed-source commercial gateway
+> **Access**: maintainer-only, C-band proprietary code
 > **Plan Source**: PRODUCT_PLAN_v2.md + ai_lib_gateway_phase1_plan.md v2.0
 
 ## Product Matrix Position
