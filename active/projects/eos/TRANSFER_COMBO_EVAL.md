@@ -32,9 +32,9 @@
 
 ### 下一队列：EOS-ARCH R3–R5
 
-- **R4**（进行中）：prism-core `route_with_region`
-- **R3**：P 层合规过滤器（闭源 eos-server）
-- **R5**：已备案清单同步工具
+- **R4** ✅：eos PR #8 (`19544d2`) `route_with_region`
+- **R3**（PR 待审）：eos-server `compliance` 模块 + `EOS_DEPLOYMENT_REGION`
+- **R5**（PR 待审）：`data/compliance/registered_models.yaml` + `sync_compliance_registry.py`
 
 ### eos manifest 消费（Phase 2+，可选）
 

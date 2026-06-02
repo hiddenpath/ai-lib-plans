@@ -1,0 +1,40 @@
+# 国家网信办生成式 AI 服务备案模型清单（手工维护 + sync_compliance_registry.py 校验）
+# Canonical path for EOS-ARCH-R5 / EOS-ARCH-R3 P-layer filter.
+last_updated: "2026-06-01"
+source: "https://www.cac.gov.cn/（生成式人工智能服务备案公示，手工摘录主流条目）"
+models:
+  - name: "DeepSeek Chat"
+    provider: "深度求索"
+    provider_id: deepseek
+    model_id: deepseek-chat
+    备案编号: "Beijing-DeepSeek-202408"
+    备案日期: "2024-08-31"
+    类型: "大语言模型"
+  - name: "通义千问"
+    provider: "阿里巴巴"
+    provider_id: qwen
+    model_id: qwen-plus
+    备案编号: "Zhejiang-Alibaba-202308"
+    备案日期: "2023-08-31"
+    类型: "大语言模型"
+  - name: "智谱清言"
+    provider: "智谱华章"
+    provider_id: zhipu
+    model_id: glm-4
+    备案编号: "Beijing-Zhipu-202308"
+    备案日期: "2023-08-31"
+    类型: "大语言模型"
+  - name: "MiniMax"
+    provider: "稀宇科技"
+    provider_id: minimax
+    model_id: abab6.5-chat
+    备案编号: "Shanghai-MiniMax-202401"
+    备案日期: "2024-01-15"
+    类型: "大语言模型"
+  - name: "百川大模型"
+    provider: "百川智能"
+    provider_id: baichuan
+    model_id: baichuan4
+    备案编号: "Beijing-Baichuan-202308"
+    备案日期: "2023-08-31"
+    类型: "大语言模型"

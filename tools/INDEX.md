@@ -259,6 +259,15 @@
   - `--remote-pass` 参数会出现在进程列表中，生产环境建议使用 SSH key 认证（设 `REMOTE_PASS` 环境变量或省略以用 key）
   - 健康检查最多等待 10 秒，超时仅警告不阻断
 
+## `sync_compliance_registry.py`
+
+- **路径**: `tools/sync_compliance_registry.py`
+- **用途**: 校验 `data/compliance/registered_models.yaml` 结构（EOS-ARCH-R5）；Phase 1 为手工维护 + 校验，不抓取 CAC 页面
+- **示例**: `python tools/sync_compliance_registry.py`
+- **自定义路径**: `python tools/sync_compliance_registry.py --path data/compliance/registered_models.yaml`
+- **依赖**: PyYAML (`pip install pyyaml`)
+- **风险提示**: 无网络/写操作；校验失败时退出码 1
+
 ## `APPDATA_RELOCATE_LESSONS.md`
 
 - **路径**: `tools/APPDATA_RELOCATE_LESSONS.md`

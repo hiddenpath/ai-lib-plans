@@ -39,7 +39,9 @@ blocks:
   - id: "EOS-ARCH-R3"
     title: "P 层区域合规过滤器"
     status: "in_progress"
-    description: "Eos 后端闭源层新增模块：来源识别 → region 标签 → 已备案模型过滤器。需对接动态更新模型清单。branch: feat/eos-arch-r3-compliance-filter"
+    description: |
+      eos-server `compliance` 模块：`EOS_DEPLOYMENT_REGION` + 备案清单过滤 `/api/models` 与 proxy。
+      PR 待合并：feat/eos-arch-r3-compliance-filter
     depends_on: ["EOS-ARCH-R2"]
     branch: "feat/eos-arch-r3-compliance-filter"
   - id: "EOS-ARCH-R4"
@@ -49,7 +51,7 @@ blocks:
     depends_on: ["EOS-ARCH-R2"]
   - id: "EOS-ARCH-R5"
     title: "已备案清单同步工具"
-    status: "pending"
+    status: "in_progress"
     description: |
       ## 目标
       自动化工具，从国家网信办生成式 AI 服务备案公示页面提取已备案模型清单，
@@ -95,10 +97,9 @@ blocks:
 blocks_summary:
   total: 5
   completed: 3
-  in_progress: 1
-  pending: 1
+  in_progress: 2
+  pending: 0
 completion_notes: |
   架构选型讨论完成，文档已写入 active/projects/eos/COMPLIANCE_REGIONAL_ROUTING.md。
   2026-05-29：ai-protocol PR #2+#3 合并，EOS-ARCH-R2 完整交付。
-  2026-06-02：R4 合并 (eos PR #8, 19544d2)。R3 分支已推送 (feat/eos-arch-r3-compliance-filter)。
-  剩余 pending：R5（备案清单）。
+  2026-06-02：R4 合并 (eos PR #8, 19544d2)。R3/R5 实现中（eos PR + plans data/tools PR）。
