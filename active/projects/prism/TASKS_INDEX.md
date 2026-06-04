@@ -54,4 +54,5 @@
 ## 相关文档
 
 - [project-overview.md](./project-overview.md)
+- [NEAR_TERM_EXECUTION_2026-06-P1.md](./NEAR_TERM_EXECUTION_2026-06-P1.md) — **近期排期（P1）**；Eos proxy 不在范围内
 - MEMORY.md § 2026-06-04 Prism Phase 1 计划对齐

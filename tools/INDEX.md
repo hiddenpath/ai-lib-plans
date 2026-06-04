@@ -268,6 +268,14 @@
 - **依赖**: PyYAML (`pip install pyyaml`)
 - **风险提示**: 无网络/写操作；校验失败时退出码 1
 
+## `email_skill.py` / `send_outbox_email.py` / `tools/outbox/`
+
+- **用途**: 从 `tools/outbox/*.txt` 发送运营/前置清单邮件（默认收件人见 `email_skill.DEFAULT_RECIPIENT`）
+- **依赖**: Linux/WSL 上 `/home/alex/send_mail_simple.py`（Windows 本机若无 Python3 请在 WSL 执行）
+- **示例**:
+  - `cd tools && python3 send_outbox_email.py outbox/EMAIL_manual-prerequisites_2026-06-04_prism-p1.txt --subject '[ai-lib] Prism P1 线下前置清单 (2026-06-04)'`
+- **outbox 约定**: 文件名 `EMAIL_<topic>_<YYYY-MM-DD>_<tag>.txt`；正文 UTF-8
+
 ## `APPDATA_RELOCATE_LESSONS.md`
 
 - **路径**: `tools/APPDATA_RELOCATE_LESSONS.md`

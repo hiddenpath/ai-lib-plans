@@ -5,8 +5,9 @@
 > **Repos**:
 > - `hiddenpath/eos` — `crates/prism-core` (A-band, Apache-2.0) + `eos-server` (C-band product shell, live at eos.ailib.info)
 > - `ailib-official/prism-core` — future publish target (crates.io)
-> - `ailib-official/ai-lib-gateway` — placeholder product repo; Phase 1 HTTP may land in **eos-server** or here (decision: evolve eos-server first)
-> **Plan review**: 2026-06-04 strict audit (plan vs code alignment)
+> - `ailib-official/ai-lib-gateway` — **Phase P1 产品 HTTP 壳**（OpenAI `/v1/*`）；**不**改 Eos `/api/proxy` 路径
+> **Plan review**: 2026-06-04 strict audit (plan vs code alignment)  
+> **Near-term schedule**: [NEAR_TERM_EXECUTION_2026-06-P1.md](./NEAR_TERM_EXECUTION_2026-06-P1.md) — Prism P1 only; **Eos proxy paths out of scope**; HK Eos host ≠ Prism production
 
 ## Product Matrix Position
 

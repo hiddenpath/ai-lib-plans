@@ -578,7 +578,12 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 - 新增：009 TOML、010 Anthropic、011 quota、012 crates.io、013 DNS、014 admin HTTP、016 VelaClaw 迁移
 - PR-PP-003 → `in_progress`；须先修订 BIZ-002 与 prism-core A-band 一致
 
-**仓库**：prism-core 在 `hiddenpath/eos`；`ailib-official/ai-lib-gateway` 仍为占位；Phase 1 HTTP 优先演进 eos-server。
+**仓库**：prism-core 在 `hiddenpath/eos`；Phase 1 产品 HTTP 目标 **`ailib-official/ai-lib-gateway`**（非 Eos `/api/proxy`）。
+
+**边界（2026-06-04 产品决策）**：
+- **Eos proxy 路径**始终在 ai-lib 产品规划外；有需求只记需求清单，由运营另行安排，研发任务不耦合。
+- **腾讯香港 eos.ailib.info** = 临时/开发部署，**不是** Prism 生产环境；基础设施事项不进 Prism 产品验收。
+- 近期排期：`active/projects/prism/NEAR_TERM_EXECUTION_2026-06-P1.md`；线下前置：`tools/outbox/EMAIL_manual-prerequisites_2026-06-04_prism-p1.txt`。
 
 ## 2026-05-10 — prism-core 架构决策（从 eos-server 拆出）
 
