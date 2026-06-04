@@ -12,9 +12,9 @@
 | PR-P1-004 | [tasks/PR-P1-004-usage-tracking.yaml](./tasks/PR-P1-004-usage-tracking.yaml) | `completed` | PR-P1-002-LIB | Usage + Pricer |
 | PR-P1-005 | [tasks/PR-P1-005-fallback-routing.yaml](./tasks/PR-P1-005-fallback-routing.yaml) | `completed` | PR-P1-002-LIB, PR-P1-003 | Fallback routing |
 | PR-P1-007 | [tasks/PR-P1-007-admin-api.yaml](./tasks/PR-P1-007-admin-api.yaml) | `completed` | PR-P1-003, PR-P1-004 | AdminService 逻辑 |
-| PR-P1-009 | [tasks/PR-P1-009-config-toml-loader.yaml](./tasks/PR-P1-009-config-toml-loader.yaml) | `open` | — | TOML config.toml |
-| PR-P1-010 | [tasks/PR-P1-010-anthropic-adapter.yaml](./tasks/PR-P1-010-anthropic-adapter.yaml) | `open` | PR-P1-002-LIB | Anthropic Messages API |
-| PR-P1-011 | [tasks/PR-P1-011-quota-enforcement.yaml](./tasks/PR-P1-011-quota-enforcement.yaml) | `open` | PR-P1-004 | Quota enforce |
+| PR-P1-009 | [tasks/PR-P1-009-config-toml-loader.yaml](./tasks/PR-P1-009-config-toml-loader.yaml) | `completed` | — | TOML config.toml |
+| PR-P1-010 | [tasks/PR-P1-010-anthropic-adapter.yaml](./tasks/PR-P1-010-anthropic-adapter.yaml) | `completed` | PR-P1-002-LIB | Anthropic Messages API (JSON map; HTTP wire PR-P1-002) |
+| PR-P1-011 | [tasks/PR-P1-011-quota-enforcement.yaml](./tasks/PR-P1-011-quota-enforcement.yaml) | `completed` | PR-P1-004 | Quota enforce |
 | PR-P1-012 | [tasks/PR-P1-012-prism-core-crates-io.yaml](./tasks/PR-P1-012-prism-core-crates-io.yaml) | `open` | PR-P1-008 | crates.io 发布 |
 
 ## Phase 1 — 产品层（HTTP / 部署）

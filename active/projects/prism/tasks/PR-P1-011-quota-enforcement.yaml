@@ -1,6 +1,6 @@
 id: PR-P1-011
 title: "Quota enforcement (daily/monthly token limits)"
-status: open
+status: completed
 priority: P1
 project: prism
 phase: 1
@@ -8,6 +8,8 @@ scope: library
 repo: "hiddenpath/eos — crates/prism-core"
 depends_on: ["PR-P1-004"]
 assignee: ""
+executor_name: "cursor-agent"
+executor_terminal: "cursor-prism-p1a"
 created: "2026-06-04"
 updated: "2026-06-04"
 
@@ -23,10 +25,12 @@ acceptance_criteria:
 
 testing:
   strategy: "cargo test auth quota paths"
-  evidence: ""
+  evidence: "authorize_with_quota + usage sum_tokens_for_user_since; cargo test --features full 52 passed"
 
 pr:
   url: ""
   merge_commit: ""
 
-completion_notes: ""
+completion_notes: |
+  auth::authorize_with_quota (feature usage-tracking); UsageStore::sum_tokens_for_user_since;
+  utc_day_start / utc_month_start in usage.rs.

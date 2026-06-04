@@ -29,11 +29,12 @@ acceptance_criteria:
 
 testing:
   strategy: "Review: zone table matches eos/prism-core licenses and published crates"
-  evidence: "Partial: BUSINESS_BOUNDARY_RULES.md draft; BIZ-002 still lists Prism routing as C-band — needs revision"
+  evidence: "BIZ-002 revised 2026-06-04 in BUSINESS_BOUNDARY_RULES.md; BIZ-001~005 yaml files still pending"
 
 pr:
   url: ""
   merge_commit: ""
 
 completion_notes: |
-  Blocked on BIZ-002 / three-zone alignment with prism-core Apache-2.0 reality. See prism plan audit 2026-06-04.
+  BIZ-002 amended (prism-core A-band, C-band product shell). Remaining: per-rule yaml files,
+  MEMORY rule index, supersede markers in reports — owner confirmation still required.
