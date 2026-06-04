@@ -1,33 +1,28 @@
----
 id: PR-P1-001
-title: "Prism project skeleton (Axum + config + health endpoint)"
+title: "Gateway shell — Axum + TOML config + /health"
 status: open
 priority: P0
 project: prism
 phase: 1
+scope: product
+repo: "hiddenpath/eos (eos-server) or ailib-official/ai-lib-gateway"
 depends_on: []
-assignee: "@cursor"
+assignee: ""
 created: "2026-04-25"
-updated: "2026-06-02"
+updated: "2026-06-04"
 
 description: |
-  Create the ai-lib-gateway project skeleton with:
-  - Cargo.toml workspace (gateway + core dependency)
-  - Axum server with `/health` endpoint
-  - TOML config loader (provider list, keys, ports)
-  - Basic project structure: src/{main,config,server/health}
-
-  **Repo**: `hiddenpath/gateway` (private, C-band)
-  - ⚠️ Do NOT create under `ailib-official` public org.
-  - A-band components (Prism SDK) may be published separately later under `ailib-official`.
+  Product-layer gateway shell (not prism-core library internals):
+  - Axum server with `GET /health` (version + readiness)
+  - TOML config loader at startup (provider list, keys, ports) — see PR-P1-009 for library loader
+  - Depends on prism-core crate (path or published), **not** ai-lib-core as Phase 1 requirement
+  - Eos today: `/health` exists; still missing unified `config.toml` + Prism-oriented layout
 
 acceptance_criteria:
-  - `cargo build` succeeds with ai-lib-core as dependency
+  - `cargo build` succeeds with prism-core dependency
   - `GET /health` returns 200 with version info
-  - Config loads from `config.toml` at startup
-  - Docker skeleton (Dockerfile + docker-compose.yml) present
-  - Project structure follows existing ai-lib-rust conventions
-  - Repo initialized on `ailib-official/ai-lib-gateway` (or equivalent)
+  - Config loads from `config.toml` at startup (or documents EnvConfig fallback)
+  - Docker skeleton present or documented reuse of eos deploy template
 
 testing:
   strategy: "cargo test + manual curl /health"

@@ -1,0 +1,36 @@
+id: PR-P1-002-LIB
+title: "Core proxy library (libcurl sync + SSE stream)"
+status: completed
+priority: P0
+project: prism
+phase: 1
+scope: library
+repo: "hiddenpath/eos — crates/prism-core"
+depends_on: []
+assignee: ""
+executor_name: "cursor-agent"
+executor_terminal: "cursor-prism-review"
+created: "2026-06-04"
+updated: "2026-06-04"
+
+description: |
+  Library-layer proxy in prism-core (not HTTP product surface):
+  - `curl_proxy` / `curl_stream_proxy` via libcurl
+  - Does not use ai-lib-core ExecutionPipeline (Phase 1 intentional)
+  - Product HTTP remains PR-P1-002 (OpenAI `/v1/*` on gateway shell)
+
+acceptance_criteria:
+  - `cargo test -p prism-core --features full` passes proxy-related tests
+  - Sync and streaming code paths compile without ai-lib-core dependency
+
+testing:
+  strategy: "cargo test -p prism-core --features full"
+  evidence: "2026-06-04: cargo test --features full → 45 passed (prism-core, win32)"
+
+pr:
+  url: ""
+  merge_commit: ""
+
+completion_notes: |
+  Implemented in eos/crates/prism-core/src/proxy.rs. Plan audit 2026-06-04: library
+  scope complete; do not conflate with PR-P1-002 product HTTP task.

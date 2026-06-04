@@ -1,0 +1,31 @@
+id: PR-P1-014
+title: "Admin HTTP routes — /admin/* (Axum)"
+status: open
+priority: P1
+project: prism
+phase: 1
+scope: product
+repo: "hiddenpath/eos (eos-server) or ailib-official/ai-lib-gateway"
+depends_on: ["PR-P1-001", "PR-P1-003", "PR-P1-004"]
+assignee: ""
+created: "2026-06-04"
+updated: "2026-06-04"
+
+description: |
+  Bind prism-core AdminService to Axum (replaces superseded HTTP portion of old PR-P1-007):
+  - POST/DELETE/GET /admin/keys, /admin/users, GET /admin/usage, GET /admin/health
+  - Separate admin token middleware (not user Bearer)
+
+acceptance_criteria:
+  - Integration test: admin CRUD round-trip
+  - Invalid admin token → 401
+
+testing:
+  strategy: "axum integration tests + manual curl"
+  evidence: ""
+
+pr:
+  url: ""
+  merge_commit: ""
+
+completion_notes: ""

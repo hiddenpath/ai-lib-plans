@@ -565,6 +565,21 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 
 **与 ai-lib-gateway 一致**：gateway 也在 hiddenpath，Eos 遵循相同模式
 
+## 2026-06-04 — Prism Phase 1 计划对齐（plan audit + tasks 修订）
+
+**动因**：`active/projects/prism/` 11 任务全 `open`，与 `eos/crates/prism-core` 实现严重脱节；严格审查 2026-06-04。
+
+**决策**：
+- 任务增加 **`scope: library | product`**；库层可独立 `completed`，产品 HTTP/部署单独追踪
+- **Phase 1 调用链**：gateway shell (Axum) → prism-core (libcurl) → Provider；**不**依赖 ai-lib-core（Phase 2+ 可选）
+- **三区分**：prism-core 全特性 = **A-band**；C-band = eos-server / Enterprise 产品壳与商业策略
+- 库层已完成并关单：PR-P1-002-LIB、003、004、005、007（evidence: `cargo test -p prism-core --features full` 45 passed）
+- 依赖链修正：006 ← 002；008 ← 002+003+005（不再硬依赖 006）
+- 新增：009 TOML、010 Anthropic、011 quota、012 crates.io、013 DNS、014 admin HTTP、016 VelaClaw 迁移
+- PR-PP-003 → `in_progress`；须先修订 BIZ-002 与 prism-core A-band 一致
+
+**仓库**：prism-core 在 `hiddenpath/eos`；`ailib-official/ai-lib-gateway` 仍为占位；Phase 1 HTTP 优先演进 eos-server。
+
 ## 2026-05-10 — prism-core 架构决策（从 eos-server 拆出）
 
 **决策**：拆分 eos-server → prism-core（A-band 开源 crate）+ eos-server（C-band 闭源薄壳）
