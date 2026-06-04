@@ -1,0 +1,32 @@
+id: PR-P1-010
+title: "Anthropic Messages API adapter"
+status: open
+priority: P0
+project: prism
+phase: 1
+scope: library
+repo: "hiddenpath/eos — crates/prism-core"
+depends_on: ["PR-P1-002-LIB"]
+assignee: ""
+created: "2026-06-04"
+updated: "2026-06-04"
+
+description: |
+  Anthropic is not OpenAI-compatible on the wire. Add adapter in prism-core or shell:
+  - Map OpenAI-style `/v1/chat/completions` body ↔ Anthropic Messages API
+  - Streaming event mapping
+  - Required for PR-P1-002 acceptance ("OpenAI + Anthropic reachable")
+
+acceptance_criteria:
+  - Integration test or manual script: claude model returns assistant text
+  - Streaming path documented and tested
+
+testing:
+  strategy: "Integration test with live or mocked Anthropic API"
+  evidence: ""
+
+pr:
+  url: ""
+  merge_commit: ""
+
+completion_notes: ""

@@ -1,0 +1,32 @@
+id: PR-P1-011
+title: "Quota enforcement (daily/monthly token limits)"
+status: open
+priority: P1
+project: prism
+phase: 1
+scope: library
+repo: "hiddenpath/eos — crates/prism-core"
+depends_on: ["PR-P1-004"]
+assignee: ""
+created: "2026-06-04"
+updated: "2026-06-04"
+
+description: |
+  `auth.rs` defines QuotaConfig and DailyQuotaExceeded / MonthlyQuotaExceeded but
+  verify path does not enforce limits yet. Implement check on authenticated requests
+  and increment usage counters from UsageStore.
+
+acceptance_criteria:
+  - Unit tests: exceed daily limit → DailyQuotaExceeded
+  - Unit tests: exceed monthly limit → MonthlyQuotaExceeded
+  - Allowed models list enforced (existing ModelNotAllowed)
+
+testing:
+  strategy: "cargo test auth quota paths"
+  evidence: ""
+
+pr:
+  url: ""
+  merge_commit: ""
+
+completion_notes: ""

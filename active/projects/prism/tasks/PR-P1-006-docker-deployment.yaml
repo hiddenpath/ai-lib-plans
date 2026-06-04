@@ -4,29 +4,30 @@ status: open
 priority: P0
 project: prism
 phase: 1
-depends_on: ["PR-P1-005"]
+scope: product
+repo: "hiddenpath/eos or ailib-official/ai-lib-gateway"
+depends_on: ["PR-P1-002"]
 assignee: ""
 created: "2026-04-25"
-updated: "2026-04-25"
+updated: "2026-06-04"
 
 description: |
-  Production deployment infrastructure:
-  - Multi-stage Dockerfile (Rust build → minimal runtime image)
-  - docker-compose.yml (gateway + caddy services)
-  - Caddyfile for api.prism.ailib.info (auto HTTPS via Let's Encrypt)
-  - Environment variable configuration (RUST_LOG, data paths)
-  - Volume mounts for SQLite data persistence
-  - Restart policy + health check in compose
+  Production deployment for **Prism** gateway (not only Eos):
+  - Reuse/adapt eos deploy template (`ai-lib-plans/tools/deploy_eos.sh`, Dockerfile, Caddy)
+  - Multi-stage Dockerfile, docker-compose (gateway + caddy)
+  - Caddyfile for api.prism.ailib.info
+  - SQLite volume persistence
+  - DNS: PR-P1-013
+  - Does **not** require fallback routing (PR-P1-005) to be product-complete
 
 acceptance_criteria:
   - `docker compose up` starts gateway + caddy
-  - `https://api.prism.ailib.info/health` returns 200 (after DNS + TLS setup)
-  - Auto-restart on failure
-  - SQLite data persists across container restarts
-  - TLS certificate auto-provisioned by Caddy
+  - `https://api.prism.ailib.info/health` returns 200 (after PR-P1-013 DNS + TLS)
+  - Auto-restart on failure; SQLite data persists across restarts
+  - TLS auto-provisioned by Caddy
 
 testing:
-  strategy: "Manual: deploy to VPS, curl external endpoint"
+  strategy: "Manual: deploy to VPS, curl external endpoint (may share 43.159.226.236 with Eos or separate host — document in evidence)"
   evidence: ""
 
 pr:

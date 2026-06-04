@@ -1,0 +1,31 @@
+id: PR-P1-012
+title: "Publish prism-core to crates.io (ailib-official/prism-core)"
+status: open
+priority: P1
+project: prism
+phase: 1
+scope: library
+repo: "ailib-official/prism-core"
+depends_on: ["PR-P1-008"]
+assignee: ""
+created: "2026-06-04"
+updated: "2026-06-04"
+
+description: |
+  Extract/publish prism-core per DESIGN.md §6:
+  - Standalone Cargo.toml (no eos workspace inherit)
+  - Repository on ailib-official; `cargo publish` after PR-P1-008 library+API stable
+
+acceptance_criteria:
+  - Crate publishes to crates.io with documented feature flags
+  - eos-server consumes published version or documents path dep until publish
+
+testing:
+  strategy: "cargo publish --dry-run; downstream cargo build"
+  evidence: ""
+
+pr:
+  url: ""
+  merge_commit: ""
+
+completion_notes: ""
