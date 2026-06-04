@@ -17,6 +17,13 @@
 - **适用范围**: eos、Prism 侧构建链及任何为解决 CI 网络所做的 vendoring
 - **落地示例**: `hiddenpath/eos` 根目录 `wasm-pack-bin` / `wasm-bindgen-bin`（见 `docs/engineering/VENDORED_BUILD_TOOL_BINARIES.md`）
 
+## `docs/governance/LAN_GIT.md`
+
+- **用途**: 闭源/内网仓库日常协作规范（GOV-004 试运行）：`lan` 主 remote、`origin` 备份/CI 双头（eos）
+- **适用范围**: ai-lib-constitution, ai-lib-plans, papers, eos, ai-lib-gateway
+- **规则**: `ai-lib-constitution/rules/governance/GOV-004-lan-git-dual-remote.yaml`
+- **关联**: GOV-001（公开仓 ailib-official）、REMOTE_MIGRATION.md（公开仓迁移）
+
 ## `docs/governance/REMOTE_MIGRATION.md`
 - **用途**: 远端迁移指令（GOV-001 v2）——所有编程代理在操作公开仓库前必须检查 `origin` 是否指向 `ailib-official/*`，若仍指向 `hiddenpath/*` 则立即重指向
 - **适用范围**: ai-protocol, ai-lib-rust, ai-lib-python, ai-lib-ts, ai-lib-go, ai-protocol-mock
@@ -275,6 +282,15 @@
 - **示例**:
   - `cd tools && python3 send_outbox_email.py outbox/EMAIL_manual-prerequisites_2026-06-04_prism-p1.txt --subject '[ai-lib] Prism P1 线下前置清单 (2026-06-04)'`
 - **outbox 约定**: 文件名 `EMAIL_<topic>_<YYYY-MM-DD>_<tag>.txt`；正文 UTF-8
+
+## `push_private_repos_to_lan_git.py`
+
+- **路径**: `tools/push_private_repos_to_lan_git.py`
+- **用途**: 将闭源仓库（constitution / plans / papers / eos / gateway）初始化 bare 仓并推送到内网 Git 服务器（默认 `git-server.local`，用户 `git`）；自动部署 SSH 公钥到服务器 `authorized_keys`，本地添加 `lan` remote
+- **示例**: `python tools/push_private_repos_to_lan_git.py`
+- **Remote 格式**: `ssh://git@git-server.local/srv/git/repos/<name>.git`（服务器 bare 根目录 `/srv/git/repos/`；别名 `lan-git` / `192.168.2.22` 同主机）
+- **后续推送**: `git push lan <branch>`（需 `GIT_SSH_COMMAND='ssh -i ~/.ssh/id_ed25519_lan_git -o IdentitiesOnly=yes'` 或配置 `~/.ssh/config`）
+- **风险提示**: 首次运行会在服务器创建 bare 仓并写入 SSH 公钥；无 commit 的仓库（如 ai-lib-gateway）会跳过
 
 ## `APPDATA_RELOCATE_LESSONS.md`
 

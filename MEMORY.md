@@ -559,11 +559,36 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 - 商业逻辑（计费/配额/策略/auth）与 P 层代码天然不应公开
 
 **仓库归属路径**：
-1. 当前：本地 `/home/alex/eos` 开发，不推任何 remote
-2. 需要远程协作时：推到 `hiddenpath/eos`（私有）
-3. 生产级：推到本地企业内 git 服务器（最终归宿）
+1. ~~当前：本地开发，不推任何 remote~~（已过渡）
+2. GitHub 私有：`hiddenpath/eos`（备份/CI 协作）
+3. **内网 Git（主）**：`git-server.local` → `ssh://git@git-server.local/srv/git/repos/eos.git`（remote 名 `lan`）
 
-**与 ai-lib-gateway 一致**：gateway 也在 hiddenpath，Eos 遵循相同模式
+**与 ai-lib-gateway 一致**：gateway 也在 hiddenpath + `lan` 双 remote 模式
+
+## 2026-06-05 — 内网 Git 服务器（git-server.local）【GOV-004 试运行】
+
+**规则**：`ai-lib-constitution/rules/governance/GOV-004-lan-git-dual-remote.yaml`（status: **trial**）  
+**Runbook**：`docs/governance/LAN_GIT.md`
+
+**决策**：
+- **日常协作**：闭源仓以 `lan`（`git-server.local`）为主 remote，`git push lan` / `git pull lan`
+- **GitHub hiddenpath**：试运行期**保留**，不删除、不归档、不清空；`origin` 作冷备份
+- **双头（CI）**：**eos** 保留 `origin` 跑 GitHub Actions；PR 合并后 **必须** `git push lan main` 同步内网
+- **单头（日常）**：constitution、plans、papers 日常只推 `lan`；`origin` 可选备份
+
+| 仓库 | lan remote | CI 双头 |
+|------|------------|---------|
+| ai-lib-constitution | `ssh://git@git-server.local/srv/git/repos/ai-lib-constitution.git` | 否 |
+| ai-lib-plans | `ssh://git@git-server.local/srv/git/repos/ai-lib-plans.git` | 否 |
+| papers | `ssh://git@git-server.local/srv/git/repos/papers.git` | 否 |
+| eos | `ssh://git@git-server.local/srv/git/repos/eos.git` | **是** |
+| ai-lib-gateway | `ssh://git@git-server.local/srv/git/repos/ai-lib-gateway.git` | 否（待首次 commit） |
+
+**访问**：主机名 `git-server.local`（=`192.168.2.22`），用户 `git`，SSH 密钥 `~/.ssh/id_ed25519_lan_git`，`~/.ssh/config` Host 别名 `lan-git`。
+
+**工具**：`tools/push_private_repos_to_lan_git.py`
+
+**试运行退出**：全员稳定用 lan ≥4 周 + 备份/内网 CI 就绪 + MEMORY 记录 promotion 后，方可考虑归档 GitHub 私有仓（见 GOV-004 `trial_exit_criteria`）。
 
 ## 2026-06-04 — Prism Phase 1 计划对齐（plan audit + tasks 修订）
 

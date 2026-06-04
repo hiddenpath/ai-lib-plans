@@ -59,6 +59,8 @@ git status
 | `ai-lib-plans` | `hiddenpath` | 私有规划仓，永不公开 |
 | `papers` | `hiddenpath` | 私有论文仓；**必须**保留在 `hiddenpath`，不迁移至 `ailib-official` |
 
+> **内网 Git（GOV-004 试运行）**：上表仓库的 **`origin`** 仍指向 hiddenpath，但**日常 push/pull 以 `lan`（git-server.local）为准**。详见 [LAN_GIT.md](./LAN_GIT.md)。试运行期间**不得**删除或归档 GitHub 私有仓。
+
 ---
 
 ## CI / Workflow 规则
@@ -114,6 +116,8 @@ done
 ## 相关文档
 
 - GOV-001 v2.0: `ai-lib-constitution/rules/governance/GOV-001-canonical-remote-monorepo-sync.yaml`
+- GOV-004 (trial): `ai-lib-constitution/rules/governance/GOV-004-lan-git-dual-remote.yaml` — 闭源仓内网 Git
+- LAN Git runbook: `ai-lib-plans/docs/governance/LAN_GIT.md`
 - TEST-002 v2.0: `ai-lib-constitution/rules/testing/TEST-002-public-url-reference-hygiene.yaml`
 - AGENTS.md: `ai-lib-constitution/AGENTS.md`（"Canonical remote" 检查项）
 - Runbook: `ai-lib-plans/docs/governance/official-mirror-promotion.md`（历史模型说明 + 归档指引）
