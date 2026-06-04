@@ -26,11 +26,14 @@
 | 项 | 值 |
 |----|-----|
 | 主机名 | `git-server.local`（=`192.168.2.22`） |
-| SSH 用户 | `git` |
+| 硬件 | Raspberry Pi 4B，Ubuntu Server 24.04 LTS |
+| 访问 | SSH-only（`git` 用户 + 密钥）；UFW 限制暴露 |
 | Bare 根目录 | `/srv/git/repos/` |
 | URL 模板 | `ssh://git@git-server.local/srv/git/repos/<repo>.git` |
 | SSH 别名 | `lan-git`（见 `~/.ssh/config`） |
 | 密钥 | `~/.ssh/id_ed25519_lan_git` |
+
+**安全**：内网 bare 仓不得通过 guest 可访问的 Samba 等方式暴露；仅 SSH 拉推。
 
 ### 仓库矩阵
 
@@ -110,7 +113,28 @@ git push lan main                  # 同步回内网（必须）
 git push lan <feature-branch>      # 可选：同步已合并分支
 ```
 
-**原则：** `lan` = 团队真相源；`origin` = CI 网关 + 离网备份。合并后 **必须** 把 main 推回 `lan`。
+**原则：** `lan` = 团队真相源；`origin` = CI 网关 + 离网备份。合并后 **必须** 把 main 推回 `lan`（**24 小时内**，GOV-004）。
+
+---
+
+## 同步与校验
+
+**显著变更后**（新规则、MEMORY、合并任务、eos PR 合并）：推 `lan`；eos 在 origin 合并后 24h 内推 `lan main`。
+
+```bash
+# 全分支/bootstrap 同步到 lan
+git push --all lan
+git push --tags lan   # 如有 tag
+
+# CI 仓（eos）：lan 是否落后 origin（合并后应为 0）
+git fetch lan origin
+git log --oneline lan/main..origin/main | wc -l
+
+# 治理仓（可选）：origin 冷备份是否落后 lan（非 0 表示备份旧）
+git log --oneline origin/main..lan/main | wc -l
+```
+
+内网新克隆应与 `lan` 上最新 main 一致；`git clone git@git-server.local:/srv/git/repos/<REPO>.git`。
 
 ---
 
