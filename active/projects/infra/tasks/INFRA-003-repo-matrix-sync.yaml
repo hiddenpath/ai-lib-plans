@@ -1,0 +1,28 @@
+id: INFRA-003
+title: "Sync LAN bare repo matrix with documentation"
+status: open
+priority: P1
+project: infra
+phase: gov005-rollout
+scope: operations
+repo: "multiple (lan remotes)"
+depends_on: ["INFRA-001"]
+assignee: ""
+created: "2026-06-05"
+updated: "2026-06-05"
+
+description: |
+  Ensure all repos in LAN_INFRA §2.3 exist on git-server with current branches.
+  Close gaps: ai-lib-gateway (first commit), tempmon/pifan if needed.
+
+acceptance_criteria:
+  - `ssh git@git-server.local 'ls /srv/git/repos/'` matches LAN_INFRA list
+  - eos: lan has main + active feature branches (already pushed 2026-06-05)
+  - ai-lib-gateway: bare exists; push after first local commit
+  - LAN_INFRA.md status column accurate (no stale 待推送)
+
+testing:
+  strategy: "ls-remote lan for each repo; compare to LAN_INFRA table"
+  evidence: ""
+
+completion_notes: ""

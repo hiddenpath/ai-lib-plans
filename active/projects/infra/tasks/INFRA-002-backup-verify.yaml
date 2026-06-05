@@ -1,0 +1,28 @@
+id: INFRA-002
+title: "Verify git-server dual backup (gitmirror01/02)"
+status: open
+priority: P1
+project: infra
+phase: gov005-rollout
+scope: operations
+repo: "git-server (SSH)"
+depends_on: ["INFRA-001"]
+assignee: ""
+created: "2026-06-05"
+updated: "2026-06-05"
+
+description: |
+  Per GOV-005 and LAN_INFRA §4: verify post-receive hooks on constitution/plans/papers,
+  daily cron backup, and restore-from-bundle drill for at least one repo.
+
+acceptance_criteria:
+  - `git-backup.log` shows successful run within 48h
+  - Real-time hook fires on test push to a doc repo (or dry-run evidence)
+  - Restore clone from gitmirror01 bundle succeeds for ai-lib-plans
+  - gitmirror02 rsync reachable from git-server
+
+testing:
+  strategy: "SSH to git-server + piubt; manual backup.sh + clone recovery"
+  evidence: ""
+
+completion_notes: ""

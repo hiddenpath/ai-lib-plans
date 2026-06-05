@@ -1,0 +1,29 @@
+id: INFRA-004
+title: "Deploy light CI runner on piubt (fmt/clippy/unit)"
+status: open
+priority: P2
+project: infra
+phase: gov005-rollout
+scope: ci
+repo: "piubt + eos (pilot)"
+depends_on: ["INFRA-003"]
+assignee: ""
+created: "2026-06-05"
+updated: "2026-06-05"
+
+description: |
+  Per GOV-005 CI tiers: install self-hosted or scripted runner on piubt (or git-server)
+  for cargo fmt --check, clippy, unit tests on private repos cloned from git-server.
+  Must not impact piubt proxy (192.168.2.13:8887).
+
+acceptance_criteria:
+  - Pilot job runs on push to lan/eos or manual trigger
+  - Job completes in <10 min for eos workspace unit tests
+  - Document runner install path in LAN_INFRA.md §3
+  - Heavy CI (docker/e2e/WASM) remains on GitHub Actions
+
+testing:
+  strategy: "Trigger pilot run; capture log artifact"
+  evidence: ""
+
+completion_notes: ""

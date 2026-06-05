@@ -17,7 +17,7 @@
 ### 2.1 真相来源（Source of Truth）
 - **`git-server` 上的裸仓库是唯一主仓库**，所有私有代码以 LAN 为真相来源。
 - 开发终端（`alex-S8`）不再保留仓库副本——每次开发从 LAN clone，完成后 push，本地清理。
-- GitHub `hiddenpath` 私有仓库**不再维护**，已有仓库可归档或删除。
+- GitHub `hiddenpath` 私有仓库：**GOV-005 目标**为不再维护；**GOV-004 试运行期**仍保留 eos 的 `origin` 跑重型 CI，合并后必须同步 `lan`。
 
 ### 2.2 公开代码发布
 - 开源代码通过 GitHub `ailib-official` 组织发布。
@@ -25,13 +25,18 @@
 - LAN 主仓库与 GitHub 公开仓库之间**不做自动同步**，避免意外泄露私有代码。
 
 ### 2.3 仓库列表（LAN `git-server`）
-- `ai-lib-constitution.git` — 治理规则
-- `ai-lib-plans.git` — 项目计划
-- `papers.git` — 论文
-- `pifan.git` — 风扇控制系统
-- `ai-lib-gateway.git` — Prism 网关（待推送）
-- `eos.git` — EOS 项目（待推送）
-- `tempmon.git` — 温度监控（待推送）
+
+| 裸仓 | 状态（2026-06-05） | 备注 |
+|------|-------------------|------|
+| `ai-lib-constitution.git` | ✅ 已同步 | 治理规则 |
+| `ai-lib-plans.git` | ✅ 已同步 | 项目计划 |
+| `papers.git` | ✅ 已同步 | 论文 |
+| `eos.git` | ✅ 已同步 | 全分支已 push lan |
+| `pifan.git` | ✅ 已有 | 风扇控制 |
+| `tempmon.git` | ✅ 已有 | 温度监控 |
+| `ai-lib-gateway.git` | ⏳ bare 已建 | 待本地首次 commit 后 push |
+
+> **Remote 约定**：工作站用 remote 名 **`lan`** 指向上表路径；勿与 GitHub `origin` 混淆（见 [LAN_GIT.md](../../docs/governance/LAN_GIT.md)）。
 
 ## 3. CI 分层策略
 
@@ -48,15 +53,53 @@
 ## 4. 备份规则
 
 ### 4.1 架构
-`git-server` 作为主仓库，**双重异地备份**（方案由先生落地）。
+`git-server` 作为主仓库，**双重异地备份**（git bundle 格式）。
 
-### 4.2 备份内容
-- 所有裸仓库（`/srv/git/repos/*.git`）
-- 配置文件（SSH、系统配置）
-- 若有其他持久化数据则一并纳入
+```
+                         实时（post-receive hook）
+本机 push ──→ git-server ──┬──→ /mnt/backup/gitmirror01/ (USB 500G HDD, NTFS)
+                           │    └── Hitachi HTS545050B9A300 via USB 2.0 (~12 MB/s)
+                           └──→ pi@piubt:/gitmirror02/    (SD卡, 106G 可用)
+                               └── rsync over SSH
+```
 
-### 4.3 备份频率
-- 每次重大 commit 后或每日（以方案实施为准）
+| 目的地 | 主机 | 路径 | 容量 | 格式 |
+|--------|------|------|------|------|
+| gitmirror01 | git-server (本地 USB) | `/mnt/backup/gitmirror01/` | 465.8G (已用 64%) | git bundle + NTFS |
+| gitmirror02 | piubt (SSH) | `/gitmirror02/` | 106G 可用 | git bundle + ext4 |
+
+### 4.2 备份策略
+
+| 等级 | 仓库 | 触发方式 | 目标 |
+|------|------|---------|------|
+| **实时** | ai-lib-constitution, ai-lib-plans, papers | git push → post-receive hook | gitmirror01 + gitmirror02 |
+| **每日** | 全部 7 个仓库 | cron `0 11 * * *` | gitmirror01 + gitmirror02 |
+| **快照** | 全部 | 每日备份时创建 `snapshot-YYYYMMDD` | gitmirror01 本地（保留 30 天） |
+
+### 4.3 备份脚本与服务
+
+**备份脚本**: `git-server:/home/git/git-backup.sh`
+**备份日志**: `git-server:/home/git/git-backup.log`
+**实时钩子**: 文档类 3 仓库的 `hooks/post-receive`
+
+```bash
+# 手动触发完整备份
+ssh git@git-server.local 'bash /home/git/git-backup.sh full'
+
+# 手动触发实时备份（仅文档类）
+ssh git@git-server.local 'bash /home/git/git-backup.sh real-time'
+
+# 恢复示例
+cd /tmp/recovery
+git clone /mnt/backup/gitmirror01/ai-lib-constitution.bundle recovered-repo
+# 或从远端恢复：
+git clone /gitmirror02/ai-lib-constitution.bundle recovered-repo
+```
+
+### 4.4 注意事项
+- **USB 供电**: Hitachi 2.5" 5400rpm 机械盘通过 USB 2.0 连接在 Pi 上，无供电问题
+- **性能**: NTFS + USB 2.0 顺序写 ~12 MB/s，对于 git bundle（百 KB ~ MB 级）绰绰有余
+- **增量备份**: git bundle 每次 `--all` 生成完整 bundle，小仓库增量成本极低
 
 ## 5. 开发工作流
 
@@ -70,8 +113,8 @@ cd <repo>
 git add -A
 git commit -m "feat: xxx"
 
-# 3. 推送到 LAN 主仓库
-git push origin main
+# 3. 推送到 LAN 主仓库（remote 名 lan）
+git push lan main
 
 # 4. 备份（手动或自动）
 # 备份脚本在 git-server 上由 cron 执行

@@ -590,6 +590,22 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 
 **试运行退出**：全员稳定用 lan ≥4 周 + 备份/内网 CI 就绪 + MEMORY 记录 promotion 后，方可考虑归档 GitHub 私有仓（见 GOV-004 `trial_exit_criteria`）。
 
+## 2026-06-05 — GOV-005 LAN 基础设施规则
+
+**规则**：`ai-lib-constitution/rules/governance/GOV-005-lan-infra.yaml`（status: **active**）  
+**详表**：`active/projects/infra/LAN_INFRA.md`
+
+**决策（相对 GOV-004 试运行）**：
+- **git-server 为私有仓唯一真相源**；日常 `git push lan` / `git pull lan`
+- **CI 分层**：轻量验证（fmt/clippy/单元测试）→ LAN（`piubt` 或 `git-server`）；重型（release/WASM/e2e）→ GitHub Actions（eos）
+- **设备**：`alex-S8` 开发终端不长期保留仓副本；`piubt`（192.168.2.13）proxy+轻量 CI；`git-server`（192.168.2.22）裸仓+备份
+- **hiddenpath 私有仓**：GOV-005 目标为不再维护；过渡期 eos 仍用 origin 跑重型 CI，合并后 **必须** 同步 `lan main`
+- **公开发布**：仅 `ailib-official`；LAN ↔ GitHub 公开仓 **无自动同步**（防泄露）
+
+**首次贯彻（eos EOS-P2-002）**：PR #11 合并 `8a59be8` → `git push lan main` 完成（2026-06-05）。
+
+**任务跟踪**：`active/projects/infra/TASKS_INDEX.md`（INFRA-001 治理对齐 ✅；INFRA-002 备份验证、INFRA-003 仓矩阵、INFRA-004 轻量 CI 待办）。
+
 ## 2026-06-04 — Prism Phase 1 计划对齐（plan audit + tasks 修订）
 
 **动因**：`active/projects/prism/` 11 任务全 `open`，与 `eos/crates/prism-core` 实现严重脱节；严格审查 2026-06-04。

@@ -1,0 +1,76 @@
+---
+id: "EOS-P2-005"
+title: "Eos Phase 2 — Prism 网关集成（可选，门控）"
+status: "open"
+priority: "medium"
+assignee: "@cursor"
+project: "eos"
+milestone: "eos-phase2-prism-ready"
+phase: 2
+labels:
+  - "eos"
+  - "prism"
+  - "integration"
+  - "deferred-capable"
+created: "2026-06-04"
+updated: "2026-06-04"
+description: |
+  Phase 1 直连 Provider（PHASE1_PLAN §4）；Phase 2 **可选**迁 Prism API 或并行双路径。
+
+  **硬约束**（`prism/NEAR_TERM_EXECUTION_2026-06-P1.md`）：
+  - Prism P1 **不改** Eos 现网 `/api/proxy` 作为 Prism 交付物
+  - 香港 `eos.ailib.info` ≠ Prism 生产验收环境
+  - 生产联调 **blocked on** Prism P1-C（PR-P1-006/013/008 外网）
+
+  集成形态（ADR 二选一）：
+  1. 前端聊天请求改指 `api.prism.ailib.info/v1/*`（Bearer user key）
+  2. eos-server 新增并行 `/v1` 壳，内部调 `prism-core`（与 ai-lib-gateway 同模式）
+
+  智能路由 auto（PT-073、PR-PP-002）为 **Phase 2 非必交付**，仅 R4 占位。
+
+blocks:
+  - id: "EOS-P2-005-R1"
+    title: "集成方案 ADR"
+    status: "open"
+    description: |
+      对比直连 vs Prism；auth 模型（平台 key vs BYOK）；区域合规在 P 层如何继承；
+      记录于 plans 或 eos `.doc/`。
+    depends_on: []
+  - id: "EOS-P2-005-R2"
+    title: "本地/CI POC"
+    status: "open"
+    description: |
+      对 **ai-lib-gateway** 或本地 eos `/v1` 壳跑通 chat + stream；
+      证据注明 local/CI only（同 PR-P1-008 惯例）。
+    depends_on: ["EOS-P2-005-R1"]
+  - id: "EOS-P2-005-R3"
+    title: "生产切换 runbook"
+    status: "open"
+    description: |
+      灰度、回滚、密钥轮换；**仅在** Prism P1-C + owner 确认生产 VPS 后执行。
+    depends_on: ["EOS-P2-005-R2"]
+  - id: "EOS-P2-005-R4"
+    title: "智能路由占位（非必交付）"
+    status: "open"
+    description: |
+      依赖 PT-073 + Prism Phase 2；文档化接口预期，不阻塞 M9。
+    depends_on: ["EOS-P2-005-R2"]
+testing:
+  - "本地 curl /v1/chat/completions 经 Prism 路径"
+  - "区域合规：zh-cn 入口模型列表仍受 EOS-ARCH 约束"
+depends_on_projects:
+  - task_id: "PR-P1-002"
+    task_file: "active/projects/prism/tasks/PR-P1-002-core-proxy.yaml"
+  - task_id: "PR-P1-008"
+    task_file: "active/projects/prism/tasks/PR-P1-008-provider-verification.yaml"
+  - task_id: "PR-P1-006"
+    task_file: "active/projects/prism/tasks/PR-P1-006-docker-deployment.yaml"
+    note: "生产联调门控"
+prism_coordination:
+  gate_local: ["PR-P1-002", "PR-P1-008"]
+  gate_production: ["PR-P1-006", "PR-P1-013", "PR-P1-008"]
+  req_slot: "EOS-REQ-P2-001"
+  note: "Phase 2 必交付项为 ADR+POC；生产切换可 defer 至 Prism P1-C 后"
+blocks_summary:
+  total: 4
+completion_notes: ""

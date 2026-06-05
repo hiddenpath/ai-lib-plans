@@ -1,0 +1,28 @@
+id: INFRA-001
+title: "GOV-005 governance align — YAML, LAN_INFRA, task index"
+status: completed
+priority: P0
+project: infra
+phase: gov005-rollout
+scope: governance
+repo: "ai-lib-constitution + ai-lib-plans"
+depends_on: []
+assignee: ""
+created: "2026-06-05"
+updated: "2026-06-05"
+executor_name: "cursor"
+executor_terminal: "agent"
+
+description: |
+  Normalize GOV-005 to constitution YAML schema (v1.1); align LAN_INFRA.md and
+  TASKS_INDEX with GOV-004 trial (eos origin for heavy CI, lan as SoT).
+  Fix workflow examples (`git push lan`, not origin).
+
+acceptance_criteria:
+  - GOV-005-lan-infra.yaml matches GOV-004 YAML structure
+  - LAN_INFRA repo list reflects 2026-06-05 push state
+  - TASKS_INDEX.md lists INFRA-001..004
+  - LAN_GIT.md cross-links GOV-005
+
+completion_notes: |
+  2026-06-05: Rule v1.1, infra tasks, LAN_INFRA workflow fix. Push lan on both repos.

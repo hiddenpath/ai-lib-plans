@@ -1,9 +1,10 @@
-# 内网 Git 协作规范（GOV-004）
+# 内网 Git 协作规范（GOV-004 + GOV-005）
 
 > **Effective**: 2026-06-05  
-> **Status**: 试运行（trial）  
+> **Status**: GOV-004 试运行（trial）；**GOV-005 基础设施规则已生效**  
 > **Audience**: 人类开发者、编程代理  
-> **Rule**: `ai-lib-constitution/rules/governance/GOV-004-lan-git-dual-remote.yaml`
+> **Rules**: `GOV-004-lan-git-dual-remote.yaml`, `GOV-005-lan-infra.yaml`  
+> **Infra 详表**: [`active/projects/infra/LAN_INFRA.md`](../../active/projects/infra/LAN_INFRA.md)
 
 ---
 
@@ -113,7 +114,7 @@ git push lan main                  # 同步回内网（必须）
 git push lan <feature-branch>      # 可选：同步已合并分支
 ```
 
-**原则：** `lan` = 团队真相源；`origin` = CI 网关 + 离网备份。合并后 **必须** 把 main 推回 `lan`（**24 小时内**，GOV-004）。
+**原则：** `lan`（git-server）= **唯一真相源**（GOV-005）；`origin` = eos 重型 CI 网关。合并后 **必须** 把 main 推回 `lan`（**24 小时内**，GOV-004/GOV-005）。
 
 ---
 
@@ -170,7 +171,9 @@ git log --oneline origin/main..lan/main | wc -l
 ## 相关文档
 
 - GOV-004: `ai-lib-constitution/rules/governance/GOV-004-lan-git-dual-remote.yaml`
+- **GOV-005**: `ai-lib-constitution/rules/governance/GOV-005-lan-infra.yaml`（设备、CI 分层、备份）
+- **LAN_INFRA.md**: `active/projects/infra/LAN_INFRA.md`
 - GOV-001: 公开仓 `ailib-official`；私有仓不得公开  
-- GOV-003: PR 审查与合并（eos CI 仍走 GitHub）  
-- MEMORY.md: 「2026-06-05 — 内网 Git 服务器」  
+- GOV-003: PR 审查与合并（eos 重型 CI 仍走 GitHub）  
+- MEMORY.md: 「2026-06-05 — 内网 Git 服务器」「2026-06-05 — GOV-005 LAN 基础设施」  
 - REMOTE_MIGRATION.md: 公开仓 hiddenpath → ailib-official（与本文互补）

@@ -1,0 +1,53 @@
+---
+id: "EOS-CX-001"
+title: "Eos 上下文 2.5 — 消息动态分层结构化"
+status: "planned"
+priority: "low"
+assignee: "@cursor"
+project: "eos"
+milestone: "eos-phase2.5-context-layering"
+phase: "2.5"
+labels:
+  - "eos"
+  - "context"
+  - "wasm"
+  - "strategy"
+created: "2026-06-02"
+updated: "2026-06-04"
+description: |
+  在 EOS-P2-001 线性截断之上，引入 **Priority / Layer 0–5** 模型：
+  组装时按层级填充至 ContextBudget，而非单纯从尾部倒序砍。
+
+  设计真源：`CONTEXT_ARCHITECTURE_V2.md` §3、§6。
+
+  **建议时机**：Phase 2 末或 Phase 2.5；依赖 OPFS 持久化（EOS-P2-003 R3 可复用）。
+
+blocks:
+  - id: "EOS-CX-001-R1"
+    title: "Priority 字段进入 SessionMirror 事件"
+    status: "open"
+    description: "Layer 0–5 enum；默认推断规则（system=0, current round=1, …）。"
+    depends_on: []
+  - id: "EOS-CX-001-R2"
+    title: "MessageAssembler priority-aware 裁剪"
+    status: "open"
+    description: "ALR-P2-001 扩展或 eos-wasm 包装；单测各层 budget 触顶行为。"
+    depends_on: ["EOS-CX-001-R1"]
+  - id: "EOS-CX-001-R3"
+    title: "用户 Priority 标注 UI"
+    status: "open"
+    description: "「标记重要」；可选自动标注（代码块、决策句启发式）。"
+    depends_on: ["EOS-CX-001-R2"]
+testing:
+  - "Rust/WASM：低 priority 先丢弃，Layer 0 永不裁"
+depends_on_projects:
+  - task_id: "EOS-P2-001"
+    task_file: "active/projects/eos/tasks/EOS-P2-001-context-strategy-browser.yaml"
+  - task_id: "EOS-P2-003"
+    task_file: "active/projects/eos/tasks/EOS-P2-003-cloud-history-sync.yaml"
+    note: "可选：持久化层"
+prism_coordination:
+  note: "纯 Eos/A-layer 组装逻辑；无 Prism 依赖"
+blocks_summary:
+  total: 3
+completion_notes: ""

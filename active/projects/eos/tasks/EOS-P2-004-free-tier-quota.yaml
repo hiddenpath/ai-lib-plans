@@ -1,0 +1,76 @@
+---
+id: "EOS-P2-004"
+title: "Eos Phase 2 — 免费 tier 与按用户配额"
+status: "open"
+priority: "high"
+assignee: "@cursor"
+project: "eos"
+milestone: "eos-phase2-free-tier"
+phase: 2
+labels:
+  - "eos"
+  - "quota"
+  - "billing"
+  - "product"
+created: "2026-06-04"
+updated: "2026-06-04"
+description: |
+  注册用户 **免费 tier**：日/月 token 或请求数上限；超限时明确错误与 UI 引导。
+
+  **库层**：复用 `prism-core` `authorize_with_quota`（**PR-P1-011** ✅）。
+  **产品层**：tier 定义、user_id 绑定、匿名 IP 限流与认证配额分层。
+
+  Phase 3 付费/订阅不在本任务范围。
+
+  详见 `PHASE2_PLAN.md` Wave 2b、产品矩阵 P2C-1（Phase 2 按量简版）。
+
+blocks:
+  - id: "EOS-P2-004-R1"
+    title: "免费 tier 产品定义"
+    status: "open"
+    description: |
+      文档化：注册免费用户日/月限额、匿名用户更严 IP 限额、图像/搜索是否单独计数；
+      owner 确认后写入 config/env。
+    depends_on: []
+  - id: "EOS-P2-004-R2"
+    title: "按 user_id 接入 prism-core quota"
+    status: "open"
+    description: |
+      在 `/api/proxy` 路径认证后调用 `authorize_with_quota`；
+      UsageStore 按 user 累计；与 PR-P1-004 usage 模型一致。
+    depends_on: ["EOS-P2-004-R1", "EOS-P2-002-R3"]
+  - id: "EOS-P2-004-R3"
+    title: "匿名 vs 认证限流分层"
+    status: "open"
+    description: |
+      保留 IP token bucket 给匿名；登录用户走 quota 路径；两者不 double-count。
+    depends_on: ["EOS-P2-004-R2"]
+  - id: "EOS-P2-004-R4"
+    title: "用量展示与超限 UX"
+    status: "open"
+    description: |
+      前端剩余配额提示（可选）；429/配额错误友好文案；中/英 i18n。
+    depends_on: ["EOS-P2-004-R3"]
+testing:
+  - "单元测试：超限 → DailyQuotaExceeded / MonthlyQuotaExceeded"
+  - "Playwright：耗尽免费额度后发送被拦截"
+depends_on_projects:
+  - task_id: "EOS-P2-002"
+    task_file: "active/projects/eos/tasks/EOS-P2-002-user-identity-auth.yaml"
+  - task_id: "PR-P1-011"
+    task_file: "active/projects/prism/tasks/PR-P1-011-quota-enforcement.yaml"
+  - task_id: "PR-P1-014"
+    task_file: "active/projects/prism/tasks/PR-P1-014-admin-http-routes.yaml"
+    note: "可选：admin 查用量；或 eos-server 自建 /api/account/usage"
+prism_coordination:
+  requires:
+    - task_id: "PR-P1-011"
+      status: "completed"
+    - task_id: "PR-P1-014"
+      status: "open"
+      note: "admin HTTP 非硬阻塞；可在 eos-server 内嵌只读用量 API"
+  blocked_by: []
+  note: "不等待 ai-lib-gateway 生产上线即可在 eos-server 试点"
+blocks_summary:
+  total: 4
+completion_notes: ""

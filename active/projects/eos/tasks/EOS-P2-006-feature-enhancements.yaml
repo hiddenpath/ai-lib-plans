@@ -1,0 +1,61 @@
+---
+id: "EOS-P2-006"
+title: "Eos Phase 2 — 功能增强（文件、Provider、WASM fallback）"
+status: "open"
+priority: "medium"
+assignee: "@cursor"
+project: "eos"
+milestone: "eos-phase2-features"
+phase: 2
+labels:
+  - "eos"
+  - "upload"
+  - "multimodal"
+  - "product"
+created: "2026-06-04"
+updated: "2026-06-04"
+description: |
+  Phase 1 有意缩减的能力在 Phase 2 补齐（`EOS_DEPLOY_PLAN.md` D4、PHASE1_PLAN 风险表）。
+
+  可与 EOS-P2-002/003/004 **并行**，无 Prism 硬依赖。
+
+blocks:
+  - id: "EOS-P2-006-R1"
+    title: "PDF/纯文本文件解析上传"
+    status: "open"
+    description: |
+      扩展 `/api/upload`：PDF text extract、txt/md 直读；大小与 MIME 校验；
+      注入 user message 或 artifact ref（配合 SessionMirror）。
+    depends_on: []
+  - id: "EOS-P2-006-R2"
+    title: "多图拖拽上传"
+    status: "open"
+    description: |
+      前端 drag-drop、`accept` 扩展；多 attachment 预览；发送路径与 Phase 1 单图兼容。
+    depends_on: []
+  - id: "EOS-P2-006-R3"
+    title: "Anthropic Messages 路径"
+    status: "open"
+    description: |
+      启用 Claude 模型；复用 prism-core Anthropic adapter（PR-P1-010 ✅）若已接线；
+      env + `/api/models` 条目。
+    depends_on: []
+  - id: "EOS-P2-006-R4"
+    title: "非 WASM fallback 复评"
+    status: "open"
+    description: |
+      EOS-P0 豁免项：评估无 WASM 降级路径（纯 JS 或 server-side build_request）；
+      决策记录 accept/defer。
+    depends_on: []
+testing:
+  - "上传 PDF 后对话上下文含提取文本"
+  - "多图附件 E2E"
+depends_on_projects: []
+prism_coordination:
+  optional_reuse:
+    - task_id: "PR-P1-010"
+      note: "Anthropic adapter 已在 prism-core"
+  note: "独立功能块；不与 Prism P1 关键路径耦合"
+blocks_summary:
+  total: 4
+completion_notes: ""
