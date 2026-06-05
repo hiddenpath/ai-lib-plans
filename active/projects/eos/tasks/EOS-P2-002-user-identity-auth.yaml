@@ -1,0 +1,84 @@
+---
+id: "EOS-P2-002"
+title: "Eos Phase 2 — 用户注册、登录与会话"
+status: "completed"
+priority: "high"
+executor_name: "alex"
+executor_terminal: "cursor-agent"
+assignee: "@cursor"
+project: "eos"
+milestone: "eos-phase2-accounts"
+phase: 2
+labels:
+  - "eos"
+  - "auth"
+  - "product"
+created: "2026-06-04"
+updated: "2026-06-05"
+description: |
+  Phase 2 产品化第一块：To C 用户身份体系。Phase 1 刻意不做用户系统（E2）；
+  本任务交付注册、登录、登出、会话续期与前端账号 UI。
+
+  仓库：`hiddenpath/eos`（`eos-server` + static frontend）。
+
+  **Prism 协调**：无硬依赖；不与 Prism P1 关键路径耦合。配额接入在 **EOS-P2-004**。
+
+  详见 `PHASE2_PLAN.md` Wave 1。
+
+blocks:
+  - id: "EOS-P2-002-R1"
+    title: "用户模型与持久化"
+    status: "completed"
+    description: |
+      选型 SQLite（单机）或 Postgres（多实例）；users 表、password hash（argon2/bcrypt）、
+      email 唯一索引；迁移脚本。
+    depends_on: []
+  - id: "EOS-P2-002-R2"
+    title: "注册 API"
+    status: "completed"
+    description: |
+      `POST /api/auth/register`；邮箱格式、密码强度、重复注册错误码；
+      可选邮箱验证占位（Phase 2 可 defer 验证邮件）。
+    depends_on: ["EOS-P2-002-R1"]
+  - id: "EOS-P2-002-R3"
+    title: "登录与会话"
+    status: "completed"
+    description: |
+      `POST /api/auth/login`、`POST /api/auth/logout`、token 刷新；
+      HttpOnly cookie 或 Bearer JWT；与现有限流中间件兼容。
+    depends_on: ["EOS-P2-002-R1"]
+  - id: "EOS-P2-002-R4"
+    title: "前端登录/注册 UI"
+    status: "completed"
+    description: |
+      页眉账号入口；登录/注册模态或独立页；未登录仍可匿名聊天（Phase 2 免费 tier 分层见 P2-004）。
+    depends_on: ["EOS-P2-002-R2", "EOS-P2-002-R3"]
+  - id: "EOS-P2-002-R5"
+    title: "匿名会话迁移（可选）"
+    status: "open"
+    description: |
+      登录后将当前 SessionMirror 会话绑定 user_id；未实现时不阻塞 M6。
+    depends_on: ["EOS-P2-002-R4"]
+testing:
+  - "cargo test auth 模块"
+  - "Playwright：注册 → 登录 → 发消息 → 登出"
+depends_on_projects:
+  - task_id: "EOS-CI-001"
+    task_file: "active/projects/eos/tasks/EOS-CI-001-ci-debt-cleanup.yaml"
+    note: "建议先绿 CI，非硬阻塞"
+prism_coordination:
+  blocked_by: []
+  parallel_with:
+    - "PR-P1-001"
+    - "PR-P1-002"
+  note: "纯 Eos 产品层；不修改 /api/proxy 契约"
+blocks_summary:
+  total: 5
+pr:
+  url: "https://github.com/hiddenpath/eos/pull/11"
+  merge_commit: "8a59be8"
+completion_notes: |
+  2026-06-04: PR #11 opened (feat/eos-p2-002-user-auth-only → main).
+  R1-R4 implemented with TDD (store/password/route tests + auth-ui Playwright).
+  R5 anonymous session migration deferred.
+  2026-06-05: PR #11 merged (8a59be8); CI green (rust/docker/e2e); lan/main synced per GOV-005.

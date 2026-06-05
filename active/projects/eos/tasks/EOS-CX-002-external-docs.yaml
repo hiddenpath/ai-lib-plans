@@ -1,0 +1,53 @@
+---
+id: "EOS-CX-002"
+title: "Eos 上下文 2.5 — 外部文档化与跨会话召回"
+status: "planned"
+priority: "low"
+assignee: "@cursor"
+project: "eos"
+milestone: "eos-phase2.5-external-docs"
+phase: "2.5"
+labels:
+  - "eos"
+  - "context"
+  - "archive"
+  - "retrieval"
+created: "2026-06-02"
+updated: "2026-06-04"
+description: |
+  长对话归档为 **外部摘要文档**（Layer 3/5）；新会话按关键词/引用召回相关片段注入。
+
+  设计真源：`CONTEXT_ARCHITECTURE_V2.md` §4、§6。
+
+  **原则**：确定性归档与检索，**不用** LLM compaction 作为主路径。
+
+blocks:
+  - id: "EOS-CX-002-R1"
+    title: "摘要文档生成（用户触发）"
+    status: "open"
+    description: |
+      规则/模板生成结构化 Markdown 摘要；存 IndexedDB/OPFS + 可选云密文（EOS-P2-003）。
+    depends_on: ["EOS-CX-001-R1"]
+  - id: "EOS-CX-002-R2"
+    title: "文档索引与 ArtifactRef"
+    status: "open"
+    description: "索引表：session_id、keywords、artifact_id；与 SessionMirror 指针一致。"
+    depends_on: ["EOS-CX-002-R1"]
+  - id: "EOS-CX-002-R3"
+    title: "跨会话召回注入"
+    status: "open"
+    description: |
+      用户提问匹配历史摘要 → 注入 Layer 3 system 片段；
+      Playwright：新 chat 引用旧决策 E2E。
+    depends_on: ["EOS-CX-002-R2"]
+testing:
+  - "归档后当前 context 体积下降"
+  - "新会话召回命中旧摘要关键词"
+depends_on_projects:
+  - task_id: "EOS-CX-001"
+    task_file: "active/projects/eos/tasks/EOS-CX-001-context-layering.yaml"
+prism_coordination:
+  note: "无 Prism 依赖"
+blocks_summary:
+  total: 3
+completion_notes: ""
