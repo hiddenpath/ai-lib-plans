@@ -1,0 +1,30 @@
+id: PR-P1-013
+title: "DNS — api.prism.ailib.info"
+status: open
+priority: P0
+project: prism
+phase: 1
+scope: product
+repo: "infra / DNS provider"
+depends_on: ["PR-P1-006"]
+assignee: ""
+created: "2026-06-04"
+updated: "2026-06-04"
+
+description: |
+  DNS A/AAAA (or CNAME) record for api.prism.ailib.info → Prism gateway VPS.
+  Document relationship to Eos host (43.159.226.236) if shared or separate.
+
+acceptance_criteria:
+  - `dig api.prism.ailib.info` resolves to production gateway
+  - HTTPS certificate issuance succeeds via Caddy (PR-P1-006)
+
+testing:
+  strategy: "dig + curl https://api.prism.ailib.info/health"
+  evidence: ""
+
+pr:
+  url: ""
+  merge_commit: ""
+
+completion_notes: ""

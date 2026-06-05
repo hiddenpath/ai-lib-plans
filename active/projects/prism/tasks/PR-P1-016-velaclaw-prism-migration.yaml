@@ -1,0 +1,30 @@
+id: PR-P1-016
+title: "VelaClaw incremental migration to prism-core"
+status: open
+priority: P2
+project: prism
+phase: 1
+scope: product
+repo: "ailib-official/ai-lib-rust (velaclaw)"
+depends_on: ["PR-P1-002-LIB"]
+assignee: ""
+created: "2026-06-04"
+updated: "2026-06-04"
+
+description: |
+  Per MEMORY.md: minimal(default proxy) → key-pool → router → full feature flags.
+  Track VelaClaw switching from direct provider calls to prism-core / Prism HTTP.
+
+acceptance_criteria:
+  - Documented migration stages with feature flag mapping
+  - At least stage 1 (proxy) integrated or scheduled with owner sign-off
+
+testing:
+  strategy: "velaclaw integration test against prism-core or Prism API"
+  evidence: ""
+
+pr:
+  url: ""
+  merge_commit: ""
+
+completion_notes: ""

@@ -1,29 +1,32 @@
 id: PR-P1-002
-title: "Core proxy — /v1/chat/completions (sync + SSE streaming)"
+title: "OpenAI-compatible HTTP — /v1/chat/completions + /v1/models"
 status: open
 priority: P0
 project: prism
 phase: 1
+scope: product
+repo: "hiddenpath/eos (eos-server) or ailib-official/ai-lib-gateway"
 depends_on: ["PR-P1-001"]
 assignee: ""
 created: "2026-04-25"
-updated: "2026-04-25"
+updated: "2026-06-04"
 
 description: |
-  ⚠️ Repo: `hiddenpath/gateway` — C-band closed-source; do NOT push to `ailib-official` public org.
-  Implement the core chat completions proxy:
+  Product HTTP surface (library proxy done — see PR-P1-002-LIB):
   - POST /v1/chat/completions (OpenAI-compatible request/response)
-  - SSE streaming support (text/event-stream)
-  - GET /v1/models (available model list)
-  - Request → ai-lib-core client → Provider → standardize response
+  - SSE streaming (text/event-stream)
+  - GET /v1/models
   - Bearer token authentication middleware
+  - Wire handlers to prism-core `curl_proxy` / stream helpers
+  - Anthropic: requires PR-P1-010 adapter (not OpenAI-compatible wire format)
+  - Note: eos-server today uses `/api/proxy` — migrate or alias to `/v1/*`
 
 acceptance_criteria:
   - `curl POST /v1/chat/completions` returns valid OpenAI-format response
   - SSE streaming returns chunks + [DONE]
   - `GET /v1/models` lists configured providers/models
   - Invalid API key returns 401
-  - At least 2 providers reachable (OpenAI + Anthropic)
+  - At least 2 providers reachable: OpenAI (OpenAI format) + Anthropic (via PR-P1-010)
 
 testing:
   strategy: "Integration test against live providers + unit tests for request/response mapping"

@@ -1,0 +1,34 @@
+id: PR-P1-009
+title: "TOML config.toml loader (ConfigProvider)"
+status: completed
+priority: P0
+project: prism
+phase: 1
+scope: library
+repo: "hiddenpath/eos — crates/prism-core"
+depends_on: []
+assignee: ""
+executor_name: "cursor-agent"
+executor_terminal: "cursor-prism-p1a"
+created: "2026-06-04"
+updated: "2026-06-04"
+
+description: |
+  Add file-based config alongside EnvConfig:
+  - Implement `ConfigProvider` for `config.toml` (providers, models, keys paths)
+  - PR-P1-001 product task wires loader at Axum startup
+
+acceptance_criteria:
+  - Unit test loads fixture `config.toml` into ProviderEntry/ModelEntry
+  - Document schema; EnvConfig remains fallback
+
+testing:
+  strategy: "cargo test with temp config.toml fixture"
+  evidence: "eos/prism-core: TomlConfig::load tests/fixtures/minimal_config.toml; cargo test --features full 52 passed (2026-06-04)"
+
+pr:
+  url: ""
+  merge_commit: ""
+
+completion_notes: |
+  TomlConfig + ConfigLoadError in prism-core/src/config.rs; fixture at tests/fixtures/minimal_config.toml.

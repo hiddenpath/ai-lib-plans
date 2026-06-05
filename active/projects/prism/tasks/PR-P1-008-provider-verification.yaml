@@ -4,35 +4,28 @@ status: open
 priority: P0
 project: prism
 phase: 1
-depends_on: ["PR-P1-006"]
+scope: product
+repo: "hiddenpath/eos (eos-server) or ailib-official/ai-lib-gateway"
+depends_on: ["PR-P1-002", "PR-P1-003", "PR-P1-005"]
 assignee: ""
 created: "2026-04-25"
-updated: "2026-04-25"
+updated: "2026-06-04"
 
 description: |
-  ⚠️ Repo: `hiddenpath/gateway` — C-band closed-source; do NOT push to `ailib-official` public org.
-  End-to-end verification of all 5 P0 providers:
-  - OpenAI (gpt-4o, gpt-4o-mini)
-  - Anthropic (claude-sonnet-4-20250514, claude-haiku-4-20250414)
-  - Gemini (gemini-2.5-pro, gemini-2.5-flash)
-  - DeepSeek (deepseek-chat, deepseek-reasoner)
-  - Qwen (qwen-max, qwen-plus)
-
-  For each provider:
-  - Sync + streaming requests verified
-  - Error handling (rate limit, auth, timeout) verified
-  - Usage metadata correctly recorded
-  - Fallback routing tested (primary → secondary)
+  End-to-end verification via **Prism HTTP API** (not library-only tests):
+  - OpenAI, Anthropic (PR-P1-010), Gemini, DeepSeek, Qwen
+  - Sync + streaming; rate-limit → cooldown + fallback; usage records on live path
+  - May run locally before PR-P1-006 Docker (removed hard dependency on 006)
 
 acceptance_criteria:
-  - All 5 providers return valid responses via Prism API
-  - Streaming works for all 5 providers
+  - All 5 providers return valid responses via Prism `/v1` API (or documented aliases)
+  - Streaming works for all 5
   - Rate limit → cooldown + fallback works
-  - Usage records correctly captured for all providers
-  - External accessibility verified: curl from outside VPS
+  - Usage records captured on live requests
+  - External curl from outside VPS (document target host vs eos.ailib.info)
 
 testing:
-  strategy: "Manual integration test against live providers + automated smoke test script"
+  strategy: "Manual integration + automated smoke script in repo"
   evidence: ""
 
 pr:
