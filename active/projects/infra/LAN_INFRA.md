@@ -48,15 +48,53 @@
 ## 4. 备份规则
 
 ### 4.1 架构
-`git-server` 作为主仓库，**双重异地备份**（方案由先生落地）。
+`git-server` 作为主仓库，**双重异地备份**（git bundle 格式）。
 
-### 4.2 备份内容
-- 所有裸仓库（`/srv/git/repos/*.git`）
-- 配置文件（SSH、系统配置）
-- 若有其他持久化数据则一并纳入
+```
+                         实时（post-receive hook）
+本机 push ──→ git-server ──┬──→ /mnt/backup/gitmirror01/ (USB 500G HDD, NTFS)
+                           │    └── Hitachi HTS545050B9A300 via USB 2.0 (~12 MB/s)
+                           └──→ pi@piubt:/gitmirror02/    (SD卡, 106G 可用)
+                               └── rsync over SSH
+```
 
-### 4.3 备份频率
-- 每次重大 commit 后或每日（以方案实施为准）
+| 目的地 | 主机 | 路径 | 容量 | 格式 |
+|--------|------|------|------|------|
+| gitmirror01 | git-server (本地 USB) | `/mnt/backup/gitmirror01/` | 465.8G (已用 64%) | git bundle + NTFS |
+| gitmirror02 | piubt (SSH) | `/gitmirror02/` | 106G 可用 | git bundle + ext4 |
+
+### 4.2 备份策略
+
+| 等级 | 仓库 | 触发方式 | 目标 |
+|------|------|---------|------|
+| **实时** | ai-lib-constitution, ai-lib-plans, papers | git push → post-receive hook | gitmirror01 + gitmirror02 |
+| **每日** | 全部 7 个仓库 | cron `0 11 * * *` | gitmirror01 + gitmirror02 |
+| **快照** | 全部 | 每日备份时创建 `snapshot-YYYYMMDD` | gitmirror01 本地（保留 30 天） |
+
+### 4.3 备份脚本与服务
+
+**备份脚本**: `git-server:/home/git/git-backup.sh`
+**备份日志**: `git-server:/home/git/git-backup.log`
+**实时钩子**: 文档类 3 仓库的 `hooks/post-receive`
+
+```bash
+# 手动触发完整备份
+ssh git@git-server.local 'bash /home/git/git-backup.sh full'
+
+# 手动触发实时备份（仅文档类）
+ssh git@git-server.local 'bash /home/git/git-backup.sh real-time'
+
+# 恢复示例
+cd /tmp/recovery
+git clone /mnt/backup/gitmirror01/ai-lib-constitution.bundle recovered-repo
+# 或从远端恢复：
+git clone /gitmirror02/ai-lib-constitution.bundle recovered-repo
+```
+
+### 4.4 注意事项
+- **USB 供电**: Hitachi 2.5" 5400rpm 机械盘通过 USB 2.0 连接在 Pi 上，无供电问题
+- **性能**: NTFS + USB 2.0 顺序写 ~12 MB/s，对于 git bundle（百 KB ~ MB 级）绰绰有余
+- **增量备份**: git bundle 每次 `--all` 生成完整 bundle，小仓库增量成本极低
 
 ## 5. 开发工作流
 
