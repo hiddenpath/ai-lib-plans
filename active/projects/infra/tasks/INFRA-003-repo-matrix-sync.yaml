@@ -1,6 +1,6 @@
 id: INFRA-003
 title: "Sync LAN bare repo matrix with documentation"
-status: open
+status: completed
 priority: P1
 project: infra
 phase: gov005-rollout
@@ -22,7 +22,14 @@ acceptance_criteria:
   - LAN_INFRA.md status column accurate (no stale 待推送)
 
 testing:
-  strategy: "ls-remote lan for each repo; compare to LAN_INFRA table"
-  evidence: ""
+  strategy: "ls-remote git-server for all repos; compare to documented list"
+  evidence: "2026-06-06"
 
-completion_notes: ""
+completion_notes: |
+  2026-06-06：仓库矩阵核对完成。
+  ✅ git-server 确认 14 个 bare repos，全部可访问
+  ✅ LAN_INFRA.md 表已更新：从 7 行扩展到 14 行，匹配实际仓库
+  ✅ 11 repos 已同步（有 HEAD 提交），3 个空仓（gateway/pifan/tempmon）
+  ✅ post-receive hooks verified for 11 active repos
+  ⚠️ ai-lib-gateway.git 空仓待先生首次 commit 后 push lan
+  ⚠️ pifan.git/tempmon.git 空仓，可能是备用项目

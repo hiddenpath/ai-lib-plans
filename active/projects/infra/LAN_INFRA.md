@@ -26,14 +26,21 @@
 
 ### 2.3 仓库列表（LAN `git-server`）
 
-| 裸仓 | 状态（2026-06-05） | 备注 |
+| 裸仓 | 状态（2026-06-06） | 备注 |
 |------|-------------------|------|
-| `ai-lib-constitution.git` | ✅ 已同步 | 治理规则 |
-| `ai-lib-plans.git` | ✅ 已同步 | 项目计划 |
-| `papers.git` | ✅ 已同步 | 论文 |
-| `eos.git` | ✅ 已同步 | 全分支已 push lan |
-| `pifan.git` | ✅ 已有 | 风扇控制 |
-| `tempmon.git` | ✅ 已有 | 温度监控 |
+| `ai-lib-constitution.git` | ✅ 已同步 | 治理规则 — hook ✅ |
+| `ai-lib-plans.git` | ✅ 已同步 | 项目计划 — hook ✅ |
+| `papers.git` | ✅ 已同步 | 论文 — hook ✅ |
+| `eos.git` | ✅ 已同步 | 全分支已 push lan — hook ✅ |
+| `ai-lib-rust.git` | ✅ 已同步 | Rust SDK — hook ✅ |
+| `ai-protocol.git` | ✅ 已同步 | AI 协议 — hook ✅ |
+| `ai-lib-go.git` | ✅ 已同步 | Go SDK — hook ✅ |
+| `ai-lib-python.git` | ✅ 已同步 | Python SDK — hook ✅ |
+| `ai-lib-ts.git` | ✅ 已同步 | TypeScript SDK — hook ✅ |
+| `ai-lib-benchmark.git` | ✅ 已同步 | 基准测试 — hook ✅ |
+| `zerospider.git` | ✅ 已同步 | ZeroSpider — hook ✅ |
+| `pifan.git` | ✅ 已有 | 风扇控制（空仓） |
+| `tempmon.git` | ✅ 已有 | 温度监控（空仓） |
 | `ai-lib-gateway.git` | ⏳ bare 已建 | 待本地首次 commit 后 push |
 
 > **Remote 约定**：工作站用 remote 名 **`lan`** 指向上表路径；勿与 GitHub `origin` 混淆（见 [LAN_GIT.md](../../docs/governance/LAN_GIT.md)）。
