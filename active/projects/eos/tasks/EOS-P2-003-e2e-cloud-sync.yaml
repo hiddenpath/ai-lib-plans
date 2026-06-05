@@ -1,0 +1,64 @@
+---
+id: "EOS-P2-003"
+title: "E2E 云端历史同步（密文 blob + 零知识）"
+status: "completed"
+priority: "high"
+executor_name: "alex"
+executor_terminal: "cursor-agent"
+assignee: "@cursor"
+project: "eos"
+milestone: "eos-p2-e2e-sync"
+labels:
+  - "eos"
+  - "e2e"
+  - "sync"
+  - "zero-knowledge"
+  - "BIZ-004"
+created: "2026-06-05"
+updated: "2026-06-05"
+description: |
+  为已登录用户提供 **端到端加密的对话历史云端同步**（BIZ-004 合规：服务端仅存密文，密钥不出浏览器）。
+  
+  实现包括：
+  - 客户端：Web Crypto API (AES-256-GCM + PBKDF2)，SessionMirror export/import，同步 UI
+  - 服务端：`/api/sync/conversations/*` 路由，SQLite 密文 blob 存储（无明文列），LWW revision 冲突处理
+  - E2E 测试：Playwright 跨设备恢复测试
+  
+  ADR: `docs/adr/EOS-P2-003-e2e-sync-protocol.md`
+
+blocks:
+  - id: "EOS-P2-003-R1"
+    title: "密文 blob API + SQLite 存储（零知识）"
+    status: "completed"
+    description: |
+      PR #12 (`5e805b5`) 已合并：`/api/sync/conversations/*` 路由 + `SyncStore`（无明文列）。
+      LWW revision 冲突处理（409 sync_conflict）。
+    depends_on: []
+  - id: "EOS-P2-003-R2"
+    title: "客户端加密 (AES-GCM + PBKDF2) + SessionMirror 集成"
+    status: "completed"
+    description: |
+      `eos_sync_crypto.js` (94 lines) — Web Crypto API 封装。
+      `session_mirror.js` 扩展 export/import。
+    depends_on: ["EOS-P2-003-R1"]
+  - id: "EOS-P2-003-R3"
+    title: "同步 UI + 跨设备 E2E 测试"
+    status: "completed"
+    description: |
+      `static/index.html` 添加云同步模态框 + `eos_sync_client.js`。
+      `e2e/tests/sync-cross-device.spec.ts` (175 lines) Playwright 测试。
+    depends_on: ["EOS-P2-003-R1", "EOS-P2-003-R2"]
+testing:
+  - "cargo test -p eos-server (35 tests, ✅ passed)"
+  - "cargo clippy -p eos-server -D warnings (✅ passed)"
+  - "cargo fmt --all (✅ passed)"
+  - "Playwright e2e (sync-cross-device.spec.ts) — CI pending"
+depends_on_projects: []
+blocks_summary:
+  total: 3
+  completed: 3
+completion_notes: |
+  PR #12 merged (5e805b5) on 2026-06-05.
+  All 3 blocks completed: server API + client crypto + E2E test.
+  BIZ-004 compliant: server stores ciphertext only, keys never leave the browser.
+  LAN mirror synced per GOV-004 (24h window after GitHub CI pass).
