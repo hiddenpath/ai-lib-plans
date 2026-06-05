@@ -1,8 +1,10 @@
 ---
 id: "EOS-P2-003"
 title: "Eos Phase 2 — 云历史同步（E2E 密文）"
-status: "open"
+status: "in_progress"
 priority: "high"
+executor_name: "alex"
+executor_terminal: "cursor-agent"
 assignee: "@cursor"
 project: "eos"
 milestone: "eos-phase2-sync"
@@ -13,7 +15,7 @@ labels:
   - "privacy"
   - "product"
 created: "2026-06-04"
-updated: "2026-06-04"
+updated: "2026-06-05"
 description: |
   多设备对话恢复：用户登录后可将 SessionMirror 状态加密上传，换设备解密恢复。
 
@@ -27,34 +29,34 @@ description: |
 blocks:
   - id: "EOS-P2-003-R1"
     title: "E2E 同步协议 ADR"
-    status: "open"
+    status: "completed"
     description: |
       密钥派生、nonce、AEAD 选型；blob 版本与 metadata schema；
       与 `vela/project-overview.md` E2E sync 对齐记录；data residency 说明（配合 EOS-ARCH-001）。
     depends_on: ["EOS-P2-002-R1"]
   - id: "EOS-P2-003-R2"
     title: "密文 blob 存储 API"
-    status: "open"
+    status: "completed"
     description: |
       `POST/GET /api/sync/conversations/{id}`；鉴权 user_id；存储层不含 plaintext 字段；
       配额与 blob 大小上限。
     depends_on: ["EOS-P2-003-R1", "EOS-P2-002-R3"]
   - id: "EOS-P2-003-R3"
     title: "SessionMirror 加密导出/导入"
-    status: "open"
+    status: "completed"
     description: |
       前端：SessionMirror → JSON → encrypt → upload；download → decrypt → hydrate SessionMirror；
       OPFS/IndexedDB 本地优先，云为备份。
     depends_on: ["EOS-P2-003-R2"]
   - id: "EOS-P2-003-R4"
     title: "冲突与版本策略"
-    status: "open"
+    status: "completed"
     description: |
       LWW 或 revision 向量；冲突时 UI 提示；单测覆盖并发写入仿真。
     depends_on: ["EOS-P2-003-R3"]
   - id: "EOS-P2-003-R5"
     title: "对话列表与恢复 UI"
-    status: "open"
+    status: "completed"
     description: |
       侧栏历史列表；点击恢复；删除云端副本；Playwright 双 context 同账号恢复 E2E。
     depends_on: ["EOS-P2-003-R4"]
@@ -74,4 +76,9 @@ prism_coordination:
   note: "不经过 Prism P-layer 存对话内容"
 blocks_summary:
   total: 5
-completion_notes: ""
+pr:
+  url: ""
+  merge_commit: ""
+completion_notes: |
+  2026-06-05: feat/eos-p2-003-cloud-sync branch — ADR, sync API, client crypto, UI, Playwright cross-device test.
+  Pending PR merge to main; then push lan per GOV-005.
