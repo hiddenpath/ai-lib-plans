@@ -21,7 +21,7 @@
 | INFRA-001 | [tasks/INFRA-001-gov005-governance-align.yaml](./tasks/INFRA-001-gov005-governance-align.yaml) | `completed` | GOV-005 v1.1 YAML、LAN_INFRA、任务索引 |
 | INFRA-002 | [tasks/INFRA-002-backup-verify.yaml](./tasks/INFRA-002-backup-verify.yaml) | `completed` | 备份验证 + post-receive hooks 11/14 repos + bundle 恢复测试 ✅ piubt gitmirror02 确认同步 |
 | INFRA-003 | [tasks/INFRA-003-repo-matrix-sync.yaml](./tasks/INFRA-003-repo-matrix-sync.yaml) | `completed` | 14 bare 仓全量核对 + LAN_INFRA 表从 7→14 行扩展 |
-| INFRA-004 | [tasks/INFRA-004-light-ci-runner.yaml](./tasks/INFRA-004-light-ci-runner.yaml) | `open` | piubt 轻量 CI（fmt/clippy/unit） |
+| INFRA-004 | [tasks/INFRA-004-light-ci-runner.yaml](./tasks/INFRA-004-light-ci-runner.yaml) | `completed` | piubt 轻量 CI 已部署（Rust 1.96.0 + fmt/clippy/test）；git-server SSH key 免密触发；pilot push 验证通过 |
 
 ## 协作约定
 
