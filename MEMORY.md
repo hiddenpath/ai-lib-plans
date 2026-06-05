@@ -604,6 +604,8 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 
 **首次贯彻（eos EOS-P2-002）**：PR #11 合并 `8a59be8` → `git push lan main` 完成（2026-06-05）。
 
+**任务跟踪**：`active/projects/infra/TASKS_INDEX.md`（INFRA-001 治理对齐 ✅；INFRA-002 备份验证、INFRA-003 仓矩阵、INFRA-004 轻量 CI 待办）。
+
 ## 2026-06-04 — Prism Phase 1 计划对齐（plan audit + tasks 修订）
 
 **动因**：`active/projects/prism/` 11 任务全 `open`，与 `eos/crates/prism-core` 实现严重脱节；严格审查 2026-06-04。

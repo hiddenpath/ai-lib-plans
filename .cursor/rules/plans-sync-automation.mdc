@@ -15,9 +15,13 @@ If sync fails, stop planning work and resolve sync/conflict issues first.
 
 ## Rule 2 — Sync After Documentation Changes
 
-When documentation files in `ai-lib-plans` are changed and committed, run:
+When documentation files in `ai-lib-plans` are changed and committed, push to **`lan`** (primary, GOV-004):
 
-`bash /home/alex/ai-lib-plans/tools/sync_ai_lib_plans.sh --mode post-doc-change --push-if-ahead`
+`git push lan main`
+
+Optional mirror to GitHub hiddenpath: `git push origin main`
+
+On Linux/WSL (legacy path): `bash /home/alex/ai-lib-plans/tools/sync_ai_lib_plans.sh --mode post-doc-change --push-if-ahead`
 
 This keeps local and remote repositories synchronized after document updates.
 
@@ -26,8 +30,8 @@ This keeps local and remote repositories synchronized after document updates.
 For every implementation plan/task execution managed in `ai-lib-plans`, the final mandatory step is:
 
 1. Backfill task/plan execution status and result fields (e.g., `status`, `testing`, `completion_notes`, `updated`, and related evidence fields).
-2. Immediately sync `ai-lib-plans` to GitHub remote:
+2. Push **`ai-lib-plans` to `lan`** (mandatory during GOV-004 trial): `git push lan main`
 
-`bash /home/alex/ai-lib-plans/tools/sync_ai_lib_plans.sh --mode post-doc-change --push-if-ahead`
+Optional GitHub backup: `git push origin main`
 
 If the sync/push step fails, execution is not considered fully closed.

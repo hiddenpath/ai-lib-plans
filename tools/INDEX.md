@@ -17,6 +17,12 @@
 - **适用范围**: eos、Prism 侧构建链及任何为解决 CI 网络所做的 vendoring
 - **落地示例**: `hiddenpath/eos` 根目录 `wasm-pack-bin` / `wasm-bindgen-bin`（见 `docs/engineering/VENDORED_BUILD_TOOL_BINARIES.md`）
 
+## `active/projects/infra/LAN_INFRA.md`
+
+- **用途**: GOV-005 基础设施详表——设备、bare 仓清单、CI 分层、双重备份架构
+- **任务索引**: `active/projects/infra/TASKS_INDEX.md`
+- **关联**: GOV-005-lan-infra.yaml、LAN_GIT.md
+
 ## `docs/governance/LAN_GIT.md`
 
 - **用途**: 闭源/内网仓库日常协作规范（GOV-004 试运行）：`lan` 主 remote、`origin` 备份/CI 双头（eos）

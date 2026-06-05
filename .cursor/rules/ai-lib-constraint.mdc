@@ -12,7 +12,7 @@ All local work in this workspace is **constrained and supported** by:
 
 ## Before Making Changes
 
-1. **CRITICAL — Check git remotes**: Public repos MUST have `origin` → `ailib-official/*`. If still `hiddenpath/*`, repoint **immediately** per `ai-lib-plans/docs/governance/REMOTE_MIGRATION.md`. Only `ai-lib-constitution` and `ai-lib-plans` stay on `hiddenpath`.
+1. **CRITICAL — Check git remotes**: Public repos MUST have `origin` → `ailib-official/*`. Private repos: daily on **`lan`** per **GOV-004/GOV-005**; eos dual-remote for heavy CI. See `docs/governance/LAN_GIT.md` and `active/projects/infra/LAN_INFRA.md`.
 2. **Read** `ai-lib-constitution/SOUL.md` — Agent persona
 3. **Read** `ai-lib-constitution/AGENTS.md` — Checklists
 4. **Read** `ai-lib-plans/MEMORY.md` — Architecture decisions, conventions
@@ -30,5 +30,5 @@ All local work in this workspace is **constrained and supported** by:
 ## After Changes
 
 - Run AGENTS.md checklist (linters, tests, doc updates)
-- If ai-lib-plans documentation changed, run `bash /home/alex/ai-lib-plans/tools/sync_ai_lib_plans.sh --mode post-doc-change --push-if-ahead`
-- For implementation plans/tasks, final mandatory closeout is: backfill execution status/results in plan/task files, then immediately run `bash /home/alex/ai-lib-plans/tools/sync_ai_lib_plans.sh --mode post-doc-change --push-if-ahead`
+- If ai-lib-plans documentation changed: commit and **`git push lan main`** (GOV-004 primary). Optional cold backup: `git push origin main`. On Linux/WSL, `sync_ai_lib_plans.sh --mode post-doc-change --push-if-ahead` may still target origin — prefer **`lan`** on Windows when on LAN.
+- For implementation plans/tasks, final closeout: backfill task YAML, then **`git push lan main`** (GOV-004/GOV-005).
