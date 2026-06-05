@@ -27,3 +27,8 @@ testing:
   evidence: ""
 
 completion_notes: ""
+
+# Work in progress - 2026-06-06
+# - piubt SSH verified, gitmirror02 confirmed synced
+# - Rust installation in progress (slow download on RPi, background nohup)
+# - Remaining: cargo fmt/clippy/unit CI test, document in LAN_INFRA.md §3

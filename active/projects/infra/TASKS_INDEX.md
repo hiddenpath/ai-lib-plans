@@ -19,8 +19,8 @@
 | ID | 文件 | 状态 | 说明 |
 |----|------|------|------|
 | INFRA-001 | [tasks/INFRA-001-gov005-governance-align.yaml](./tasks/INFRA-001-gov005-governance-align.yaml) | `completed` | GOV-005 v1.1 YAML、LAN_INFRA、任务索引 |
-| INFRA-002 | [tasks/INFRA-002-backup-verify.yaml](./tasks/INFRA-002-backup-verify.yaml) | `open` | 验证 post-receive + 日备 + 恢复演练 |
-| INFRA-003 | [tasks/INFRA-003-repo-matrix-sync.yaml](./tasks/INFRA-003-repo-matrix-sync.yaml) | `open` | 核对 7 bare 仓状态与 push 缺口 |
+| INFRA-002 | [tasks/INFRA-002-backup-verify.yaml](./tasks/INFRA-002-backup-verify.yaml) | `completed` | 备份验证 + post-receive hooks 11/14 repos + bundle 恢复测试 ✅ piubt gitmirror02 确认同步 |
+| INFRA-003 | [tasks/INFRA-003-repo-matrix-sync.yaml](./tasks/INFRA-003-repo-matrix-sync.yaml) | `completed` | 14 bare 仓全量核对 + LAN_INFRA 表从 7→14 行扩展 |
 | INFRA-004 | [tasks/INFRA-004-light-ci-runner.yaml](./tasks/INFRA-004-light-ci-runner.yaml) | `open` | piubt 轻量 CI（fmt/clippy/unit） |
 
 ## 协作约定
