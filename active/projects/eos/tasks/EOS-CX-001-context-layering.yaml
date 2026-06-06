@@ -44,7 +44,7 @@ depends_on_projects:
   - task_id: "EOS-P2-001"
     task_file: "active/projects/eos/tasks/EOS-P2-001-context-strategy-browser.yaml"
   - task_id: "EOS-P2-003"
-    task_file: "active/projects/eos/tasks/EOS-P2-003-cloud-history-sync.yaml"
+    task_file: "active/projects/eos/tasks/EOS-P2-003-e2e-cloud-sync.yaml"
     note: "可选：持久化层"
 prism_coordination:
   note: "纯 Eos/A-layer 组装逻辑；无 Prism 依赖"

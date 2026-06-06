@@ -1,10 +1,10 @@
 ---
 id: "EOS-P2-003"
 title: "Eos Phase 2 — 云历史同步（E2E 密文）"
-status: "in_progress"
+status: "superseded"
 priority: "high"
-executor_name: "alex"
-executor_terminal: "cursor-agent"
+executor_name: "cursor"
+executor_terminal: "agent"
 assignee: "@cursor"
 project: "eos"
 milestone: "eos-phase2-sync"
@@ -15,70 +15,15 @@ labels:
   - "privacy"
   - "product"
 created: "2026-06-04"
-updated: "2026-06-05"
+updated: "2026-06-06"
 description: |
-  多设备对话恢复：用户登录后可将 SessionMirror 状态加密上传，换设备解密恢复。
+  **Superseded** — canonical record: [EOS-P2-003-e2e-cloud-sync.yaml](./EOS-P2-003-e2e-cloud-sync.yaml)
+  (PR #12 / merge `5e805b5`). This file kept for planning history only.
 
-  **BIZ-004 约束**：服务端仅存 **ciphertext blob**；解密密钥不出浏览器。
-  与 Vela Phase 2 E2E sync 协议对齐（B-band 客户端可复用），避免重复造 crypto 轮子。
+superseded_by:
+  task_file: "active/projects/eos/tasks/EOS-P2-003-e2e-cloud-sync.yaml"
+  pr_url: "https://github.com/hiddenpath/eos/pull/12"
+  merge_commit: "5e805b557cdbbf43469b161f02d26f58b02618d9"
 
-  依赖 **EOS-P2-002**（user_id 绑定）与 **EOS-P2-001**（SessionMirror 数据模型）。
-
-  详见 `PHASE2_PLAN.md` Wave 2a、`CONTEXT_STRATEGY_BOUNDARY.md` §5。
-
-blocks:
-  - id: "EOS-P2-003-R1"
-    title: "E2E 同步协议 ADR"
-    status: "completed"
-    description: |
-      密钥派生、nonce、AEAD 选型；blob 版本与 metadata schema；
-      与 `vela/project-overview.md` E2E sync 对齐记录；data residency 说明（配合 EOS-ARCH-001）。
-    depends_on: ["EOS-P2-002-R1"]
-  - id: "EOS-P2-003-R2"
-    title: "密文 blob 存储 API"
-    status: "completed"
-    description: |
-      `POST/GET /api/sync/conversations/{id}`；鉴权 user_id；存储层不含 plaintext 字段；
-      配额与 blob 大小上限。
-    depends_on: ["EOS-P2-003-R1", "EOS-P2-002-R3"]
-  - id: "EOS-P2-003-R3"
-    title: "SessionMirror 加密导出/导入"
-    status: "completed"
-    description: |
-      前端：SessionMirror → JSON → encrypt → upload；download → decrypt → hydrate SessionMirror；
-      OPFS/IndexedDB 本地优先，云为备份。
-    depends_on: ["EOS-P2-003-R2"]
-  - id: "EOS-P2-003-R4"
-    title: "冲突与版本策略"
-    status: "completed"
-    description: |
-      LWW 或 revision 向量；冲突时 UI 提示；单测覆盖并发写入仿真。
-    depends_on: ["EOS-P2-003-R3"]
-  - id: "EOS-P2-003-R5"
-    title: "对话列表与恢复 UI"
-    status: "completed"
-    description: |
-      侧栏历史列表；点击恢复；删除云端副本；Playwright 双 context 同账号恢复 E2E。
-    depends_on: ["EOS-P2-003-R4"]
-testing:
-  - "服务端：blob 表无 plaintext 列断言 / 集成测试"
-  - "Playwright：设备 A 写入 → 设备 B 恢复同一对话"
-depends_on_projects:
-  - task_id: "EOS-P2-002"
-    task_file: "active/projects/eos/tasks/EOS-P2-002-user-identity-auth.yaml"
-  - task_id: "EOS-P2-001"
-    task_file: "active/projects/eos/tasks/EOS-P2-001-context-strategy-browser.yaml"
-prism_coordination:
-  blocked_by: []
-  shared_with:
-    - task_id: "PR-V1-002"
-      note: "Vela 本地历史；远期 E2E 协议共享 EOS-REQ-P2-002"
-  note: "不经过 Prism P-layer 存对话内容"
-blocks_summary:
-  total: 5
-pr:
-  url: ""
-  merge_commit: ""
 completion_notes: |
-  2026-06-05: feat/eos-p2-003-cloud-sync branch — ADR, sync API, client crypto, UI, Playwright cross-device test.
-  Pending PR merge to main; then push lan per GOV-005.
+  2026-06-06: Superseded after PR #12 merge. Do not update status here.

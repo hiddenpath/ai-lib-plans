@@ -8,8 +8,10 @@ scope: operations
 repo: "multiple (lan remotes)"
 depends_on: ["INFRA-001"]
 assignee: ""
+executor_name: "spider"
+executor_terminal: "opencode"
 created: "2026-06-05"
-updated: "2026-06-05"
+updated: "2026-06-06"
 
 description: |
   Ensure all repos in LAN_INFRA §2.3 exist on git-server with current branches.

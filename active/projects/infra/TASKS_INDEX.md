@@ -9,9 +9,9 @@
 | 阶段 | 目标 | 任务 |
 |------|------|------|
 | **P0 治理对齐** | 规则/文档/remote 一致 | INFRA-001 ✅ |
-| **P1 备份可验证** | 双重 gitmirror 可恢复 | INFRA-002 |
-| **P1 仓库矩阵** | LAN 上 bare 仓与文档一致 | INFRA-003 |
-| **P2 轻量 CI** | piubt/git-server fmt+clippy | INFRA-004 |
+| **P1 备份可验证** | 双重 gitmirror 可恢复 | INFRA-002 ✅（gitmirror02 待 key） |
+| **P1 仓库矩阵** | LAN 上 bare 仓与文档一致 | INFRA-003 ✅ |
+| **P2 轻量 CI** | piubt/git-server fmt+clippy | INFRA-004 ⏳ in_progress（明天继续） |
 | **持续** | eos 合并后 lan 同步 | 各 EOS 任务 + GOV-003 Phase 4b |
 
 ## 任务列表
@@ -19,9 +19,9 @@
 | ID | 文件 | 状态 | 说明 |
 |----|------|------|------|
 | INFRA-001 | [tasks/INFRA-001-gov005-governance-align.yaml](./tasks/INFRA-001-gov005-governance-align.yaml) | `completed` | GOV-005 v1.1 YAML、LAN_INFRA、任务索引 |
-| INFRA-002 | [tasks/INFRA-002-backup-verify.yaml](./tasks/INFRA-002-backup-verify.yaml) | `completed` | 备份验证 + post-receive hooks 11/14 repos + bundle 恢复测试 ✅ piubt gitmirror02 确认同步 |
-| INFRA-003 | [tasks/INFRA-003-repo-matrix-sync.yaml](./tasks/INFRA-003-repo-matrix-sync.yaml) | `completed` | 14 bare 仓全量核对 + LAN_INFRA 表从 7→14 行扩展 |
-| INFRA-004 | [tasks/INFRA-004-light-ci-runner.yaml](./tasks/INFRA-004-light-ci-runner.yaml) | `completed` | piubt 轻量 CI 已部署（Rust 1.96.0 + fmt/clippy/test）；git-server SSH key 免密触发；pilot push 验证通过 |
+| INFRA-002 | [tasks/INFRA-002-backup-verify.yaml](./tasks/INFRA-002-backup-verify.yaml) | `completed` | bundle 恢复 ✅；hooks 11/14；gitmirror02 ⚠️ |
+| INFRA-003 | [tasks/INFRA-003-repo-matrix-sync.yaml](./tasks/INFRA-003-repo-matrix-sync.yaml) | `completed` | 14 bare 仓核对；LAN_INFRA 表已更新 |
+| INFRA-004 | [tasks/INFRA-004-light-ci-runner.yaml](./tasks/INFRA-004-light-ci-runner.yaml) | `in_progress` | piubt pilot 已搭；fmt/clippy 全绿待验 — **明天继续** |
 
 ## 协作约定
 

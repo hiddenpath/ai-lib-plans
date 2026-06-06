@@ -8,8 +8,10 @@ scope: operations
 repo: "git-server (SSH)"
 depends_on: ["INFRA-001"]
 assignee: ""
+executor_name: "spider"
+executor_terminal: "opencode"
 created: "2026-06-05"
-updated: "2026-06-05"
+updated: "2026-06-06"
 
 description: |
   Per GOV-005 and LAN_INFRA §4: verify post-receive hooks on constitution/plans/papers,

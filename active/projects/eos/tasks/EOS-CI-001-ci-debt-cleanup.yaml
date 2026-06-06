@@ -3,6 +3,8 @@ id: "EOS-CI-001"
 title: "Eos CI debt cleanup — fix pre-existing compliance CI failures"
 status: open
 priority: P0
+executor_name: "cursor"
+executor_terminal: "agent"
 assignee: "@cursor"
 project: "eos"
 milestone: "ci-stabilization"
@@ -12,7 +14,7 @@ labels:
   - "debt"
   - "prerequisite"
 created: "2026-06-02"
-updated: "2026-06-02"
+updated: "2026-06-06"
 
 description: |
   ## Problem
@@ -51,7 +53,6 @@ pr:
 
 completion_notes: |
   2026-06-06: Issue #13 opened documenting CI failures.
-  🐛 fmt: cargo fmt --check fails in sync.rs:155 (require_user sig)
-  🐛 compliance: relative path resolution error (mirrors ai-lib-rust #5)
-  Pending Cursor fix.
-  Also: piubt light CI runner (INFRA-004) detected the fmt issue independently.
+  ✅ fmt: fixed in eos `ee57a25` (sync.rs require_user signature)
+  🐛 compliance: relative path resolution error (mirrors ai-lib-rust #5) — still open
+  piubt light CI pilot (INFRA-004) detected fmt issue independently.
