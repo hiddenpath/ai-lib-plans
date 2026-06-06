@@ -46,7 +46,12 @@ testing:
   evidence: "All GitHub Actions checkmarks green"
 
 pr:
-  url: ""
+  url: "https://github.com/hiddenpath/eos/issues/13"
   merge_commit: ""
 
-completion_notes: ""
+completion_notes: |
+  2026-06-06: Issue #13 opened documenting CI failures.
+  🐛 fmt: cargo fmt --check fails in sync.rs:155 (require_user sig)
+  🐛 compliance: relative path resolution error (mirrors ai-lib-rust #5)
+  Pending Cursor fix.
+  Also: piubt light CI runner (INFRA-004) detected the fmt issue independently.
