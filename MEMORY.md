@@ -443,6 +443,11 @@ Full operational directive: [`docs/governance/REMOTE_MIGRATION.md`](docs/governa
 | PY-002 | Async I/O |
 | TS-001 | Strict mode |
 | TS-002 | Type safety |
+| BIZ-001 | Product matrix (2×2) governance |
+| BIZ-002 | Three-zone open/close boundary (A/B/C bands) |
+| BIZ-003 | Prism Enterprise shared codebase + feature flags |
+| BIZ-004 | Privacy-first architecture (metadata-only P-layer) |
+| BIZ-005 | Phase gate discipline |
 | TEST-001 | Compliance tests |
 
 ---

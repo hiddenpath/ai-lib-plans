@@ -1,6 +1,6 @@
 id: PP-003
 title: "Constitution备案: extract stable boundary rules from reports"
-status: in_progress
+status: completed
 priority: P1
 project: prism
 phase: wave2
@@ -9,7 +9,7 @@ repo: "ai-lib-constitution"
 depends_on: ["PR-P1-005"]
 assignee: ""
 created: "2026-04-26"
-updated: "2026-06-04"
+updated: "2026-06-06"
 
 description: |
   Extract long-term stable boundary rules into constitution (align with prism-core A-band 2026-06-04):
@@ -29,12 +29,15 @@ acceptance_criteria:
 
 testing:
   strategy: "Review: zone table matches eos/prism-core licenses and published crates"
-  evidence: "BIZ-002 revised 2026-06-04 in BUSINESS_BOUNDARY_RULES.md; BIZ-001~005 yaml files still pending"
+  evidence: "BIZ-001~005 extracted to per-rule YAML files under rules/business/; BUSINESS_BOUNDARY_RULES.md marked superseded; MEMORY.md rule references updated 2026-06-06"
 
 pr:
-  url: ""
-  merge_commit: ""
+  url: "https://github.com/hiddenpath/ai-lib-constitution/pull/1"
+  merge_commit: "TBD"
 
 completion_notes: |
-  BIZ-002 amended (prism-core A-band, C-band product shell). Remaining: per-rule yaml files,
-  MEMORY rule index, supersede markers in reports — owner confirmation still required.
+  BIZ-001~005 per-rule YAML files created: BIZ-001 (product matrix), BIZ-002 (A/B/C bands),
+  BIZ-003 (enterprise codebase), BIZ-004 (privacy-first), BIZ-005 (phase gate).
+  BUSINESS_BOUNDARY_RULES.md marked superseded (retained for history).
+  MEMORY.md Constitution Rule References table updated with BIZ-001~005.
+  PR pending owner review.
