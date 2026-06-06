@@ -35,7 +35,7 @@
 |----|------|------|------|------|
 | PR-PP-001 | [tasks/PR-PP-001-pack-contract-draft.yaml](./tasks/PR-PP-001-pack-contract-draft.yaml) | `open` | PR-P1-008 | Pack contract |
 | PR-PP-002 | [tasks/PR-PP-002-cost-routing-example.yaml](./tasks/PR-PP-002-cost-routing-example.yaml) | `open` | PR-P1-005, PR-P1-008 | Cost routing example |
-| PR-PP-003 | [tasks/PR-PP-003-constitution-rules-extraction.yaml](./tasks/PR-PP-003-constitution-rules-extraction.yaml) | `in_progress` | PR-P1-005 | BIZ-001~005（先对齐 A/C band） |
+| PR-PP-003 | [tasks/PR-PP-003-constitution-rules-extraction.yaml](./tasks/PR-PP-003-constitution-rules-extraction.yaml) | `completed` | PR-P1-005 | BIZ-001~005（先对齐 A/C band） |
 
 ## 里程碑
 

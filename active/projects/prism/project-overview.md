@@ -87,4 +87,4 @@ Phase 2+ optional path: integrate ai-lib-core ProtocolLoader / ExecutionMetadata
 
 - Phase 1 does **not** block on PT-073 (prism-core has no ai-lib-core dependency today)
 - Phase 2 smart routing + Contact-dependent features **are** gated by PT-073
-- PR-PP-003 blocked on updating BIZ-002 / project zone tables to match prism-core A-band reality
+- PR-PP-003 completed (BIZ-001~005 extracted to YAML; BIZ-002 prism-core alignment confirmed)
