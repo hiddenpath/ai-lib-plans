@@ -1,7 +1,7 @@
 ---
 id: "EOS-CI-001"
 title: "Eos CI debt cleanup — fix pre-existing compliance CI failures"
-status: open
+status: "completed"
 priority: P0
 executor_name: "cursor"
 executor_terminal: "agent"
@@ -45,14 +45,15 @@ acceptance_criteria:
 
 testing:
   strategy: "CI green on main after merge"
-  evidence: "All GitHub Actions checkmarks green"
+  evidence: "GitHub Actions eos-ci success; compliance_from_core 4/4 with COMPLIANCE_DIR"
 
 pr:
   url: "https://github.com/hiddenpath/eos/issues/13"
   merge_commit: ""
 
 completion_notes: |
-  2026-06-06: Issue #13 opened documenting CI failures.
-  ✅ fmt: fixed in eos `ee57a25` (sync.rs require_user signature)
-  🐛 compliance: relative path resolution error (mirrors ai-lib-rust #5) — still open
-  piubt light CI pilot (INFRA-004) detected fmt issue independently.
+  2026-06-06 (issue #13):
+  ✅ fmt: eos ee57a25 (sync.rs require_user)
+  ✅ compliance: ci.yml checks out ailib-official/ai-protocol + COMPLIANCE_DIR;
+     runs `cargo test -p ai-lib-core --test compliance_from_core` (ALR fix at pinned rev)
+  Closes Spider-reported CI debt (EOS-CI-001).
