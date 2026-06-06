@@ -8,6 +8,8 @@ scope: governance
 repo: "ai-lib-constitution"
 depends_on: ["PR-P1-005"]
 assignee: ""
+executor_name: "opencode"
+executor_terminal: "opencode"
 created: "2026-04-26"
 updated: "2026-06-06"
 
@@ -33,11 +35,9 @@ testing:
 
 pr:
   url: "https://github.com/hiddenpath/ai-lib-constitution/pull/1"
-  merge_commit: "TBD"
+  merge_commit: "7ac5cfbcb36754bf587902d475edbe837bdb1f1e"
+  plans_merge_commit: "23e3efaf6c03ad1393a0b545e9d911747d1589db"
 
 completion_notes: |
-  BIZ-001~005 per-rule YAML files created: BIZ-001 (product matrix), BIZ-002 (A/B/C bands),
-  BIZ-003 (enterprise codebase), BIZ-004 (privacy-first), BIZ-005 (phase gate).
-  BUSINESS_BOUNDARY_RULES.md marked superseded (retained for history).
-  MEMORY.md Constitution Rule References table updated with BIZ-001~005.
-  PR pending owner review.
+  Merged 2026-06-06: constitution #1 (7ac5cfbc), plans #8 (23e3efaf).
+  BIZ-001~005 per-rule YAML; BUSINESS_BOUNDARY_RULES.md superseded; MEMORY updated.
