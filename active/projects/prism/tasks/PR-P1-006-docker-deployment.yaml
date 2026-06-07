@@ -12,6 +12,8 @@ executor_name: "alex"
 executor_terminal: "cursor-agent"
 created: "2026-04-25"
 updated: "2026-06-07"
+
+description: |
   - Reuse/adapt eos deploy template (`ai-lib-plans/tools/deploy_eos.sh`, Dockerfile, Caddy)
   - Multi-stage Dockerfile, docker-compose (gateway + caddy)
   - Caddyfile for api.prism.ailib.info
@@ -35,4 +37,5 @@ pr:
 
 completion_notes: |
   Local/staging stack delivered (compose, Caddyfile.example, .netrc build secret, healthcheck).
-  Production acceptance (api.prism.ailib.info HTTPS, VPS deploy script) remains P1-C — blocked on email checklist + PR-P1-013.
+  Deploy tooling: ai-lib-plans/tools/deploy_prism_gateway.sh (rsync + remote compose).
+  Production acceptance (api.prism.ailib.info HTTPS, VPS) remains P1-C — blocked on email checklist + PR-P1-013.

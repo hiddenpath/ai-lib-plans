@@ -1,15 +1,17 @@
 id: PR-P1-016
 title: "VelaClaw incremental migration to prism-core"
-status: open
+status: in_progress
 priority: P2
 project: prism
 phase: 1
 scope: product
-repo: "ailib-official/ai-lib-rust (velaclaw)"
-depends_on: ["PR-P1-002-LIB"]
+repo: "hiddenpath/eos (velaclaw)"
+depends_on: ["PR-P1-006", "PR-V1-001"]
 assignee: ""
+executor_name: "cursor-agent"
+executor_terminal: "terminal-prism-p1"
 created: "2026-06-04"
-updated: "2026-06-04"
+updated: "2026-06-05"
 
 description: |
   Per MEMORY.md: minimal(default proxy) → key-pool → router → full feature flags.
@@ -27,4 +29,6 @@ pr:
   url: ""
   merge_commit: ""
 
-completion_notes: ""
+completion_notes: |
+  Stage 0–4 migration table drafted in active/projects/prism/docs/VELACLAW_MIGRATION_STAGES.md.
+  Stage 1 (HTTP proxy to Prism gateway) blocked on PR-V1-001 Vela web skeleton + P1-C deploy.

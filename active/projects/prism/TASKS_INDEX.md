@@ -27,7 +27,7 @@
 | PR-P1-006 | [tasks/PR-P1-006-docker-deployment.yaml](./tasks/PR-P1-006-docker-deployment.yaml) | `in_progress` | PR-P1-002 | Docker + Caddy |
 | PR-P1-013 | [tasks/PR-P1-013-prism-dns.yaml](./tasks/PR-P1-013-prism-dns.yaml) | `open` | PR-P1-006 | api.prism.ailib.info DNS |
 | PR-P1-008 | [tasks/PR-P1-008-provider-verification.yaml](./tasks/PR-P1-008-provider-verification.yaml) | `completed` | PR-P1-002, PR-P1-003, PR-P1-005 | 5 P0 smoke (P1-B local/CI) |
-| PR-P1-016 | [tasks/PR-P1-016-velaclaw-prism-migration.yaml](./tasks/PR-P1-016-velaclaw-prism-migration.yaml) | `open` | PR-P1-002-LIB | VelaClaw 迁移 |
+| PR-P1-016 | [tasks/PR-P1-016-velaclaw-prism-migration.yaml](./tasks/PR-P1-016-velaclaw-prism-migration.yaml) | `in_progress` | PR-P1-006, PR-V1-001 | VelaClaw 迁移 |
 
 ## Wave 2 产品化预备
 

@@ -272,6 +272,17 @@
   - `--remote-pass` 参数会出现在进程列表中，生产环境建议使用 SSH key 认证（设 `REMOTE_PASS` 环境变量或省略以用 key）
   - 健康检查最多等待 10 秒，超时仅警告不阻断
 
+## `deploy_prism_gateway.sh`
+
+- **路径**: `tools/deploy_prism_gateway.sh`
+- **用途**: Prism **ai-lib-gateway** compose 部署（PR-P1-006 / P1-C）：本地 `git pull --rebase` → rsync 到远程 → `docker compose up --build`
+- **与 Eos 区别**: 不部署 `eos.ailib.info` / `/api/proxy`；目标目录默认 `/opt/ai-lib-gateway`
+- **前置**: 远程 `.netrc.local`（hiddenpath/eos docker build）、`.env`（provider keys + gateway/admin token）
+- **示例**:
+  - `bash tools/deploy_prism_gateway.sh --remote 1.2.3.4`
+  - `bash tools/deploy_prism_gateway.sh --remote 1.2.3.4 --profile tls --dry-run`
+- **风险提示**: 远程 `docker compose up` 会重启 gateway；生产需 P1-C DNS/TLS 决策后再指向 `api.prism.ailib.info`
+
 ## `sync_compliance_registry.py`
 
 - **路径**: `tools/sync_compliance_registry.py`
