@@ -1,15 +1,17 @@
 id: PR-P1-002
 title: "OpenAI-compatible HTTP — /v1/chat/completions + /v1/models"
-status: open
+status: completed
 priority: P0
 project: prism
 phase: 1
 scope: product
-repo: "hiddenpath/eos (eos-server) or ailib-official/ai-lib-gateway"
+repo: "hiddenpath/ai-lib-gateway"
 depends_on: ["PR-P1-001"]
-assignee: ""
+assignee: "alex"
+executor_name: "alex"
+executor_terminal: "cursor-agent"
 created: "2026-04-25"
-updated: "2026-06-04"
+updated: "2026-06-07"
 
 description: |
   Product HTTP surface (library proxy done — see PR-P1-002-LIB):
@@ -30,10 +32,12 @@ acceptance_criteria:
 
 testing:
   strategy: "Integration test against live providers + unit tests for request/response mapping"
-  evidence: ""
+  evidence: "10 unit tests pass; CI green post EOS_REPO_TOKEN; OpenCode review fixes merged"
 
 pr:
-  url: ""
-  merge_commit: ""
+  url: "https://github.com/hiddenpath/ai-lib-gateway/pull/2"
+  merge_commit: "e193933c9a33b85717c82a162f2237c4c971a493"
 
-completion_notes: ""
+completion_notes: |
+  GET /v1/models, POST /v1/chat/completions (JSON+SSE), Bearer auth, models_listed on /health.
+  Live 2-provider E2E deferred to PR-P1-008 (local/CI smoke). Anthropic wire via PR-P1-010 adapter TBD on gateway.

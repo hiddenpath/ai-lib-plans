@@ -21,12 +21,12 @@
 
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|------|------|------|
-| PR-P1-001 | [tasks/PR-P1-001-project-skeleton.yaml](./tasks/PR-P1-001-project-skeleton.yaml) | `open` | — | Gateway shell + /health + TOML 接线 |
-| PR-P1-002 | [tasks/PR-P1-002-core-proxy.yaml](./tasks/PR-P1-002-core-proxy.yaml) | `open` | PR-P1-001 | OpenAI `/v1/*` HTTP |
-| PR-P1-014 | [tasks/PR-P1-014-admin-http-routes.yaml](./tasks/PR-P1-014-admin-http-routes.yaml) | `open` | PR-P1-001, PR-P1-003, PR-P1-004 | `/admin/*` HTTP |
-| PR-P1-006 | [tasks/PR-P1-006-docker-deployment.yaml](./tasks/PR-P1-006-docker-deployment.yaml) | `open` | PR-P1-002 | Docker + Caddy |
+| PR-P1-001 | [tasks/PR-P1-001-project-skeleton.yaml](./tasks/PR-P1-001-project-skeleton.yaml) | `completed` | — | Gateway shell + /health + TOML 接线 |
+| PR-P1-002 | [tasks/PR-P1-002-core-proxy.yaml](./tasks/PR-P1-002-core-proxy.yaml) | `completed` | PR-P1-001 | OpenAI `/v1/*` HTTP |
+| PR-P1-014 | [tasks/PR-P1-014-admin-http-routes.yaml](./tasks/PR-P1-014-admin-http-routes.yaml) | `completed` | PR-P1-001, PR-P1-003, PR-P1-004 | `/admin/*` HTTP |
+| PR-P1-006 | [tasks/PR-P1-006-docker-deployment.yaml](./tasks/PR-P1-006-docker-deployment.yaml) | `in_progress` | PR-P1-002 | Docker + Caddy |
 | PR-P1-013 | [tasks/PR-P1-013-prism-dns.yaml](./tasks/PR-P1-013-prism-dns.yaml) | `open` | PR-P1-006 | api.prism.ailib.info DNS |
-| PR-P1-008 | [tasks/PR-P1-008-provider-verification.yaml](./tasks/PR-P1-008-provider-verification.yaml) | `open` | PR-P1-002, PR-P1-003, PR-P1-005 | 5 P0 E2E |
+| PR-P1-008 | [tasks/PR-P1-008-provider-verification.yaml](./tasks/PR-P1-008-provider-verification.yaml) | `completed` | PR-P1-002, PR-P1-003, PR-P1-005 | 5 P0 smoke (P1-B local/CI) |
 | PR-P1-016 | [tasks/PR-P1-016-velaclaw-prism-migration.yaml](./tasks/PR-P1-016-velaclaw-prism-migration.yaml) | `open` | PR-P1-002-LIB | VelaClaw 迁移 |
 
 ## Wave 2 产品化预备

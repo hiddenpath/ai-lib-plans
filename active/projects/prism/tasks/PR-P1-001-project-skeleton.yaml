@@ -1,15 +1,17 @@
 id: PR-P1-001
 title: "Gateway shell — Axum + TOML config + /health"
-status: open
+status: completed
 priority: P0
 project: prism
 phase: 1
 scope: product
-repo: "hiddenpath/eos (eos-server) or ailib-official/ai-lib-gateway"
+repo: "hiddenpath/ai-lib-gateway"
 depends_on: []
-assignee: ""
+assignee: "alex"
+executor_name: "alex"
+executor_terminal: "cursor-agent"
 created: "2026-04-25"
-updated: "2026-06-04"
+updated: "2026-06-07"
 
 description: |
   Product-layer gateway shell (not prism-core library internals):
@@ -26,10 +28,12 @@ acceptance_criteria:
 
 testing:
   strategy: "cargo test + manual curl /health"
-  evidence: ""
+  evidence: "ai-lib-gateway CI green; GET /health unit test; merge e193933 chain includes P1-001 f80decb"
 
 pr:
-  url: ""
-  merge_commit: ""
+  url: "https://github.com/hiddenpath/ai-lib-gateway/pull/1"
+  merge_commit: "f80decb7807e7f875929c38ddaeef38ac988c0fb"
 
-completion_notes: ""
+completion_notes: |
+  Axum shell, TOML/EnvConfig loader, GET /health, Dockerfile skeleton.
+  OpenCode review: BIZ-002 UNLICENSED, prism-core git pin, CI eos checkout+patch.

@@ -1,18 +1,17 @@
 id: PR-P1-006
 title: "Docker deployment + Caddy TLS + api.prism.ailib.info"
-status: open
+status: in_progress
 priority: P0
 project: prism
 phase: 1
 scope: product
-repo: "hiddenpath/eos or ailib-official/ai-lib-gateway"
+repo: "hiddenpath/ai-lib-gateway"
 depends_on: ["PR-P1-002"]
-assignee: ""
+assignee: "alex"
+executor_name: "alex"
+executor_terminal: "cursor-agent"
 created: "2026-04-25"
-updated: "2026-06-04"
-
-description: |
-  Production deployment for **Prism** gateway (not only Eos):
+updated: "2026-06-07"
   - Reuse/adapt eos deploy template (`ai-lib-plans/tools/deploy_eos.sh`, Dockerfile, Caddy)
   - Multi-stage Dockerfile, docker-compose (gateway + caddy)
   - Caddyfile for api.prism.ailib.info
@@ -28,10 +27,12 @@ acceptance_criteria:
 
 testing:
   strategy: "Manual: deploy to VPS, curl external endpoint (may share 43.159.226.236 with Eos or separate host — document in evidence)"
-  evidence: ""
+  evidence: "PR #5 merged 85b7c42; docker-compose.yml + Caddy tls profile + BuildKit git secret; local `docker compose up`"
 
 pr:
-  url: ""
-  merge_commit: ""
+  url: "https://github.com/hiddenpath/ai-lib-gateway/pull/5"
+  merge_commit: "85b7c42b8165c8d1cab6642a40662b4fed60b72d"
 
-completion_notes: ""
+completion_notes: |
+  Local/staging stack delivered (compose, Caddyfile.example, .netrc build secret, healthcheck).
+  Production acceptance (api.prism.ailib.info HTTPS, VPS deploy script) remains P1-C — blocked on email checklist + PR-P1-013.

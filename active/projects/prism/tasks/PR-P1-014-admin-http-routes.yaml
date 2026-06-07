@@ -1,15 +1,17 @@
 id: PR-P1-014
 title: "Admin HTTP routes — /admin/* (Axum)"
-status: open
+status: completed
 priority: P1
 project: prism
 phase: 1
 scope: product
-repo: "hiddenpath/eos (eos-server) or ailib-official/ai-lib-gateway"
+repo: "hiddenpath/ai-lib-gateway"
 depends_on: ["PR-P1-001", "PR-P1-003", "PR-P1-004"]
-assignee: ""
+assignee: "alex"
+executor_name: "alex"
+executor_terminal: "cursor-agent"
 created: "2026-06-04"
-updated: "2026-06-04"
+updated: "2026-06-07"
 
 description: |
   Bind prism-core AdminService to Axum (replaces superseded HTTP portion of old PR-P1-007):
@@ -22,10 +24,12 @@ acceptance_criteria:
 
 testing:
   strategy: "axum integration tests + manual curl"
-  evidence: ""
+  evidence: "13/13 unit tests; CI green; merge 7a7f8ca"
 
 pr:
-  url: ""
-  merge_commit: ""
+  url: "https://github.com/hiddenpath/ai-lib-gateway/pull/3"
+  merge_commit: "7a7f8ca81062f27300134c7f83932ededff2432e"
 
-completion_notes: ""
+completion_notes: |
+  /admin keys/users/usage/health + PRISM_ADMIN_TOKEN; usage_store_persistent on /health.
+  OpenCode review adopted (extract_bearer, disable_key comment).
