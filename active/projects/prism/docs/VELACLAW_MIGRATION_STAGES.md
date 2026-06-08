@@ -26,7 +26,7 @@
 |----|------|
 | P1-B Gateway `/v1/*` | ✅ merged |
 | P1-B smoke 脚本 | ✅ PR #4 |
-| Anthropic/Qwen gateway 接线 | ⏳ planned |
+| Anthropic/Qwen gateway 接线 | ✅ PR #6 / eos 9c5df3c |
 | P1-C 生产 DNS/TLS | ⏳ 邮件 checklist |
 
 ## Owner sign-off（Stage 1）

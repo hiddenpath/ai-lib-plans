@@ -11,7 +11,7 @@ assignee: "alex"
 executor_name: "alex"
 executor_terminal: "cursor-agent"
 created: "2026-04-25"
-updated: "2026-06-07"
+updated: "2026-06-08"
 
 description: |
   End-to-end verification via **Prism HTTP API** (not library-only tests):
@@ -28,13 +28,13 @@ acceptance_criteria:
 
 testing:
   strategy: "Manual integration + automated smoke script in repo"
-  evidence: "PR #4 merged 5f098cf; scripts/smoke-p0-providers.ps1|.sh; config/smoke-p0.example.toml; local/CI only"
+  evidence: "PR #4 merged 5f098cf (3 providers); PR #6 merged 4065d73 (Anthropic adapter + Qwen); scripts/smoke-p0-providers.ps1|.sh; local/CI only"
 
 pr:
-  url: "https://github.com/hiddenpath/ai-lib-gateway/pull/4"
-  merge_commit: "5f098cf5e481ce1b293f74f32dcc139588fd6250"
+  url: "https://github.com/hiddenpath/ai-lib-gateway/pull/6"
+  merge_commit: "4065d73b25ceaad964a92aeb868d7fdf73f60c6b"
 
 completion_notes: |
-  P1-B scope done: local/CI smoke against gateway /v1/* (OpenAI, DeepSeek, Gemini when keys set).
-  Anthropic/Qwen marked planned in smoke until gateway URL/adapter wired.
-  Deferred to P1-C: external VPS E2E, rate-limit/fallback/usage on live traffic, full 5-provider sign-off.
+  P1-B scope complete: all 5 P0 providers in smoke config/scripts (OpenAI, DeepSeek, Gemini, Anthropic, Qwen).
+  Anthropic via prism-core Messages adapter; Qwen via DashScope OpenAI-compat URL. eos main 9c5df3c.
+  Deferred to P1-C: external VPS E2E, rate-limit/fallback/usage on live traffic.
