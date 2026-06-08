@@ -3,7 +3,7 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-05-24
+**Last Updated**: 2026-05-28
 
 ---
 
@@ -692,6 +692,25 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 
 ---
 
+## Eos 腾讯云香港服务器 — SSH 访问 (2026-05-27)
+
+| 项目 | 值 |
+|------|-----|
+| IP | 43.159.226.236 |
+| 域名 | eos.ailib.info |
+| OS | Ubuntu 24.04.4 LTS |
+| 用户名 | ubuntu |
+| 密码 | eUMxUa-8.9wa3x2 |
+| SSH | `sshpass -p 'eUMxUa-8.9wa3x2' ssh ubuntu@43.159.226.236` |
+| 类型 | 腾讯云轻量应用服务器（香港） |
+| 配置 | 2C / 3.6GB / 50GB |
+
+**部署架构**：Caddy (:443/:80) → Eos (:3000，非 systemd，nohup 直接运行) → xray (:10808 SOCKS / :10809 HTTP，systemd) → VMess/Shadowsocks 出站 → AI API。
+
+**部署**：本地 `cargo build --release -p eos-server` → scp 二进制到 `/opt/eos-v2/eos-server` → pkill 旧进程 → 重启。详见 `~/transfer.md`。
+
+**xray**：配置从 RPi (`pi@192.168.2.13`) 的 `/usr/local/etc/xray/config.json` 同步。当前 63 节点（57 SS + 2 VLESS + 4 VMess）。日志 `/var/log/xray/`，logrotate daily 7d。
+
 ## Eos 区域合规路由架构决策 (2026-05-24)
 
 **决策**：Eos 采用 **区域隔离双栈（方案 B）**——zh-cn 入口仅路由已备案模型，global 入口路由全球模型。
@@ -728,3 +747,30 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 **代码**：hiddenpath/eos `299575a`（main 直推，无 PR）；单测 `nvidia_defaults_expose_verified_chat_models` 断言 GLM-5.1 不在默认列表。
 
 **说明**：GLM-5.1 仍可通过 manifest/配置扩展；默认列表只反映 HK 部署实测可用的 chat 模型。
+
+## Infrastructure — LAN Git Server (192.168.2.22) 运维记忆 (2026-06-08)
+
+### 1. 硬件与拓扑
+- **角色**: 私有仓库唯一真相源 (Canonical Source for private repos)。
+- **一级备份 (Local)**: 外部 USB 硬盘 $\rightarrow$ `/mnt/backup/gitmirror01` (NTFS 格式)。
+- **二级备份 (Remote)**: 镜像服务器 `piubt` (192.168.2.13 $\rightarrow$ `/gitmirror02`。
+
+### 2. 关键配置 (必须维持)
+- **持久化挂载**: `/etc/fstab` 必须包含 `UUID=02DCF719DCF705A7 /mnt/backup ntfs-3g defaults,uid=1000,gid=1000,umask=002 0 0`。
+- **主机解析**: `/etc/hosts` 必须包含 `192.168.2.13 piubt`。
+- **备份脚本**: `/home/git/git-backup.sh`，执行 `real-time` (文档类) 或 `full` (全量) 备份。
+
+### 3. 故障模式分析 (2026-06-06 掉线事件)
+- **故障链**: `每日 07:03 定时重启` (/etc/cron.d/pifan-maintenance) $\rightarrow$ `fstab 缺失导致外部盘未挂载` $\rightarrow$ `/mnt/backup` 变为本地空目录 $\rightarrow$ `git-backup.sh` 写入失败。
+- **特征**: 日志出现 `mv: cannot move ... No such file or directory`。
+- **对策**: 检查 `/etc/fstab` $\rightarrow$ 验证 `mount` 状态 $\rightarrow$ 检查 `/etc/hosts` 解析。
+
+### 4. 访问认证与免密配置 (2026-06-08)
+- **密钥对**: 采用 Ed25519 算法，存储于 `~/.ssh/id_ed25519_lan` (私钥) 和 `~/.ssh/id_ed25519_lan.pub` (公钥)。
+- **认证状态**: 
+    - `git@192.168.2.22` (git-server) $\rightarrow$ 已部署公钥 $\rightarrow$ 免密 $\checkmark$
+    - `pi@192.168.2.13` (piubt) $\rightarrow$ 已部署公钥 $\rightarrow$ 免密 $\checkmark$
+- **SSH Config 别名**: 
+    - `lan-git` $\rightarrow$ 映射至 `git@192.168.2.22`
+    - `piubt` $\rightarrow$ 映射至 `pi@192.168.2.13`
+- **使用方式**: 直接使用 `ssh lan-git` 或 `ssh piubt` 即可进入服务器，无需输入密码。
