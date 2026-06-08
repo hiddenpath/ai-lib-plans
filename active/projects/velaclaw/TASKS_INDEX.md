@@ -40,13 +40,14 @@
 - **基础阶段（ZS-ML-001 ~ 006）** — 已合入：PR #11 / `5e0925d`、PR #12 / `db21bfd`、PR #14 / `aa3214a`（ZS-ML-003~006 组合 PR）。
 - **整改阶段（ZS-ML-007 ~ 010）** — 已完成并合入/回填：PR #19 (`a8f0392`)、PR #20 (`0148bdc`)、PR #21 (`6fe40cc`)；ZS-ML-010 为 plans-governance 直推回填任务。
 - **Phase 7（ZS-ML-011 ~ 016）** — **已合入**：PR #31 / `83ff308`（011–014 组合 PR）；PR #32 / `bd15a62`（015 legacy 物理删除）；PR #33 / `2183171`（016 文档/向导/UX 终稿）。
+- **更名阶段（ZS-RN-001 ~ 003）** — **已全部完成**（2026-05-13）：PR #38 / `36b9a5c`（001+002 原子合并）；GitHub 仓库已改名 `ailib-official/velaclaw`；外部引用审计已完成。
 
 **审计参考**
 
 - [AUDIT_2026-04-27.md](./AUDIT_2026-04-27.md) — Spider 审查端审计原文（建议 plan 状态回退）。
 - [AUDIT_2026-04-27_ADDENDUM.md](./AUDIT_2026-04-27_ADDENDUM.md) — 开发侧基于 `main @ aa3214a` 的代码交叉核实，区分了真实缺口（C1–C10）与审计中误读的 6 项（F1–F6）。
 
-## 更名阶段 — ZeroSpider → VelaClaw（2026-05-13 ~）
+## 更名阶段 — ZeroSpider → VelaClaw（2026-05-13 ✅ 已全部完成）
 
 主计划：**[ZS-RENAME-001.md](./ZS-RENAME-001.md)**
 
@@ -54,6 +55,6 @@
 
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|------|------|------|
-| ZS-RN-001 | [tasks/ZS-RN-001-crate-name-and-code-rename.yaml](./tasks/ZS-RN-001-crate-name-and-code-rename.yaml) | `pending` | — | Rust crate 名 zerospider → velaclaw + ZeroClaw/zeroclaw → VelaClaw/velaclaw 全代码+CI |
-| ZS-RN-002 | [tasks/ZS-RN-002-docs-and-firmware-rename.yaml](./tasks/ZS-RN-002-docs-and-firmware-rename.yaml) | `pending` | ZS-RN-001 | 文档 + firmware + Docker + scripts 全量更名 |
-| ZS-RN-003 | [tasks/ZS-RN-003-repo-rename-and-external-refs.yaml](./tasks/ZS-RN-003-repo-rename-and-external-refs.yaml) | `pending` | ZS-RN-001, ZS-RN-002 | GitHub 仓库改名 + 外部引用更新 + 最终审核 |
+| ZS-RN-001 | [tasks/ZS-RN-001-crate-name-and-code-rename.yaml](./tasks/ZS-RN-001-crate-name-and-code-rename.yaml) | `done` | — | Rust crate 名 zerospider → velaclaw + 全代码+CI；[PR #38](https://github.com/ailib-official/velaclaw/pull/38) (`36b9a5c`) |
+| ZS-RN-002 | [tasks/ZS-RN-002-docs-and-firmware-rename.yaml](./tasks/ZS-RN-002-docs-and-firmware-rename.yaml) | `done` | ZS-RN-001 | 文档 + firmware + Docker + scripts 全量更名；与 ZS-RN-001 同 PR 原子合并 |
+| ZS-RN-003 | [tasks/ZS-RN-003-repo-rename-and-external-refs.yaml](./tasks/ZS-RN-003-repo-rename-and-external-refs.yaml) | `done` | ZS-RN-001, ZS-RN-002 | GitHub 仓库改名 + 外部引用更新 + 最终审计；`zerospider`→`velaclaw`，plans 引用全更新 |
