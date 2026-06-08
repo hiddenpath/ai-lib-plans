@@ -28,9 +28,9 @@ testing:
   evidence: "prism-core/src/anthropic.rs unit tests; full feature test 52 passed"
 
 pr:
-  url: ""
-  merge_commit: ""
+  url: "https://github.com/hiddenpath/eos/commit/9c5df3c79ec5ded2a0566a0890a9d52c9517a063"
+  merge_commit: "9c5df3c79ec5ded2a0566a0890a9d52c9517a063"
 
 completion_notes: |
-  openai_request_to_anthropic / anthropic_response_to_openai + ANTHROPIC_MESSAGES_URL.
-  Live proxy wiring deferred to ai-lib-gateway PR-P1-002 (no Eos proxy coupling).
+  anthropic.rs: openai_request_to_anthropic / anthropic_response_to_openai + curl_proxy_anthropic (x-api-key).
+  qwen OpenAI-compat URL in openai_chat_completions_url. Merged to eos main 9c5df3c; gateway PR #6 wires HTTP.
