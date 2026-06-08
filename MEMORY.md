@@ -701,7 +701,7 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 | OS | Ubuntu 24.04.4 LTS |
 | 用户名 | ubuntu |
 | 密码 | eUMxUa-8.9wa3x2 |
-| SSH | `sshpass -p 'eUMxUa-8.9wa3x2' ssh ubuntu@43.159.226.236` |
+| SSH | `ssh eos-hk`（免密，key `~/.ssh/id_ed25519_eos_hk`） |
 | 类型 | 腾讯云轻量应用服务器（香港） |
 | 配置 | 2C / 3.6GB / 50GB |
 
