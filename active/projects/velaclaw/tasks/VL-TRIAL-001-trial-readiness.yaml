@@ -1,7 +1,7 @@
 ---
 id: "VL-TRIAL-001"
 title: "VelaClaw Trial Readiness — Provider Integration & Core Fixes"
-status: "in_progress"
+status: "completed"
 priority: "critical"
 executor_name: "cursor-agent"
 executor_terminal: "cursor-shell-2"
@@ -40,7 +40,7 @@ pr:
   branch: "fix/vl-trial-001-model-passing"
   url: "https://github.com/ailib-official/velaclaw/pull/50"
   compare_url: "https://github.com/ailib-official/velaclaw/compare/main...fix/vl-trial-001-model-passing"
-  merge_commit: ""
+  merge_commit: "ee2a14bd5fe576bf90814415997ca80d641b285e"
 
 testing:
   unit_tests: []
