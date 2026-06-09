@@ -1,0 +1,216 @@
+---
+id: "VL-TRIAL-001"
+title: "VelaClaw Trial Readiness — Provider Integration & Core Fixes"
+status: "draft"
+priority: "critical"
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
+assignee: "@tbd"
+project: "velaclaw"
+milestone: "trial-readiness"
+labels:
+  - "velaclaw"
+  - "trial"
+  - "provider-integration"
+created: "2026-06-09"
+updated: "2026-06-09"
+description: |
+  Prepare VelaClaw v0.2.0 for real-world testing with existing provider
+  resources (DeepSeek, NVIDIA, OpenAI). Fixes the model-name-passing bug
+  that blocks all providers, updates outdated ai-protocol manifests, creates
+  the missing NVIDIA v2 manifest, and configures proxy + credentials so the
+  binary can make live API calls.
+
+  Build output: `/home/alex/velaclaw/target/release/velaclaw` (16M, v0.2.0).
+  ai-protocol checkout: `/home/alex/github/ailib-official/ai-protocol/`.
+  VelaClaw repo: `/home/alex/velaclaw/`.
+
+acceptance_criteria:
+  - "velaclaw agent -m 'hello' returns a valid AI response via DeepSeek (deepseek-v4-pro)"
+  - "velaclaw agent -m 'hello' returns a valid AI response via NVIDIA (e.g. kimi-k2-instruct)"
+  - "AI_PROXY_URL environment variable is routed through http://192.168.2.13:8887"
+  - "API credentials load reliably in interactive shell sessions"
+  - "PR for the code fix is merged to ailib-official/velaclaw main"
+
+pr:
+  repo: "ailib-official/velaclaw"
+  branch_pattern: "fix/vl-trial-001-*"
+  merge_target: "main"
+  branch: "TBD"
+  url: ""
+  compare_url: ""
+  merge_commit: ""
+
+testing:
+  unit_tests: []
+  integration:
+    - "Manual: velaclaw agent on DeepSeek (deepseek-v4-pro)"
+    - "Manual: velaclaw agent on NVIDIA (kimi-k2-instruct)"
+    - "Manual: velaclaw providers shows both deepseek and nvidia"
+    - "Manual: velaclaw models list --protocol shows correct model names"
+  evidence_on_complete:
+    - "Code PR merged (fix effective_model_id)"
+    - "NVIDIA v2 manifest PR merged to ai-protocol (dist/v2/providers/nvidia.json)"
+    - "DeepSeek model manifest updated in ai-protocol"
+  evidence_current:
+    - "Local manifest patches exist but not committed"
+    - "Config file at ~/.velaclaw/config.toml has placeholder model IDs"
+
+blocked_by: []
+blocks: []
+
+completion_notes: ""
+---
+
+# VelaClaw Trial Readiness — VL-TRIAL-001
+
+## Objective
+
+Enable end-to-end testing of VelaClaw with existing API credentials
+(DeepSeek, NVIDIA, OpenAI) through the local proxy.
+
+---
+
+## Task Items
+
+### P0 — Blocking (no test possible without these)
+
+### VL-TRIAL-001-A: Fix model-name-passing bug
+
+| Field | Value |
+|-------|-------|
+| **Type** | Code fix |
+| **File** | `src/providers/protocol_adapter.rs` |
+| **Impact** | All providers |
+| **Root Cause** | `effective_model_id()` at line ~27 returns `provider/model` (e.g. `deepseek/deepseek-v4-pro`), which is passed to `ChatRequestBuilder::model()` at lines 186, 220, 407. The API receives the full string and rejects it because it doesn't recognize the `provider/` prefix. ai-lib-rust's `AiClient` already stores the correct `model_id` (stripped of provider prefix) — we just shouldn't override it. |
+| **Fix** | Remove `.model(&logical)` calls on lines 186, 220, and 407. The ChatRequestBuilder will fall back to `client.model_id`, which is correctly set by ai-lib-rust's `AiClientBuilder::build()` (it splits on `/` and keeps `parts[1..]`). |
+
+After fix, model will be sent as `deepseek-v4-pro` instead of `deepseek/deepseek-v4-pro`.
+
+### P1 — High Priority
+
+### VL-TRIAL-001-B: Update DeepSeek model manifest
+
+| Field | Value |
+|-------|-------|
+| **Type** | Config (ai-protocol) |
+| **Files** | `ai-protocol/v1/models/deepseek-chat.yaml` |
+| | `ai-protocol/dist/v1/models/deepseek-chat.json` |
+| **Status** | ✅ Locally patched, not committed |
+| **Details** | DeepSeek API now requires model names `deepseek-v4-pro` or `deepseek-v4-flash`. The manifest still has `deepseek-chat` and `deepseek-reasoner`. |
+| **Changes** | `deepseek-chat` → `deepseek-v4-pro` (map `model_id`), `deepseek-reasoner` → `deepseek-v4-flash`. |
+| **Action** | PR to ailib-official/ai-protocol updating both v1 YAML source and dist/v1 JSON. |
+
+### VL-TRIAL-001-C: Create NVIDIA v2 provider manifest
+
+| Field | Value |
+|-------|-------|
+| **Type** | Config (ai-protocol) |
+| **Source** | `ai-protocol/v1/providers/nvidia.yaml` (complete and working) |
+| **Output** | `ai-protocol/dist/v2/providers/nvidia.json` |
+| **Reason** | VelaClaw's `providers` command only lists v2 manifest providers. NVIDIA is only defined in v1 today. The `protocol-providers` subcommand discovers NVIDIA, but the main provider routing doesn't expose it. |
+| **NVIDIA API details** | Base URL: `https://integrate.api.nvidia.com/v1`, Auth: `NVIDIA_API_KEY` bearer token, Format: OpenAI-compatible. |
+| **Action** | Create v2 JSON manifest from the v1 YAML source, then PR to ai-protocol. |
+
+### VL-TRIAL-001-D: Configure proxy channel
+
+| Field | Value |
+|-------|-------|
+| **Type** | Environment / config |
+| **Value** | `AI_PROXY_URL=http://192.168.2.13:8887` |
+| **Where to set** | `~/.bashrc` or `~/.bash_profile` or VelaClaw config |
+| **Reason** | ai-lib-rust reads `AI_PROXY_URL` (then `HTTPS_PROXY`/`HTTP_PROXY`) to set up the reqwest proxy. The standard `http_proxy` is NOT read. Without this, calls to OpenAI/DeepSeek/NVIDIA API time out. |
+
+### P2 — Important but non-blocking
+
+### VL-TRIAL-001-E: Persist API credentials
+
+| Field | Value |
+|-------|-------|
+| **Type** | Config |
+| **Current state** | API keys exist in `~/.bashrc` (OpenAI, DeepSeek, Groq). NVIDIA key in `~/.openclaw/openclaw.json`. |
+| **Problem** | `~/.bashrc` has a guard (`case $- in *i*) ;; *) return;; esac`) that exits early in non-interactive shells. CGI scripts, remote exec, cron, and daemonized VelaClaw will not see the keys. |
+| **Options** | (a) Copy key exports to `~/.bash_profile` which is read by login shells; (b) Create a `~/.env` file sourced from both; (c) Store credentials in VelaClaw config's credential fields. |
+| **Recommendation** | Option (a) or (b) — minimal change, no code dependency. |
+
+### VL-TRIAL-001-F: Update VelaClaw default config
+
+| Field | Value |
+|-------|-------|
+| **Type** | Config |
+| **File** | `~/.velaclaw/config.toml` |
+| **Current** | `default_provider = "deepseek/deepseek-v4-pro"` |
+| **Note** | Once NVIDIA v2 manifest is created, can set default to a cost-effective model like `nvidia/moonshotai/kimi-k2-instruct` or stay with DeepSeek. |
+
+### P3 — Polish
+
+### VL-TRIAL-001-G: Run `velaclaw onboard`
+
+Initialize workspace and confirm trial-ready config.
+
+### VL-TRIAL-001-H: Test all three call paths
+
+- Single-turn chat (`velaclaw agent -m "hello"`)
+- Streaming chat
+- Multi-turn conversation
+
+### VL-TRIAL-001-I: Test provider fallback
+
+Configure 2+ providers in fallback chain and verify automatic failover.
+
+---
+
+## Dependency Graph
+
+```
+VL-TRIAL-001-A (model name bug) ── blocks all provider testing
+    │
+    ├── VL-TRIAL-001-B (DeepSeek manifest) ─── only affects DeepSeek
+    ├── VL-TRIAL-001-C (NVIDIA v2 manifest) ─── only affects NVIDIA
+    ├── VL-TRIAL-001-D (AI_PROXY_URL) ─── needed for any external API
+    │
+    └── VL-TRIAL-001-E (key persistence) ─── manual export works for testing
+```
+
+**Minimum viable test**: VL-TRIAL-001-A + VL-TRIAL-001-D = DeepSeek works.
+
+**Full trial readiness**: VL-TRIAL-001-A + B + C + D + E.
+
+---
+
+## Context for Cursor
+
+### Environment
+
+| Key | Value |
+|-----|-------|
+| **VelaClaw repo root** | `/home/alex/velaclaw/` |
+| **Release binary** | `/home/alex/velaclaw/target/release/velaclaw` (16M, v0.2.0) |
+| **ai-protocol root** | `/home/alex/github/ailib-official/ai-protocol/` |
+| **Config file** | `~/.velaclaw/config.toml` |
+| **Proxy server** | `192.168.2.13:8887` |
+| **API keys** | OpenAI, DeepSeek in `~/.bashrc`; NVIDIA in `~/.openclaw/openclaw.json` |
+| **Git remotes** | `origin` → GitHub (ailib-official), `lan` → git-server.local |
+| **Mirror** | LAN git server at `git-server.local` — push there after each merge |
+
+### Current known-good curl test
+
+```bash
+curl -s -x http://192.168.2.13:8887 \
+  https://api.deepseek.com/v1/chat/completions \
+  -H "Authorization: Bearer $DEEPSEEK_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"deepseek-v4-pro","messages":[{"role":"user","content":"hi"}],"max_tokens":20}'
+```
+
+### Code location for VL-TRIAL-001-A
+
+`/home/alex/velaclaw/src/providers/protocol_adapter.rs`, lines ~180–225 (non-streaming)
+and lines ~400–410 (streaming). Look for `.model(&logical)` or `.model(&logical_model)` calls
+and remove them so the ChatRequestBuilder uses the default `client.model_id`.
+
+### Governance
+
+- ai-lib-constitution GOV-003 applies to all PRs
+- ai-lib-plans must be pushed to LAN mirror after each change
+- PRs go to `ailib-official/velaclaw` (not hiddenpath)

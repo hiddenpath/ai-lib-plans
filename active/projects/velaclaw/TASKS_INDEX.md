@@ -58,3 +58,9 @@
 | ZS-RN-001 | [tasks/ZS-RN-001-crate-name-and-code-rename.yaml](./tasks/ZS-RN-001-crate-name-and-code-rename.yaml) | `done` | — | Rust crate 名 zerospider → velaclaw + 全代码+CI；[PR #38](https://github.com/ailib-official/velaclaw/pull/38) (`36b9a5c`) |
 | ZS-RN-002 | [tasks/ZS-RN-002-docs-and-firmware-rename.yaml](./tasks/ZS-RN-002-docs-and-firmware-rename.yaml) | `done` | ZS-RN-001 | 文档 + firmware + Docker + scripts 全量更名；与 ZS-RN-001 同 PR 原子合并 |
 | ZS-RN-003 | [tasks/ZS-RN-003-repo-rename-and-external-refs.yaml](./tasks/ZS-RN-003-repo-rename-and-external-refs.yaml) | `done` | ZS-RN-001, ZS-RN-002 | GitHub 仓库改名 + 外部引用更新 + 最终审计；`zerospider`→`velaclaw`，plans 引用全更新 |
+
+## Trial Readiness — Provider 集成与核心里程碑（2026-06-09 新增）
+
+| ID | 文件 | 状态 | 依赖 | 说明 |
+|----|------|:----:|:----:|------|
+| VL-TRIAL-001 | [tasks/VL-TRIAL-001-trial-readiness.yaml](./tasks/VL-TRIAL-001-trial-readiness.yaml) | `draft` | — | VelaClaw 正式测试启动 — 模型名 bug 修复、DeepSeek/NVIDIA manifest 更新、代理与凭证配置；含 9 个子项 A–I，详见 YAML。 |
