@@ -59,7 +59,7 @@ testing:
     - "VL-TRIAL-001-D: AI_PROXY_URL=http://192.168.2.13:8887 verified via curl (deepseek-v4-pro)"
     - "VL-TRIAL-001-E: DEEPSEEK/NVIDIA/OPENAI keys present; AI_PROTOCOL_DIR set via setx"
     - "VL-TRIAL-001-F: ~/.velaclaw/config.toml seeded (deepseek/deepseek-v4-pro default)"
-    - "VL-TRIAL-001-G/H/I: Linux smoke pending — see velaclaw/docs/trial-readiness.md"
+    - "VL-TRIAL-001-G/H/I: Linux smoke pending — see ai-lib-plans active/projects/velaclaw/docs/TRIAL_READINESS_SMOKE.md"
 
 blocked_by: []
 blocks: []
