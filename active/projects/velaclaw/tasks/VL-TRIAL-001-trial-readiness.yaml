@@ -1,10 +1,10 @@
 ---
 id: "VL-TRIAL-001"
 title: "VelaClaw Trial Readiness — Provider Integration & Core Fixes"
-status: "draft"
+status: "in_progress"
 priority: "critical"
 executor_name: "cursor-agent"
-executor_terminal: "cursor-shell"
+executor_terminal: "cursor-shell-2"
 assignee: "@tbd"
 project: "velaclaw"
 milestone: "trial-readiness"
@@ -24,6 +24,7 @@ description: |
   Build output: `/home/alex/velaclaw/target/release/velaclaw` (16M, v0.2.0).
   ai-protocol checkout: `/home/alex/github/ailib-official/ai-protocol/`.
   VelaClaw repo: `/home/alex/velaclaw/`.
+  Windows dev path: `d:\rustapp\velaclaw` (build requires MSVC or Linux).
 
 acceptance_criteria:
   - "velaclaw agent -m 'hello' returns a valid AI response via DeepSeek (deepseek-v4-pro)"
@@ -36,9 +37,9 @@ pr:
   repo: "ailib-official/velaclaw"
   branch_pattern: "fix/vl-trial-001-*"
   merge_target: "main"
-  branch: "TBD"
-  url: ""
-  compare_url: ""
+  branch: "fix/vl-trial-001-model-passing"
+  url: "https://github.com/ailib-official/velaclaw/pull/50"
+  compare_url: "https://github.com/ailib-official/velaclaw/compare/main...fix/vl-trial-001-model-passing"
   merge_commit: ""
 
 testing:
@@ -53,8 +54,11 @@ testing:
     - "NVIDIA v2 manifest PR merged to ai-protocol (dist/v2/providers/nvidia.json)"
     - "DeepSeek model manifest updated in ai-protocol"
   evidence_current:
-    - "Local manifest patches exist but not committed"
-    - "Config file at ~/.velaclaw/config.toml has placeholder model IDs"
+    - "VL-TRIAL-001-A: PR #50 open — protocol_adapter.rs fix + trial docs"
+    - "VL-TRIAL-001-B/C: ai-protocol PR #7 open — DeepSeek V4 + nvidia v2 dist"
+    - "VL-TRIAL-001-D: curl via AI_PROXY_URL verified on Windows (deepseek-v4-pro OK)"
+    - "VL-TRIAL-001-F: ~/.velaclaw/config.toml seeded from dev/config.trial.toml.example"
+    - "VL-TRIAL-001-G/H/I: blocked on Linux release build + PR merge"
 
 blocked_by: []
 blocks: []

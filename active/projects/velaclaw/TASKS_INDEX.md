@@ -63,4 +63,4 @@
 
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|:----:|:----:|------|
-| VL-TRIAL-001 | [tasks/VL-TRIAL-001-trial-readiness.yaml](./tasks/VL-TRIAL-001-trial-readiness.yaml) | `draft` | — | VelaClaw 正式测试启动 — 模型名 bug 修复、DeepSeek/NVIDIA manifest 更新、代理与凭证配置；含 9 个子项 A–I，详见 YAML。 |
+| VL-TRIAL-001 | [tasks/VL-TRIAL-001-trial-readiness.yaml](./tasks/VL-TRIAL-001-trial-readiness.yaml) | `in_progress` | — | VelaClaw 正式测试 — [PR #50](https://github.com/ailib-official/velaclaw/pull/50) + [ai-protocol #7](https://github.com/ailib-official/ai-protocol/pull/7)；子项 A–I 见 YAML |
