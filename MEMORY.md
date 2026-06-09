@@ -18,7 +18,7 @@
 ## Product cadence — matrix vs validation vs tooling (2026-05-07)
 
 - **主线**：多运行时 **合规矩阵** 与 **协议/运行时代码演进**（治理能力、语义对齐、WASM、文档）是工程主线。
-- **VelaClaw 迁移**（原 ZeroSpider，已更名 2026-05-13）：视为代码库 **成熟度验证**（消费者集成、BYOK、缺省路径），不是替代主线本身。
+- **VelaClaw 迁移**（原 ZeroSpider，已更名 2026-05-13）：ai-lib **消费者集成成熟度验证**（BYOK、protocol 缺省路径）已完成；**产品定位**为 Claw 生态 Rust-only 桌面/CLI agent SKU（与 **Vela** Web 客户端、`ailib-official/vela` 并列，见 `VELACLAW_PRODUCT_ALIGNMENT_2026-06.md`）。
 - **VelaClaw 执行模型（VL-ARCH-001，2026-06-09）**：Rust-only；BYOK 永远 `AiClient` 直连；prism-core **内嵌**（陌生 provider + 遥测）；**非**默认 HTTP Gateway 客户端；Py/TS 不在 VelaClaw 产品范围。真源：`active/projects/velaclaw/VL-ARCH-001-execution-strategy-boundary.md`。
 - **PR / CI / release 自动化**：工作中 **理顺协作与发版方法**，提高效率与可重复性；**不**等同于“产品已 ready”或“应自动升主版本”。
 
@@ -662,7 +662,7 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 - DESIGN.md 与代码 5 处偏差已同步
 - openclaw 修复 3 个关键 bug：router 双计数、key_id 硬编码、proxy 悬垂引用
 
-**VelaClaw 接入路径（2026-06-09 修订）**：EVO-0 BYOK 直连 → EVO-1 ExecutionHandle → EVO-2 内嵌 prism-core router → EVO-3 BYOK 遥测 → EVO-4 adapter 退役。任务见 `active/projects/velaclaw/VELACLAW_PHASE_EVO_PLAN_2026-06.md`。**不再**以 HTTP Gateway 为 Vela 主路径。
+**VelaClaw 接入路径（2026-06-09 修订）**：EVO-0 BYOK 直连 → EVO-1 ExecutionHandle → EVO-2 内嵌 prism-core router → EVO-3 BYOK 遥测 → EVO-4 adapter 退役。任务见 `active/projects/velaclaw/VELACLAW_PHASE_EVO_PLAN_2026-06.md`。**不再**以 HTTP Gateway 为 **VelaClaw** 主路径（Vela Web 客户端仍走 Prism HTTP，见 `vela/PR-V1-*`）。
 
 ## 2026-05-15 — Eos 部署自动化
 

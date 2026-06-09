@@ -24,6 +24,7 @@ acceptance_criteria:
   - "velaclaw/Cargo.toml optional dependency on prism-core with router feature"
   - "Unknown or routing=prism provider uses embedded router, not AiClient direct"
   - "BYOK-configured known providers still use AiClient (no regression)"
+  - "Scope limited to A-band P1 router/fallback; Prism Phase 2 smart routing (PT-073) out of scope"
   - "Documented in ai-lib-plans; no internal LAN/plans refs in public velaclaw docs"
   - "PR merged to ailib-official/velaclaw main"
 

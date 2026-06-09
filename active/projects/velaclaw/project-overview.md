@@ -5,7 +5,7 @@
 
 ## 定位
 
-- **Rust-only** 桌面/CLI agent（Claw 生态）
+- **Rust-only** 桌面/CLI agent（Claw 生态）— **SKU 独立于 Vela Web**（见 `VELACLAW_PRODUCT_ALIGNMENT_2026-06.md`）
 - **BYOK 永远直连** provider（`ai-lib-rust` + `ai-protocol`）
 - **陌生 provider** → 进程内嵌 `prism-core` router（非 HTTP Gateway 客户端）
 - **不** 服务 Python/TS agent SDK 需求（各语言用 `ai-lib-*` 自建 agent）
@@ -15,6 +15,7 @@
 | 文档 | 用途 |
 |------|------|
 | [VL-ARCH-001-execution-strategy-boundary.md](./VL-ARCH-001-execution-strategy-boundary.md) | 架构决策 ADR |
+| [VELACLAW_PRODUCT_ALIGNMENT_2026-06.md](./VELACLAW_PRODUCT_ALIGNMENT_2026-06.md) | 与三品牌/Prism/Vela 总体规划对照 |
 | [VELACLAW_PHASE_EVO_PLAN_2026-06.md](./VELACLAW_PHASE_EVO_PLAN_2026-06.md) | 下一阶段演进计划 |
 | [TASKS_INDEX.md](./TASKS_INDEX.md) | 任务队列 |
 | [docs/TRIAL_READINESS_SMOKE.md](./docs/TRIAL_READINESS_SMOKE.md) | 维护者冒烟（内网） |

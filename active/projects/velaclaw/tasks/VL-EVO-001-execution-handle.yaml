@@ -26,6 +26,7 @@ acceptance_criteria:
   - "ExecutionHandle (or equivalent) is the sole path from agent loop to ai-lib-rust for BYOK"
   - "No .model(provider/model) override anywhere in execution path"
   - "Config documents provider routing intent (byok vs prism) for VL-EVO-002"
+  - "BYOK credential resolution uses ai-lib PT-074 chain (no parallel credential table in VelaClaw)"
   - "cargo test -p velaclaw passes; clippy clean"
   - "PR merged to ailib-official/velaclaw main"
 

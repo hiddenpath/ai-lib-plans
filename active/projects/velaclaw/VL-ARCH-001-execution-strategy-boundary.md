@@ -15,7 +15,7 @@
 | D3 | **prism-core 进程内嵌** | Gateway **核心库**（prism-core A-band）以 **Cargo 依赖** 形式复用到 VelaClaw；**不是**默认 HTTP 客户端调 `ai-lib-gateway` |
 | D4 | **陌生 provider 走 Prism 路由** | 未配置 / 未 allowlist / manifest 不可用的 provider → 嵌入式 `prism-core` router（Prism 托管路由面） |
 | D5 | **BYOK 只上报调用记录** | BYOK 路径下 Prism 仅收 **usage/audit 遥测**，不托管用户 provider secret |
-| D6 | **ai-lib-gateway 独立产品** | Axum HTTP 壳面向 ToB / 外部 OpenAI-compatible 客户端；与 VelaClaw 内嵌执行 **并行存在**，非 Vela 主路径 |
+| D6 | **ai-lib-gateway 独立产品** | Axum HTTP 壳面向 ToB / **Vela Web** 等外部 OpenAI-compatible 客户端；与 VelaClaw 内嵌执行 **并行存在**，非 VelaClaw 主路径 |
 | D7 | **Python/TS 不在 VelaClaw 范围** | Py/TS 消费者各自用 `ai-lib-python` / `ai-lib-ts` 构建 agent；**不会**复用 VelaClaw Rust agent，VelaClaw 也不为 Py/TS 暴露 ABI |
 | D8 | **adapter 是技术债** | `ProtocolBackedProvider` 仅保留 trait 桥接职责，执行语义归 `AiClient` / 内嵌 prism-core；最终收敛为 `ExecutionHandle` 后删除重复层 |
 
@@ -95,8 +95,26 @@
 
 ---
 
-## 7. 引用
+## 8. 产品矩阵与双 BYOK（对照总体规划）
 
+**矩阵位置**：VelaClaw = **Claw 生态 A 层 agent SKU**（`ailib-official/velaclaw`），**不是** Vela 品牌 Web 客户端（`PR-V1-*` → Prism HTTP）。Eos = 浏览器 To C。详见 `VELACLAW_PRODUCT_ALIGNMENT_2026-06.md`。
+
+**两种 BYOK（并存、不混称）**：
+
+| 模式 | 产品 | 密钥 | 执行 |
+|------|------|------|------|
+| Client-local BYOK | **VelaClaw** | 本机 | AiClient 直连 |
+| Gateway-hosted BYOK | **Vela** / HTTP 客户端 | Gateway 配置（Prism Phase 2） | HTTP → Gateway |
+
+**HTTP 例外**：chat 不经 Gateway；**usage 遥测**（EVO-3）可 HTTP 至 Prism endpoint。
+
+**凭证**：BYOK 须走 PT-074 CredentialResolver 链，禁止 VelaClaw 平行 credential 表。
+
+---
+
+## 9. 引用
+
+- `active/projects/velaclaw/VELACLAW_PRODUCT_ALIGNMENT_2026-06.md`
 - `active/projects/velaclaw/VELACLAW_PHASE_EVO_PLAN_2026-06.md`
 - `active/projects/prism/docs/VELACLAW_MIGRATION_STAGES.md`（已按本 ADR 修订）
 - `active/projects/eos/CONTEXT_STRATEGY_BOUNDARY.md`（上下文策略层，与执行层正交）
