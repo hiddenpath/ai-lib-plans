@@ -99,12 +99,25 @@ P1-D  加固与生态        (并行/延后) quota、crates.io、Vela、PT-073
 |---------|------|----------|
 | **EOS-CI-001** | Eos CI 债务 | 与 Prism 并行，独立负责人 |
 | **PR-P1-012** | prism-core crates.io | P1-B 稳定 + P1-C 可选后 |
-| **PR-P1-016** | VelaClaw → prism-core | P1-B 后 |
+| **PR-P1-016** | VelaClaw 内嵌 prism-core（VL-EVO-*；非 HTTP Gateway 客户端） | P1-B 后 / 与 VL-EVO-001 并行 |
 | **PR-V1-001~003** | Vela demo | 依赖 **P1-B** 的 `/v1` API，非 006 |
 | **PT-073** | 协议 RC | 后台；Gate Phase 2 智能路由 |
 | **PR-PP-001/002** | Pack / 成本示例 | P1-C 之后 |
 
 ---
+
+## Eos Phase 2 协调（2026-06-04 建档）
+
+Eos 产品 Phase 2 任务已补齐，见 `active/projects/eos/PHASE2_PLAN.md` 与 `NEAR_TERM_EXECUTION_2026-06-P2.md`。
+
+| Eos 任务 | 与 Prism P1 关系 |
+|----------|------------------|
+| EOS-P2-002/003/006 | 无硬依赖，可与 P1-A/B 并行 |
+| EOS-P2-004 免费 tier | 复用 **PR-P1-011** ✅；admin 可选 **PR-P1-014** |
+| EOS-P2-005 集成 | 本地 POC 需 **PR-P1-002/008**；生产门控 **P1-C** |
+| EOS-CI-001 | 与 P1 并行，不进 Prism 关键路径 |
+
+**不变**：Prism P1 仍不改 Eos `/api/proxy`；香港机 ≠ Prism 生产。
 
 ## Eos 相关「仅需求清单」槽位（不排开发）
 
@@ -112,7 +125,9 @@ P1-D  加固与生态        (并行/延后) quota、crates.io、Vela、PT-073
 
 | 需求 ID | 描述 | 状态 |
 |---------|------|------|
-| EOS-REQ-??? | （示例）Eos 前端改指向 `api.prism.ailib.info` | `deferred` — 你安排时再开 |
+| EOS-REQ-P2-001 | Eos 前端改指向 `api.prism.ailib.info` | `deferred` — 见 EOS-P2-005 |
+| EOS-REQ-P2-002 | E2E sync crypto 协议与 Vela 共享 | `deferred` — 见 EOS-P2-003 |
+| EOS-REQ-P2-003 | 智能路由 auto 模式 | `deferred` — PT-073 + Prism Phase 2 |
 
 ---
 

@@ -68,6 +68,7 @@ completion_notes: |
   Both PRs merged to main. Windows dev cannot cargo-build (no MSVC link.exe); run
   `velaclaw agent` smoke on Linux (piubt) after git pull + cargo build --release.
   ai-protocol merge: dfb2ccca9b19947e31319c036735956511ba57d9.
+  Next phase: VL-EVO-001 per VL-ARCH-001 / VELACLAW_PHASE_EVO_PLAN_2026-06.md.
 ---
 
 # VelaClaw Trial Readiness — VL-TRIAL-001

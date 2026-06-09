@@ -1,0 +1,68 @@
+---
+id: "VL-EVO-002"
+title: "Embed prism-core router for unknown / Prism-routed providers"
+status: "draft"
+priority: "high"
+executor_name: ""
+executor_terminal: ""
+assignee: "@tbd"
+project: "velaclaw"
+milestone: "phase-evo-2"
+labels:
+  - "velaclaw"
+  - "prism-core"
+  - "routing"
+created: "2026-06-09"
+updated: "2026-06-09"
+description: |
+  Add in-process prism-core (router feature) as ExecutionBackend variant for providers
+  that are not BYOK-configured or explicitly routed via Prism. Per VL-ARCH-001 D3/D4.
+
+  NOT an HTTP client to ai-lib-gateway — library embed only.
+
+acceptance_criteria:
+  - "velaclaw/Cargo.toml optional dependency on prism-core with router feature"
+  - "Unknown or routing=prism provider uses embedded router, not AiClient direct"
+  - "BYOK-configured known providers still use AiClient (no regression)"
+  - "Documented in ai-lib-plans; no internal LAN/plans refs in public velaclaw docs"
+  - "PR merged to ailib-official/velaclaw main"
+
+pr:
+  repo: "ailib-official/velaclaw"
+  branch_pattern: "feat/vl-evo-002-*"
+  merge_target: "main"
+  branch: ""
+  url: ""
+  merge_commit: ""
+
+testing:
+  unit_tests:
+    - "Provider split: byok vs prism backend selection"
+  integration:
+    - "Configured prism-routed model completes chat (mock or staging)"
+  evidence: ""
+
+blocked_by: []
+blocks: ["VL-EVO-003"]
+
+depends_on: ["VL-EVO-001"]
+
+completion_notes: ""
+---
+
+# VL-EVO-002 — Embedded prism-core router
+
+## 参考
+
+- `VL-ARCH-001` §4 分流表
+- `active/projects/prism/docs/VELACLAW_MIGRATION_STAGES.md` EVO-2
+
+## 依赖
+
+- prism-core 依赖来源：eos workspace path 或 crates.io（跟踪 PR-P1-012）
+- PR-P1-016 修订范围与本任务对齐
+
+## 非目标
+
+- 启动独立 ai-lib-gateway 进程作为 VelaClaw 默认路径
+- Prism 托管用户 BYOK key（BYOK key 留本机）

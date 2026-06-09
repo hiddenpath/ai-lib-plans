@@ -19,6 +19,7 @@
 
 - **主线**：多运行时 **合规矩阵** 与 **协议/运行时代码演进**（治理能力、语义对齐、WASM、文档）是工程主线。
 - **VelaClaw 迁移**（原 ZeroSpider，已更名 2026-05-13）：视为代码库 **成熟度验证**（消费者集成、BYOK、缺省路径），不是替代主线本身。
+- **VelaClaw 执行模型（VL-ARCH-001，2026-06-09）**：Rust-only；BYOK 永远 `AiClient` 直连；prism-core **内嵌**（陌生 provider + 遥测）；**非**默认 HTTP Gateway 客户端；Py/TS 不在 VelaClaw 产品范围。真源：`active/projects/velaclaw/VL-ARCH-001-execution-strategy-boundary.md`。
 - **PR / CI / release 自动化**：工作中 **理顺协作与发版方法**，提高效率与可重复性；**不**等同于“产品已 ready”或“应自动升主版本”。
 
 ## Pre-v1.0 versioning and PT-073 scope (2026-05-07)
@@ -637,8 +638,10 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 
 **理由**：
 - eos-server 的核心逻辑（Axum proxy + libcurl 转发 + Provider 配置）是所有 ai-lib 应用共同需求
-- VelaClaw（原 ZeroSpider）迁移已完成，需要接入 Gateway；从 Eos 已验证代码出发比从零开始更高效
+- VelaClaw（原 ZeroSpider）ai-lib 迁移已完成；**执行模型**见 2026-06-09 VL-ARCH-001：BYOK 直连 ai-lib-rust，prism-core **进程内嵌**（非默认 HTTP Gateway）
 - prism-core 开源（A-band, Apache-2.0）符合 ai-lib 生态模式：基础层开源，商业策略逻辑闭源
+
+**VelaClaw 执行路径（VL-ARCH-001，2026-06-09）**：BYOK → `AiClient` 直连；陌生 provider → 内嵌 `prism-core` router；遥测 only → Prism usage。**废止**「VelaClaw Stage1 HTTP → ai-lib-gateway」作为产品主路径。Gateway HTTP 仍服务外部 ToB 客户端。详见 `active/projects/velaclaw/VL-ARCH-001-execution-strategy-boundary.md`。
 
 **仓库位置**：prism-core 当前在 Eos workspace `/home/alex/eos/crates/prism-core/`
 
@@ -659,7 +662,7 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 - DESIGN.md 与代码 5 处偏差已同步
 - openclaw 修复 3 个关键 bug：router 双计数、key_id 硬编码、proxy 悬垂引用
 
-**VelaClaw 接入路径**：最小(default proxy) → key-pool → router → full，增量式
+**VelaClaw 接入路径（2026-06-09 修订）**：EVO-0 BYOK 直连 → EVO-1 ExecutionHandle → EVO-2 内嵌 prism-core router → EVO-3 BYOK 遥测 → EVO-4 adapter 退役。任务见 `active/projects/velaclaw/VELACLAW_PHASE_EVO_PLAN_2026-06.md`。**不再**以 HTTP Gateway 为 Vela 主路径。
 
 ## 2026-05-15 — Eos 部署自动化
 
@@ -689,6 +692,27 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
   - **Eos（浏览器 WASM）**：WASM **无原生文件语义**；**任务图状态 + artifact 指针** 在逻辑层，字节落盘经 **宿主（IndexedDB / OPFS 等）** 或 Phase 3 的云同步；实现前见 `active/projects/eos/CONTEXT_STRATEGY_BOUNDARY.md`。
 
 **执行任务索引（计划中）**：`PT-075`（ai-protocol）、`ALR-P2-001`（ai-lib-rust 共享组装逻辑）、`EOS-P2-001`（Eos 浏览器宿主接入），按依赖顺序：`PT-075` → `ALR-P2-001` → `EOS-P2-001`。
+
+---
+
+## 2026-06-09 — VelaClaw 策略层 / 执行层边界（VL-ARCH-001）
+
+**动因**：VL-TRIAL-001 暴露 adapter 重复执行逻辑；产品决策明确 VelaClaw 永远 Rust-only、BYOK 直连、prism-core 内嵌而非 HTTP Gateway 客户端。
+
+**决策（摘要）**
+
+- **D1–D2**：Rust-only；BYOK → `AiClient` 直连 provider API，密钥不出本机
+- **D3–D4**：`prism-core` 以 Cargo 依赖内嵌；陌生 / `routing=prism` provider 走内嵌 router
+- **D5**：BYOK 仅上报 usage/audit 遥测，不上传 API key
+- **D6**：`ai-lib-gateway` HTTP 服务外部 ToB 客户端，与 VelaClaw 并行
+- **D7**：Python/TS 不在 VelaClaw 范围；各语言用 `ai-lib-python` / `ai-lib-ts` 自建 agent
+- **D8**：`ProtocolBackedProvider` 为技术债 → `ExecutionHandle` → adapter 退役（VL-EVO-004）
+
+**废止**：PR-P1-016 原「VelaClaw Stage1 HTTP → Gateway」作为 Vela 主路径。
+
+**任务链**：VL-TRIAL-001 ✅ → VL-EVO-001（ExecutionHandle）→ VL-EVO-002（内嵌 router）→ VL-EVO-003（遥测）→ VL-EVO-004（adapter 退役）。
+
+**真源**：`active/projects/velaclaw/VL-ARCH-001-execution-strategy-boundary.md`、`VELACLAW_PHASE_EVO_PLAN_2026-06.md`；Prism 侧 `VELACLAW_MIGRATION_STAGES.md` 已同步修订。
 
 ---
 

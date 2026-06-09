@@ -1,0 +1,73 @@
+---
+id: "VL-EVO-001"
+title: "ExecutionHandle abstraction — strategy/execution boundary in VelaClaw"
+status: "draft"
+priority: "high"
+executor_name: ""
+executor_terminal: ""
+assignee: "@tbd"
+project: "velaclaw"
+milestone: "phase-evo-1"
+labels:
+  - "velaclaw"
+  - "architecture"
+  - "execution-layer"
+created: "2026-06-09"
+updated: "2026-06-09"
+description: |
+  Introduce a unified in-process execution entry (ExecutionHandle) so the agent loop
+  delegates to AiClient for BYOK direct paths without ProtocolBackedProvider re-implementing
+  model naming, retry, or wire format. Per VL-ARCH-001 D1/D2/D8.
+
+  Strategy layer: session, tools, model selection, context shaping.
+  Execution layer: AiClient only in this task (Prism embed deferred to VL-EVO-002).
+
+acceptance_criteria:
+  - "ExecutionHandle (or equivalent) is the sole path from agent loop to ai-lib-rust for BYOK"
+  - "No .model(provider/model) override anywhere in execution path"
+  - "Config documents provider routing intent (byok vs prism) for VL-EVO-002"
+  - "cargo test -p velaclaw passes; clippy clean"
+  - "PR merged to ailib-official/velaclaw main"
+
+pr:
+  repo: "ailib-official/velaclaw"
+  branch_pattern: "feat/vl-evo-001-*"
+  merge_target: "main"
+  branch: ""
+  url: ""
+  merge_commit: ""
+
+testing:
+  unit_tests:
+    - "Routing config parsing (byok default)"
+    - "ExecutionHandle delegates to AiClient with correct model_id"
+  integration:
+    - "velaclaw agent -m hello (BYOK DeepSeek) after refactor"
+  evidence: ""
+
+blocked_by: []
+blocks: ["VL-EVO-002", "VL-EVO-004"]
+
+depends_on: ["VL-TRIAL-001"]
+
+completion_notes: ""
+---
+
+# VL-EVO-001 — ExecutionHandle
+
+## 参考
+
+- `VL-ARCH-001-execution-strategy-boundary.md` §2、§4
+- `VELACLAW_PHASE_EVO_PLAN_2026-06.md` EVO-1
+
+## 实现要点
+
+1. 定义 `ExecutionHandle` / `ExecutionBackend::Byok(Arc<AiClient>)`
+2. Agent loop 经 ExecutionHandle 调用，不再直接依赖 `ProtocolBackedProvider` 的 chat 路径
+3. Config schema 预留 `[routing]` 或 `provider_mode = "byok" | "prism"`（EVO-2 实现分流）
+4. 删除或隔离 `effective_model_id` 在执行路径上的任何残留
+
+## 非目标
+
+- 内嵌 prism-core（VL-EVO-002）
+- 遥测上报（VL-EVO-003）

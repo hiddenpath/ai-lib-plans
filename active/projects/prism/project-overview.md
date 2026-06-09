@@ -73,7 +73,7 @@ Phase 2+ optional path: integrate ai-lib-core ProtocolLoader / ExecutionMetadata
 | PR-P1-013 | DNS for api.prism.ailib.info | product | open | PR-P1-006 |
 | PR-P1-008 | 5 P0 Providers E2E verification | product | **completed** (P1-B local/CI) | PR-P1-002, PR-P1-003, PR-P1-005 |
 | PR-P1-012 | prism-core crates.io publish | library | open | PR-P1-008 |
-| PR-P1-016 | VelaClaw → prism-core incremental migration | product | **in_progress** | PR-P1-006, PR-V1-001 |
+| PR-P1-016 | VelaClaw embedded prism-core (VL-ARCH-001; not HTTP gateway client) | product | **in_progress** | PR-P1-005, VL-EVO-001 |
 
 ## Wave 2 Tasks (Productization Prelude)
 

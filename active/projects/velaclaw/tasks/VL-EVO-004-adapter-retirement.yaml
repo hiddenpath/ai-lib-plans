@@ -1,0 +1,57 @@
+---
+id: "VL-EVO-004"
+title: "Retire ProtocolBackedProvider execution duplication"
+status: "draft"
+priority: "medium"
+executor_name: ""
+executor_terminal: ""
+assignee: "@tbd"
+project: "velaclaw"
+milestone: "phase-evo-4"
+labels:
+  - "velaclaw"
+  - "refactor"
+  - "adapter-retirement"
+created: "2026-06-09"
+updated: "2026-06-09"
+description: |
+  Remove dead code and shrink ProtocolBackedProvider to pure trait/type bridging,
+  or remove protocol provider branch entirely once ExecutionHandle covers all paths.
+  Per VL-ARCH-001 D8.
+
+acceptance_criteria:
+  - "effective_model / effective_model_id removed or test-only"
+  - "No execution logic (retry, model override, manifest) in adapter module"
+  - "Provider trait impl is thin delegate to ExecutionHandle OR trait deprecated with migration note"
+  - "cargo test + clippy pass; PR merged to main"
+
+pr:
+  repo: "ailib-official/velaclaw"
+  branch_pattern: "feat/vl-evo-004-*"
+  merge_target: "main"
+  branch: ""
+  url: ""
+  merge_commit: ""
+
+testing:
+  unit_tests:
+    - "Existing protocol_adapter stream/tool tests still pass"
+  integration:
+    - "Full agent smoke unchanged from VL-TRIAL-001"
+  evidence: ""
+
+blocked_by: []
+blocks: []
+
+depends_on: ["VL-EVO-001", "VL-EVO-002"]
+
+completion_notes: ""
+---
+
+# VL-EVO-004 — Adapter retirement
+
+## 检查清单
+
+- [ ] Grep `protocol_adapter.rs` for `load_provider`, `.model(`, `retry`
+- [ ] Document remaining Provider trait rationale in module header (English + 中文)
+- [ ] Update public `docs/migration-legacy-to-protocol.md` if user-facing behavior changes

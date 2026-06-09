@@ -1,34 +1,41 @@
 id: PR-P1-016
-title: "VelaClaw incremental migration to prism-core"
+title: "VelaClaw embedded prism-core integration (revised from HTTP migration)"
 status: in_progress
 priority: P2
 project: prism
 phase: 1
 scope: product
-repo: "hiddenpath/eos (velaclaw)"
-depends_on: ["PR-P1-006", "PR-V1-001"]
+repo: "ailib-official/velaclaw"
+depends_on: ["PR-P1-005", "VL-EVO-001"]
 assignee: ""
 executor_name: "cursor-agent"
-executor_terminal: "terminal-prism-p1"
+executor_terminal: "cursor-shell-2"
 created: "2026-06-04"
-updated: "2026-06-05"
+updated: "2026-06-09"
 
 description: |
-  Per MEMORY.md: minimal(default proxy) → key-pool → router → full feature flags.
-  Track VelaClaw switching from direct provider calls to prism-core / Prism HTTP.
+  Revised 2026-06-09 per VL-ARCH-001: VelaClaw embeds prism-core (A-band) in-process
+  for unknown-provider routing and usage telemetry — NOT default HTTP client to
+  ai-lib-gateway. BYOK always uses ai-lib-rust AiClient direct.
+
+  Track cross-repo alignment: prism-core API stability, VelaClaw VL-EVO-* tasks.
+  Gateway HTTP product (PR-P1-002) remains for external clients only.
 
 acceptance_criteria:
-  - Documented migration stages with feature flag mapping
-  - At least stage 1 (proxy) integrated or scheduled with owner sign-off
+  - VELACLAW_MIGRATION_STAGES.md revised for embedded model (done 2026-06-09)
+  - VL-EVO-002 embed prism-core router merged or scheduled with evidence
+  - BYOK path unchanged (no regression from VL-TRIAL-001)
+  - No DOC-002 leak in public velaclaw docs for integration steps
 
 testing:
-  strategy: "velaclaw integration test against prism-core or Prism API"
-  evidence: ""
+  strategy: "VelaClaw VL-EVO integration + prism-core unit tests"
+  evidence: "See active/projects/velaclaw/tasks/VL-EVO-*.yaml"
 
 pr:
   url: ""
   merge_commit: ""
 
 completion_notes: |
-  Stage 0–4 migration table drafted in active/projects/prism/docs/VELACLAW_MIGRATION_STAGES.md.
-  Stage 1 (HTTP proxy to Prism gateway) blocked on PR-V1-001 Vela web skeleton + P1-C deploy.
+  2026-06-09: Superseded HTTP-first migration narrative. Stage doc rewritten;
+  execution plan in active/projects/velaclaw/VELACLAW_PHASE_EVO_PLAN_2026-06.md.
+  Depends on VL-EVO-001 before prism embed (VL-EVO-002).

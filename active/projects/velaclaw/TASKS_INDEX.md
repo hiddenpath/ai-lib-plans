@@ -63,4 +63,18 @@
 
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|:----:|:----:|------|
-| VL-TRIAL-001 | [tasks/VL-TRIAL-001-trial-readiness.yaml](./tasks/VL-TRIAL-001-trial-readiness.yaml) | `completed` | — | Trial readiness — [PR #50](https://github.com/ailib-official/velaclaw/pull/50) (`ee2a14b`) + [ai-protocol #7](https://github.com/ailib-official/ai-protocol/pull/7) (`dfb2ccc`); Linux smoke pending |
+| VL-TRIAL-001 | [tasks/VL-TRIAL-001-trial-readiness.yaml](./tasks/VL-TRIAL-001-trial-readiness.yaml) | `completed` | — | Trial — [PR #50](https://github.com/ailib-official/velaclaw/pull/50) + [ai-protocol #7](https://github.com/ailib-official/ai-protocol/pull/7); Linux smoke 见 [TRIAL_READINESS_SMOKE.md](./docs/TRIAL_READINESS_SMOKE.md) |
+
+## Phase EVO — 执行层演进（2026-06-09，VL-ARCH-001）
+
+主计划：**[VELACLAW_PHASE_EVO_PLAN_2026-06.md](./VELACLAW_PHASE_EVO_PLAN_2026-06.md)**  
+架构 ADR：**[VL-ARCH-001-execution-strategy-boundary.md](./VL-ARCH-001-execution-strategy-boundary.md)**
+
+| ID | 文件 | 状态 | 依赖 | 说明 |
+|----|------|:----:|:----:|------|
+| VL-EVO-001 | [tasks/VL-EVO-001-execution-handle.yaml](./tasks/VL-EVO-001-execution-handle.yaml) | `draft` | VL-TRIAL-001 | ExecutionHandle；策略/执行边界 |
+| VL-EVO-002 | [tasks/VL-EVO-002-embed-prism-router.yaml](./tasks/VL-EVO-002-embed-prism-router.yaml) | `draft` | VL-EVO-001 | 内嵌 prism-core router（非 HTTP Gateway） |
+| VL-EVO-003 | [tasks/VL-EVO-003-byok-telemetry.yaml](./tasks/VL-EVO-003-byok-telemetry.yaml) | `draft` | VL-EVO-001 | BYOK 调用记录遥测（无 key 上传） |
+| VL-EVO-004 | [tasks/VL-EVO-004-adapter-retirement.yaml](./tasks/VL-EVO-004-adapter-retirement.yaml) | `draft` | VL-EVO-001, 002 | ProtocolBackedProvider 执行逻辑退役 |
+
+**Prism 侧跟踪**：PR-P1-016 已修订为内嵌集成（见 `active/projects/prism/docs/VELACLAW_MIGRATION_STAGES.md`）。

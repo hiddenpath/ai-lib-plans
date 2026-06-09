@@ -1,0 +1,66 @@
+---
+id: "VL-EVO-003"
+title: "BYOK usage telemetry — call records to Prism without key upload"
+status: "draft"
+priority: "medium"
+executor_name: ""
+executor_terminal: ""
+assignee: "@tbd"
+project: "velaclaw"
+milestone: "phase-evo-3"
+labels:
+  - "velaclaw"
+  - "telemetry"
+  - "prism-core"
+created: "2026-06-09"
+updated: "2026-06-09"
+description: |
+  After BYOK direct calls via AiClient, emit UsageRecord-style telemetry to Prism
+  (provider, model, tokens, latency). No API key or prompt body in default mode.
+  Per VL-ARCH-001 D5.
+
+acceptance_criteria:
+  - "BYOK chat success triggers async usage record (configurable endpoint, can disable)"
+  - "Payload excludes provider API keys and message content by default"
+  - "Integration test or mock verifies record shape matches prism-core UsageRecord"
+  - "PR merged to ailib-official/velaclaw main"
+
+pr:
+  repo: "ailib-official/velaclaw"
+  branch_pattern: "feat/vl-evo-003-*"
+  merge_target: "main"
+  branch: ""
+  url: ""
+  merge_commit: ""
+
+testing:
+  unit_tests:
+    - "Telemetry payload redaction"
+    - "Disabled when config telemetry.enabled = false"
+  integration:
+    - "Mock Prism endpoint receives record after agent chat"
+  evidence: ""
+
+blocked_by: []
+blocks: []
+
+depends_on: ["VL-EVO-001"]
+
+completion_notes: ""
+---
+
+# VL-EVO-003 — BYOK telemetry
+
+## 配置（草案）
+
+```toml
+[telemetry]
+enabled = true
+endpoint = "https://api.prism.ailib.info/v1/usage"  # 或本地 staging
+# 默认不上传 prompt / key
+```
+
+## 非目标
+
+- 全量 prompt 日志（C-band / 合规 opt-in 另立项）
+- 替代 Prism 服务端 usage-tracking SQLite（服务端仍由 gateway/prism 产品负责）
