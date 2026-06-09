@@ -54,16 +54,20 @@ testing:
     - "NVIDIA v2 manifest PR merged to ai-protocol (dist/v2/providers/nvidia.json)"
     - "DeepSeek model manifest updated in ai-protocol"
   evidence_current:
-    - "VL-TRIAL-001-A: PR #50 open — protocol_adapter.rs fix + trial docs"
-    - "VL-TRIAL-001-B/C: ai-protocol PR #7 open — DeepSeek V4 + nvidia v2 dist"
-    - "VL-TRIAL-001-D: curl via AI_PROXY_URL verified on Windows (deepseek-v4-pro OK)"
-    - "VL-TRIAL-001-F: ~/.velaclaw/config.toml seeded from dev/config.trial.toml.example"
-    - "VL-TRIAL-001-G/H/I: blocked on Linux release build + PR merge"
+    - "VL-TRIAL-001-A: merged PR #50 (ee2a14b) — protocol_adapter.rs fix + trial docs"
+    - "VL-TRIAL-001-B/C: merged ai-protocol PR #7 (dfb2ccc) — DeepSeek V4 + nvidia v2 dist"
+    - "VL-TRIAL-001-D: AI_PROXY_URL=http://192.168.2.13:8887 verified via curl (deepseek-v4-pro)"
+    - "VL-TRIAL-001-E: DEEPSEEK/NVIDIA/OPENAI keys present; AI_PROTOCOL_DIR set via setx"
+    - "VL-TRIAL-001-F: ~/.velaclaw/config.toml seeded (deepseek/deepseek-v4-pro default)"
+    - "VL-TRIAL-001-G/H/I: Linux smoke pending — see velaclaw/docs/trial-readiness.md"
 
 blocked_by: []
 blocks: []
 
-completion_notes: ""
+completion_notes: |
+  Both PRs merged to main. Windows dev cannot cargo-build (no MSVC link.exe); run
+  `velaclaw agent` smoke on Linux (piubt) after git pull + cargo build --release.
+  ai-protocol merge: dfb2ccca9b19947e31319c036735956511ba57d9.
 ---
 
 # VelaClaw Trial Readiness — VL-TRIAL-001
