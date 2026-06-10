@@ -1,0 +1,139 @@
+---
+id: "VL-UI-002"
+title: "VelaClaw Web Chat UI — Phase 1: Gateway WebSocket + Chat REST API"
+status: "draft"
+priority: "medium"
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
+assignee: "@tbd"
+project: "velaclaw"
+milestone: "web-chat-ui"
+labels:
+  - "velaclaw"
+  - "ui"
+  - "websocket"
+  - "gateway"
+created: "2026-06-10"
+updated: "2026-06-10"
+description: |
+  Add WebSocket endpoint (`/ws`) and Chat REST API endpoint
+  (`POST /api/chat`) to VelaClaw's gateway, plus an independent
+  frontend app that provides a web chat interface.
+
+  This is Phase 1 of VL-UI-001 (Path 2: self-built frontend).
+  The owner confirmed the decision on 2026-06-10.
+
+  Multi-crate consideration: the new gateway routes should be
+  designed with future extraction into a separate crate in mind,
+  but can live in the single crate for Phase 1.
+
+acceptance_criteria:
+  - "GET /ws upgrades to WebSocket, accepts chat JSON messages, streams deltas back"
+  - "POST /api/chat accepts message array, returns full response with usage + cost"
+  - "Frontend SPA loads at GET / (or /chat), connects via WS, sends/receives messages"
+  - "Gateway build passes cargo build --release"
+
+pr:
+  repo: "ailib-official/velaclaw"
+  branch_pattern: "feat/vl-ui-002-*"
+  merge_target: "main"
+  branch: ""
+  url: ""
+  compare_url: ""
+  merge_commit: ""
+
+testing:
+  unit_tests: []
+  integration:
+    - "Manual: connect to /ws, sends chat request, verify streaming deltas"
+    - "Manual: POST /api/chat, verify JSON response with content + usage"
+    - "Manual: open browser to /, verify chat UI works end-to-end"
+  evidence_on_complete:
+    - "PR merged into ailib-official/velaclaw main"
+    - "Build succeeds (cargo build --release)"
+    - "Frontend assets included (via rust-embed or served)"
+
+blocked_by:
+  - "VL-UI-001"
+blocks: []
+
+completion_notes: ""
+---
+
+# VelaClaw Web Chat UI — Phase 1 — VL-UI-002
+
+## Scope
+
+### Backend — Gateway additions
+
+Add the following to `src/gateway/mod.rs` (or, if ready, to a new module):
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/chat` | POST | Non-streaming chat. Accepts `{ messages, provider?, temperature?, max_tokens? }`. Returns `{ id, content, usage, cost }`. |
+| `/ws` | GET (upgrade) | WebSocket for streaming chat. Client sends `{ type: "chat", messages, ... }`, server streams `{ type: "delta", content }` + `{ type: "done", usage, cost }`. |
+| `/` | GET | Serve frontend SPA (index.html). |
+
+Existing routes (`/health`, `/dashboard`, `/pair`, `/webhook`, etc.) remain unchanged.
+
+### Frontend
+
+A single-page chat application (framework TBD) that:
+
+1. Loads at the root URL of the gateway
+2. Connects via WebSocket to `/ws`
+3. Provides a text input + send button
+4. Displays streaming responses in real-time
+5. Shows conversation history (current session only; persistence in Phase 2)
+6. Shows model / provider selection (reads from available list)
+
+### Multi-crate readiness note
+
+Design the new code so that `AppState`, handler functions, and WebSocket
+session management can be easily extracted into `crates/velaclaw-gateway/`
+in a future phase.  Specifically:
+- Keep handler functions in their own module(s) under `src/gateway/`
+- Do not add new dependencies to the root `Cargo.toml` that would make
+  future extraction harder (prefer existing tokio + axum deps)
+- The SPA assets (HTML/JS/CSS) should be embeddable independently
+
+### Proposed API Contract
+
+**POST /api/chat**
+Request:
+```json
+{
+  "messages": [{"role": "user", "content": "hello"}],
+  "provider": "deepseek/deepseek-v4-pro",
+  "temperature": 0.7,
+  "max_tokens": 4096
+}
+```
+Response:
+```json
+{
+  "id": "chat_xxx",
+  "content": "Hello! How can I help?",
+  "usage": {"input_tokens": 10, "output_tokens": 5},
+  "cost": 0.000035
+}
+```
+
+**WebSocket /ws**
+Client → Server:
+```json
+{"type": "chat", "messages": [...], "provider": "..."}
+```
+Server → Client (streaming):
+```json
+{"type": "delta", "content": "Hello"}
+{"type": "delta", "content": "! How"}
+...
+{"type": "done", "usage": {...}, "cost": 0.000035}
+```
+
+### Open Decisions for Cursor Discussion
+
+1. Frontend framework: React / Vue / Svelte / vanilla JS / HTMX?
+2. Embed frontend assets via `rust-embed` at compile time, or serve from filesystem (dev) + embed (release)?
+3. Auth model for `/api/chat` and `/ws` (none for localhost? bearer token?)
