@@ -79,13 +79,17 @@
 
 **Prism 侧跟踪**：PR-P1-016 已修订为内嵌集成（见 `active/projects/prism/docs/VELACLAW_MIGRATION_STAGES.md`）。
 
-## Web Chat UI — Product规划与实现（2026-06-10 新增）
+## Web Chat UI — 本地控制面 + SPA（2026-06-10 新增，2026-06-11 优化）
 
-主计划：**[tasks/VL-UI-001-web-chat-ui-planning.yaml](./tasks/VL-UI-001-web-chat-ui-planning.yaml)**
+主计划：**[VELACLAW_PHASE_UI_PLAN_2026-06.md](./VELACLAW_PHASE_UI_PLAN_2026-06.md)**  
+决策记录：**[tasks/VL-UI-001-web-chat-ui-planning.yaml](./tasks/VL-UI-001-web-chat-ui-planning.yaml)**（Path 2 ✅）
 
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|:----:|:----:|------|
-| VL-UI-001 | [tasks/VL-UI-001-web-chat-ui-planning.yaml](./tasks/VL-UI-001-web-chat-ui-planning.yaml) | `draft` | — | Web Chat UI 产品规划与决策分析 — 两条路径评估，推荐自建前端三阶段交付；owner 确认 Path 2 |
-| VL-UI-002 | [tasks/VL-UI-002-web-chat-phase1.yaml](./tasks/VL-UI-002-web-chat-phase1.yaml) | `draft` | VL-UI-001 | Phase 1：Gateway 新增 WebSocket (/ws) + Chat API (POST /api/chat) + 独立前端 SPA；Cursor 评审后执行 |
-| VL-UI-003 | [tasks/VL-UI-003-web-chat-phase2.yaml](./tasks/VL-UI-003-web-chat-phase2.yaml) | `draft` | VL-UI-002 | Phase 2：Memory 浏览器 + Config 编辑器面板 + Gateway REST 端点 |
-| VL-UI-004 | [tasks/VL-UI-004-web-chat-phase3.yaml](./tasks/VL-UI-004-web-chat-phase3.yaml) | `draft` | VL-UI-002, VL-UI-003 | Phase 3：Cron 管理 + Tool 检查器 + Provider 切换面板，补完运维级 Dashboard |
+| VL-UI-001 | [tasks/VL-UI-001-web-chat-ui-planning.yaml](./tasks/VL-UI-001-web-chat-ui-planning.yaml) | `completed` | — | Path 1/2 分析；owner 确认 Path 2（自建前端） |
+| VL-UI-002 | [tasks/VL-UI-002-web-chat-phase1.yaml](./tasks/VL-UI-002-web-chat-phase1.yaml) | `draft` | VL-UI-001 | **Phase 1a**：Local Control API — `/api/chat`、`/ws`、`/api/providers`；走 agent loop（VL-ARCH-001） |
+| VL-UI-005 | [tasks/VL-UI-005-web-chat-phase1-frontend.yaml](./tasks/VL-UI-005-web-chat-phase1-frontend.yaml) | `draft` | VL-UI-002 | **Phase 1b**：Svelte SPA @ `/chat` + rust-embed |
+| VL-UI-003 | [tasks/VL-UI-003-web-chat-phase2.yaml](./tasks/VL-UI-003-web-chat-phase2.yaml) | `draft` | VL-UI-005 | **Phase 2**：会话持久化 + Memory + Config + onboard 向导 Web 化 |
+| VL-UI-004 | [tasks/VL-UI-004-web-chat-phase3.yaml](./tasks/VL-UI-004-web-chat-phase3.yaml) | `draft` | VL-UI-003 | **Phase 3**：Cron + Tools + Tool Approval 运维面板 |
+
+**与 EVO 并行**：VL-UI-002 可与 VL-EVO-001 并行；chat handler 在 ExecutionHandle 合入后切换实现，WS 合同不变。
