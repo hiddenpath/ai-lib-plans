@@ -1,0 +1,251 @@
+---
+id: "VL-UI-001"
+title: "VelaClaw Web Chat UI — Product Planning & Decision Analysis"
+status: "draft"
+priority: "medium"
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
+assignee: "@tbd"
+project: "velaclaw"
+milestone: "web-chat-ui"
+labels:
+  - "velaclaw"
+  - "ui"
+  - "dashboard"
+  - "product-planning"
+created: "2026-06-09"
+updated: "2026-06-10"
+description: |
+  VelaClaw currently has only a CLI interface (`velaclaw agent`) plus a
+  read-only monitoring dashboard at `GET /dashboard`.  This document
+  evaluates two paths to a full Web Chat UI and recommends a phased
+  independent-frontend approach.
+
+  Context: VelaClaw was forked from ZeroClaw v0.1.0 (1131 independent
+  commits since).  Upstream ZeroClaw later added `zeroclaw-gateway` crate
+  with a web dashboard for chat, memory browsing, config editing, cron
+  management, and tool inspection.  This feature was not present at fork
+  time (v0.1.0).
+
+acceptance_criteria:
+  - "Final decision on Path 1 vs Path 2 is made by owner"
+  - "If Path 2 selected: Phase 1 task breakdown is ready for Cursor"
+  - "Planning document is pushed to ai-lib-plans"
+
+pr:
+  repo: "hiddenpath/ai-lib-plans"
+  branch_pattern: "TBD"
+  merge_target: "main"
+  branch: ""
+  url: ""
+  compare_url: ""
+  merge_commit: ""
+
+testing:
+  integration: []
+  evidence_on_complete:
+    - "Decision documented in this task YAML"
+    - "Follow-up task YAML created for Phase 1 implementation"
+
+blocked_by: []
+blocks:
+  - "VL-UI-002"
+
+completion_notes: ""
+---
+
+# VelaClaw Web Chat UI — VL-UI-001
+
+## Background
+
+VelaClaw v0.3.0 is a pure-CLI application:
+- `velaclaw agent` — CLI chat
+- `velaclaw gateway` — HTTP gateway with minimal embedded monitoring dashboard
+
+The upstream project (ZeroClaw, `zeroclaw-labs/zeroclaw`) later added a full
+`zeroclaw-gateway` crate with a web dashboard for chat, memory, config, cron,
+and tools.  This feature did not exist at our fork point (v0.1.0).
+
+---
+
+## Current State
+
+|                       | VelaClaw v0.3.0              | ZeroClaw upstream (current)   |
+|-----------------------|------------------------------|-------------------------------|
+| Architecture          | Single crate (`velaclaw`)    | Multi-crate workspace         |
+| Gateway               | `src/gateway/mod.rs` (1.5KLOC) | `zeroclaw-gateway` crate    |
+| Routes                | health / metrics / dashboard / api / pair / webhook / WhatsApp / Linq / Nextcloud | + chat WS / config / cron / tools |
+| WebSocket             | None                         | Real-time chat streaming      |
+| Dashboard             | Inline const HTML, read-only | Full web dashboard            |
+| Independent commits   | 1131 since v0.1.0 fork       | Diverged independently        |
+
+---
+
+## Path 1: Sync `zeroclaw-gateway` Crate from Upstream
+
+### Pros
+
+- **Feature-complete** — chat, memory browser, config editor, cron manager,
+  tool inspector, all out of the box
+- **Zero UX design** — upstream product, no design decisions needed
+- **Architecture alignment** — if VelaClaw plans to adopt ZeroClaw's
+  multi-crate architecture, this is a one-shot migration
+
+### Cons
+
+- **Multi-crate refactor required** — VelaClaw is single-crate; upstream
+  gateway depends on `zeroclaw-runtime`, `zeroclaw-security`, etc.
+- **High code conflict** — VelaClaw gateway already has 1500+ lines of
+  custom code (axum rewrite, WhatsApp/Linq/Nextcloud webhooks, rate
+  limiter, idempotency middleware, pairing guard)
+- **Internal API mismatch** — `AppState`, `Provider` trait, `Config`
+  struct all differ from upstream; adaptation effort ≈ rewrite
+- **Ongoing maintenance burden** — must track upstream changes; every
+  merge risks conflict
+- **Upstream health unknown** — `zeroclaw-labs/zeroclaw` update
+  frequency and community activity not audited
+
+> **TL;DR: Not "add a crate" — it's "tear down the existing gateway and rebuild."**
+
+---
+
+## Path 2: Build Independent Frontend Against VelaClaw Gateway API
+
+### Pros
+
+- **Zero architecture refactor** — single crate stays, gateway only adds
+  routes + WebSocket, existing code untouched
+- **Full design autonomy** — UI/UX matches Vela/Prism branding
+- **Incremental delivery** — Phase 1: chat window → Phase 2: memory +
+  config → Phase 3: cron + tools
+- **API-first design** — REST + WebSocket contracts defined first;
+  frontend and backend developed and tested independently
+- **Prism-compatible** — same frontend can reconnect to Prism gateway
+  by changing `apiBase`
+- **Lightweight deployment** — static HTML/JS/CSS compiled by Vite,
+  embedded via `rust-embed`; gateway starts → UI available at `/`
+
+### Cons
+
+- **Higher initial effort** — API + frontend from scratch takes more time
+  than merging an existing crate
+- **Design decisions** — framework (React/Vue/Svelte?), bundler (Vite?),
+  embedding strategy (`rust-embed`?), WebSocket protocol (JSON-RPC? SSE?)
+  all need resolution
+- **Full-stack skillset** — backend adds WebSocket + chat handler;
+  frontend builds complete SPA
+
+> **TL;DR: Build our own product, not chase someone else's.**
+
+---
+
+## Decision Matrix
+
+| Dimension                  | Path 1: Sync upstream    | Path 2: Self-build       |
+|----------------------------|--------------------------|--------------------------|
+| Time to first delivery     | 🟢 Fast (if merge clean)  | 🟡 Needs iterations      |
+| Architecture change        | 🔴 Large (multi-crate)    | 🟢 Small (routes only)   |
+| Long-term maintenance      | 🔴 High (track upstream)  | 🟢 Low (self-contained)  |
+| Customization flexibility  | 🔴 Constrained by upstream| 🟢 Full autonomy          |
+| Prism compatibility        | 🔴 Needs further rework   | 🟢 Same API surface       |
+| Risk                       | 🔴 Upstream could stagnate| 🟡 Building from scratch  |
+
+---
+
+## Recommended Decision: Path 2 — Self-Built Frontend
+
+**Reasoning**: VelaClaw has evolved independently through 1131 commits.
+The gateway is already heavily customized.  Trying to merge an upstream
+crate that depends on a different internal architecture would cost more
+engineering effort than building a frontend from scratch — and leave us
+with a permanent maintenance burden tracking two diverging codebases.
+
+Owner confirmed this recommendation on 2026-06-10.
+
+> **Note**: The owner also noted that VelaClaw's single-crate architecture
+> cannot last forever — at the right time, the codebase must be expanded
+> into multiple crates.  This multi-crate readiness should be considered
+> when designing the Phase 1 gateway additions, so future crate-splitting
+> does not break the frontend API contract.
+
+The recommended phased approach:
+
+```
+Phase 1: Gateway adds WebSocket (/ws) + Chat API (POST /api/chat)
+         → Frontend: chat window, replacing CLI agent command
+         → Deliverable: usable Web Chat
+
+Phase 2: + Memory browser + Config editor panel
+         → Full daily-use interface
+
+Phase 3: + Cron manager + Tool inspector + Provider switcher
+         → Operations-grade dashboard
+```
+
+Each phase is independently deliverable.  Phase 1 alone unblocks all
+daily chat usage.
+
+---
+
+## Technical Details for Phase 1
+
+### Gateway additions (VelaClaw)
+
+```
+POST /api/chat           — non-streaming chat
+GET  /ws                 — WebSocket upgrade for streaming chat
+```
+
+### Frontend
+
+```
+Framework:  TBD (React / Vue / Svelte / vanilla JS)
+Bundler:    Vite
+Embedding:  rust-embed (compile to static assets, served by gateway)
+Protocol:   JSON over WebSocket for streaming, REST for metadata
+```
+
+### API Contract (proposed)
+
+**POST /api/chat**
+```json
+{
+  "messages": [{"role": "user", "content": "hello"}],
+  "provider": "deepseek/deepseek-v4-pro",
+  "temperature": 0.7,
+  "max_tokens": 4096
+}
+```
+Response:
+```json
+{
+  "id": "chat_xxx",
+  "content": "Hello! How can I help?",
+  "usage": {"input_tokens": 10, "output_tokens": 5},
+  "cost": 0.000035
+}
+```
+
+**WebSocket /ws**
+Client → Server:
+```json
+{"type": "chat", "messages": [...], "provider": "..."}
+```
+Server → Client (streaming):
+```json
+{"type": "delta", "content": "Hello"}
+{"type": "delta", "content": "! How"}
+...
+{"type": "done", "usage": {...}, "cost": 0.000035}
+```
+
+---
+
+## Open Decisions for Phase 1
+
+1. Frontend framework (React / Vue / Svelte / vanilla JS?)
+2. Embed in binary vs separate deployment?
+3. Auth model (none for localhost? API token?)
+4. Multi-crate readiness: should the new routes + WS handler live in a new
+   `crates/velaclaw-gateway/` crate right from Phase 1, or stay in the
+   single crate and be extracted later?

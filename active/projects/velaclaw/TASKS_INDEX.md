@@ -63,4 +63,13 @@
 
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|:----:|:----:|------|
-| VL-TRIAL-001 | [tasks/VL-TRIAL-001-trial-readiness.yaml](./tasks/VL-TRIAL-001-trial-readiness.yaml) | `completed` | — | Trial readiness — [PR #50](https://github.com/ailib-official/velaclaw/pull/50) (`ee2a14b`) + [ai-protocol #7](https://github.com/ailib-official/ai-protocol/pull/7) (`dfb2ccc`); Linux smoke pending |
+| VL-TRIAL-001 | [tasks/VL-TRIAL-001-trial-readiness.yaml](./tasks/VL-TRIAL-001-trial-readiness.yaml) | `completed` | — | Trial readiness — [PR #50](https://github.com/ailib-official/velaclaw/pull/50) (`ee2a14b`) + [ai-protocol #7](https://github.com/ailib-official/ai-protocol/pull/7) (`dfb2ccc`); DeepSeek smoke ✓ |
+
+## Web Chat UI — Product规划与实现（2026-06-10 新增）
+
+主计划：**[tasks/VL-UI-001-web-chat-ui-planning.yaml](./tasks/VL-UI-001-web-chat-ui-planning.yaml)**
+
+| ID | 文件 | 状态 | 依赖 | 说明 |
+|----|------|:----:|:----:|------|
+| VL-UI-001 | [tasks/VL-UI-001-web-chat-ui-planning.yaml](./tasks/VL-UI-001-web-chat-ui-planning.yaml) | `draft` | — | Web Chat UI 产品规划与决策分析 — 两条路径评估，推荐自建前端三阶段交付；owner 确认 Path 2 |
+| VL-UI-002 | [tasks/VL-UI-002-web-chat-phase1.yaml](./tasks/VL-UI-002-web-chat-phase1.yaml) | `draft` | VL-UI-001 | Phase 1：Gateway 新增 WebSocket (/ws) + Chat API (POST /api/chat) + 独立前端 SPA；Cursor 评审后执行 |
