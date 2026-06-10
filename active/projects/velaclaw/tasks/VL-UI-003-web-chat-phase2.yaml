@@ -1,0 +1,97 @@
+---
+id: "VL-UI-003"
+title: "VelaClaw Web Chat UI — Phase 2: Memory Browser & Config Editor"
+status: "draft"
+priority: "medium"
+executor_name: "cursor-agent"
+executor_terminal: "cursor-shell"
+assignee: "@tbd"
+project: "velaclaw"
+milestone: "web-chat-ui"
+labels:
+  - "velaclaw"
+  - "ui"
+  - "memory"
+  - "config"
+  - "gateway"
+created: "2026-06-10"
+updated: "2026-06-10"
+description: |
+  Phase 2 of VL-UI-001 (Path 2: self-built frontend).  Adds gateway
+  REST endpoints for memory browsing and config editing, plus frontend
+  panels in the SPA.  Phase 1 foundation (WebSocket + Chat API + frontend
+  SPA shell) is a prerequisite.
+
+acceptance_criteria:
+  - "GET /api/memory returns paginated memory entries with search support"
+  - "GET /api/config returns current config (with secrets masked)"
+  - "PUT /api/config accepts partial config updates"
+  - "Frontend has a memory browser tab and a config editor tab"
+  - "Memory search queries work through the frontend"
+  - "Config edits persist after gateway restart"
+  - "All added routes respect existing auth model from Phase 1"
+
+pr:
+  repo: "ailib-official/velaclaw"
+  branch_pattern: "feat/vl-ui-003-*"
+  merge_target: "main"
+  branch: ""
+  url: ""
+  compare_url: ""
+  merge_commit: ""
+
+testing:
+  unit_tests: []
+  integration:
+    - "Manual: query memory via GET /api/memory, verify pagination and search"
+    - "Manual: read config via GET /api/config, verify secrets are masked"
+    - "Manual: update config via PUT /api/config, verify persistence"
+    - "Manual: navigate memory browser and config editor tabs in frontend"
+  evidence_on_complete:
+    - "PR merged into ailib-official/velaclaw main"
+    - "Frontend tabs functional for memory and config"
+
+blocked_by:
+  - "VL-UI-002"
+blocks: []
+
+completion_notes: ""
+---
+
+# VelaClaw Web Chat UI — Phase 2 — VL-UI-003
+
+## Scope
+
+### Backend — Gateway REST endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/memory` | GET | List/query memory entries. Query params: `q` (search), `limit`, `offset`, `start_date`, `end_date`. |
+| `/api/memory/<id>` | GET | Single memory entry detail |
+| `/api/config` | GET | Return current config. Secrets masked (show `****` in place of actual values). |
+| `/api/config` | PUT | Update config. Accepts partial JSON patch. Validates before persisting. |
+| `/api/config/schema` | GET | Return config schema for form generation (field types, constraints, descriptions). |
+
+### Security considerations — config editing
+
+- Secrets (API keys, tokens) must NEVER be sent to the frontend
+- Config writes must validate against schema before persisting
+- Consider an audit log for config changes
+
+### Frontend additions
+
+1. **Memory browser tab**
+   - Search bar + paginated results list
+   - Entry detail view (click to expand)
+   - Date range filter
+
+2. **Config editor tab**
+   - Form rendered from schema (`GET /api/config/schema`)
+   - Read-only view with masked secrets (default)
+   - Edit mode with validation
+   - Save/cancel buttons
+
+### Multi-crate readiness
+
+Same principle as Phase 1: keep handler code in dedicated modules
+under `src/gateway/` for future extraction into `crates/velaclaw-gateway/`.

@@ -87,3 +87,5 @@
 |----|------|:----:|:----:|------|
 | VL-UI-001 | [tasks/VL-UI-001-web-chat-ui-planning.yaml](./tasks/VL-UI-001-web-chat-ui-planning.yaml) | `draft` | — | Web Chat UI 产品规划与决策分析 — 两条路径评估，推荐自建前端三阶段交付；owner 确认 Path 2 |
 | VL-UI-002 | [tasks/VL-UI-002-web-chat-phase1.yaml](./tasks/VL-UI-002-web-chat-phase1.yaml) | `draft` | VL-UI-001 | Phase 1：Gateway 新增 WebSocket (/ws) + Chat API (POST /api/chat) + 独立前端 SPA；Cursor 评审后执行 |
+| VL-UI-003 | [tasks/VL-UI-003-web-chat-phase2.yaml](./tasks/VL-UI-003-web-chat-phase2.yaml) | `draft` | VL-UI-002 | Phase 2：Memory 浏览器 + Config 编辑器面板 + Gateway REST 端点 |
+| VL-UI-004 | [tasks/VL-UI-004-web-chat-phase3.yaml](./tasks/VL-UI-004-web-chat-phase3.yaml) | `draft` | VL-UI-002, VL-UI-003 | Phase 3：Cron 管理 + Tool 检查器 + Provider 切换面板，补完运维级 Dashboard |
