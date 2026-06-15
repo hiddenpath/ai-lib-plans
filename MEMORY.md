@@ -3,7 +3,7 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-05-28
+**Last Updated**: 2026-06-15
 
 ---
 
@@ -770,7 +770,28 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 
 **代码**：hiddenpath/eos `299575a`（main 直推，无 PR）；单测 `nvidia_defaults_expose_verified_chat_models` 断言 GLM-5.1 不在默认列表。
 
-**说明**：GLM-5.1 仍可通过 manifest/配置扩展；默认列表只反映 HK 部署实测可用的 chat 模型。
+**说明**：GLM-5.1 仍可通过应用内部 overlay/配置扩展；默认列表只反映 HK 部署实测可用的 chat 模型。**公共 ai-protocol manifest 不得再写入 `source: eos` 或 hiddenpath 部署备注**（2026-06-15 治理收口，见 `ailib-official/ai-protocol` `docs/MANIFEST_AUTHORITY.md`）。
+
+## 2026-06-15 — ai-protocol Manifest 权威性治理（P0–P2）
+
+**原则**：`ailib-official/ai-protocol` 为公共协议唯一权威；应用（Eos、VelaClaw、gateway 等）不得要求 manifest 承载部署默认值、私有 provenance 或 hiddenpath 引用。
+
+**PR #8** (`feat/manifest-authority-governance`) — 合并 commit `bace67d`
+
+**已执行**：
+- 清除 v2 manifest 中 `verification.source: eos|velaclaw-trial` 及 `hiddenpath/eos` notes
+- `verification.source` 枚举：`official_documentation` | `api_probe` | `compliance_registry` | `provider_catalog`
+- `docs/MANIFEST_AUTHORITY.md` — protocol facts vs application overlay 规则文档
+- CI 门禁：`npm run gate:manifest-authority`（TEST-002 + ARCH-005），已接入 `validate.yml` + `gate-fullchain.js`
+- 合规测试用例：`tests/compliance/cases/01-protocol-loading/load-manifest-authority.yaml`
+- 任务：`ai-lib-plans` → PT-076 completed
+
+**Review**：
+- CI: governance-report ✅, validate ✅
+- 本地: `npm run validate` 106/106 ✅, `npm run gate:manifest-authority` 177 files PASS ✅
+- 架构: 向后兼容 schema 变更, 无 provider-specific 代码 (ARCH-001)
+
+**应用侧**：Eos 默认模型子集、HK smoke-test 结论保留在本 MEMORY 与 `hiddenpath/eos` 内部配置（`config.rs` overlay），不回写 public manifest。
 
 ## Infrastructure — LAN Git Server (192.168.2.22) 运维记忆 (2026-06-08)
 

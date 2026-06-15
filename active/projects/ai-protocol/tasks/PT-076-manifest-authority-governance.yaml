@@ -1,0 +1,37 @@
+---
+id: "PT-076"
+title: "Manifest Authority Governance (ARCH-005) — public provenance hygiene"
+status: "completed"
+completed: "2026-06-15"
+priority: "high"
+project: "ai-protocol"
+scope: "protocol governance"
+pr:
+  number: 8
+  repo: "ailib-official/ai-protocol"
+  merge_commit: "bace67d30c23dbd91394fe7890c530831fdf7455"
+description: |
+  Remove application-specific provenance from public v2 manifests and enforce
+  protocol-level governance via CI gate.
+
+deliverables:
+  - "docs/MANIFEST_AUTHORITY.md — protocol facts vs application overlay rule"
+  - "schemas/v2/metadata-model-entry.json — verification.source enum (4 values)"
+  - "scripts/gate-manifest-authority.js — CI gate (177 files, TEST-002 + provenance)"
+  - "scripts/gate-fullchain.js — wire authority gate into fullchain"
+  - "v2/providers/{nvidia,groq,openai,google,deepseek}.yaml — eos/velaclaw/hiddenpath stripped"
+  - "dist/v2/providers/{nvidia,groq,openai,google,deepseek}.json — regenerated"
+  - "tests/compliance/cases/01-protocol-loading/load-manifest-authority.yaml — compliance case"
+  - ".github/workflows/validate.yml — CI wired"
+  - "README.md, CHANGELOG.md, docs/CONTRIBUTING_PROVIDER.md — doc updates"
+
+rules_affected:
+  - "ARCH-005 (new): Public manifest authority — no app/deployment provenance in ailib-official/ai-protocol"
+  - "TEST-002: No hiddenpath URLs in manifest trees"
+  - "GOV-001: origin → ailib-official/ai-protocol"
+
+completion_notes: |
+  Merged via gh pr merge --squash. CI: governance-report ✅, validate ✅.
+  Local: npm run validate 106/106, npm run gate:manifest-authority 177 files PASS.
+  Follow-up: publish ARCH-005 rule in ai-lib-constitution on lan.
+---
