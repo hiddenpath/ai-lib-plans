@@ -34,4 +34,10 @@ completion_notes: |
   V2 Rust already had extra flatten; V1 ProtocolManifest aligned. Python/TS/Go already
   tolerated unknown fields (extra=allow / index signatures / yaml struct drop).
   Compliance load-023 locks contract; Rust runner honors expected.runtime_deserialize.
+  PRs merged: ai-protocol#9, ai-lib-rust#7, ai-lib-python#2, ai-lib-ts#2 (CI green).
+pr:
+  ai-protocol: 9
+  ai-lib-rust: 7
+  ai-lib-python: 2
+  ai-lib-ts: 2
 ---
