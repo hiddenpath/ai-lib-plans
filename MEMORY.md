@@ -3,7 +3,7 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-06-15
+**Last Updated**: 2026-06-17
 
 ---
 
@@ -793,6 +793,21 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 - 架构: 向后兼容 schema 变更, 无 provider-specific 代码 (ARCH-001)
 
 **应用侧**：Eos 默认模型子集、HK smoke-test 结论保留在本 MEMORY 与 `hiddenpath/eos` 内部配置（`config.rs` overlay），不回写 public manifest。
+
+## 2026-06-17 — Manifest 分发韧性（提案 Phase 1 / PT-077）
+
+**提案**：`active/proposals/manifest-distribution-resilience.md`（机场订阅模式经验：内容协商、未知字段容忍、`_meta` 带内通知）。
+
+**决策**：
+- **Phase 1 立即做**：未知字段容忍 — 与 `v2-alpha/spec.yaml` 已有 `unknown_fields: MUST be ignored` 对齐；不阻塞 PT-073 / PT-075。
+- **延后**：`Accept-Manifest` 请求头协商（下次 manifest 大版本迁移）；`_meta` 段（下次 schema 更新）。
+
+**已执行（PT-077）**：
+- `ai-protocol` 合规：`load-023` + fixture `mock-forward-compat-unknown-fields-v2.yaml`
+- `ai-lib-rust`：V1 `ProtocolManifest.extra`（`serde(flatten)`）与 V2 对齐；compliance `runtime_deserialize`
+- Python / TS / Go：已有 `extra=allow` / 宽松类型 / yaml 忽略未知键；补测试或合规接线
+
+**Review**：四运行时 forward-compat 用例通过；manifest 加字段不导致老 runtime 反序列化失败（ARCH-003）。
 
 ## Infrastructure — LAN Git Server (192.168.2.22) 运维记忆 (2026-06-08)
 

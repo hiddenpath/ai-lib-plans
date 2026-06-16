@@ -1,0 +1,37 @@
+---
+id: "PT-077"
+title: "Manifest Distribution Resilience — Phase 1 unknown field tolerance"
+status: "completed"
+completed: "2026-06-17"
+executor_name: "alex"
+executor_terminal: "cursor-agent"
+priority: "medium"
+project: "ai-protocol"
+scope: "cross-runtime forward compatibility"
+description: |
+  Phase 1 of active/proposals/manifest-distribution-resilience.md — ensure manifests
+  with future/unknown top-level keys do not break runtime deserialization across
+  four runtimes. Accept-Manifest negotiation and _meta in-band notices deferred.
+
+deliverables:
+  - "ai-protocol: compliance fixture mock-forward-compat-unknown-fields-v2.yaml"
+  - "ai-protocol: compliance case load-023 (runtime_deserialize flag)"
+  - "ai-lib-rust: ProtocolManifest extra flatten + compliance runtime_deserialize"
+  - "ai-lib-python: V2 forward-compat unit test"
+  - "ai-lib-ts: protocol_loading case wired"
+  - "ai-lib-go: protocol_loading via existing loader (yaml.v3 ignores unknown keys)"
+
+rules_affected:
+  - "ARCH-003: Cross-runtime consistency"
+  - "v2-alpha spec validation.unknown_fields"
+
+deferred:
+  - "Accept-Manifest header negotiation — next manifest major version"
+  - "_meta in-band deprecation segment — next schema update"
+
+completion_notes: |
+  Proposal triaged 2026-06-17: Phase 1 implemented without blocking PT-073/PT-075.
+  V2 Rust already had extra flatten; V1 ProtocolManifest aligned. Python/TS/Go already
+  tolerated unknown fields (extra=allow / index signatures / yaml struct drop).
+  Compliance load-023 locks contract; Rust runner honors expected.runtime_deserialize.
+---

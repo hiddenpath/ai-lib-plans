@@ -96,6 +96,13 @@ recently_completed_runtime_tasks:
     completed: "2026-06-15"
     notes: "PR #8 ailib-official/ai-protocol merge bace67d. CI + validate + gate pass. Eos/velaclaw/hiddenpath stripped from v2 manifests; MANIFEST_AUTHORITY.md; CI gate wired."
 
+  - id: "PT-077"
+    title: "Manifest Distribution Resilience — Phase 1 unknown field tolerance"
+    status: "completed"
+    completed: "2026-06-17"
+    task_file: "active/projects/ai-protocol/tasks/PT-077-manifest-unknown-field-tolerance.yaml"
+    notes: "Proposal manifest-distribution-resilience Phase 1. Compliance load-023; Rust V1 extra flatten; four-runtime tests. Accept-Manifest/_meta deferred."
+
   historical_tasks_note: |
   PT-001~PT-005 were early-stage placeholder entries created during v4 import.
   Their scope has been absorbed by subsequent waves (PT-006~PT-053).
