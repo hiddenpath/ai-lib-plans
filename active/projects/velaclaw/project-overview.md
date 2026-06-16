@@ -16,7 +16,8 @@
 |------|------|
 | [VL-ARCH-001-execution-strategy-boundary.md](./VL-ARCH-001-execution-strategy-boundary.md) | 架构决策 ADR |
 | [VELACLAW_PRODUCT_ALIGNMENT_2026-06.md](./VELACLAW_PRODUCT_ALIGNMENT_2026-06.md) | 与三品牌/Prism/Vela 总体规划对照 |
-| [VELACLAW_PHASE_EVO_PLAN_2026-06.md](./VELACLAW_PHASE_EVO_PLAN_2026-06.md) | 下一阶段演进计划 |
+| [VELACLAW_PHASE_EVO_PLAN_2026-06.md](./VELACLAW_PHASE_EVO_PLAN_2026-06.md) | 执行层演进计划 |
+| [VELACLAW_PHASE_UI_PLAN_2026-06.md](./VELACLAW_PHASE_UI_PLAN_2026-06.md) | Web Chat UI / 本地控制面三阶段 |
 | [TASKS_INDEX.md](./TASKS_INDEX.md) | 任务队列 |
 | [docs/TRIAL_READINESS_SMOKE.md](./docs/TRIAL_READINESS_SMOKE.md) | 维护者冒烟（内网） |
 | [ZEROSPIDER_AI_LIB_MIGRATION_PLAN.md](./ZEROSPIDER_AI_LIB_MIGRATION_PLAN.md) | 历史：ZS-ML 迁移（已完成） |
@@ -27,10 +28,12 @@
 |--------|------|
 | ZS-ML / ZS-RN | ✅ completed |
 | VL-TRIAL-001 | ✅ completed（Linux smoke 待执行） |
-| VL-EVO-001 ~ 004 | draft — 下一阶段 |
+| VL-EVO-001 ~ 004 | draft — 执行层演进 |
+| VL-UI-002 / 005 / 003 / 004 | draft — Web Chat UI（VL-UI-001 ✅） |
 
 ## 跨项目
 
+- **Vela**（`PR-V1-*`）：Web 客户端 → **Prism HTTP API**；与 VelaClaw 并行，不同 SKU
 - **Prism**：PR-P1-016 跟踪 VelaClaw 内嵌 prism-core（`active/projects/prism/docs/VELACLAW_MIGRATION_STAGES.md`）
 - **ai-protocol**：provider manifest 消费方
 - **ai-lib-gateway**：独立 HTTP 产品；**不是** VelaClaw 默认执行路径

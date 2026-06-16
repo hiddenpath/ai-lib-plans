@@ -1,10 +1,10 @@
 ---
 id: "VL-UI-004"
-title: "VelaClaw Web Chat UI — Phase 3: Cron Manager, Tool Inspector & Provider Switcher"
+title: "VelaClaw Web Chat UI — Phase 3: Cron, Tools & Tool Approval Ops"
 status: "draft"
 priority: "low"
-executor_name: "cursor-agent"
-executor_terminal: "cursor-shell"
+executor_name: ""
+executor_terminal: ""
 assignee: "@tbd"
 project: "velaclaw"
 milestone: "web-chat-ui"
@@ -13,25 +13,26 @@ labels:
   - "ui"
   - "cron"
   - "tools"
-  - "provider"
+  - "approval"
   - "dashboard"
 created: "2026-06-10"
-updated: "2026-06-10"
+updated: "2026-06-11"
 description: |
-  Phase 3 of VL-UI-001 (Path 2: self-built frontend).  Adds gateway
-  REST endpoints for cron job management, tool inspection, and provider
-  switching, plus corresponding frontend panels.  This completes the
-  operations-grade dashboard.
+  Phase 3 of VL-UI-001.  Operations-grade panels: cron management, tool
+  catalog inspection, and in-chat tool approval UX (approval module).
+
+  Provider switching is handled in Phase 2 config — this phase adds
+  connectivity test and quick-switch UI only.
 
 acceptance_criteria:
-  - "GET /api/cron returns list of cron jobs with status"
-  - "POST /api/cron creates a new cron job"
-  - "DELETE /api/cron/<id> removes a cron job"
-  - "GET /api/tools returns list of available tools with descriptions"
-  - "GET /api/providers returns available providers and their status"
-  - "PUT /api/config/provider switches default provider"
-  - "Frontend has cron manager, tool inspector, and provider switcher tabs"
-  - "Cron job create/edit form validates schedule expression"
+  - "CRUD /api/cron/* matches existing cron store semantics"
+  - "GET /api/tools lists registered tools with JSON schema summaries"
+  - "POST /api/approvals/:id/respond approves or denies pending tool runs"
+  - "WebSocket emits approval_required; SPA shows modal and posts response"
+  - "Cron tab: list, create, delete, manual run"
+  - "Tools tab: read-only catalog"
+  - "Link to /dashboard for cost/runtime metrics (existing page)"
+  - "PR merged to ailib-official/velaclaw main"
 
 pr:
   repo: "ailib-official/velaclaw"
@@ -43,71 +44,42 @@ pr:
   merge_commit: ""
 
 testing:
-  unit_tests: []
   integration:
-    - "Manual: list/create/delete cron jobs via REST"
-    - "Manual: inspect tool list in frontend"
-    - "Manual: switch provider via frontend, verify subsequent chat uses new provider"
-    - "Manual: check cron job executes at scheduled time"
+    - "Manual: create cron job, trigger run, see result"
+    - "Manual: tool call requiring approval — approve via UI"
+    - "Manual: POST /api/providers/:id/test connectivity"
   evidence_on_complete:
     - "PR merged into ailib-official/velaclaw main"
-    - "All three frontend panels functional"
 
 blocked_by:
-  - "VL-UI-002"
   - "VL-UI-003"
 blocks: []
 
 completion_notes: ""
 ---
 
-# VelaClaw Web Chat UI — Phase 3 — VL-UI-004
+# VL-UI-004 — Phase 3
 
-## Scope
-
-### Backend — Gateway REST endpoints
+## Backend
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/cron` | GET | List cron jobs (id, name, schedule, last_run, next_run, status) |
-| `/api/cron` | POST | Create cron job `{ name, schedule, action, enabled }` |
-| `/api/cron/<id>` | GET | Single cron job detail |
-| `/api/cron/<id>` | PUT | Update cron job |
-| `/api/cron/<id>` | DELETE | Remove cron job |
-| `/api/cron/<id>/run` | POST | Trigger immediate run |
-| `/api/tools` | GET | List available tools (name, description, parameters, enabled) |
-| `/api/providers` | GET | List available providers with status (available, requires_key, configurable) |
-| `/api/providers/<id>/test` | POST | Test provider connectivity |
-| `/api/config/provider` | PUT | Switch default provider `{ provider, model }` |
+| `/api/cron` | GET, POST | List / create |
+| `/api/cron/:id` | GET, PUT, DELETE | Detail / update / delete |
+| `/api/cron/:id/run` | POST | Immediate run |
+| `/api/tools` | GET | Tool catalog (name, description, parameters) |
+| `/api/providers/:id/test` | POST | Connectivity smoke (no key in response) |
+| `/api/approvals/:id/respond` | POST | `{ approved: true/false }` |
 
-### Frontend additions
+**Removed** (vs original draft): `PUT /api/config/provider` — use Phase 2 `PUT /api/config` with `default_provider` / `default_model` fields.
 
-1. **Cron manager tab**
-   - Job list with status badges (active/paused/error)
-   - Create/edit form with schedule expression validator
-   - Manual run button per job
-   - Last run time + next run time display
-   - Delete with confirmation
+## Frontend
 
-2. **Tool inspector tab**
-   - Read-only list of available tools
-   - Expandable detail: description, parameters, return values
-   - Enable/disable toggle (if supported by backend)
+1. **Cron manager** — functional CRUD + run now
+2. **Tool inspector** — read-only
+3. **Approval modal** — wired to WS `approval_required`
+4. **Ops link** — prominent link to legacy `/dashboard` cost panel
 
-3. **Provider switcher tab**
-   - List of providers with availability status
-   - Current default provider highlighted
-   - Test connectivity button
-   - Provider switch confirmation
+## Multi-crate
 
-### UX/design notes
-
-- Phase 3 is primarily operational; keep UI functional rather than polished
-- The provider switcher should be prominent (quick-access, not buried in settings)
-- Cron management can be more detailed (JSON-based editor acceptable)
-
-### Multi-crate readiness
-
-By Phase 3, if multi-crate extraction is underway, these new endpoints
-should be added directly to `crates/velaclaw-gateway/` instead of
-`src/gateway/`.
+If `crates/velaclaw-gateway` extraction started, add endpoints there; else `src/gateway/ops_api.rs`.

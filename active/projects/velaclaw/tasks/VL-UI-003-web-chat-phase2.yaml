@@ -1,10 +1,10 @@
 ---
 id: "VL-UI-003"
-title: "VelaClaw Web Chat UI — Phase 2: Memory Browser & Config Editor"
+title: "VelaClaw Web Chat UI — Phase 2: Sessions, Memory Browser & Config Editor"
 status: "draft"
 priority: "medium"
-executor_name: "cursor-agent"
-executor_terminal: "cursor-shell"
+executor_name: ""
+executor_terminal: ""
 assignee: "@tbd"
 project: "velaclaw"
 milestone: "web-chat-ui"
@@ -13,23 +13,25 @@ labels:
   - "ui"
   - "memory"
   - "config"
-  - "gateway"
+  - "sessions"
 created: "2026-06-10"
-updated: "2026-06-10"
+updated: "2026-06-11"
 description: |
-  Phase 2 of VL-UI-001 (Path 2: self-built frontend).  Adds gateway
-  REST endpoints for memory browsing and config editing, plus frontend
-  panels in the SPA.  Phase 1 foundation (WebSocket + Chat API + frontend
-  SPA shell) is a prerequisite.
+  Phase 2 of VL-UI-001.  Server-side session list + client session restore,
+  memory browser, and safe config editor panels in the SPA.
+
+  Closes deferred wizard-interactive-fixup (ZS-ML-006): web-based AI_PROTOCOL_DIR
+  and provider setup flow — complementing CLI onboard.
 
 acceptance_criteria:
-  - "GET /api/memory returns paginated memory entries with search support"
-  - "GET /api/config returns current config (with secrets masked)"
-  - "PUT /api/config accepts partial config updates"
-  - "Frontend has a memory browser tab and a config editor tab"
-  - "Memory search queries work through the frontend"
-  - "Config edits persist after gateway restart"
-  - "All added routes respect existing auth model from Phase 1"
+  - "GET /api/sessions lists chat sessions; GET /api/sessions/:id returns messages"
+  - "POST /api/sessions creates session; messages append through chat API with session_id"
+  - "GET /api/memory returns paginated entries with search (q, limit, offset)"
+  - "GET /api/config returns config with secrets masked; PUT /api/config partial update with schema validation"
+  - "GET /api/config/schema returns schemars JSON for form generation"
+  - "SPA tabs: Chat (session sidebar), Memory, Settings"
+  - "Config PUT never accepts raw API key values — only env/keyring guidance fields"
+  - "PR merged to ailib-official/velaclaw main"
 
 pr:
   repo: "ailib-official/velaclaw"
@@ -41,57 +43,47 @@ pr:
   merge_commit: ""
 
 testing:
-  unit_tests: []
   integration:
-    - "Manual: query memory via GET /api/memory, verify pagination and search"
-    - "Manual: read config via GET /api/config, verify secrets are masked"
-    - "Manual: update config via PUT /api/config, verify persistence"
-    - "Manual: navigate memory browser and config editor tabs in frontend"
+    - "Manual: create session, reload /chat, history restored"
+    - "Manual: memory search via UI"
+    - "Manual: edit non-secret config field, restart daemon, value persists"
   evidence_on_complete:
     - "PR merged into ailib-official/velaclaw main"
-    - "Frontend tabs functional for memory and config"
 
 blocked_by:
-  - "VL-UI-002"
-blocks: []
+  - "VL-UI-005"
+blocks:
+  - "VL-UI-004"
 
 completion_notes: ""
 ---
 
-# VelaClaw Web Chat UI — Phase 2 — VL-UI-003
+# VL-UI-003 — Phase 2
 
-## Scope
-
-### Backend — Gateway REST endpoints
+## Backend endpoints
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/memory` | GET | List/query memory entries. Query params: `q` (search), `limit`, `offset`, `start_date`, `end_date`. |
-| `/api/memory/<id>` | GET | Single memory entry detail |
-| `/api/config` | GET | Return current config. Secrets masked (show `****` in place of actual values). |
-| `/api/config` | PUT | Update config. Accepts partial JSON patch. Validates before persisting. |
-| `/api/config/schema` | GET | Return config schema for form generation (field types, constraints, descriptions). |
+| `/api/sessions` | GET, POST | List / create chat sessions |
+| `/api/sessions/:id` | GET, DELETE | Session detail + messages; delete |
+| `/api/memory` | GET | Paginated memory (`q`, `limit`, `offset`, date filters) |
+| `/api/memory/:id` | GET | Single entry |
+| `/api/config` | GET, PUT | Masked read; validated partial write |
+| `/api/config/schema` | GET | schemars export for forms |
 
-### Security considerations — config editing
+## Security
 
-- Secrets (API keys, tokens) must NEVER be sent to the frontend
-- Config writes must validate against schema before persisting
-- Consider an audit log for config changes
+- Secrets: mask as `****`; PUT rejects fields that look like API keys
+- Audit log for config changes (tracing + optional file)
+- Memory API: redact credential patterns in content (reuse scrub_credentials)
 
-### Frontend additions
+## Frontend
 
-1. **Memory browser tab**
-   - Search bar + paginated results list
-   - Entry detail view (click to expand)
-   - Date range filter
+1. **Chat** — session sidebar, new/rename/delete session
+2. **Memory** — search, pagination, detail expand
+3. **Settings** — schema-driven form; link to env var names for BYOK keys
+4. **Onboard hints** — AI_PROTOCOL_DIR path picker + validate (wizard-interactive-fixup)
 
-2. **Config editor tab**
-   - Form rendered from schema (`GET /api/config/schema`)
-   - Read-only view with masked secrets (default)
-   - Edit mode with validation
-   - Save/cancel buttons
+## Moved from old Phase 3
 
-### Multi-crate readiness
-
-Same principle as Phase 1: keep handler code in dedicated modules
-under `src/gateway/` for future extraction into `crates/velaclaw-gateway/`.
+- Provider list detail view stays on GET `/api/providers` (VL-UI-002); Phase 2 adds **default model** edit via `/api/config` only

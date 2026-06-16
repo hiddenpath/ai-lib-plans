@@ -154,4 +154,4 @@ VL-ARCH-001「非默认 HTTP Gateway 客户端」指 **chat/completions 执行**
 | ai-lib 主线 | E-layer 开源 | VelaClaw 消费 ai-lib-rust | ✅ |
 | 成熟度验证 | 消费者集成验证 | 产品长期演进 | ✅ 语义澄清 |
 
-** verdict **：VL-ARCH-001 与总体产品规划 **无硬冲突**；主要风险是 **品牌命名（Vela vs VelaClaw）**、**双 BYOK 术语**、**BIZ-001 矩阵未收录 VelaClaw**。上述待办写入后即可进入 EVO-1 实现。
+**verdict**：VL-ARCH-001 与总体产品规划 **无硬冲突**；主要风险是 **品牌命名（Vela vs VelaClaw）**、**双 BYOK 术语**、**BIZ-001 矩阵未收录 VelaClaw**。上述待办写入后即可进入 EVO-1 实现。

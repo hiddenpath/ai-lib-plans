@@ -95,7 +95,7 @@
 
 ---
 
-## 8. 产品矩阵与双 BYOK（对照总体规划）
+## 7. 产品矩阵与双 BYOK（对照总体规划）
 
 **矩阵位置**：VelaClaw = **Claw 生态 A 层 agent SKU**（`ailib-official/velaclaw`），**不是** Vela 品牌 Web 客户端（`PR-V1-*` → Prism HTTP）。Eos = 浏览器 To C。详见 `VELACLAW_PRODUCT_ALIGNMENT_2026-06.md`。
 
@@ -112,7 +112,7 @@
 
 ---
 
-## 9. 引用
+## 8. 引用
 
 - `active/projects/velaclaw/VELACLAW_PRODUCT_ALIGNMENT_2026-06.md`
 - `active/projects/velaclaw/VELACLAW_PHASE_EVO_PLAN_2026-06.md`

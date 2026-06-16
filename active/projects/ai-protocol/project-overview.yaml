@@ -90,7 +90,13 @@ recently_completed_runtime_tasks:
     completed: "2026-04-21"
     task_file: "active/projects/ai-protocol/tasks/PT-066-ai-lib-go-generative-adaptation.yaml"
 
-historical_tasks_note: |
+  - id: "PT-076"
+    title: "Manifest Authority Governance (ARCH-005) — public provenance hygiene"
+    status: "completed"
+    completed: "2026-06-15"
+    notes: "PR #8 ailib-official/ai-protocol merge bace67d. CI + validate + gate pass. Eos/velaclaw/hiddenpath stripped from v2 manifests; MANIFEST_AUTHORITY.md; CI gate wired."
+
+  historical_tasks_note: |
   PT-001~PT-005 were early-stage placeholder entries created during v4 import.
   Their scope has been absorbed by subsequent waves (PT-006~PT-053).
   PT-001 (V2 schema) → subsumed by PT-014, PT-027, PT-057
