@@ -35,6 +35,6 @@ rules_affected:
 completion_notes: |
   Merged via gh pr merge --squash (PR #8, bace67d). CI: governance-report ✅, validate ✅.
   Local: npm run validate 106/106, npm run gate:manifest-authority 177 files PASS.
-  Post-merge: ARCH-005 rule committed to ai-lib-constitution and pushed to lan.
+  Post-merge: ARCH-005 rule committed to ai-lib-constitution (081bc81) and pushed to lan.
   Plans backfill: executor attribution + lan sync (GOV-004).
 ---
