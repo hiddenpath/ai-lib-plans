@@ -785,6 +785,7 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 - CI 门禁：`npm run gate:manifest-authority`（TEST-002 + ARCH-005），已接入 `validate.yml` + `gate-fullchain.js`
 - 合规测试用例：`tests/compliance/cases/01-protocol-loading/load-manifest-authority.yaml`
 - 任务：`ai-lib-plans` → PT-076 completed
+- 治理规则：`ai-lib-constitution` → **ARCH-005** `rules/architecture/ARCH-005-manifest-public-authority.yaml`（lan）
 
 **Review**：
 - CI: governance-report ✅, validate ✅

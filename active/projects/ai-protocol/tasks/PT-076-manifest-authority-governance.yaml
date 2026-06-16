@@ -3,6 +3,8 @@ id: "PT-076"
 title: "Manifest Authority Governance (ARCH-005) — public provenance hygiene"
 status: "completed"
 completed: "2026-06-15"
+executor_name: "alex"
+executor_terminal: "cursor-agent"
 priority: "high"
 project: "ai-protocol"
 scope: "protocol governance"
@@ -31,7 +33,8 @@ rules_affected:
   - "GOV-001: origin → ailib-official/ai-protocol"
 
 completion_notes: |
-  Merged via gh pr merge --squash. CI: governance-report ✅, validate ✅.
+  Merged via gh pr merge --squash (PR #8, bace67d). CI: governance-report ✅, validate ✅.
   Local: npm run validate 106/106, npm run gate:manifest-authority 177 files PASS.
-  Follow-up: publish ARCH-005 rule in ai-lib-constitution on lan.
+  Post-merge: ARCH-005 rule committed to ai-lib-constitution and pushed to lan.
+  Plans backfill: executor attribution + lan sync (GOV-004).
 ---
