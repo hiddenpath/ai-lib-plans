@@ -798,3 +798,10 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
     - `lan-git` $\rightarrow$ 映射至 `git@192.168.2.22`
     - `piubt` $\rightarrow$ 映射至 `pi@192.168.2.13`
 - **使用方式**: 直接使用 `ssh lan-git` 或 `ssh piubt` 即可进入服务器，无需输入密码。
+
+### 5. AI Agent 提权策略——sudoers 白名单 (2026-06-10)
+- **策略文件**: `/etc/sudoers.d/ai-agent` (需人工部署至 git-server 和生产环境)。
+- **设计原则**: 最小权限 + 命令白名单 + 参数校验。
+- **自动免密范围**: 只读查询（blkid/fdisk/df/dmesg/systemctl status/journalctl）、目录创建、权限修正。
+- **安全边界**: 挂载点/服务启停/Docker/apt/reboot 保留密码确认。
+- **部署方式**: `sudo cp /tmp/ai-agent-sudoers /etc/sudoers.d/ai-agent && sudo chmod 440 /etc/sudoers.d/ai-agent && sudo visudo -c`。
