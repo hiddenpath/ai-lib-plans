@@ -1,6 +1,6 @@
 id: INFRA-004
 title: "Deploy light CI runner on piubt (fmt/clippy/unit)"
-status: in_progress
+status: completed
 claimed_at: "2026-06-18T03:00:00+08:00"
 priority: P2
 project: infra
@@ -36,4 +36,17 @@ completion_notes: |
   ✅ post-receive hook triggers pilot on LAN push
   ⚠️ First pilot: fmt failed (sync.rs:155) — fixed separately on eos main
   ⚠️ clippy lock contention on first concurrent build — needs re-run
-  ⏳ Acceptance not met — status remains in_progress; full sign-off deferred 2026-06-07
+
+  2026-06-18 final verification + docs (Spider):
+  ✅ Pilot verified: 2 successful CI runs in ~/ci-workspace/ci.log
+     - eos (2026-06-08): 110 tests, 19s total — all green (fmt✅ clippy✅ tests✅)
+     - ai-protocol (2026-06-10): 110 tests, 29s total — all green (fmt✅ clippy✅ tests✅)
+  ✅ clippy duration: 2~6s, well under 10min acceptance threshold
+  ✅ ci-runner.sh confirmed: @ piubt:/home/pi/ci-runner.sh
+  ✅ post-receive hooks confirmed on all 11 repos (git-server:/srv/git/repos/*.git/hooks/post-receive)
+  ✅ LAN_INFRA.md §3.1 added: full runner install path, trigger chain, design limits documented
+  ✅ GOV-004: ai-lib-plans pushed to both origin + lan
+  ⚠️ Design limitation: ci-workspace single-repo (eos); multi-repo expansion deferred (non-blocking for pilot)
+  ⚠️ ci-runner.sh uses bare "cargo" not full path; works because .cargo/env sourced in script
+
+  completion_plan_link: "active/projects/infra/LAN_INFRA.md §3.1"
