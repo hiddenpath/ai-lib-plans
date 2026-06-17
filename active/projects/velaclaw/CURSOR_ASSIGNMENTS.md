@@ -26,7 +26,7 @@
 | 序号 | ID | 任务 | 优先级 | 前置依赖 | 状态 |
 |:----:|----|------|:------:|----------|:----:|
 | B-1 | **VL-UI-005** | Phase 1b: Svelte SPA @ `/chat` + rust-embed | 中 | VL-UI-002 ✅ | **✅ completed** |
-| B-2 | VL-UI-003 | Phase 2: 会话持久化 / Memory / Config 面板 | 中 | B-1 | draft |
+| B-2 | VL-UI-003 | Phase 2: 会话持久化 / Memory / Config 面板 | 中 | B-1 | ✅ completed ([PR #57](https://github.com/ailib-official/velaclaw/pull/57) `bc09cb8`) |
 | B-3 | VL-UI-004 | Phase 3: Cron / Tools / Tool Approval 运维面板 | 低 | B-2 | draft |
 
 **B-1 详细brief 见**：`tasks/VL-UI-005-web-chat-phase1-frontend.yaml`  
@@ -68,6 +68,7 @@ B 轨道：
 | VL-EVO-003 | `tasks/VL-EVO-003-byok-telemetry.yaml` | — |
 | VL-EVO-004 | `tasks/VL-EVO-004-adapter-retirement.yaml` | — |
 | VL-UI-005 | `tasks/VL-UI-005-web-chat-phase1-frontend.yaml` | VL-UI-002: PR #55 `7cb2528` |
+| VL-UI-003 | `tasks/VL-UI-003-web-chat-phase2.yaml` | [PR #57](https://github.com/ailib-official/velaclaw/pull/57) `bc09cb8` |
 | VL-UI-003 | `tasks/VL-UI-003-web-chat-phase2.yaml` | — |
 | VL-UI-004 | `tasks/VL-UI-004-web-chat-phase3.yaml` | — |
 

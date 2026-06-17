@@ -1,7 +1,7 @@
 ---
 id: "VL-UI-003"
 title: "VelaClaw Web Chat UI — Phase 2: Sessions, Memory Browser & Config Editor"
-status: "draft"
+status: "completed"
 priority: "medium"
 executor_name: ""
 executor_terminal: ""
@@ -15,7 +15,7 @@ labels:
   - "config"
   - "sessions"
 created: "2026-06-10"
-updated: "2026-06-11"
+updated: "2026-06-18"
 description: |
   Phase 2 of VL-UI-001.  Server-side session list + client session restore,
   memory browser, and safe config editor panels in the SPA.
@@ -37,10 +37,10 @@ pr:
   repo: "ailib-official/velaclaw"
   branch_pattern: "feat/vl-ui-003-*"
   merge_target: "main"
-  branch: ""
-  url: ""
-  compare_url: ""
-  merge_commit: ""
+  branch: "feat/vl-ui-003-phase2-sessions-memory-config"
+  url: "https://github.com/ailib-official/velaclaw/pull/57"
+  compare_url: "https://github.com/ailib-official/velaclaw/pull/57"
+  merge_commit: "bc09cb807e0d58f8d2e8e2b92d58b8d379e8cbb4"
 
 testing:
   integration:
@@ -55,7 +55,12 @@ blocked_by:
 blocks:
   - "VL-UI-004"
 
-completion_notes: ""
+completion_notes: |
+    Phase 2 implemented: ChatSessionStore (file-backed, UUID-keyed),
+    sessions/memory/config HTTP APIs with secret masking,
+    Svelte UI chat/memory/settings tabs.
+    PR #57 reviewed by Spider, CI fix (auto-title test) by Cursor.
+    Squash-merged by Spider bc09cb80.
 ---
 
 # VL-UI-003 — Phase 2
