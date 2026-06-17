@@ -1,10 +1,10 @@
 ---
 id: "VL-UI-002"
 title: "VelaClaw Web Chat UI — Phase 1a: Local Control API (REST + WebSocket)"
-status: "in_progress"
+status: "completed"
 priority: "medium"
-executor_name: "cursor-agent"
-executor_terminal: "agent-vl-ui-002"
+executor_name: "Spider"
+executor_terminal: "opencode"
 assignee: "@tbd"
 project: "velaclaw"
 milestone: "web-chat-ui"
@@ -15,7 +15,7 @@ labels:
   - "gateway"
   - "local-control-plane"
 created: "2026-06-10"
-updated: "2026-06-11"
+updated: "2026-06-17"
 description: |
   Phase 1a of VL-UI-001 (Path 2).  Add Local Control Plane endpoints to the
   existing VelaClaw gateway: non-streaming chat REST, WebSocket streaming,
@@ -44,7 +44,7 @@ pr:
   branch: "feat/vl-ui-002-local-control-api"
   url: "https://github.com/ailib-official/velaclaw/pull/55"
   compare_url: "https://github.com/ailib-official/velaclaw/compare/main...feat/vl-ui-002-local-control-api"
-  merge_commit: ""
+  merge_commit: "7cb2528"
 
 testing:
   unit_tests:
@@ -54,15 +54,29 @@ testing:
     - "Manual: POST /api/chat with bearer, BYOK provider configured"
     - "Manual: /ws streaming with deepseek or mock"
   evidence_on_complete:
-    - "PR merged into ailib-official/velaclaw main"
-    - "Test output attached in task YAML testing.evidence"
+    - "PR #55 merged into ailib-official/velaclaw main (squash commit 7cb2528)"
+    - "CI: rust-protocol-required check SUCCESS"
+    - "cargo fmt --check: PASS (zero output)"
+    - "cargo clippy: PASS (commit da9d429 fixes unused imports)"
+    - "cargo test: PASS (via CI)"
+    - "GOV-001: no hiddenpath URLs in new files"
+    - "No unsafe/unwrap/panic in new code"
+    - "No secret logging in new code"
+    - "VL-ARCH-001: Agent::from_config + turn (no Provider shortcut)"
 
 blocked_by:
   - "VL-UI-001"
 blocks:
   - "VL-UI-005"
 
-completion_notes: "PR #55 opened — Local Control API (POST /api/chat, GET /ws, GET /api/providers). Awaiting CI + merge."
+completion_notes: |
+  Squash-merged 2026-06-17. Review verdict: APPROVE with no critical issues.
+  - All VL-UI-002 acceptance criteria satisfied.
+  - Architecture: Agent::turn path (VL-ARCH-001 D6) — no Provider shortcut in gateway.
+  - Observer hooks deferred to VL-EVO-001 (known gap, acceptable per Phase 1 scope).
+  - apply_chat_overrides: bare model_id sets default_model but not default_provider; config fallback applies.
+  - WS_CHUNK_SIZE=48 (character-level UX adequate).
+  - PAT scope insufficient for gh pr review/comment; posted review report to /tmp/review_velaclaw.md (local).
 ---
 
 # VelaClaw Web Chat UI — Phase 1a — VL-UI-002
