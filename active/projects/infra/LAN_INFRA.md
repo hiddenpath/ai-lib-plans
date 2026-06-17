@@ -57,6 +57,45 @@
 - 公开发布的重型构建走 GitHub Actions，避免占用本地 CPU/内存影响 proxy。
 - CI Runner 安装在哪台 rpi 上不限制——仓库在 `git-server` 上，LAN 内网 1ms 延迟，克隆如同本地。
 
+### 3.1 轻量 CI Runner 安装路径
+
+**运行位置**：`piubt` (192.168.2.13)
+
+**组件**：
+
+| 组件 | 路径 | 说明 |
+|------|------|------|
+| CI 脚本 | `/home/pi/ci-runner.sh` | 接收 `(repo, refname)` 参数；仅 `main`/`master` 触发；依次执行 `cargo fmt --check` → `cargo clippy --all-targets` → `cargo test` |
+| CI 工作区 | `/home/pi/ci-workspace/` | `git clone` 自 `git-server.local`，脚本执行时 `git fetch origin main && git reset --hard` |
+| CI 日志 | `/home/pi/ci-workspace/ci.log` | 追加式时间戳日志；记录 fmt/clippy/test 的 ✅/❌ 结果 |
+| Rust 工具链 | `/home/pi/.cargo/bin/` | Rust 1.96.0 (2026-05-25)，含 cargo、rustc、clippy、rustfmt |
+
+**触发链路**：
+```
+git push lan → git-server post-receive hook
+  → ssh pi@192.168.2.13 "bash /home/pi/ci-runner.sh <repo> <refname>"
+  → ci-workspace: cargo fmt --check → clippy → test
+  → 结果写入 ci.log
+```
+
+**Hook 部署**：`git-server` 上每个仓库的 `hooks/post-receive` 均包含：
+```bash
+while read oldrev newrev refname; do
+    nohup ssh pi@192.168.2.13 "bash /home/pi/ci-runner.sh <REPO> $refname" > /dev/null 2>&1 &
+done
+exec /home/git/git-backup.sh real-time >> /home/git/git-backup.log 2>&1
+```
+
+**已验证**：
+- eos (2026-06-08): 35 + 27 + 48 = 110 tests, ~19s — ✅
+- ai-protocol (2026-06-10): 35 + 27 + 48 = 110 tests, ~29s — ✅
+- clippy 耗时 2~6s，远低于 10 分钟上限
+
+**设计限制**：
+- 当前 `ci-workspace` 指向 eos.git（pilot 阶段）；扩展至多仓需将 workspace 参数化（如 `~/ci-workspace/<repo>/`）
+- ci-runner.sh 仅处理 `main`/`master` 分支
+- 日志无自动轮转（文件级追加，当前 ~20KB）
+
 ## 4. 备份规则
 
 ### 4.1 架构

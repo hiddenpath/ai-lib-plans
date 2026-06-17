@@ -1,6 +1,7 @@
 id: INFRA-004
 title: "Deploy light CI runner on piubt (fmt/clippy/unit)"
-status: pending
+status: in_progress
+claimed_at: "2026-06-18T03:00:00+08:00"
 priority: P2
 project: infra
 phase: gov005-rollout
@@ -8,7 +9,7 @@ scope: ci
 repo: "piubt + eos (pilot)"
 depends_on: ["INFRA-003"]
 assignee: ""
-executor_name: "opencode"
+executor_name: "spider"
 executor_terminal: "opencode"
 created: "2026-06-05"
 updated: "2026-06-18"
