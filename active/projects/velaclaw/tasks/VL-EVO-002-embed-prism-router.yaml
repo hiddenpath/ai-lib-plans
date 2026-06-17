@@ -5,7 +5,7 @@ status: "draft"
 priority: "high"
 executor_name: ""
 executor_terminal: ""
-assignee: "@tbd"
+assignee: "@cursor"
 project: "velaclaw"
 milestone: "phase-evo-2"
 labels:

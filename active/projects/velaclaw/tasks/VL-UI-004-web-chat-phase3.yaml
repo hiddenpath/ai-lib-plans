@@ -5,7 +5,7 @@ status: "draft"
 priority: "low"
 executor_name: ""
 executor_terminal: ""
-assignee: "@tbd"
+assignee: "@cursor"
 project: "velaclaw"
 milestone: "web-chat-ui"
 labels:

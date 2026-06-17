@@ -1,11 +1,13 @@
 ---
 id: "VL-EVO-001"
 title: "ExecutionHandle abstraction — strategy/execution boundary in VelaClaw"
-status: "draft"
+status: "running"
+assigned_to: "cursor"
+started: "2026-06-17"
 priority: "high"
 executor_name: ""
 executor_terminal: ""
-assignee: "@tbd"
+assignee: "@cursor"
 project: "velaclaw"
 milestone: "phase-evo-1"
 labels:
