@@ -1,6 +1,6 @@
 id: INFRA-004
 title: "Deploy light CI runner on piubt (fmt/clippy/unit)"
-status: in_progress
+status: pending
 priority: P2
 project: infra
 phase: gov005-rollout
@@ -8,10 +8,10 @@ scope: ci
 repo: "piubt + eos (pilot)"
 depends_on: ["INFRA-003"]
 assignee: ""
-executor_name: "spider"
+executor_name: "opencode"
 executor_terminal: "opencode"
 created: "2026-06-05"
-updated: "2026-06-06"
+updated: "2026-06-18"
 
 description: |
   Per GOV-005 CI tiers: install self-hosted or scripted runner on piubt (or git-server)
