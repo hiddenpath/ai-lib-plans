@@ -1,11 +1,11 @@
 ---
 id: "VL-UI-005"
-title: "VelaClaw Web Chat UI — Phase 1b: Svelte SPA Frontend"
+title: "VelaClaw Web Chat UI — Phase 1b: Chat SPA (Svelte + rust-embed)"
 status: "completed"
 priority: "medium"
 executor_name: "cursor-agent"
-executor_terminal: "cursor-shell"
-assignee: "@tbd"
+executor_terminal: "agent-vl-ui-005"
+assignee: "@cursor"
 project: "velaclaw"
 milestone: "web-chat-ui"
 labels:
@@ -47,10 +47,12 @@ testing:
 blocked_by:
   - "VL-UI-002"
 blocks: []
+---
+PR #56 merged 2026-06-18.
 
-completion_notes: |
-  PR #56 merged 2026-06-18.  CI failures resolved:
-  1. cargo fmt (fixed by Cursor in 71935f9)
-  2. Cargo.lock out of date after dependabot merges (fixed by rebase)
-  Review: architecture/security/code all pass.  Svelte 5 + Vite + TypeScript,
-  292-line App.svelte with error handling, toast, WS reconnect, provider selector.
+CI issues resolved:
+1. cargo fmt → fixed by Cursor (71935f9)
+2. Cargo.lock out of date → fixed by rebase after dependabot merges
+
+Review: Svelte 5 SPA at /chat, rust-embed to binary.
+Architecture/security/code all pass.
