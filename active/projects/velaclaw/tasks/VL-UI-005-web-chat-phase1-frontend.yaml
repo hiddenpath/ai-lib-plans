@@ -1,10 +1,10 @@
 ---
 id: "VL-UI-005"
 title: "VelaClaw Web Chat UI — Phase 1b: Chat SPA (Svelte + rust-embed)"
-status: "draft"
+status: "in_progress"
 priority: "medium"
-executor_name: ""
-executor_terminal: ""
+executor_name: "cursor-agent"
+executor_terminal: "agent-vl-ui-005"
 assignee: "@cursor"
 project: "velaclaw"
 milestone: "web-chat-ui"
