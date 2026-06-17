@@ -1,10 +1,10 @@
 ---
 id: "VL-UI-002"
 title: "VelaClaw Web Chat UI — Phase 1a: Local Control API (REST + WebSocket)"
-status: "draft"
+status: "in_progress"
 priority: "medium"
-executor_name: ""
-executor_terminal: ""
+executor_name: "cursor-agent"
+executor_terminal: "agent-vl-ui-002"
 assignee: "@tbd"
 project: "velaclaw"
 milestone: "web-chat-ui"
@@ -41,9 +41,9 @@ pr:
   repo: "ailib-official/velaclaw"
   branch_pattern: "feat/vl-ui-002-*"
   merge_target: "main"
-  branch: ""
-  url: ""
-  compare_url: ""
+  branch: "feat/vl-ui-002-local-control-api"
+  url: "https://github.com/ailib-official/velaclaw/pull/55"
+  compare_url: "https://github.com/ailib-official/velaclaw/compare/main...feat/vl-ui-002-local-control-api"
   merge_commit: ""
 
 testing:
@@ -62,7 +62,7 @@ blocked_by:
 blocks:
   - "VL-UI-005"
 
-completion_notes: ""
+completion_notes: "PR #55 opened — Local Control API (POST /api/chat, GET /ws, GET /api/providers). Awaiting CI + merge."
 ---
 
 # VelaClaw Web Chat UI — Phase 1a — VL-UI-002

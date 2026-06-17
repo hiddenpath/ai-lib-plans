@@ -87,7 +87,7 @@
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|:----:|:----:|------|
 | VL-UI-001 | [tasks/VL-UI-001-web-chat-ui-planning.yaml](./tasks/VL-UI-001-web-chat-ui-planning.yaml) | `completed` | — | Path 1/2 分析；owner 确认 Path 2（自建前端） |
-| VL-UI-002 | [tasks/VL-UI-002-web-chat-phase1.yaml](./tasks/VL-UI-002-web-chat-phase1.yaml) | `draft` | VL-UI-001 | **Phase 1a**：Local Control API — `/api/chat`、`/ws`、`/api/providers`；走 agent loop（VL-ARCH-001） |
+| VL-UI-002 | [tasks/VL-UI-002-web-chat-phase1.yaml](./tasks/VL-UI-002-web-chat-phase1.yaml) | `in_progress` | VL-UI-001 | **Phase 1a**：Local Control API — `/api/chat`、`/ws`、`/api/providers`；PR [#55](https://github.com/ailib-official/velaclaw/pull/55) |
 | VL-UI-005 | [tasks/VL-UI-005-web-chat-phase1-frontend.yaml](./tasks/VL-UI-005-web-chat-phase1-frontend.yaml) | `draft` | VL-UI-002 | **Phase 1b**：Svelte SPA @ `/chat` + rust-embed |
 | VL-UI-003 | [tasks/VL-UI-003-web-chat-phase2.yaml](./tasks/VL-UI-003-web-chat-phase2.yaml) | `draft` | VL-UI-005 | **Phase 2**：会话持久化 + Memory + Config + onboard 向导 Web 化 |
 | VL-UI-004 | [tasks/VL-UI-004-web-chat-phase3.yaml](./tasks/VL-UI-004-web-chat-phase3.yaml) | `draft` | VL-UI-003 | **Phase 3**：Cron + Tools + Tool Approval 运维面板 |
