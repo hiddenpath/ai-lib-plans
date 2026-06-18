@@ -9,7 +9,7 @@ repo: "ailib-official/prism-core"
 depends_on: ["PR-P1-008"]
 assignee: "opencode-auto"
 executor_name: "opencode"
-executor_terminal: '"opencode"'
+executor_terminal: "opencode"
 claimed_at: ""
 created: "2026-06-04"
 updated: "2026-06-19"
