@@ -3,7 +3,7 @@
 > Long-term memory for the ai-lib ecosystem. Curated facts that persist across sessions.
 > See [memory/](memory/) for short-term daily logs. Flush important items here periodically.
 
-**Last Updated**: 2026-06-17
+**Last Updated**: 2026-06-11
 
 ---
 
@@ -713,6 +713,23 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 **任务链**：VL-TRIAL-001 ✅ → VL-EVO-001（ExecutionHandle）→ VL-EVO-002（内嵌 router）→ VL-EVO-003（遥测）→ VL-EVO-004（adapter 退役）。
 
 **真源**：`active/projects/velaclaw/VL-ARCH-001-execution-strategy-boundary.md`、`VELACLAW_PHASE_EVO_PLAN_2026-06.md`；Prism 侧 `VELACLAW_MIGRATION_STAGES.md` 已同步修订。
+
+---
+
+## 2026-06-11 — VelaClaw Rust crate 布局（VL-RUST-001，thin binary）
+
+**动因**：PR #58 排障 — `main.rs` 与 `lib.rs` 各维护 `mod` 树，同一源码编译两次；`lib.rs` 新增 `execution` 后 binary 未镜像 → `E0433`。
+
+**决策**：
+
+- **共享实现**：仅 `src/lib.rs` 维护模块树；`main.rs` 为 thin binary，`use velaclaw::{ ... }`。
+- **Binary-only**：`deploy`、`skillforge` 留在 `main.rs`；其子模块用 `velaclaw::` 访问 config 等。
+- **CLI 枚举**：在 lib `pub` 导出（`ServiceCommands`、`CronCommands` 等），禁止 main/lib 重复定义。
+- **禁止**：在 `main.rs` 再声明 `mod agent;` 等与 lib 镜像的模块（临时补 `mod execution` 类创可贴一律拒绝）。
+
+**新增模块**：只改 `lib.rs`；bin 需要则 `use velaclaw::new_mod`。
+
+**真源**：`active/projects/velaclaw/docs/VL-RUST-001-thin-binary-crate-layout.md`
 
 ---
 
