@@ -12,7 +12,7 @@
 
 | 序号 | ID | 任务 | 优先级 | 前置依赖 | 状态 |
 |:----:|----|------|:------:|----------|:----:|
-| A-1 | **VL-EVO-001** | ExecutionHandle 抽象（策略/执行边界） | **高** | VL-TRIAL-001 ✅ | **running** |
+| A-1 | **VL-EVO-001** | ExecutionHandle 抽象（策略/执行边界） | **高** | VL-TRIAL-001 ✅ | ✅ completed ([PR #58](https://github.com/ailib-official/velaclaw/pull/58) `e4ddf2a`) |
 | A-2 | VL-EVO-002 | 内嵌 prism-core router | 中 | A-1 + prism-core crates.io | draft |
 | A-3 | VL-EVO-003 | BYOK 调用记录遥测 | 中 | A-2 | draft |
 | A-4 | VL-EVO-004 | ProtocolBackedProvider 执行逻辑退役 | 中 | A-1, A-2 | draft |
@@ -63,7 +63,7 @@ B 轨道：
 
 | ID | 文件路径 | 合并参照 |
 |----|----------|----------|
-| VL-EVO-001 | `tasks/VL-EVO-001-execution-handle.yaml` | — |
+| VL-EVO-001 | `tasks/VL-EVO-001-execution-handle.yaml` | [PR #58](https://github.com/ailib-official/velaclaw/pull/58) `e4ddf2a` |
 | VL-EVO-002 | `tasks/VL-EVO-002-embed-prism-router.yaml` | — |
 | VL-EVO-003 | `tasks/VL-EVO-003-byok-telemetry.yaml` | — |
 | VL-EVO-004 | `tasks/VL-EVO-004-adapter-retirement.yaml` | — |

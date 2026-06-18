@@ -1,7 +1,7 @@
 ---
 id: "VL-EVO-001"
 title: "ExecutionHandle abstraction — strategy/execution boundary in VelaClaw"
-status: "running"
+status: "completed"
 assigned_to: "cursor"
 started: "2026-06-17"
 priority: "high"
@@ -15,7 +15,7 @@ labels:
   - "architecture"
   - "execution-layer"
 created: "2026-06-09"
-updated: "2026-06-09"
+updated: "2026-06-18"
 description: |
   Introduce a unified in-process execution entry (ExecutionHandle) so the agent loop
   delegates to AiClient for BYOK direct paths without ProtocolBackedProvider re-implementing
@@ -36,9 +36,9 @@ pr:
   repo: "ailib-official/velaclaw"
   branch_pattern: "feat/vl-evo-001-*"
   merge_target: "main"
-  branch: ""
-  url: ""
-  merge_commit: ""
+  branch: "feat/vl-evo-001-execution-handle"
+  url: "https://github.com/ailib-official/velaclaw/pull/58"
+  merge_commit: "e4ddf2aeb63553aae6bbc24a1aa4740d3f54be28"
 
 testing:
   unit_tests:
@@ -53,7 +53,13 @@ blocks: ["VL-EVO-002", "VL-EVO-004"]
 
 depends_on: ["VL-TRIAL-001"]
 
-completion_notes: ""
+completion_notes: |
+    PR #58: ExecutionHandle from_config → AiClient (BYOK).
+    ProtocolBackedProvider::from_client() wraps existing AiClient.
+    primary_override threads through provider chain.
+    Config: ExecutionRoutingConfig + ProviderRoutingMode (Byok|Prism).
+    #[cfg(feature = "ai-protocol")] guards for phased migration.
+    Reviewed by Spider (COMMENT), squash-merged by Spider e4ddf2ae.
 ---
 
 # VL-EVO-001 — ExecutionHandle
