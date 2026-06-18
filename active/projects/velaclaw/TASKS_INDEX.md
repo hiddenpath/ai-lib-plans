@@ -74,7 +74,7 @@
 |----|------|:----:|:----:|------|
 | VL-EVO-001 | [tasks/VL-EVO-001-execution-handle.yaml](./tasks/VL-EVO-001-execution-handle.yaml) | `completed` | VL-TRIAL-001 | ExecutionHandle；策略/执行边界 → cursor — [PR #58](https://github.com/ailib-official/velaclaw/pull/58) (`e4ddf2a`) |
 | VL-EVO-002 | [tasks/VL-EVO-002-embed-prism-router.yaml](./tasks/VL-EVO-002-embed-prism-router.yaml) | `draft` | VL-EVO-001 | 内嵌 prism-core router（非 HTTP Gateway） |
-| VL-EVO-003 | [tasks/VL-EVO-003-byok-telemetry.yaml](./tasks/VL-EVO-003-byok-telemetry.yaml) | `draft` | VL-EVO-001 | BYOK 调用记录遥测（无 key 上传） |
+| VL-EVO-003 | [tasks/VL-EVO-003-byok-telemetry.yaml](./tasks/VL-EVO-003-byok-telemetry.yaml) | `in_progress` | VL-EVO-001 | BYOK 调用记录遥测（无 key 上传）— 下一执行项 |
 | VL-EVO-004 | [tasks/VL-EVO-004-adapter-retirement.yaml](./tasks/VL-EVO-004-adapter-retirement.yaml) | `draft` | VL-EVO-001, 002 | ProtocolBackedProvider 执行逻辑退役 |
 
 **Prism 侧跟踪**：PR-P1-016 已修订为内嵌集成（见 `active/projects/prism/docs/VELACLAW_MIGRATION_STAGES.md`）。
@@ -90,6 +90,6 @@
 | VL-UI-002 | [tasks/VL-UI-002-web-chat-phase1.yaml](./tasks/VL-UI-002-web-chat-phase1.yaml) | `completed` | VL-UI-001 | **Phase 1a**：Local Control API — `/api/chat`、`/ws`、`/api/providers`；走 agent loop（VL-ARCH-001）；[PR #55](https://github.com/ailib-official/velaclaw/pull/55) (`7cb2528`) |
 | VL-UI-005 | [tasks/VL-UI-005-web-chat-phase1-frontend.yaml](./tasks/VL-UI-005-web-chat-phase1-frontend.yaml) | `completed` | VL-UI-002 | **Phase 1b**：Svelte SPA @ `/chat` + rust-embed — [PR #56](https://github.com/ailib-official/velaclaw/pull/56) (`9ae13f6`) |
 | VL-UI-003 | [tasks/VL-UI-003-web-chat-phase2.yaml](./tasks/VL-UI-003-web-chat-phase2.yaml) | `completed` | VL-UI-005 | **Phase 2**：会话持久化 + Memory + Config + onboard 向导 Web 化 — [PR #57](https://github.com/ailib-official/velaclaw/pull/57) (`bc09cb8`) |
-| VL-UI-004 | [tasks/VL-UI-004-web-chat-phase3.yaml](./tasks/VL-UI-004-web-chat-phase3.yaml) | `draft` | VL-UI-003 | **Phase 3**：Cron + Tools + Tool Approval 运维面板 |
+| VL-UI-004 | [tasks/VL-UI-004-web-chat-phase3.yaml](./tasks/VL-UI-004-web-chat-phase3.yaml) | `in_progress` | VL-UI-003 | **Phase 3**：Cron + Tools + Tool Approval — [PR #63](https://github.com/ailib-official/velaclaw/pull/63) |
 
 **与 EVO 并行**：VL-UI-002 可与 VL-EVO-001 并行；chat handler 在 ExecutionHandle 合入后切换实现，WS 合同不变。

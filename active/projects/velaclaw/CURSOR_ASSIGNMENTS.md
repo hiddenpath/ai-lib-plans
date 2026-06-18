@@ -13,8 +13,8 @@
 | 序号 | ID | 任务 | 优先级 | 前置依赖 | 状态 |
 |:----:|----|------|:------:|----------|:----:|
 | A-1 | **VL-EVO-001** | ExecutionHandle 抽象（策略/执行边界） | **高** | VL-TRIAL-001 ✅ | ✅ completed ([PR #58](https://github.com/ailib-official/velaclaw/pull/58) `e4ddf2a`) |
-| A-2 | VL-EVO-002 | 内嵌 prism-core router | 中 | A-1 + prism-core crates.io | draft |
-| A-3 | VL-EVO-003 | BYOK 调用记录遥测 | 中 | A-2 | draft |
+| A-2 | VL-EVO-002 | 内嵌 prism-core router | 中 | A-1 + prism-core crates.io | **blocked** (PR-P1-012 pending) |
+| A-3 | VL-EVO-003 | BYOK 调用记录遥测 | 中 | A-1 ✅ | **in_progress** → `feat/vl-evo-003-byok-telemetry` |
 | A-4 | VL-EVO-004 | ProtocolBackedProvider 执行逻辑退役 | 中 | A-1, A-2 | draft |
 
 **A-1 详细brief 见**：`tasks/VL-EVO-001-execution-handle.yaml`  
@@ -27,7 +27,7 @@
 |:----:|----|------|:------:|----------|:----:|
 | B-1 | **VL-UI-005** | Phase 1b: Svelte SPA @ `/chat` + rust-embed | 中 | VL-UI-002 ✅ | **✅ completed** |
 | B-2 | VL-UI-003 | Phase 2: 会话持久化 / Memory / Config 面板 | 中 | B-1 | ✅ completed ([PR #57](https://github.com/ailib-official/velaclaw/pull/57) `bc09cb8`) |
-| B-3 | VL-UI-004 | Phase 3: Cron / Tools / Tool Approval 运维面板 | 低 | B-2 | draft |
+| B-3 | VL-UI-004 | Phase 3: Cron / Tools / Tool Approval 运维面板 | 低 | B-2 | **in_progress** ([PR #63](https://github.com/ailib-official/velaclaw/pull/63)) |
 
 **B-1 详细brief 见**：`tasks/VL-UI-005-web-chat-phase1-frontend.yaml`  
 **UI 全景**：`VELACLAW_PHASE_UI_PLAN_2026-06.md`  

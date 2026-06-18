@@ -1,10 +1,10 @@
 ---
 id: "VL-UI-004"
 title: "VelaClaw Web Chat UI — Phase 3: Cron, Tools & Tool Approval Ops"
-status: "draft"
+status: "in_progress"
 priority: "low"
-executor_name: ""
-executor_terminal: ""
+executor_name: "alex"
+executor_terminal: "cursor-agent"
 assignee: "@cursor"
 project: "velaclaw"
 milestone: "web-chat-ui"
@@ -16,7 +16,7 @@ labels:
   - "approval"
   - "dashboard"
 created: "2026-06-10"
-updated: "2026-06-11"
+updated: "2026-06-19"
 description: |
   Phase 3 of VL-UI-001.  Operations-grade panels: cron management, tool
   catalog inspection, and in-chat tool approval UX (approval module).
@@ -38,9 +38,9 @@ pr:
   repo: "ailib-official/velaclaw"
   branch_pattern: "feat/vl-ui-004-*"
   merge_target: "main"
-  branch: ""
-  url: ""
-  compare_url: ""
+  branch: "feat/vl-ui-004-web-chat-phase3"
+  url: "https://github.com/ailib-official/velaclaw/pull/63"
+  compare_url: "https://github.com/ailib-official/velaclaw/compare/main...feat/vl-ui-004-web-chat-phase3"
   merge_commit: ""
 
 testing:

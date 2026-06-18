@@ -1,10 +1,10 @@
 ---
 id: "VL-EVO-003"
 title: "BYOK usage telemetry — call records to Prism without key upload"
-status: "draft"
+status: "in_progress"
 priority: "medium"
-executor_name: ""
-executor_terminal: ""
+executor_name: "alex"
+executor_terminal: "cursor-agent"
 assignee: "@cursor"
 project: "velaclaw"
 milestone: "phase-evo-3"
@@ -13,7 +13,7 @@ labels:
   - "telemetry"
   - "prism-core"
 created: "2026-06-09"
-updated: "2026-06-09"
+updated: "2026-06-19"
 description: |
   After BYOK direct calls via AiClient, emit UsageRecord-style telemetry to Prism
   (provider, model, tokens, latency). No API key or prompt body in default mode.
@@ -29,7 +29,7 @@ pr:
   repo: "ailib-official/velaclaw"
   branch_pattern: "feat/vl-evo-003-*"
   merge_target: "main"
-  branch: ""
+  branch: "feat/vl-evo-003-byok-telemetry"
   url: ""
   merge_commit: ""
 
