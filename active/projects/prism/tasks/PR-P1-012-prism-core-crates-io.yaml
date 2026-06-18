@@ -1,6 +1,6 @@
 id: PR-P1-012
 title: "Publish prism-core to crates.io (ailib-official/prism-core)"
-status: pending
+status: in_progress
 priority: P1
 project: prism
 phase: 1
@@ -10,7 +10,7 @@ depends_on: ["PR-P1-008"]
 assignee: "opencode-auto"
 executor_name: "opencode"
 executor_terminal: "opencode"
-claimed_at: ""
+claimed_at: "2026-06-19T00:00:00+08:00"
 created: "2026-06-04"
 updated: "2026-06-19"
 
