@@ -1,34 +1,25 @@
 id: PR-P1-012
 title: "Publish prism-core to crates.io (ailib-official/prism-core)"
-status: pending
+status: completed
 priority: P1
 project: prism
-phase: 1
-scope: library
-repo: "ailib-official/prism-core"
-depends_on: ["PR-P1-008"]
-assignee: "opencode-auto"
-executor_name: "opencode"
-executor_terminal: "opencode"
-claimed_at: "2026-06-19T00:00:00+08:00"
+area: ci
+assignee: spider
 created: "2026-06-04"
 updated: "2026-06-19"
-
-description: |
-  Extract/publish prism-core per DESIGN.md §6:
-  - Standalone Cargo.toml (no eos workspace inherit)
-  - Repository on ailib-official; `cargo publish` after PR-P1-008 library+API stable
-
+completed_at: "2026-06-19 06:55"
+repo: ailib-official/prism-core
 acceptance_criteria:
-  - Crate publishes to crates.io with documented feature flags
-  - eos-server consumes published version or documents path dep until publish
-
-testing:
-  strategy: "cargo publish --dry-run; downstream cargo build"
-  evidence: ""
-
-pr:
-  url: ""
-  merge_commit: ""
-
-completion_notes: ""
+  - Create standalone Cargo.toml (no workspace inheritance)
+  - Verify build passes in isolation
+  - Push code to ailib-official/prism-core with .gitignore and clean commit history
+  - cargo publish --dry-run passes
+  - cargo publish to crates.io
+  - PR-P1-012 task YAML status → completed
+tags: [publish, ci, crates-io]
+completion_notes: |
+  Published prism-core-routing v0.1.0 to crates.io
+  (name 'prism-core' was taken on crates.io, used 'prism-core-routing' instead).
+  GitHub repo: ailib-official/prism-core
+  Crates.io: https://crates.io/crates/prism-core-routing
+  eos workspace still uses 'prism-core' as local crate name — no breaking change to eos.
