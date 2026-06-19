@@ -90,6 +90,6 @@
 | VL-UI-002 | [tasks/VL-UI-002-web-chat-phase1.yaml](./tasks/VL-UI-002-web-chat-phase1.yaml) | `completed` | VL-UI-001 | **Phase 1a**：Local Control API — `/api/chat`、`/ws`、`/api/providers`；走 agent loop（VL-ARCH-001）；[PR #55](https://github.com/ailib-official/velaclaw/pull/55) (`7cb2528`) |
 | VL-UI-005 | [tasks/VL-UI-005-web-chat-phase1-frontend.yaml](./tasks/VL-UI-005-web-chat-phase1-frontend.yaml) | `completed` | VL-UI-002 | **Phase 1b**：Svelte SPA @ `/chat` + rust-embed — [PR #56](https://github.com/ailib-official/velaclaw/pull/56) (`9ae13f6`) |
 | VL-UI-003 | [tasks/VL-UI-003-web-chat-phase2.yaml](./tasks/VL-UI-003-web-chat-phase2.yaml) | `completed` | VL-UI-005 | **Phase 2**：会话持久化 + Memory + Config + onboard 向导 Web 化 — [PR #57](https://github.com/ailib-official/velaclaw/pull/57) (`bc09cb8`) |
-| VL-UI-004 | [tasks/VL-UI-004-web-chat-phase3.yaml](./tasks/VL-UI-004-web-chat-phase3.yaml) | `in_progress` | VL-UI-003 | **Phase 3**：Cron + Tools + Tool Approval — [PR #63](https://github.com/ailib-official/velaclaw/pull/63) |
+| VL-UI-004 | [tasks/VL-UI-004-web-chat-phase3.yaml](./tasks/VL-UI-004-web-chat-phase3.yaml) | `completed` | VL-UI-003 | **Phase 3**：Cron + Tools + Tool Approval — [PR #63](https://github.com/ailib-official/velaclaw/pull/63) (`e5b61d9`) ✅ |
 
 **与 EVO 并行**：VL-UI-002 可与 VL-EVO-001 并行；chat handler 在 ExecutionHandle 合入后切换实现，WS 合同不变。

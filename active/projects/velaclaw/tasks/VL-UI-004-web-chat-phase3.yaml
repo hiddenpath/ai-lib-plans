@@ -1,7 +1,7 @@
 ---
 id: "VL-UI-004"
 title: "VelaClaw Web Chat UI — Phase 3: Cron, Tools & Tool Approval Ops"
-status: "in_progress"
+status: "completed"
 priority: "low"
 executor_name: "alex"
 executor_terminal: "cursor-agent"
@@ -41,7 +41,7 @@ pr:
   branch: "feat/vl-ui-004-web-chat-phase3"
   url: "https://github.com/ailib-official/velaclaw/pull/63"
   compare_url: "https://github.com/ailib-official/velaclaw/compare/main...feat/vl-ui-004-web-chat-phase3"
-  merge_commit: ""
+  merge_commit: "e5b61d9c872c7cdd11b92270ddc2422f2c18f830"
 
 testing:
   integration:
@@ -50,12 +50,14 @@ testing:
     - "Manual: POST /api/providers/:id/test connectivity"
   evidence_on_complete:
     - "PR merged into ailib-official/velaclaw main"
+    - "CI: rust-protocol-required ✅"
+    - "Merge commit: e5b61d9c872c7cdd11b92270ddc2422f2c18f830"
 
 blocked_by:
   - "VL-UI-003"
 blocks: []
 
-completion_notes: ""
+completion_notes: "PR #63 merged via Spider automated review (GOV-003). Thin-binary refactor (VL-RUST-001) included. Ops API: cron CRUD+run, tools catalog, approval hub+WS, provider test. Svelte SPA: Cron/Tools tabs, approval modal. CI: rust-protocol-required PASSED. Notes: (1) zerospider PR #63 was accidentally auto-merged via same branch name (cross-repo push from Cursor); (2) UI build has no CI pipeline — pre-existing gap."
 ---
 
 # VL-UI-004 — Phase 3
