@@ -29,7 +29,10 @@ testing:
   evidence: ""
 
 pr:
-  url: ""
+  url: "https://github.com/hiddenpath/ai-lib-gateway/pull/9"
   merge_commit: ""
 
-completion_notes: ""
+completion_notes: |
+  Gateway PR #9: add-prism-to-eos-caddy.sh, verify-production Path B1, DEPLOY.md.
+  Plans 0e88021: deploy_prism_gateway.sh --path-b1 with env patch + loopback health.
+  Pending: merge PR #9, VPS deploy + add-prism-to-eos-caddy + HTTPS curl evidence.
