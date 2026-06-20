@@ -16,7 +16,7 @@ description: |
   Document relationship to Eos host (43.159.226.236) if shared or separate.
 
 acceptance_criteria:
-  - `dig api.prism.ailib.info` resolves to production gateway
+  - dig api.prism.ailib.info resolves to production gateway
   - HTTPS certificate issuance succeeds via Caddy (PR-P1-006)
 
 testing:
