@@ -1,7 +1,7 @@
 ---
 id: "VL-EVO-003"
 title: "BYOK usage telemetry — call records to Prism without key upload"
-status: "in_progress"
+status: "completed"
 priority: "medium"
 executor_name: "alex"
 executor_terminal: "cursor-agent"
@@ -13,7 +13,7 @@ labels:
   - "telemetry"
   - "prism-core"
 created: "2026-06-09"
-updated: "2026-06-19"
+updated: "2026-06-20"
 description: |
   After BYOK direct calls via AiClient, emit UsageRecord-style telemetry to Prism
   (provider, model, tokens, latency). No API key or prompt body in default mode.
@@ -30,8 +30,8 @@ pr:
   branch_pattern: "feat/vl-evo-003-*"
   merge_target: "main"
   branch: "feat/vl-evo-003-byok-telemetry"
-  url: ""
-  merge_commit: ""
+  url: "https://github.com/ailib-official/velaclaw/pull/65"
+  merge_commit: "d5edb5d"
 
 testing:
   unit_tests:
@@ -46,7 +46,7 @@ blocks: []
 
 depends_on: ["VL-EVO-001"]
 
-completion_notes: ""
+completion_notes: "Merged #65 (d5edb5d) after Spider review. 8 files, +391/-23. CI green. Security: FORBIDDEN_PAYLOAD_KEYS redaction, payload_is_redacted() check, fire-and-forget HTTP POST via tokio::spawn. Default disabled."
 ---
 
 # VL-EVO-003 — BYOK telemetry
