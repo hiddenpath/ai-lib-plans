@@ -46,7 +46,7 @@ Options:
 Prerequisites (remote):
   - git, docker, docker compose plugin
   - ${REMOTE_NETRC} with GitHub read on hiddenpath/eos
-  - ${REMOTE_ENV_FILE} with provider keys + PRISM_GATEWAY_API_KEY / PRISM_ADMIN_TOKEN
+  - ${REMOTE_ENV_FILE} — copy from .env.production.example to .env (see deploy/DEPLOY.md)
 
 Example:
   bash tools/deploy_prism_gateway.sh --remote 1.2.3.4 --remote-pass '***'

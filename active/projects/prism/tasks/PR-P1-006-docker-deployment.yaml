@@ -29,7 +29,7 @@ acceptance_criteria:
 
 testing:
   strategy: "Manual: deploy to VPS, curl external endpoint (may share 43.159.226.236 with Eos or separate host — document in evidence)"
-  evidence: "PR #5 merged 85b7c42; docker-compose.yml + Caddy tls profile + BuildKit git secret; local `docker compose up`"
+  evidence: "PR #5 85b7c42 local stack; PR #7 b1b0b69 production overlay + DEPLOY.md; HTTPS acceptance after PR-P1-013 DNS"
 
 pr:
   url: "https://github.com/hiddenpath/ai-lib-gateway/pull/7"
