@@ -1,6 +1,6 @@
 id: PR-P1-006
 title: "Docker deployment + Caddy TLS + api.prism.ailib.info"
-status: in_progress
+status: completed ✅
 priority: P0
 project: prism
 phase: 1
@@ -11,7 +11,7 @@ assignee: "alex"
 executor_name: "alex"
 executor_terminal: "cursor-agent"
 created: "2026-04-25"
-updated: "2026-06-07"
+updated: "2026-06-21"
 
 description: |
   - Reuse/adapt eos deploy template (`ai-lib-plans/tools/deploy_eos.sh`, Dockerfile, Caddy)
@@ -32,10 +32,10 @@ testing:
   evidence: "PR #5 merged 85b7c42; docker-compose.yml + Caddy tls profile + BuildKit git secret; local `docker compose up`"
 
 pr:
-  url: "https://github.com/hiddenpath/ai-lib-gateway/pull/5"
-  merge_commit: "85b7c42b8165c8d1cab6642a40662b4fed60b72d"
+  url: "https://github.com/hiddenpath/ai-lib-gateway/pull/7"
+  merge_commit: "b1b0b69"
 
 completion_notes: |
-  Local/staging stack delivered (compose, Caddyfile.example, .netrc build secret, healthcheck).
-  Deploy tooling: ai-lib-plans/tools/deploy_prism_gateway.sh (rsync + remote compose).
-  Production acceptance (api.prism.ailib.info HTTPS, VPS) remains P1-C — blocked on email checklist + PR-P1-013.
+  PR #5 (85b7c42): local/staging compose stack + Caddy local profile + .netrc build secret.
+  PR #7 (b1b0b69): production TLS stack — docker-compose.production.yml overlay, deploy/Caddyfile for api.prism.ailib.info, config/production.example.toml (5 providers), verify-production.sh, DEPLOY.md.
+  Production acceptance (HTTPS) still blocked on PR-P1-013 (DNS).
