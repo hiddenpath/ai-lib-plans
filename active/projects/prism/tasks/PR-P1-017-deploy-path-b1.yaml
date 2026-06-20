@@ -1,6 +1,6 @@
 id: PR-P1-017
 title: "Deploy scripts: Path B1 (shared VPS) mode for deploy_prism_gateway.sh"
-status: in_progress
+status: completed
 priority: P1
 project: prism
 phase: 1
@@ -30,9 +30,11 @@ testing:
 
 pr:
   url: "https://github.com/hiddenpath/ai-lib-gateway/pull/9"
-  merge_commit: ""
+  merge_commit: "6ba2bbc"
 
 completion_notes: |
-  Gateway PR #9: add-prism-to-eos-caddy.sh, verify-production Path B1, DEPLOY.md.
-  Plans 0e88021: deploy_prism_gateway.sh --path-b1 with env patch + loopback health.
-  Pending: merge PR #9, VPS deploy + add-prism-to-eos-caddy + HTTPS curl evidence.
+  Gateway PR #9 merged (6ba2bbc): add-prism-to-eos-caddy.sh, verify-production Path B1, DEPLOY.md.
+  Plans 0e88021/9d07253: deploy_prism_gateway.sh --path-b1, INDEX, task index.
+  VPS rollout (operator): bash tools/deploy_prism_gateway.sh --remote 43.159.226.236 --path-b1;
+  sudo bash /opt/ai-lib-gateway/scripts/add-prism-to-eos-caddy.sh;
+  PRISM_PATH_B1=1 bash scripts/verify-production.sh
