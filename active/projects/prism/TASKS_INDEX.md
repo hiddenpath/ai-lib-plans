@@ -28,6 +28,7 @@
 | PR-P1-013 | [tasks/PR-P1-013-prism-dns.yaml](./tasks/PR-P1-013-prism-dns.yaml) | `completed` ✅ | PR-P1-006 ✅ | api.prism.ailib.info DNS |
 | PR-P1-008 | [tasks/PR-P1-008-provider-verification.yaml](./tasks/PR-P1-008-provider-verification.yaml) | `completed` | PR-P1-002, PR-P1-003, PR-P1-005 | 5 P0 smoke (P1-B local/CI) |
 | PR-P1-016 | [tasks/PR-P1-016-velaclaw-prism-migration.yaml](./tasks/PR-P1-016-velaclaw-prism-migration.yaml) | `in_progress` | PR-P1-006 ✅, PR-V1-001 | VelaClaw 迁移 |
+| PR-P1-017 | [tasks/PR-P1-017-deploy-path-b1.yaml](./tasks/PR-P1-017-deploy-path-b1.yaml) | `open` | PR-P1-013 ✅ | Deploy scripts: Path B1 (shared VPS) mode — Cursor |
 
 ## Wave 2 产品化预备
 

@@ -1,0 +1,33 @@
+id: PR-P1-017
+title: "Deploy scripts: Path B1 (shared VPS) mode for deploy_prism_gateway.sh"
+status: open
+priority: P1
+project: prism
+phase: 1
+scope: product
+repo: "hiddenpath/ai-lib-gateway"
+depends_on: ["PR-P1-013"]
+assignee: "cursor"
+created: "2026-06-21"
+updated: "2026-06-21"
+
+description: |
+  Add Path B1 support to deployment tooling so Prism can share the existing Eos VPS
+  (43.159.226.236) without port 80/443 conflict: Eos Caddy fronts both eos.ailib.info
+  and api.prism.ailib.info; Prism gateway listens on loopback only.
+
+acceptance_criteria:
+  - deploy_prism_gateway.sh --remote 43.159.226.236 --path-b1 sets up Prism on loopback :18080
+  - scripts/add-prism-to-eos-caddy.sh appends api.prism.ailib.info site block to /etc/caddy/Caddyfile and reloads
+  - scripts/verify-production.sh succeeds when HTTPS = Eos Caddy fronts Prism via reverse_proxy
+
+testing:
+  strategy: |
+    Dry-run deploy to VPS, then curl https://api.prism.ailib.info/health returns 200 + valid TLS.
+  evidence: ""
+
+pr:
+  url: ""
+  merge_commit: ""
+
+completion_notes: ""
