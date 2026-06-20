@@ -1,15 +1,15 @@
 id: PR-P1-013
 title: "DNS — api.prism.ailib.info"
-status: open
+status: completed ✅
 priority: P0
 project: prism
 phase: 1
 scope: product
 repo: "infra / DNS provider"
 depends_on: ["PR-P1-006"]
-assignee: ""
+assignee: "alex"
 created: "2026-06-04"
-updated: "2026-06-04"
+updated: "2026-06-21"
 
 description: |
   DNS A/AAAA (or CNAME) record for api.prism.ailib.info → Prism gateway VPS.
@@ -27,4 +27,7 @@ pr:
   url: ""
   merge_commit: ""
 
-completion_notes: ""
+completion_notes: |
+  DNS record added via Cloudflare dashboard: api.prism.ailib.info A → 43.159.226.236.
+  dig verified: resolves to 43.159.226.236.
+  HTTPS cert issuance blocked on Prism gateway deployment (Path B1 on shared Eos VPS).

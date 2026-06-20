@@ -25,7 +25,7 @@
 | PR-P1-002 | [tasks/PR-P1-002-core-proxy.yaml](./tasks/PR-P1-002-core-proxy.yaml) | `completed` | PR-P1-001 | OpenAI `/v1/*` HTTP |
 | PR-P1-014 | [tasks/PR-P1-014-admin-http-routes.yaml](./tasks/PR-P1-014-admin-http-routes.yaml) | `completed` | PR-P1-001, PR-P1-003, PR-P1-004 | `/admin/*` HTTP |
 | PR-P1-006 | [tasks/PR-P1-006-docker-deployment.yaml](./tasks/PR-P1-006-docker-deployment.yaml) | `completed` ✅ | PR-P1-002 | Docker + Caddy — PR #7 `b1b0b69` |
-| PR-P1-013 | [tasks/PR-P1-013-prism-dns.yaml](./tasks/PR-P1-013-prism-dns.yaml) | `open` | PR-P1-006 ✅ | api.prism.ailib.info DNS |
+| PR-P1-013 | [tasks/PR-P1-013-prism-dns.yaml](./tasks/PR-P1-013-prism-dns.yaml) | `completed` ✅ | PR-P1-006 ✅ | api.prism.ailib.info DNS |
 | PR-P1-008 | [tasks/PR-P1-008-provider-verification.yaml](./tasks/PR-P1-008-provider-verification.yaml) | `completed` | PR-P1-002, PR-P1-003, PR-P1-005 | 5 P0 smoke (P1-B local/CI) |
 | PR-P1-016 | [tasks/PR-P1-016-velaclaw-prism-migration.yaml](./tasks/PR-P1-016-velaclaw-prism-migration.yaml) | `in_progress` | PR-P1-006 ✅, PR-V1-001 | VelaClaw 迁移 |
 
@@ -43,7 +43,7 @@
 |--------|---------|:----:|
 | M1: Library core | prism-core `cargo test --features full` 45+ passed | ✅ |
 | M2: Product API | `/v1/*` + admin HTTP + 5 provider E2E | ⏳ |
-| M3: Production | api.prism.ailib.info + Docker + DNS | ⏳ |
+| M3: Production | api.prism.ailib.info + Docker + DNS — DNS ✅; HTTPS blocked on deploy | ⏳ |
 
 ## 依赖
 
