@@ -12,6 +12,9 @@ REMOTE_DIR="${REMOTE_DIR:-/opt/ai-lib-gateway}"
 REMOTE_ENV_FILE="${REMOTE_ENV_FILE:-${REMOTE_DIR}/.env}"
 REMOTE_NETRC="${REMOTE_NETRC:-${REMOTE_DIR}/.netrc.local}"
 COMPOSE_PROFILE="${COMPOSE_PROFILE:-}" # set to "tls" to enable Caddy profile
+PRODUCTION=0
+COMPOSE_FILES="-f docker-compose.yml"
+PRISM_PUBLIC_DOMAIN="${PRISM_PUBLIC_DOMAIN:-api.prism.ailib.info}"
 DRY_RUN=0
 SKIP_PULL=0
 SKIP_BUILD=0
@@ -32,6 +35,8 @@ Options:
   --remote-env PATH   Remote .env path (default: $REMOTE_DIR/.env)
   --remote-netrc PATH Remote git credentials for docker build (default: $REMOTE_DIR/.netrc.local)
   --profile tls       Enable docker compose tls profile (Caddy)
+  --production        Use docker-compose.production.yml overlay + production Caddyfile
+  --domain HOST       Public hostname for HTTPS health check (default: api.prism.ailib.info)
   --skip-pull         Skip local git pull
   --skip-build        Skip docker compose build on remote
   --skip-restart      Skip compose up
@@ -45,7 +50,7 @@ Prerequisites (remote):
 
 Example:
   bash tools/deploy_prism_gateway.sh --remote 1.2.3.4 --remote-pass '***'
-  bash tools/deploy_prism_gateway.sh --remote 1.2.3.4 --profile tls --dry-run
+  bash tools/deploy_prism_gateway.sh --remote 1.2.3.4 --profile tls --production
 EOF
 }
 
@@ -93,6 +98,8 @@ while [[ $# -gt 0 ]]; do
     --remote-env) REMOTE_ENV_FILE="$2"; shift 2 ;;
     --remote-netrc) REMOTE_NETRC="$2"; shift 2 ;;
     --profile) COMPOSE_PROFILE="$2"; shift 2 ;;
+    --production) PRODUCTION=1; shift ;;
+    --domain) PRISM_PUBLIC_DOMAIN="$2"; shift 2 ;;
     --skip-pull) SKIP_PULL=1; shift ;;
     --skip-build) SKIP_BUILD=1; shift ;;
     --skip-restart) SKIP_RESTART=1; shift ;;
@@ -117,9 +124,17 @@ log "repo=${GATEWAY_REPO} remote=${REMOTE_USER}@${REMOTE_HOST:-?} dir=${REMOTE_D
 
 if [[ "$SKIP_PULL" == "0" ]]; then
   step "Local git pull (rebase)"
-  run_cmd git -C "${GATEWAY_REPO}" pull --rebase --autostash origin main
+  run_cmd git -C "${GATEWAY_REPO}" pull --rebase --autostash lan main 2>/dev/null \
+    || run_cmd git -C "${GATEWAY_REPO}" pull --rebase --autostash origin main
 else
   log "Skipping local git pull"
+fi
+
+if [[ "$PRODUCTION" == "1" ]]; then
+  COMPOSE_FILES="-f docker-compose.yml -f docker-compose.production.yml"
+  if [[ -z "${COMPOSE_PROFILE}" ]]; then
+    COMPOSE_PROFILE="tls"
+  fi
 fi
 
 step "Sync repo to remote"
@@ -127,11 +142,6 @@ run_cmd remote_ssh "mkdir -p '${REMOTE_DIR}'"
 run_cmd remote_rsync "${GATEWAY_REPO}"
 
 if [[ "$SKIP_BUILD" == "0" || "$SKIP_RESTART" == "0" ]]; then
-  profile_arg=""
-  if [[ "${COMPOSE_PROFILE}" == "tls" ]]; then
-    profile_arg="--profile tls"
-  fi
-
   step "Remote docker compose up --build"
   run_cmd remote_ssh bash -s <<REMOTE
 set -euo pipefail
@@ -146,20 +156,39 @@ if [[ ! -f '${REMOTE_ENV_FILE}' ]]; then
 fi
 export GIT_CREDENTIALS_FILE='${REMOTE_NETRC}'
 export COMPOSE_PROFILE='${COMPOSE_PROFILE}'
+compose_files='${COMPOSE_FILES}'
+profile_arg=""
+if [[ -n "${COMPOSE_PROFILE}" ]]; then
+  profile_arg="--profile ${COMPOSE_PROFILE}"
+fi
 if [[ '${SKIP_BUILD}' == '0' ]]; then
-  docker compose ${profile_arg} build
+  docker compose \${compose_files} \${profile_arg} build
 fi
 if [[ '${SKIP_RESTART}' == '0' ]]; then
-  docker compose ${profile_arg} up -d
+  docker compose \${compose_files} \${profile_arg} up -d
 fi
+health_ok=0
 for i in \$(seq 1 15); do
   if curl -sf http://127.0.0.1:8080/health >/dev/null 2>&1; then
-    echo "Health check PASSED"
-    exit 0
+    echo "Health check PASSED (local :8080)"
+    health_ok=1
+    break
   fi
   sleep 2
 done
-echo "WARN: health check timed out"
+if [[ \${health_ok} -eq 0 && '${PRODUCTION}' == '1' ]]; then
+  for i in \$(seq 1 30); do
+    if curl -sf "https://${PRISM_PUBLIC_DOMAIN}/health" >/dev/null 2>&1; then
+      echo "Health check PASSED (https://${PRISM_PUBLIC_DOMAIN})"
+      health_ok=1
+      break
+    fi
+    sleep 4
+  done
+fi
+if [[ \${health_ok} -eq 0 ]]; then
+  echo "WARN: health check timed out"
+fi
 REMOTE
 fi
 

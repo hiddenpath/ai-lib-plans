@@ -280,8 +280,9 @@
 - **前置**: 远程 `.netrc.local`（hiddenpath/eos docker build）、`.env`（provider keys + gateway/admin token）
 - **示例**:
   - `bash tools/deploy_prism_gateway.sh --remote 1.2.3.4`
+  - `bash tools/deploy_prism_gateway.sh --remote 1.2.3.4 --profile tls --production`
   - `bash tools/deploy_prism_gateway.sh --remote 1.2.3.4 --profile tls --dry-run`
-- **风险提示**: 远程 `docker compose up` 会重启 gateway；生产需 P1-C DNS/TLS 决策后再指向 `api.prism.ailib.info`
+- **风险提示**: 远程 `docker compose up` 会重启 gateway；生产用 `--production` + `docker-compose.production.yml`；HTTPS 验收依赖 PR-P1-013 DNS
 
 ## `sync_compliance_registry.py`
 
