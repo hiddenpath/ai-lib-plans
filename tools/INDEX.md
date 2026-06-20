@@ -281,8 +281,9 @@
 - **示例**:
   - `bash tools/deploy_prism_gateway.sh --remote 1.2.3.4`
   - `bash tools/deploy_prism_gateway.sh --remote 1.2.3.4 --profile tls --production`
+  - `bash tools/deploy_prism_gateway.sh --remote 43.159.226.236 --path-b1`（PR-P1-017：与 Eos 共享 VPS，loopback :18080 + 主机 Caddy）
   - `bash tools/deploy_prism_gateway.sh --remote 1.2.3.4 --profile tls --dry-run`
-- **风险提示**: 远程 `docker compose up` 会重启 gateway；生产用 `--production` + `docker-compose.production.yml`；HTTPS 验收依赖 PR-P1-013 DNS
+- **风险提示**: 远程 `docker compose up` 会重启 gateway；生产 Path A 用 `--production`；共享 VPS 用 `--path-b1` 后需 `scripts/add-prism-to-eos-caddy.sh`；HTTPS 验收依赖 PR-P1-013 DNS
 
 ## `sync_compliance_registry.py`
 

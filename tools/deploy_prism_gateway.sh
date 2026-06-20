@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# deploy_prism_gateway.sh — Prism gateway docker-compose deploy (PR-P1-006 / P1-C prep)
+# deploy_prism_gateway.sh — Prism gateway docker-compose deploy (PR-P1-006 / PR-P1-017)
 #
-# Does NOT modify Eos /api/proxy or eos.ailib.info. Target: future api.prism.ailib.info host.
+# Does NOT modify Eos /api/proxy or eos.ailib.info. Path B1 adds api.prism.ailib.info via host Caddy.
 set -euo pipefail
 
 GATEWAY_REPO="${GATEWAY_REPO:-/home/alex/ai-lib-gateway}"
@@ -11,10 +11,12 @@ REMOTE_PASS="${REMOTE_PASS:-}"
 REMOTE_DIR="${REMOTE_DIR:-/opt/ai-lib-gateway}"
 REMOTE_ENV_FILE="${REMOTE_ENV_FILE:-${REMOTE_DIR}/.env}"
 REMOTE_NETRC="${REMOTE_NETRC:-${REMOTE_DIR}/.netrc.local}"
-COMPOSE_PROFILE="${COMPOSE_PROFILE:-}" # set to "tls" to enable Caddy profile
+COMPOSE_PROFILE="${COMPOSE_PROFILE:-}"
 PRODUCTION=0
+PATH_B1=0
 COMPOSE_FILES="-f docker-compose.yml"
 PRISM_PUBLIC_DOMAIN="${PRISM_PUBLIC_DOMAIN:-api.prism.ailib.info}"
+PRISM_LOOPBACK_PORT="${PRISM_LOOPBACK_PORT:-18080}"
 DRY_RUN=0
 SKIP_PULL=0
 SKIP_BUILD=0
@@ -35,7 +37,8 @@ Options:
   --remote-env PATH   Remote .env path (default: $REMOTE_DIR/.env)
   --remote-netrc PATH Remote git credentials for docker build (default: $REMOTE_DIR/.netrc.local)
   --profile tls       Enable docker compose tls profile (Caddy)
-  --production        Use docker-compose.production.yml overlay + production Caddyfile
+  --production        Path A: production overlay + tls profile
+  --path-b1           Path B1: shared VPS — loopback :18080, no Caddy container
   --domain HOST       Public hostname for HTTPS health check (default: api.prism.ailib.info)
   --skip-pull         Skip local git pull
   --skip-build        Skip docker compose build on remote
@@ -49,8 +52,8 @@ Prerequisites (remote):
   - ${REMOTE_ENV_FILE} — copy from .env.production.example to .env (see deploy/DEPLOY.md)
 
 Example:
-  bash tools/deploy_prism_gateway.sh --remote 1.2.3.4 --remote-pass '***'
-  bash tools/deploy_prism_gateway.sh --remote 1.2.3.4 --profile tls --production
+  bash tools/deploy_prism_gateway.sh --remote 1.2.3.4 --production
+  bash tools/deploy_prism_gateway.sh --remote 43.159.226.236 --path-b1
 EOF
 }
 
@@ -99,6 +102,7 @@ while [[ $# -gt 0 ]]; do
     --remote-netrc) REMOTE_NETRC="$2"; shift 2 ;;
     --profile) COMPOSE_PROFILE="$2"; shift 2 ;;
     --production) PRODUCTION=1; shift ;;
+    --path-b1) PATH_B1=1; shift ;;
     --domain) PRISM_PUBLIC_DOMAIN="$2"; shift 2 ;;
     --skip-pull) SKIP_PULL=1; shift ;;
     --skip-build) SKIP_BUILD=1; shift ;;
@@ -108,6 +112,11 @@ while [[ $# -gt 0 ]]; do
     *) echo "Unknown argument: $1" >&2; usage; exit 2 ;;
   esac
 done
+
+if [[ "$PRODUCTION" == "1" && "$PATH_B1" == "1" ]]; then
+  echo "ERROR: --production and --path-b1 are mutually exclusive" >&2
+  exit 1
+fi
 
 if [[ ! -d "${GATEWAY_REPO}" ]]; then
   echo "ERROR: gateway repo not found: ${GATEWAY_REPO}" >&2
@@ -120,7 +129,7 @@ if [[ -z "${REMOTE_HOST}" && "$DRY_RUN" == "0" ]]; then
 fi
 
 log "=== Prism Gateway Deploy ==="
-log "repo=${GATEWAY_REPO} remote=${REMOTE_USER}@${REMOTE_HOST:-?} dir=${REMOTE_DIR}"
+log "repo=${GATEWAY_REPO} remote=${REMOTE_USER}@${REMOTE_HOST:-?} dir=${REMOTE_DIR} path_b1=${PATH_B1}"
 
 if [[ "$SKIP_PULL" == "0" ]]; then
   step "Local git pull (rebase)"
@@ -130,7 +139,11 @@ else
   log "Skipping local git pull"
 fi
 
-if [[ "$PRODUCTION" == "1" ]]; then
+if [[ "$PATH_B1" == "1" ]]; then
+  COMPOSE_FILES="-f docker-compose.yml"
+  COMPOSE_PROFILE=""
+  log "Path B1: gateway on 127.0.0.1:${PRISM_LOOPBACK_PORT}, no tls profile"
+elif [[ "$PRODUCTION" == "1" ]]; then
   COMPOSE_FILES="-f docker-compose.yml -f docker-compose.production.yml"
   if [[ -z "${COMPOSE_PROFILE}" ]]; then
     COMPOSE_PROFILE="tls"
@@ -140,6 +153,27 @@ fi
 step "Sync repo to remote"
 run_cmd remote_ssh "mkdir -p '${REMOTE_DIR}'"
 run_cmd remote_rsync "${GATEWAY_REPO}"
+
+if [[ "$PATH_B1" == "1" ]]; then
+  step "Patch remote .env for Path B1"
+  run_cmd remote_ssh bash -s <<REMOTE
+set -euo pipefail
+cd '${REMOTE_DIR}'
+touch '${REMOTE_ENV_FILE}'
+set_kv() {
+  local key="\$1" val="\$2" file="\$3"
+  if grep -q "^\${key}=" "\$file" 2>/dev/null; then
+    sed -i "s|^\${key}=.*|\${key}=\${val}|" "\$file"
+  else
+    echo "\${key}=\${val}" >> "\$file"
+  fi
+}
+set_kv GATEWAY_HOST_PORT "127.0.0.1:${PRISM_LOOPBACK_PORT}:8080" '${REMOTE_ENV_FILE}'
+set_kv GATEWAY_CONFIG "./config/production.toml" '${REMOTE_ENV_FILE}'
+set_kv COMPOSE_PROFILE "" '${REMOTE_ENV_FILE}'
+sed -i '/^COMPOSE_FILE=.*production/d' '${REMOTE_ENV_FILE}' 2>/dev/null || true
+REMOTE
+fi
 
 if [[ "$SKIP_BUILD" == "0" || "$SKIP_RESTART" == "0" ]]; then
   step "Remote docker compose up --build"
@@ -155,10 +189,9 @@ if [[ ! -f '${REMOTE_ENV_FILE}' ]]; then
   exit 1
 fi
 export GIT_CREDENTIALS_FILE='${REMOTE_NETRC}'
-export COMPOSE_PROFILE='${COMPOSE_PROFILE}'
 compose_files='${COMPOSE_FILES}'
 profile_arg=""
-if [[ -n "${COMPOSE_PROFILE}" ]]; then
+if [[ -n '${COMPOSE_PROFILE}' ]]; then
   profile_arg="--profile ${COMPOSE_PROFILE}"
 fi
 if [[ '${SKIP_BUILD}' == '0' ]]; then
@@ -168,13 +201,17 @@ if [[ '${SKIP_RESTART}' == '0' ]]; then
   docker compose \${compose_files} \${profile_arg} up -d
 fi
 health_ok=0
-for i in \$(seq 1 15); do
-  if curl -sf http://127.0.0.1:8080/health >/dev/null 2>&1; then
-    echo "Health check PASSED (local :8080)"
-    health_ok=1
-    break
-  fi
-  sleep 2
+loopback_url="http://127.0.0.1:${PRISM_LOOPBACK_PORT}/health"
+default_url="http://127.0.0.1:8080/health"
+for url in "\${loopback_url}" "\${default_url}"; do
+  for i in \$(seq 1 15); do
+    if curl -sf "\${url}" >/dev/null 2>&1; then
+      echo "Health check PASSED (\${url})"
+      health_ok=1
+      break 2
+    fi
+    sleep 2
+  done
 done
 if [[ \${health_ok} -eq 0 && '${PRODUCTION}' == '1' ]]; then
   for i in \$(seq 1 30); do
@@ -190,6 +227,14 @@ if [[ \${health_ok} -eq 0 ]]; then
   echo "WARN: health check timed out"
 fi
 REMOTE
+fi
+
+if [[ "$PATH_B1" == "1" ]]; then
+  log "Path B1 complete: Prism on loopback :${PRISM_LOOPBACK_PORT}"
+  log "Next on VPS: sudo bash ${REMOTE_DIR}/scripts/add-prism-to-eos-caddy.sh"
+  log "Then: PRISM_PATH_B1=1 bash ${REMOTE_DIR}/scripts/verify-production.sh"
+else
+  log "HTTPS target: https://${PRISM_PUBLIC_DOMAIN}/health (after DNS + Caddy)"
 fi
 
 log "=== Deploy complete ==="

@@ -1,6 +1,6 @@
 id: PR-P1-017
 title: "Deploy scripts: Path B1 (shared VPS) mode for deploy_prism_gateway.sh"
-status: open
+status: in_progress
 priority: P1
 project: prism
 phase: 1
@@ -8,8 +8,10 @@ scope: product
 repo: "hiddenpath/ai-lib-gateway"
 depends_on: ["PR-P1-013"]
 assignee: "cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
 created: "2026-06-21"
-updated: "2026-06-21"
+updated: "2026-06-11"
 
 description: |
   Add Path B1 support to deployment tooling so Prism can share the existing Eos VPS
