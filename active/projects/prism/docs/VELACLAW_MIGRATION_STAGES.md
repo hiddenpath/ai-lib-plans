@@ -22,10 +22,10 @@
 | 阶段 | 能力 | prism-core feature | VelaClaw 任务 | 验收 |
 |------|------|-------------------|---------------|------|
 | **EVO-0** | BYOK 直连 ai-lib-rust | — | VL-TRIAL-001 ✅ | `velaclaw agent` + curl |
-| **EVO-1** | ExecutionHandle 统一执行入口 | — | VL-EVO-001 | BYOK 无 adapter 重复逻辑 |
-| **EVO-2** | 陌生 provider 内嵌路由 | `router` (+ `key-pool`) | VL-EVO-002 | prism 分流 smoke |
-| **EVO-3** | BYOK 调用记录遥测 | `usage-tracking` | VL-EVO-003 | mock endpoint 收到 record |
-| **EVO-4** | Adapter 退役 | — | VL-EVO-004 | 无 execution 逻辑在 adapter |
+| **EVO-1** | ExecutionHandle 统一执行入口 | — | VL-EVO-001 ✅ | BYOK 无 adapter 重复逻辑 |
+| **EVO-2** | 陌生 provider 内嵌路由 | `router` (+ `key-pool`) | VL-EVO-002 ✅ | prism 分流 smoke |
+| **EVO-3** | BYOK 调用记录遥测 | `usage-tracking` | VL-EVO-003 ✅ | mock endpoint 收到 record |
+| **EVO-4** | Adapter 退役 | — | VL-EVO-004 ✅ | 无 execution 逻辑在 adapter |
 
 ---
 
@@ -60,7 +60,10 @@ Gateway HTTP 验收仍由 **PR-P1-002 / PR-P1-008** 等产品任务跟踪。
 |----|------|
 | VL-TRIAL-001 BYOK 直连 | ✅ 代码合入；Linux smoke 见 `TRIAL_READINESS_SMOKE.md` |
 | prism-core router/usage API 稳定 | eos workspace / PR-P1-012 crates.io |
-| VL-EVO-001 ExecutionHandle | ⏳ draft |
+| VL-EVO-001 ExecutionHandle | ✅ [PR #58](https://github.com/ailib-official/velaclaw/pull/58) (`e4ddf2a`) |
+| VL-EVO-002 内嵌 router | ✅ [PR #66](https://github.com/ailib-official/velaclaw/pull/66) (`a521ed2`) |
+| VL-EVO-003 BYOK 遥测 | ✅ [PR #65](https://github.com/ailib-official/velaclaw/pull/65) (`d5edb5d`) |
+| VL-EVO-004 adapter 退役 | ✅ [PR #67](https://github.com/ailib-official/velaclaw/pull/67) (`02ce38c`) |
 | ai-lib-gateway HTTP（外部 API） | ✅ P1-B merged（与 Vela 内嵌无关） |
 
 ---
@@ -68,6 +71,7 @@ Gateway HTTP 验收仍由 **PR-P1-002 / PR-P1-008** 等产品任务跟踪。
 ## PR-P1-016 Owner sign-off（修订）
 
 - [x] 迁移阶段文档按 VL-ARCH-001 修订
-- [ ] VL-EVO-001 ExecutionHandle 合入 velaclaw main
-- [ ] VL-EVO-002 内嵌 router smoke
-- [ ] 公开仓无内网/plans 引用（DOC-002）；PR #51 合并
+- [x] VL-EVO-001 ExecutionHandle 合入 velaclaw main
+- [x] VL-EVO-002 内嵌 router（#66）
+- [x] VL-EVO-003 BYOK 遥测（#65）
+- [x] VL-EVO-004 adapter 退役（#67）

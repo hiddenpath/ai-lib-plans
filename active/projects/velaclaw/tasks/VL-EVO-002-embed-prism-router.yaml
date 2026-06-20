@@ -3,8 +3,8 @@ id: "VL-EVO-002"
 title: "Embed prism-core router for unknown / Prism-routed providers"
 status: "completed"
 priority: "high"
-executor_name: ""
-executor_terminal: ""
+executor_name: "cursor-agent"
+executor_terminal: "cursor-agent"
 assignee: "@cursor"
 pr:
   number: 66
@@ -37,23 +37,23 @@ pr:
   repo: "ailib-official/velaclaw"
   branch_pattern: "feat/vl-evo-002-*"
   merge_target: "main"
-  branch: ""
-  url: ""
-  merge_commit: ""
+  branch: "feat/vl-evo-002-embed-prism-router"
+  url: "https://github.com/ailib-official/velaclaw/pull/66"
+  merge_commit: "a521ed2"
 
 testing:
   unit_tests:
     - "Provider split: byok vs prism backend selection"
   integration:
     - "Configured prism-routed model completes chat (mock or staging)"
-  evidence: ""
+  evidence: "CI green; prism-router feature + PrismRouterHandle + prism_adapter"
 
 blocked_by: []
 blocks: ["VL-EVO-003"]
 
 depends_on: ["VL-EVO-001"]
 
-completion_notes: ""
+completion_notes: "Merged #66 (a521ed2). Embedded prism-core-routing; provider_mode=prism; PRISM_* env keys. CI green after clippy fixes."
 ---
 
 # VL-EVO-002 — Embedded prism-core router

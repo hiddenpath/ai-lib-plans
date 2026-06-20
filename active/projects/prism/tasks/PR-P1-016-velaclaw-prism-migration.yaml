@@ -1,17 +1,17 @@
 id: PR-P1-016
 title: "VelaClaw embedded prism-core integration (revised from HTTP migration)"
-status: in_progress
+status: completed
 priority: P2
 project: prism
 phase: 1
 scope: product
 repo: "ailib-official/velaclaw"
-depends_on: ["PR-P1-005", "VL-EVO-001"]
+depends_on: ["PR-P1-005", "VL-EVO-001", "VL-EVO-002", "VL-EVO-004"]
 assignee: ""
 executor_name: "cursor-agent"
-executor_terminal: "cursor-shell-2"
+executor_terminal: "cursor-agent"
 created: "2026-06-04"
-updated: "2026-06-09"
+updated: "2026-06-20"
 
 description: |
   Revised 2026-06-09 per VL-ARCH-001: VelaClaw embeds prism-core (A-band) in-process
@@ -29,13 +29,14 @@ acceptance_criteria:
 
 testing:
   strategy: "VelaClaw VL-EVO integration + prism-core unit tests"
-  evidence: "See active/projects/velaclaw/tasks/VL-EVO-*.yaml"
+  evidence: "VL-EVO-002 #66 (a521ed2), VL-EVO-004 #67 (02ce38c); migration doc §7–8 in velaclaw"
 
 pr:
-  url: ""
-  merge_commit: ""
+  url: "https://github.com/ailib-official/velaclaw/pull/66"
+  merge_commit: "a521ed2"
 
 completion_notes: |
   2026-06-09: Superseded HTTP-first migration narrative. Stage doc rewritten;
   execution plan in active/projects/velaclaw/VELACLAW_PHASE_EVO_PLAN_2026-06.md.
-  Depends on VL-EVO-001 before prism embed (VL-EVO-002).
+  2026-06-20: VL-EVO-002 (#66 a521ed2) + VL-EVO-004 (#67 02ce38c) merged to velaclaw main.
+  Embedded prism-core router + adapter retirement complete; BYOK path unchanged.

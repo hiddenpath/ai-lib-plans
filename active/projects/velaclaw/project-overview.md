@@ -28,8 +28,8 @@
 |--------|------|
 | ZS-ML / ZS-RN | ✅ completed |
 | VL-TRIAL-001 | ✅ completed（Linux smoke 待执行） |
-| VL-EVO-001 ~ 004 | draft — 执行层演进 |
-| VL-UI-002 / 005 / 003 / 004 | draft — Web Chat UI（VL-UI-001 ✅） |
+| VL-EVO-001 ~ 004 | ✅ completed — EVO 执行层演进（#58/#65/#66/#67） |
+| VL-UI-002 / 005 / 003 / 004 | ✅ completed — Web Chat UI 三阶段 |
 
 ## 跨项目
 

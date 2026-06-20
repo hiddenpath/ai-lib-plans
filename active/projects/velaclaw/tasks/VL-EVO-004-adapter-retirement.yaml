@@ -3,8 +3,8 @@ id: "VL-EVO-004"
 title: "Retire ProtocolBackedProvider execution duplication"
 status: "completed"
 priority: "medium"
-executor_name: ""
-executor_terminal: ""
+executor_name: "cursor-agent"
+executor_terminal: "cursor-agent"
 assignee: "@cursor"
 project: "velaclaw"
 milestone: "phase-evo-4"
@@ -38,7 +38,7 @@ testing:
     - "Existing protocol_adapter stream/tool tests still pass"
   integration:
     - "Full agent smoke unchanged from VL-TRIAL-001"
-  evidence: ""
+  evidence: "CI green; execution/byok.rs owns retry/telemetry; adapter trait-bridge only"
 
 blocked_by: []
 blocks: []

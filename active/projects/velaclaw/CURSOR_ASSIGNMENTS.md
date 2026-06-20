@@ -27,7 +27,7 @@
 |:----:|----|------|:------:|----------|:----:|
 | B-1 | **VL-UI-005** | Phase 1b: Svelte SPA @ `/chat` + rust-embed | 中 | VL-UI-002 ✅ | **✅ completed** |
 | B-2 | VL-UI-003 | Phase 2: 会话持久化 / Memory / Config 面板 | 中 | B-1 | ✅ completed ([PR #57](https://github.com/ailib-official/velaclaw/pull/57) `bc09cb8`) |
-| B-3 | VL-UI-004 | Phase 3: Cron / Tools / Tool Approval 运维面板 | 低 | B-2 | **in_progress** ([PR #63](https://github.com/ailib-official/velaclaw/pull/63)) |
+| B-3 | VL-UI-004 | Phase 3: Cron / Tools / Tool Approval 运维面板 | 低 | B-2 | ✅ completed ([PR #63](https://github.com/ailib-official/velaclaw/pull/63) `e5b61d9`) |
 
 **B-1 详细brief 见**：`tasks/VL-UI-005-web-chat-phase1-frontend.yaml`  
 **UI 全景**：`VELACLAW_PHASE_UI_PLAN_2026-06.md`  
