@@ -28,6 +28,6 @@ pr:
   merge_commit: ""
 
 completion_notes: |
-  DNS record added via Cloudflare dashboard: api.prism.ailib.info A → 43.159.226.236.
+  DNS record added via Cloudflare dashboard: api.prism.ailib.info A record pointing to 43.159.226.236.
   dig verified: resolves to 43.159.226.236.
   HTTPS cert issuance blocked on Prism gateway deployment (Path B1 on shared Eos VPS).
