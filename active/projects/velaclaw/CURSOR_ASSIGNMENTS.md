@@ -15,7 +15,7 @@
 | A-1 | **VL-EVO-001** | ExecutionHandle 抽象（策略/执行边界） | **高** | VL-TRIAL-001 ✅ | ✅ completed ([PR #58](https://github.com/ailib-official/velaclaw/pull/58) `e4ddf2a`) |
 | A-2 | VL-EVO-002 | 内嵌 prism-core router | 中 | A-1 + prism-core-routing ✅ | ✅ completed ([PR #66](https://github.com/ailib-official/velaclaw/pull/66) `a521ed2`) |
 | A-3 | VL-EVO-003 | BYOK 调用记录遥测 | 中 | A-1 ✅ | ✅ completed ([PR #65](https://github.com/ailib-official/velaclaw/pull/65) `d5edb5d`) |
-| A-4 | VL-EVO-004 | ProtocolBackedProvider 执行逻辑退役 | 中 | A-1, A-2 | draft |
+| A-4 | VL-EVO-004 | ProtocolBackedProvider 执行逻辑退役 | 中 | A-1, A-2 | ✅ completed ([PR #67](https://github.com/ailib-official/velaclaw/pull/67) `02ce38c`) |
 
 **A-1 详细brief 见**：`tasks/VL-EVO-001-execution-handle.yaml`  
 **架构 ADR**：`VL-ARCH-001-execution-strategy-boundary.md`  
@@ -47,7 +47,7 @@ A 轨道：
   ↓
   A-2 (VL-EVO-002)  →  ✅ [PR #66](https://github.com/ailib-official/velaclaw/pull/66) `a521ed2`
   A-3 (VL-EVO-003)  →  ✅ [PR #65](https://github.com/ailib-official/velaclaw/pull/65) `d5edb5d`
-  A-4 (VL-EVO-004)  →  合并后 PR
+  A-4 (VL-EVO-004)  →  ✅ [PR #67](https://github.com/ailib-official/velaclaw/pull/67) `02ce38c`
 
 B 轨道：
   B-1 (VL-UI-005)  →  Svelte SPA 完成 + rust-embed 集成  →  PR
@@ -66,7 +66,7 @@ B 轨道：
 | VL-EVO-001 | `tasks/VL-EVO-001-execution-handle.yaml` | [PR #58](https://github.com/ailib-official/velaclaw/pull/58) `e4ddf2a` |
 | VL-EVO-002 | `tasks/VL-EVO-002-embed-prism-router.yaml` | [PR #66](https://github.com/ailib-official/velaclaw/pull/66) `a521ed2` |
 | VL-EVO-003 | `tasks/VL-EVO-003-byok-telemetry.yaml` | [PR #65](https://github.com/ailib-official/velaclaw/pull/65) `d5edb5d` |
-| VL-EVO-004 | `tasks/VL-EVO-004-adapter-retirement.yaml` | — |
+| VL-EVO-004 | `tasks/VL-EVO-004-adapter-retirement.yaml` | [PR #67](https://github.com/ailib-official/velaclaw/pull/67) `02ce38c` |
 | VL-UI-005 | `tasks/VL-UI-005-web-chat-phase1-frontend.yaml` | VL-UI-002: PR #55 `7cb2528` |
 | VL-UI-003 | `tasks/VL-UI-003-web-chat-phase2.yaml` | [PR #57](https://github.com/ailib-official/velaclaw/pull/57) `bc09cb8` |
 | VL-UI-003 | `tasks/VL-UI-003-web-chat-phase2.yaml` | — |

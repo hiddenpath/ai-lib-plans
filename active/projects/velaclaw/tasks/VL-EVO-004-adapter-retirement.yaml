@@ -1,7 +1,7 @@
 ---
 id: "VL-EVO-004"
 title: "Retire ProtocolBackedProvider execution duplication"
-status: "draft"
+status: "completed"
 priority: "medium"
 executor_name: ""
 executor_terminal: ""
@@ -13,7 +13,7 @@ labels:
   - "refactor"
   - "adapter-retirement"
 created: "2026-06-09"
-updated: "2026-06-09"
+updated: "2026-06-20"
 description: |
   Remove dead code and shrink ProtocolBackedProvider to pure trait/type bridging,
   or remove protocol provider branch entirely once ExecutionHandle covers all paths.
@@ -29,9 +29,9 @@ pr:
   repo: "ailib-official/velaclaw"
   branch_pattern: "feat/vl-evo-004-*"
   merge_target: "main"
-  branch: ""
-  url: ""
-  merge_commit: ""
+  branch: "feat/vl-evo-004-adapter-retirement"
+  url: "https://github.com/ailib-official/velaclaw/pull/67"
+  merge_commit: "02ce38c"
 
 testing:
   unit_tests:
@@ -45,7 +45,7 @@ blocks: []
 
 depends_on: ["VL-EVO-001", "VL-EVO-002"]
 
-completion_notes: ""
+completion_notes: "Merged #67 (02ce38c) after Spider review. 6 files, +190/-201. Moved BYOK execution (init, retry, telemetry) from protocol_adapter to src/execution/byok.rs. Adapter is now thin trait bridge only per VL-ARCH-001."
 ---
 
 # VL-EVO-004 — Adapter retirement
