@@ -38,4 +38,5 @@ pr:
 completion_notes: |
   PR #5 (85b7c42): local/staging compose stack + Caddy local profile + .netrc build secret.
   PR #7 (b1b0b69): production TLS stack — docker-compose.production.yml overlay, deploy/Caddyfile for api.prism.ailib.info, config/production.example.toml (5 providers), verify-production.sh, DEPLOY.md.
+  PR #8 (50ee5c0): corrected .env naming (Docker Compose auto-loads .env, not .env.production), added Path B1 (Eos Caddy fronting Prism on loopback), comprehensive troubleshooting table.
   Production acceptance (HTTPS) still blocked on PR-P1-013 (DNS).
