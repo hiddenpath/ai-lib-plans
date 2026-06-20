@@ -73,7 +73,7 @@
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|:----:|:----:|------|
 | VL-EVO-001 | [tasks/VL-EVO-001-execution-handle.yaml](./tasks/VL-EVO-001-execution-handle.yaml) | `completed` | VL-TRIAL-001 | ExecutionHandle；策略/执行边界 → cursor — [PR #58](https://github.com/ailib-official/velaclaw/pull/58) (`e4ddf2a`) |
-| VL-EVO-002 | [tasks/VL-EVO-002-embed-prism-router.yaml](./tasks/VL-EVO-002-embed-prism-router.yaml) | `draft` | VL-EVO-001 | 内嵌 prism-core router（非 HTTP Gateway） |
+| VL-EVO-002 | [tasks/VL-EVO-002-embed-prism-router.yaml](./tasks/VL-EVO-002-embed-prism-router.yaml) | `completed` ✅ | VL-EVO-001 | 内嵌 prism-core router — PR #66 `a521ed2` |
 | VL-EVO-003 | [tasks/VL-EVO-003-byok-telemetry.yaml](./tasks/VL-EVO-003-byok-telemetry.yaml) | `completed` ✅ | VL-EVO-001 | BYOK 调用记录遥测 — PR #65 `d5edb5d` |
 | VL-EVO-004 | [tasks/VL-EVO-004-adapter-retirement.yaml](./tasks/VL-EVO-004-adapter-retirement.yaml) | `draft` | VL-EVO-001, 002 | ProtocolBackedProvider 执行逻辑退役 |
 

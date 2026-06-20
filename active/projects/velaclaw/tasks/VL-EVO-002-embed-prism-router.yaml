@@ -1,11 +1,16 @@
 ---
 id: "VL-EVO-002"
 title: "Embed prism-core router for unknown / Prism-routed providers"
-status: "draft"
+status: "completed"
 priority: "high"
 executor_name: ""
 executor_terminal: ""
 assignee: "@cursor"
+pr:
+  number: 66
+  url: "https://github.com/ailib-official/velaclaw/pull/66"
+  merge_commit: "a521ed2"
+completion_notes: "Merged #66 (a521ed2) after Spider review. 9 files, +529/-35. Embeds prism-core-routing v0.1.0 via cargo feature gate. CI green after cargo fmt fix."
 project: "velaclaw"
 milestone: "phase-evo-2"
 labels:
@@ -13,7 +18,7 @@ labels:
   - "prism-core"
   - "routing"
 created: "2026-06-09"
-updated: "2026-06-09"
+updated: "2026-06-20"
 description: |
   Add in-process prism-core (router feature) as ExecutionBackend variant for providers
   that are not BYOK-configured or explicitly routed via Prism. Per VL-ARCH-001 D3/D4.
