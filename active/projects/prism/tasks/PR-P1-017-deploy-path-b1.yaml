@@ -10,8 +10,9 @@ depends_on: ["PR-P1-013"]
 assignee: "cursor"
 executor_name: "cursor"
 executor_terminal: "agent-session"
-created: "2026-06-21"
-updated: "2026-06-11"
+  created: "2026-06-21"
+  updated: "2026-06-21"
+  completed_at: "2026-06-20 18:20 UTC"
 
 description: |
   Add Path B1 support to deployment tooling so Prism can share the existing Eos VPS
@@ -35,6 +36,14 @@ pr:
 completion_notes: |
   Gateway PR #9 merged (6ba2bbc): add-prism-to-eos-caddy.sh, verify-production Path B1, DEPLOY.md.
   Plans 0e88021/9d07253: deploy_prism_gateway.sh --path-b1, INDEX, task index.
-  VPS rollout (operator): bash tools/deploy_prism_gateway.sh --remote 43.159.226.236 --path-b1;
-  sudo bash /opt/ai-lib-gateway/scripts/add-prism-to-eos-caddy.sh;
-  PRISM_PATH_B1=1 bash scripts/verify-production.sh
+  
+  Deployed to production 2026-06-21 (Spider):
+  - Gateway running on 43.159.226.236 via docker compose (Path B1, loopback 127.0.0.1:18080)
+  - Eos Caddy fronts api.prism.ailib.info → reverse_proxy 127.0.0.1:18080
+  - Let's Encrypt TLS cert issued (expires 2026-09-19)
+  - verify-production.sh: ALL PASSED (DNS A 43.159.226.236, TLS health 200)
+  - 5 providers configured, 5 models listed, DeepSeek chat verified
+  - Direct external :18080 blocked (loopback-only binding)
+  
+  VPS operator verify: PRISM_PATH_B1=1 bash scripts/verify-production.sh
+  Credentials stored in /opt/ai-lib-gateway/.env (PRISM_GATEWAY_API_KEY, PRISM_ADMIN_TOKEN)

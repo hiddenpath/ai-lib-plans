@@ -15,7 +15,7 @@
 | PR-P1-009 | [tasks/PR-P1-009-config-toml-loader.yaml](./tasks/PR-P1-009-config-toml-loader.yaml) | `completed` | — | TOML config.toml |
 | PR-P1-010 | [tasks/PR-P1-010-anthropic-adapter.yaml](./tasks/PR-P1-010-anthropic-adapter.yaml) | `completed` | PR-P1-002-LIB | Anthropic Messages API (JSON map; HTTP wire PR-P1-002) |
 | PR-P1-011 | [tasks/PR-P1-011-quota-enforcement.yaml](./tasks/PR-P1-011-quota-enforcement.yaml) | `completed` | PR-P1-004 | Quota enforce |
-| PR-P1-012 | [tasks/PR-P1-012-prism-core-crates-io.yaml](./tasks/PR-P1-012-prism-core-crates-io.yaml) | `open` | PR-P1-008 | crates.io 发布 |
+| PR-P1-012 | [tasks/PR-P1-012-prism-core-crates-io.yaml](./tasks/PR-P1-012-prism-core-crates-io.yaml) | `completed` | PR-P1-008 | crates.io 发布 (prism-core-routing v0.1.0) |
 
 ## Phase 1 — 产品层（HTTP / 部署）
 
@@ -27,8 +27,8 @@
 | PR-P1-006 | [tasks/PR-P1-006-docker-deployment.yaml](./tasks/PR-P1-006-docker-deployment.yaml) | `completed` ✅ | PR-P1-002 | Docker + Caddy — PR #7 `b1b0b69` |
 | PR-P1-013 | [tasks/PR-P1-013-prism-dns.yaml](./tasks/PR-P1-013-prism-dns.yaml) | `completed` ✅ | PR-P1-006 ✅ | api.prism.ailib.info DNS |
 | PR-P1-008 | [tasks/PR-P1-008-provider-verification.yaml](./tasks/PR-P1-008-provider-verification.yaml) | `completed` | PR-P1-002, PR-P1-003, PR-P1-005 | 5 P0 smoke (P1-B local/CI) |
-| PR-P1-016 | [tasks/PR-P1-016-velaclaw-prism-migration.yaml](./tasks/PR-P1-016-velaclaw-prism-migration.yaml) | `in_progress` | PR-P1-006 ✅, PR-V1-001 | VelaClaw 迁移 |
-| PR-P1-017 | [tasks/PR-P1-017-deploy-path-b1.yaml](./tasks/PR-P1-017-deploy-path-b1.yaml) | `completed` ✅ | PR-P1-013 ✅ | Path B1 deploy — [PR #9](https://github.com/hiddenpath/ai-lib-gateway/pull/9) `6ba2bbc` |
+| PR-P1-016 | [tasks/PR-P1-016-velaclaw-prism-migration.yaml](./tasks/PR-P1-016-velaclaw-prism-migration.yaml) | `completed` | PR-P1-006 ✅, PR-V1-001 | VelaClaw 迁移 (VL-EVO-002/004 merged) |
+| PR-P1-017 | [tasks/PR-P1-017-deploy-path-b1.yaml](./tasks/PR-P1-017-deploy-path-b1.yaml) | `completed` ✅ | PR-P1-013 ✅ | Path B1 deploy — [PR #9](https://github.com/hiddenpath/ai-lib-gateway/pull/9) `6ba2bbc`, prod live 2026-06-21 |
 
 ## Wave 2 产品化预备
 
@@ -43,8 +43,8 @@
 | 里程碑 | 验收标准 | 状态 |
 |--------|---------|:----:|
 | M1: Library core | prism-core `cargo test --features full` 45+ passed | ✅ |
-| M2: Product API | `/v1/*` + admin HTTP + 5 provider E2E | ⏳ |
-| M3: Production | api.prism.ailib.info + Docker + DNS — DNS ✅; HTTPS blocked on deploy | ⏳ |
+| M2: Product API | `/v1/*` + admin HTTP + 5 provider E2E — all merged | ✅ |
+| M3: Production | api.prism.ailib.info + Docker + Caddy TLS — deployed 2026-06-21, 5 providers live | ✅ |
 
 ## 依赖
 
