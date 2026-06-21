@@ -1,11 +1,13 @@
 id: PR-V1-003
 title: "Provider/model navigation UI"
-status: open
+status: completed
 priority: P2
 project: vela
 phase: 1
 depends_on: ["PR-V1-001"]
-assignee: ""
+assignee: "cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
 created: "2026-04-26"
 updated: "2026-06-21"
 description: |
@@ -28,5 +30,9 @@ testing:
   evidence: ""
 pr:
   url: "https://github.com/ailib-official/vela/pull/5"
-  merge_commit: ""
-completion_notes: ""
+  merge_commit: "8678a29"
+completion_notes: |
+  PR #5 squash-merged (8678a29): ProviderNav component with P0 provider cards, model
+  quick-switch, health status from /admin/health, MODEL_HINTS for context/pricing,
+  sort by name/latency/cost, responsive 900px breakpoint, offline grace.
+  ChatPanel simplified — model selection lifted to App state, driven by ProviderNav.

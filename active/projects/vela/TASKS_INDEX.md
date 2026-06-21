@@ -9,7 +9,7 @@
 |----|------|------|------|------|
 | PR-V1-001 | [tasks/PR-V1-001-web-skeleton.yaml](./tasks/PR-V1-001-web-skeleton.yaml) | `completed` ✅ | PR-P1-006 ✅ | [vela](https://github.com/ailib-official/vela) prism-sdk@0.1.0 + smoke OK |
 | PR-V1-002 | [tasks/PR-V1-002-local-history.yaml](./tasks/PR-V1-002-local-history.yaml) | `completed` ✅ | PR-V1-001 ✅ | [PR #4](https://github.com/ailib-official/vela/pull/4) `baa7f4a` IndexedDB |
-| PR-V1-003 | [tasks/PR-V1-003-provider-navigation-ui.yaml](./tasks/PR-V1-003-provider-navigation-ui.yaml) | `open` (PR [#5](https://github.com/ailib-official/vela/pull/5) review) | PR-V1-001 ✅ | Provider/模型导航 UI |
+| PR-V1-003 | [tasks/PR-V1-003-provider-navigation-ui.yaml](./tasks/PR-V1-003-provider-navigation-ui.yaml) | `completed` ✅ | PR-V1-001 ✅ | [PR #5](https://github.com/ailib-official/vela/pull/5) `8678a29` — Provider导航+模型切换 |
 
 ## 决策记录
 
