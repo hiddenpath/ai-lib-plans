@@ -43,5 +43,7 @@ pr:
   merge_commit: "344d8e2"
 
 completion_notes: |
-  Bootstrap on ailib-official/vela main (344d8e2): prism-sdk + React web.
-  Plans 8493f75. Pending: manual chat smoke + npm publish @ailib-official/prism-sdk@0.1.0.
+  Bootstrap ailib-official/vela (344d8e2+): prism-sdk + React web.
+  Publish workflow: PR #2 merged, tag prism-sdk-v0.1.0, workflow publish-prism-sdk.yml.
+  npm publish blocked: npm_keys.txt tokens 401 locally; CI EOTP (ailib-official token) or E404 (publish token).
+  Action: regenerate npm Automation token (@ailib-official publish, bypass_2fa) → gh secret set NPM_TOKEN → re-run workflow.
