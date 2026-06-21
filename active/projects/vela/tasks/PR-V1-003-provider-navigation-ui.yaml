@@ -7,14 +7,15 @@ phase: 1
 depends_on: ["PR-V1-001"]
 assignee: ""
 created: "2026-04-26"
-updated: "2026-04-26"
+updated: "2026-06-21"
 description: |
   Provider and model discovery interface:
-  - Fetch available providers/models from Prism /admin/health endpoint
+  - Fetch available models from Prism `GET /v1/models` (group by `owned_by` as provider id)
+  - Optional dev-only `GET /admin/health` when `VITE_PRISM_ADMIN_TOKEN` is set (latency/success rate)
   - Provider cards: name, status (healthy/degraded/down), avg latency, models offered
-  - Model list per provider: model id, context window, pricing hint
+  - Model list per provider: model id, context window hint (static metadata)
   - Quick-switch: click a model to route next message through it
-  - Basic sorting: by provider name, by latency, by cost (if pricing data available)
+  - Basic sorting: by provider name, by latency, by cost hint
   - Responsive layout for mobile viewport
 acceptance_criteria:
   - Provider list shows all 5 P0 providers with health status
@@ -26,6 +27,6 @@ testing:
   strategy: "Manual: verify provider cards display correctly; test model switching; check mobile layout"
   evidence: ""
 pr:
-  url: ""
+  url: "https://github.com/ailib-official/vela/pull/5"
   merge_commit: ""
 completion_notes: ""
