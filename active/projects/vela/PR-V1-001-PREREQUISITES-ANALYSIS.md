@@ -3,7 +3,7 @@
 > **日期**: 2026-06-21  
 > **分析人**: Spider (sisyphus)  
 > **目的**: 供 Cursor 讨论决策，确认前置项后开工  
-> **状态**: 分析完成，等待决策
+> **状态**: 决策已确认（2026-06-21，Alex + Cursor）— 见 §9
 
 ---
 
@@ -166,8 +166,25 @@ Step 6:            PR-V1-003: 模型导航 UI
 | D1 | npm scope 用 `@ailib-official` 还是 `@ailib`？ | `@ailib-official` | ✅ |
 | D2 | prism-sdk 放 vela monorepo 还是独立仓库？ | vela monorepo `packages/prism-sdk` | ✅ |
 | D3 | prism-sdk 是否需要独立 task YAML？ | 作为 V1-001 的 Step 0，不另建 YAML | ✅ |
-| D4 | Vela 技术栈：React + Vite 还是 Vanilla + Vite？ | 待讨论（V1-001 写的是 "React or Vanilla JS"） | ✅ |
-| D5 | Vela 的 Prism endpoint 用生产 `api.prism.ailib.info` 还是支持可配置？ | 支持可配置（dev 可用 localhost） | — |
+| D4 | Vela 技术栈：React + Vite 还是 Vanilla + Vite？ | **React + Vite** | ✅ |
+| D5 | Vela 的 Prism endpoint 用生产 `api.prism.ailib.info` 还是支持可配置？ | 支持可配置（dev 用 Vite proxy） | ✅ |
+
+---
+
+## 9. 已确认决策（2026-06-21）
+
+| 项 | 决定 |
+|----|------|
+| npm scope | `@ailib-official/prism-sdk` |
+| 仓库结构 | `ailib-official/vela` monorepo：`packages/prism-sdk` + `apps/web` |
+| task 拆分 | prism-sdk 作为 PR-V1-001 Step 0，不另建 YAML |
+| 技术栈 | React + TypeScript + Vite |
+| 模型列表 | `GET /v1/models`（非 `/admin/health`） |
+| CORS | Phase 1 用 Vite dev proxy；生产可同域反代或后续 gateway CORS 任务 |
+| publish | workspace 开发；V1-001 验收前 `npm publish` 0.1.0 |
+| 与 Eos | **Vela ≠ Eos**：Vela 是 A 层导航客户端（Prism HTTP）；Eos 是 To C 网站（eos-server `/api/proxy`） |
+
+执行：Cursor 开 PR 至 `ailib-official/vela` main。
 
 ---
 

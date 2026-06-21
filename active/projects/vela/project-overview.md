@@ -2,7 +2,7 @@
 
 > **Type**: Dual product — A-band open (Vela) + C-band premium (Vela Pro)
 > **Status**: Phase 1 planning (minimal UI)
-> **Repo**: `ailib-official/vela` (to be created)
+> **Repo**: `ailib-official/vela`（monorepo：`packages/prism-sdk` + `apps/web`）
 > **Architecture**: A-layer in S=(A,P,E), client-side navigation + routing
 > **Plan Source**: PRODUCT_PLAN_v2.md
 

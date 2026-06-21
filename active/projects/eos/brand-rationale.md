@@ -69,7 +69,7 @@ Prism 目前占据 To B 侧。三品牌矩阵建议：
 | **Vela** | ③ Vela Pro | ④ Vela |
 | **Eos** | — | **⑤ Eos（逸思）独立 To C 平台** |
 
-Eos 区别于 Vela：Vela 是客户端侧应用（需安装/SDK/API），Eos 是消费者网站（浏览即用），面向更广的大众市场。
+Eos 区别于 Vela：Vela 是客户端侧应用（开源导航客户端 + Prism SDK，可调 `api.prism.ailib.info`），Eos 是消费者网站（`eos.ailib.info`，浏览即用，`/api/proxy` 后端），面向更广的大众市场。二者 UI 可能都有聊天界面，但**产品、仓库、API 入口、品牌均不同**。
 
 ## 后续落地需决断的事项
 

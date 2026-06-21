@@ -1,32 +1,45 @@
 id: PR-V1-001
 title: "Vela Web skeleton (chat UI + Prism SDK integration)"
-status: open
+status: in_progress
 priority: P1
 project: vela
 phase: 1
+repo: "ailib-official/vela"
 depends_on: ["PR-P1-006"]
-assignee: ""
+assignee: "cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
 created: "2026-04-26"
-updated: "2026-04-26"
+updated: "2026-06-21"
+
 description: |
-  Bootstrap Vela web client with minimal chat interface:
-  - Project scaffold: React or Vanilla JS + Vite (or equivalent lightweight bundler)
-  - Prism SDK integration (`@ailib/prism-sdk`) for API calls
-  - Chat UI: message input, response display, streaming support
-  - Model/provider selector (hardcoded list from Prism /admin/health)
-  - Environment config for Prism API endpoint (default: api.prism.ailib.info)
-  - Basic error handling and loading states
-  - README with setup instructions + architecture diagram
+  Bootstrap Vela web client (NOT Eos — see project-overview.md vs eos/brand-rationale.md).
+
+  Monorepo `ailib-official/vela`:
+  - Step 0: `packages/prism-sdk` → `@ailib-official/prism-sdk` (thin OpenAI-compatible client)
+  - Step 1: `apps/web` → React + Vite chat SPA
+
+  Scope:
+  - Prism SDK: PrismClient, chat.completions (stream + non-stream), models.list()
+  - Chat UI: message input, streaming display, model selector from GET /v1/models
+  - Env: VITE_PRISM_BASE_URL (default api.prism.ailib.info), VITE_PRISM_API_KEY
+  - Dev: Vite proxy to avoid browser CORS (no gateway CORS change in P1)
+  - README + architecture diagram
+
 acceptance_criteria:
-  - Vela can send a chat message and receive streaming response via Prism
-  - Model selector allows switching between available providers
-  - Streaming responses render token-by-token
-  - Connection errors display user-friendly messages
-  - README covers local dev setup + Prism endpoint configuration
+  - @ailib-official/prism-sdk builds and exports PrismClient
+  - Vela sends chat via Prism and renders streaming token-by-token
+  - Model selector populated from GET /v1/models (gateway bearer key)
+  - Connection errors show user-friendly messages
+  - README covers local dev, proxy, endpoint config
+  - npm publish @ailib-official/prism-sdk@0.1.0 before task close
+
 testing:
-  strategy: "Manual: open Vela in browser, chat via Prism API, verify streaming + model switch"
+  strategy: "Manual: pnpm dev in apps/web, chat via Prism API (prod or local gateway), verify streaming + model switch"
   evidence: ""
+
 pr:
   url: ""
   merge_commit: ""
+
 completion_notes: ""
