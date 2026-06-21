@@ -1,7 +1,7 @@
 # Vela — AI Navigation Client 任务索引
 
 > 对应 `active/projects/vela/`  
-> **与 Eos 区别**：Vela = A 层客户端（Prism SDK → `api.prism.ailib.info`）；Eos = To C 网站（`eos.ailib.info` → `/api/proxy`）。见 `eos/brand-rationale.md`。
+> **与 Eos 区别**：Vela = A 层客户端（Prism SDK → `api.prism.ailib.info`）；Eos = To C 网站（`eos.ailib.info` → `/api/proxy`）。见 `../eos/brand-rationale.md`。
 
 ## Phase 1
 
