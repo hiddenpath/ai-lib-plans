@@ -1,0 +1,27 @@
+id: "VL-REL-001"
+title: "VelaClaw v0.3.0 release — tag, crates.io, GitHub Release"
+status: "completed"
+priority: "high"
+executor_name: "spider"
+project: "velaclaw"
+milestone: "release-v0.3.0"
+labels:
+  - "velaclaw"
+  - "release"
+created: "2026-06-21"
+updated: "2026-06-21"
+description: |
+  Release v0.3.0 of VelaClaw on crates.io + GitHub Releases.
+
+  Contains all Phase EVO (ExecutionHandle, prism-router, telemetry, adapter retirement),
+  Web Chat UI (Phase 1~3), ai-lib migration Phase 7, and ZeroSpider→VelaClaw rename.
+
+acceptance_criteria:
+  - "v0.3.0 tag pushed to ailib-official/velaclaw ✅"
+  - "crates.io published: velaclaw v0.3.0 ✅"
+  - "GitHub Release created with release notes ✅"
+  - "LAN mirror synced ✅"
+
+completion_notes: |
+  Published 2026-06-21 21:50+8. GitHub Release + crates.io + LAN mirror all synced.
+  Next: smoke test the binary, then plan crate splitting for v0.4.0.
