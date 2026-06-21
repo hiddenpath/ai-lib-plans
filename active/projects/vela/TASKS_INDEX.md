@@ -8,8 +8,8 @@
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|------|------|------|
 | PR-V1-001 | [tasks/PR-V1-001-web-skeleton.yaml](./tasks/PR-V1-001-web-skeleton.yaml) | `completed` ✅ | PR-P1-006 ✅ | [vela](https://github.com/ailib-official/vela) prism-sdk@0.1.0 + smoke OK |
-| PR-V1-002 | [tasks/PR-V1-002-local-history.yaml](./tasks/PR-V1-002-local-history.yaml) | `in_progress` | PR-V1-001 ✅ | IndexedDB + sidebar — PR pending |
-| PR-V1-003 | [tasks/PR-V1-003-provider-navigation-ui.yaml](./tasks/PR-V1-003-provider-navigation-ui.yaml) | `open` | PR-V1-001 | Provider/模型导航 UI |
+| PR-V1-002 | [tasks/PR-V1-002-local-history.yaml](./tasks/PR-V1-002-local-history.yaml) | `completed` ✅ | PR-V1-001 ✅ | [PR #4](https://github.com/ailib-official/vela/pull/4) `baa7f4a` IndexedDB |
+| PR-V1-003 | [tasks/PR-V1-003-provider-navigation-ui.yaml](./tasks/PR-V1-003-provider-navigation-ui.yaml) | `open` | PR-V1-001 ✅ | Provider/模型导航 UI |
 
 ## 决策记录
 

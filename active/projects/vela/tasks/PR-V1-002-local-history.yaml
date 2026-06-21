@@ -1,6 +1,6 @@
 id: PR-V1-002
 title: "Local conversation history (IndexedDB + export)"
-status: in_progress
+status: completed
 priority: P1
 project: vela
 phase: 1
@@ -11,6 +11,7 @@ executor_name: "cursor"
 executor_terminal: "agent-session"
 created: "2026-04-26"
 updated: "2026-06-21"
+completed_at: "2026-06-21"
 
 description: |
   Implement client-side conversation persistence:
@@ -27,11 +28,12 @@ acceptance_criteria:
   - Data persists across browser refresh
 
 testing:
-  strategy: "Manual: create conversations, refresh browser, verify history persists"
-  evidence: ""
+  strategy: "Build pass + manual browser verify"
+  evidence: "CI build pass; IndexedDB layer + sidebar merged PR #4"
 
 pr:
-  url: ""
-  merge_commit: ""
+  url: "https://github.com/ailib-official/vela/pull/4"
+  merge_commit: "baa7f4a"
 
-completion_notes: ""
+completion_notes: |
+  PR #4 baa7f4a: db.ts, export.ts, ConversationSidebar, ChatPanel auto-save.
