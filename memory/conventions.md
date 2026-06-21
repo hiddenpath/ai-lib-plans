@@ -31,8 +31,20 @@
 ## npm Scope
 
 - **All npm packages**: `@ailib-official/*` scope
-- Token: bypass_2fa=true, stored as `NPM_TOKEN`
-- Examples: `@ailib-official/ai-lib-ts`, `@ailib-official/ai-protocol`, `@ailib-official/prism-sdk` (planned)
+- **Token**: Automation, bypass_2FA, `@ailib-official` publish — GitHub secret `NPM_TOKEN` (never in git/plans)
+- **Examples**: `@ailib-official/ai-lib-ts`, `@ailib-official/ai-protocol`, `@ailib-official/prism-sdk` (**v0.1.0**, 2026-06-21)
+- **Publish CI repos**: `ailib-official/ai-lib-ts`, `ailib-official/ai-protocol`, `ailib-official/vela` (`packages/prism-sdk`)
+
+### Publish `@ailib-official/prism-sdk`
+
+Workflow: `ailib-official/vela` → `.github/workflows/publish-prism-sdk.yml`
+
+| Trigger | Command |
+|---------|---------|
+| Tag | `git tag prism-sdk-v0.1.0 && git push origin prism-sdk-v0.1.0` |
+| Manual | `gh workflow run publish-prism-sdk.yml --repo ailib-official/vela -f version=0.1.0` |
+
+Prereq: `gh secret set NPM_TOKEN --repo ailib-official/vela`. Verify: `npm view @ailib-official/prism-sdk version`
 
 ## Rust Toolchain
 

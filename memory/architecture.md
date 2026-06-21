@@ -57,7 +57,7 @@ All runtimes (Rust/Python/TS/Go) pass ai-protocol compliance tests. Unified requ
 - **Phase 2**: WASM routing + model comparison + E2E sync
 - **Phase 3**: Multi-device + subscription
 - Repo: `ailib-official/vela` (pnpm monorepo: `packages/prism-sdk` + `apps/web`)
-- PR-V1-001 in_progress (commit `344d8e2`)
+- PR-V1-001 in_progress — npm `@ailib-official/prism-sdk@0.1.0` published 2026-06-21
 
 → Source: [`log.md` § 2026-06-21](./log.md)
 

@@ -44,6 +44,5 @@ pr:
 
 completion_notes: |
   Bootstrap ailib-official/vela (344d8e2+): prism-sdk + React web.
-  Publish workflow: PR #2 merged, tag prism-sdk-v0.1.0, workflow publish-prism-sdk.yml.
-  npm publish blocked: npm_keys.txt tokens 401 locally; CI EOTP (ailib-official token) or E404 (publish token).
-  Action: regenerate npm Automation token (@ailib-official publish, bypass_2fa) → gh secret set NPM_TOKEN → re-run workflow.
+  Publish workflow PR #2; npm @ailib-official/prism-sdk@0.1.0 live 2026-06-21 (CI 27911434037).
+  Pending: manual apps/web chat smoke test for task close.

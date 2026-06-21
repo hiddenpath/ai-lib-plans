@@ -29,6 +29,29 @@ ssh eos-hk   # Alias: ubuntu@43.159.226.236, key ~/.ssh/id_ed25519_eos_hk
 
 → Source: [`log.md` § Eos 腾讯云香港服务器](./log.md)
 
+## npm Publish — `@ailib-official/prism-sdk`
+
+| Field | Value |
+|-------|-------|
+| Package | `@ailib-official/prism-sdk` |
+| Repo | `ailib-official/vela` (`packages/prism-sdk`) |
+| Workflow | `.github/workflows/publish-prism-sdk.yml` |
+| Secret | `NPM_TOKEN` on `ailib-official/vela` (Automation, bypass 2FA, `@ailib-official` publish) |
+| First publish | **0.1.0** — 2026-06-21 (workflow_dispatch run `27911434037`) |
+
+```bash
+# Rotate token (do not paste into plans/docs)
+gh secret set NPM_TOKEN --repo ailib-official/vela
+
+# Publish next version (bump packages/prism-sdk/package.json first)
+gh workflow run publish-prism-sdk.yml --repo ailib-official/vela -f version=0.1.1
+# or: git tag prism-sdk-v0.1.1 && git push origin prism-sdk-v0.1.1
+
+npm view @ailib-official/prism-sdk version
+```
+
+→ Source: [`log.md` § 2026-06-21 prism-sdk npm](./log.md)
+
 ### Deploy Architecture
 
 ```
@@ -134,9 +157,10 @@ Env: `/opt/eos-v2/.env` (EOS_*_API_KEY prefixed, same keys as Prism)
 | ai-lib-rust | crates.io | `release-crates.yml` | ✅ v0.9.6 |
 | ai-lib-ts | npmjs | `release.yml` | ✅ |
 | ai-protocol | npmjs | `release.yml` | ✅ |
+| vela (prism-sdk) | npmjs | `publish-prism-sdk.yml` | ✅ v0.1.0 |
 | ai-lib-python | PyPI | `ci.yml` OIDC | ⏳ |
 
-**npm token**: automation (bypass_2fa=true, `@ailib-official` scope), secret `NPM_TOKEN` on ai-lib-ts + ai-protocol.
+**npm token**: Automation (bypass_2fa, `@ailib-official` publish), secret `NPM_TOKEN` on ai-lib-ts, ai-protocol, **ailib-official/vela**.
 
 ### Release Process
 1. Code merged to main, tests pass

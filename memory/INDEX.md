@@ -48,6 +48,7 @@ ai-lib-plans/active/projects/<project>/tasks/*.yaml          ← task-level trut
 **Eos production**: `https://eos.ailib.info` (same VPS)  
 **VPS SSH**: `ssh eos-hk` (key `~/.ssh/id_ed25519_eos_hk`)  
 **npm scope**: `@ailib-official/*`  
+**prism-sdk npm**: `@ailib-official/prism-sdk@0.1.0`  
 **Default branch**: `main`  
 **Private repos push**: `git push lan main` daily
 

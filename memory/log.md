@@ -277,6 +277,16 @@ xray：63 节点（57 SS + 2 VLESS + 4 VMess），logrotate daily 7d。
 
 → **Extracted to**: [`architecture.md#vela-vision`](./architecture.md#vela-vision)
 
+## 2026-06-21 — `@ailib-official/prism-sdk` npm 首发
+
+- 包：`@ailib-official/prism-sdk@0.1.0`（vela monorepo `packages/prism-sdk`）
+- CI：`ailib-official/vela` workflow `publish-prism-sdk.yml`（tag `prism-sdk-v*` 或 workflow_dispatch）
+- Secret：`NPM_TOKEN` 存于 GitHub `ailib-official/vela`（Automation、bypass 2FA、`@ailib-official` publish scope）；**不得**写入 plans/仓库
+- 验收：`npm view @ailib-official/prism-sdk version` → `0.1.0`；CI run `27911434037` success
+- 关联任务：PR-V1-001（npm 验收项完成；Web 手动 smoke 仍 pending）
+
+→ **Extracted to**: [`conventions.md#npm-scope`](./conventions.md), [`infrastructure.md#npm-publish-prism-sdk`](./infrastructure.md)
+
 ## Infrastructure — LAN Git Server 运维记忆 (2026-06-08)
 
 - 角色：私有仓库唯一真相源
