@@ -11,11 +11,23 @@
 | PR-V1-002 | [tasks/PR-V1-002-local-history.yaml](./tasks/PR-V1-002-local-history.yaml) | `completed` ✅ | PR-V1-001 ✅ | [PR #4](https://github.com/ailib-official/vela/pull/4) `baa7f4a` IndexedDB |
 | PR-V1-003 | [tasks/PR-V1-003-provider-navigation-ui.yaml](./tasks/PR-V1-003-provider-navigation-ui.yaml) | `completed` ✅ | PR-V1-001 ✅ | [PR #5](https://github.com/ailib-official/vela/pull/5) `8678a29` — Provider导航+模型切换 |
 
+## Phase 2
+
+> 计划：[PHASE2_PLAN.md](./PHASE2_PLAN.md)
+
+| ID | 文件 | 状态 | 依赖 | 说明 |
+|----|------|------|------|------|
+| PR-V2-001 | [tasks/PR-V2-001-model-comparison.yaml](./tasks/PR-V2-001-model-comparison.yaml) | `in_progress` | PR-V1-003 ✅ | 并排模型对比 UI |
+| PR-V2-002 | [tasks/PR-V2-002-e2e-sync-client.yaml](./tasks/PR-V2-002-e2e-sync-client.yaml) | `open` | PR-V1-002 ✅ | E2E 加密云同步客户端 |
+| PR-V2-003 | [tasks/PR-V2-003-wasm-routing.yaml](./tasks/PR-V2-003-wasm-routing.yaml) | `open` | PR-V1-001 ✅ | WASM 基础路由 |
+| PR-V2-004 | [tasks/PR-V2-004-smart-recommendations.yaml](./tasks/PR-V2-004-smart-recommendations.yaml) | `open` | PR-V2-003 | 智能推荐（门控 Prism P2） |
+
 ## 决策记录
 
 | 文档 | 内容 |
 |------|------|
 | [PR-V1-001-PREREQUISITES-ANALYSIS.md](./PR-V1-001-PREREQUISITES-ANALYSIS.md) | 前置分析（Spider）+ Cursor 决策确认 |
+| [PHASE2_PLAN.md](./PHASE2_PLAN.md) | Phase 2 范围、Wave 排期、Prism/Eos 协调 |
 | [project-overview.md](./project-overview.md) | 产品矩阵、三区对齐、路线图 |
 
 ## 仓库

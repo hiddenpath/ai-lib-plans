@@ -1,0 +1,28 @@
+id: PR-V2-003
+title: "WASM routing decision integration (A-band basic)"
+status: open
+priority: P2
+project: vela
+phase: 2
+repo: "ailib-official/vela"
+depends_on: ["PR-V1-001"]
+assignee: ""
+created: "2026-06-21"
+updated: "2026-06-21"
+description: |
+  Embed ailib-wasm-test wasm-browser module for client-side routing hints:
+  - Load WASM in Vite app (static asset or workspace package)
+  - Demo: suggest model/provider from prompt metadata (latency/cost heuristics)
+  - Fallback to manual model pick when WASM unavailable
+  - Document build step for wasm-pack output
+acceptance_criteria:
+  - WASM module loads in dev and production build
+  - Routing suggestion displayed in UI before send
+  - Graceful degradation without WASM
+testing:
+  strategy: "CI build includes WASM assets; manual routing demo"
+  evidence: ""
+pr:
+  url: ""
+  merge_commit: ""
+completion_notes: ""

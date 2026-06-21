@@ -1,0 +1,29 @@
+id: PR-V2-002
+title: "E2E encrypted cloud sync client (B-band)"
+status: open
+priority: P1
+project: vela
+phase: 2
+repo: "ailib-official/vela"
+depends_on: ["PR-V1-002"]
+assignee: ""
+created: "2026-06-21"
+updated: "2026-06-21"
+description: |
+  Client-side E2E sync for Vela IndexedDB conversations (BIZ-004):
+  - Port shared crypto from EOS-P2-003 ADR (AES-256-GCM + PBKDF2)
+  - Export conversations/messages envelope; upload ciphertext blob
+  - Sync UI: passphrase entry, push/pull, conflict message
+  - Backend: configurable sync base URL (Eos /api/sync or future Vela host)
+acceptance_criteria:
+  - Encrypt/decrypt round-trip in browser unit tests or manual verify
+  - Upload + download restores conversations after refresh on second device/session
+  - Passphrase never sent to server
+  - Sync failures show user-friendly errors
+testing:
+  strategy: "Manual cross-session restore; optional Playwright"
+  evidence: ""
+pr:
+  url: ""
+  merge_commit: ""
+completion_notes: ""

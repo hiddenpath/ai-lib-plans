@@ -1,0 +1,33 @@
+id: PR-V2-001
+title: "Side-by-side model comparison UI"
+status: in_progress
+priority: P1
+project: vela
+phase: 2
+repo: "ailib-official/vela"
+depends_on: ["PR-V1-003"]
+assignee: "cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+created: "2026-06-21"
+updated: "2026-06-21"
+description: |
+  Parallel multi-model comparison for the same user prompt:
+  - Select 2–3 models from available /v1/models list
+  - Fire parallel streaming completions via prism-sdk
+  - Side-by-side columns with per-model latency (time to first token)
+  - Compare mode toggle in app shell (Chat | Compare)
+  - Responsive: stacked columns on mobile (>=375px)
+acceptance_criteria:
+  - User can compare at least 2 models in one run
+  - Each column streams independently
+  - Errors in one column do not block others
+  - Compare UI usable on 375px viewport
+  - typecheck + build pass
+testing:
+  strategy: "CI build + manual compare against production Prism"
+  evidence: ""
+pr:
+  url: ""
+  merge_commit: ""
+completion_notes: ""
