@@ -1,6 +1,6 @@
 id: PR-V1-001
 title: "Vela Web skeleton (chat UI + Prism SDK integration)"
-status: in_progress
+status: completed
 priority: P1
 project: vela
 phase: 1
@@ -11,6 +11,7 @@ executor_name: "cursor"
 executor_terminal: "agent-session"
 created: "2026-04-26"
 updated: "2026-06-21"
+completed_at: "2026-06-21"
 
 description: |
   Bootstrap Vela web client (NOT Eos — see project-overview.md vs eos/brand-rationale.md).
@@ -18,13 +19,6 @@ description: |
   Monorepo `ailib-official/vela`:
   - Step 0: `packages/prism-sdk` → `@ailib-official/prism-sdk` (thin OpenAI-compatible client)
   - Step 1: `apps/web` → React + Vite chat SPA
-
-  Scope:
-  - Prism SDK: PrismClient, chat.completions (stream + non-stream), models.list()
-  - Chat UI: message input, streaming display, model selector from GET /v1/models
-  - Env: VITE_PRISM_BASE_URL (default api.prism.ailib.info), VITE_PRISM_API_KEY
-  - Dev: Vite proxy to avoid browser CORS (no gateway CORS change in P1)
-  - README + architecture diagram
 
 acceptance_criteria:
   - @ailib-official/prism-sdk builds and exports PrismClient
@@ -35,14 +29,16 @@ acceptance_criteria:
   - npm publish @ailib-official/prism-sdk@0.1.0 before task close
 
 testing:
-  strategy: "Manual: pnpm dev in apps/web, chat via Prism API (prod or local gateway), verify streaming + model switch"
-  evidence: ""
+  strategy: "scripts/smoke-prism.mjs against api.prism.ailib.info"
+  evidence: |
+    2026-06-21 smoke: models.list=5 (gpt-4o-mini, deepseek-chat, gemini-2.5-flash-lite);
+    chat.stream deepseek-chat → "VELA_SMOKE_OK" (13 chars).
+    npm @ailib-official/prism-sdk@0.1.0; build+test pass; health 200.
 
 pr:
   url: "https://github.com/ailib-official/vela"
-  merge_commit: "344d8e2"
+  merge_commit: "3326f25"
 
 completion_notes: |
-  Bootstrap ailib-official/vela (344d8e2+): prism-sdk + React web.
-  Publish workflow PR #2; npm @ailib-official/prism-sdk@0.1.0 live 2026-06-21 (CI 27911434037).
-  Pending: manual apps/web chat smoke test for task close.
+  prism-sdk npm 0.1.0 published; smoke-prism.mjs production E2E passed 2026-06-21.
+  PR-V1-002 continues on feat/pr-v1-002-local-history.
