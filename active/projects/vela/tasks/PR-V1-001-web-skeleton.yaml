@@ -39,7 +39,9 @@ testing:
   evidence: ""
 
 pr:
-  url: ""
-  merge_commit: ""
+  url: "https://github.com/ailib-official/vela"
+  merge_commit: "344d8e2"
 
-completion_notes: ""
+completion_notes: |
+  Bootstrap on ailib-official/vela main (344d8e2): prism-sdk + React web.
+  Plans 8493f75. Pending: manual chat smoke + npm publish @ailib-official/prism-sdk@0.1.0.
