@@ -4,12 +4,14 @@ status: completed
 priority: P2
 project: vela
 phase: 1
+repo: "ailib-official/vela"
 depends_on: ["PR-V1-001"]
 assignee: "cursor"
 executor_name: "cursor"
 executor_terminal: "agent-session"
 created: "2026-04-26"
 updated: "2026-06-21"
+completed_at: "2026-06-21"
 description: |
   Provider and model discovery interface:
   - Fetch available models from Prism `GET /v1/models` (group by `owned_by` as provider id)
@@ -26,13 +28,13 @@ acceptance_criteria:
   - UI is usable on mobile viewport (>=375px width)
   - Handles Prism API unavailability gracefully (offline indicator)
 testing:
-  strategy: "Manual: verify provider cards display correctly; test model switching; check mobile layout"
-  evidence: ""
+  strategy: "CI build + typecheck on main; manual browser verify provider cards and model switch"
+  evidence: "main 8678a29 CI pass; typecheck + vite build pass locally post-merge"
 pr:
   url: "https://github.com/ailib-official/vela/pull/5"
   merge_commit: "8678a29"
 completion_notes: |
-  PR #5 squash-merged (8678a29): ProviderNav component with P0 provider cards, model
-  quick-switch, health status from /admin/health, MODEL_HINTS for context/pricing,
-  sort by name/latency/cost, responsive 900px breakpoint, offline grace.
-  ChatPanel simplified — model selection lifted to App state, driven by ProviderNav.
+  PR #5 squash-merged (8678a29, Spider review): ProviderNav, providerNavigation.ts,
+  providerMeta.ts; P0 cards from GET /v1/models (optional /admin/health via dev token);
+  model quick-switch, sort by name/latency/cost, responsive 900px breakpoint, offline UX.
+  ChatPanel model selection lifted to App state, driven by ProviderNav.
