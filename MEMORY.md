@@ -733,6 +733,28 @@ Each project has `.cursor/rules/ai-lib-constraint.mdc` to enforce loading SOUL, 
 
 ---
 
+## 2026-06-21 — Vela 长期架构愿景（意图声明，非当前 plans）
+
+**方向**：ai-lib 协议层的价值在生态规模，不在单一官方 agent 实现。
+
+**演进路线**：
+
+| 阶段 | VelaClaw | Vela | 时机 |
+|------|----------|------|------|
+| **Phase 1（当前）** | Claw 生态 Rust agent 产品（已完成） | Web 客户端积木（PR-V1-001 开工前） | Vela 有代码之前不动 |
+| **Phase 2（Vela 可用后）** | 降格为 "ai-lib 官方 Rust agent 参考实现" | 上升为 "基于 prism-sdk 的跨形态客户端积木平台" | prism-sdk 发布 + Vela web 可用 |
+| **Phase 3（第三方采用后）** | 维持参考实现 | 正式平台化（semver, deprecation policy, 贡献指南） | 有外部 PR 或独立 agent 项目后 |
+
+**核心意图**：
+- **VelaClaw** 不是 agent 的唯一实现——任何人可以用 ai-lib-ts / ai-lib-python / ai-lib-go 自建
+- **Vela** 不是 web 客户端那么简单——它的 chat UI、history、routing 是任何人做 agent 可复用的积木
+- **Prism** 是统一的 API 后端——Eos、Vela、VelaClaw、第三方 agent 最终都应走它
+- **此声明不影响当前 task YAML 和 product-overview**——Phase 1 先做出代码，Phase 2 再升定位
+
+**真源**：`active/projects/vela/PR-V1-001-PREREQUISITES-ANALYSIS.md`（2026-06-21 Spider 分析）
+
+---
+
 ## Eos 腾讯云香港服务器 — SSH 访问 (2026-05-27)
 
 | 项目 | 值 |
