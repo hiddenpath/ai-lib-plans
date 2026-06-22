@@ -1,6 +1,6 @@
 id: PP-002
 title: "P-layer minimal cost routing example (not production SLA)"
-status: in_progress
+status: completed
 priority: P1
 project: prism
 phase: 2
@@ -11,7 +11,7 @@ assignee: "cursor"
 executor_name: "cursor"
 executor_terminal: "agent-session"
 created: "2026-04-26"
-updated: "2026-06-22"
+updated: "2026-06-23"
 description: |
   Build a minimal cost-aware routing example in Prism (A-band library + C-band gateway HTTP).
   Implementation spec: docs/PR-PP-002-IMPLEMENTATION.md
@@ -34,5 +34,5 @@ testing:
   evidence: "prism-core: 4 cost_router tests pass; gateway: 16 tests pass (local)"
 pr:
   url: "https://github.com/hiddenpath/eos/pull/14"
-  merge_commit: ""
-completion_notes: ""
+  merge_commit: "7f7278399799e8ad8f0a27708aea5005c1e00006"
+completion_notes: "CostRouter + PricingTable + 4 unit tests merged into prism-core behind #[cfg(feature = \"router\")]. Depends on PR-P2-003 (gateway POST /v1/route/decide) for HTTP exposure."
