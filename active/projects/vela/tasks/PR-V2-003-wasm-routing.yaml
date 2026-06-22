@@ -25,6 +25,6 @@ testing:
   strategy: "CI build includes WASM assets; manual routing demo"
   evidence: ""
 pr:
-  url: ""
+  url: "https://github.com/ailib-official/vela/pull/8"
   merge_commit: ""
 completion_notes: ""

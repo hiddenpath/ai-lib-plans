@@ -19,7 +19,7 @@
 |----|------|------|------|------|
 | PR-V2-001 | [tasks/PR-V2-001-model-comparison.yaml](./tasks/PR-V2-001-model-comparison.yaml) | `completed` ✅ | PR-V1-003 ✅ | [PR #6](https://github.com/ailib-official/vela/pull/6) `5354089` — 并排模型对比 UI |
 | PR-V2-002 | [tasks/PR-V2-002-e2e-sync-client.yaml](./tasks/PR-V2-002-e2e-sync-client.yaml) | `completed` ✅ | PR-V1-002 ✅ | [PR #7](https://github.com/ailib-official/vela/pull/7) `3d75c98` — E2E 加密云同步 |
-| PR-V2-003 | [tasks/PR-V2-003-wasm-routing.yaml](./tasks/PR-V2-003-wasm-routing.yaml) | `in_progress` | PR-V1-001 ✅ | WASM 基础路由 |
+| PR-V2-003 | [tasks/PR-V2-003-wasm-routing.yaml](./tasks/PR-V2-003-wasm-routing.yaml) | `in_progress` ([PR #8](https://github.com/ailib-official/vela/pull/8)) | PR-V1-001 ✅ | WASM 基础路由 |
 | PR-V2-004 | [tasks/PR-V2-004-smart-recommendations.yaml](./tasks/PR-V2-004-smart-recommendations.yaml) | `open` | PR-V2-003 | 智能推荐（门控 Prism P2） |
 
 ## 决策记录
