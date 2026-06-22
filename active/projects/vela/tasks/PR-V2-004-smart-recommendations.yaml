@@ -1,6 +1,6 @@
 id: PR-V2-004
 title: "Smart model recommendations (placeholder)"
-status: in_progress
+status: completed (complete: PR-V2-004 — smart routing placeholder merged (vela #9, 193c53a))
 priority: P3
 project: vela
 phase: 2
@@ -16,12 +16,16 @@ description: |
   **Gated** on PT-073 and Prism Phase 2 billing (PR-PP-002).
   Phase 2 delivery = design doc + UI stub only until gate clears.
 acceptance_criteria:
-  - Design doc in vela repo or ai-lib-plans referencing Prism auto-routing API
-  - UI stub shows "coming soon" or uses PR-V2-003 WASM heuristics as interim
+  - Design doc in vela repo (SMART_ROUTING.md with /v1/route/decide API contract)
+  - UI stub shows "coming soon" (SmartRoutingBanner) + Interim badge on RoutingHintBar
+  - Feature gate (isSmartRoutingLive) with 3 Prism P2 conditions, all false
 testing:
-  strategy: "Doc review"
-  evidence: ""
+  strategy: "Doc review + vitest: 2 gate state tests"
+  evidence: "vitest: isSmartRoutingLive()===false, label contains 'Interim'"
 pr:
   url: "https://github.com/ailib-official/vela/pull/9"
-  merge_commit: ""
-completion_notes: ""
+  merge_commit: "193c53a"
+completion_notes: |
+  PR #9 squash-merged (193c53a): SMART_ROUTING.md design doc, SmartRoutingBanner
+  ('Coming soon'), RoutingHintBar interim badge, smartRouting.ts feature gate.
+  All three Prism P2 gates are false — will be flipped when PT-073/PP-002/billing clear.
