@@ -1,6 +1,6 @@
 id: PR-V2-003
 title: "WASM routing decision integration (A-band basic)"
-status: in_progress
+status: completed
 priority: P2
 project: vela
 phase: 2
@@ -13,18 +13,23 @@ created: "2026-06-21"
 updated: "2026-06-22"
 description: |
   Embed ailib-wasm-test wasm-browser module for client-side routing hints:
-  - Load WASM in Vite app (static asset or workspace package)
+  - Load WASM in Vite app (vendored under src/vendor/wasm)
   - Demo: suggest model/provider from prompt metadata (latency/cost heuristics)
-  - Fallback to manual model pick when WASM unavailable
-  - Document build step for wasm-pack output
+  - Fallback to TypeScript heuristics when WASM unavailable (graceful degradation)
+  - Document build step for wasm-pack output (WASM.md + copy-wasm.mjs)
 acceptance_criteria:
   - WASM module loads in dev and production build
-  - Routing suggestion displayed in UI before send
-  - Graceful degradation without WASM
+  - Routing suggestion displayed in UI before send (RoutingHintBar)
+  - Graceful degradation without WASM (TS heuristics only)
 testing:
-  strategy: "CI build includes WASM assets; manual routing demo"
-  evidence: ""
+  strategy: "CI build includes WASM assets; vitest routing hint tests"
+  evidence: "vitest: 4 routing hint tests pass (long, short, code, optimal)"
 pr:
   url: "https://github.com/ailib-official/vela/pull/8"
-  merge_commit: ""
-completion_notes: ""
+  merge_commit: "c86cda7"
+completion_notes: |
+  PR #8 squash-merged (c86cda7): Vendored ailib-wasm-browser (229KB). wasmLoader.ts
+  lazy singleton with graceful fallback. routingHint.ts provides TS heuristics
+  (long→context, code→capable, short→cheap). RoutingHintBar UI above composer
+  with WASM badge and "Use" button. copy-wasm.mjs for artifact refresh.
+>>>>>>> a82f16a (complete: PR-V2-003 — WASM routing hints merged (vela #8, c86cda7))
