@@ -1,0 +1,31 @@
+id: PR-P2-003
+title: "POST /v1/route/decide — gateway HTTP for cost routing"
+status: in_progress
+priority: P1
+project: prism
+phase: 2
+scope: product
+repo: "ailib-official/ai-lib-gateway"
+depends_on: ["PR-PP-002"]
+assignee: "cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+created: "2026-06-22"
+updated: "2026-06-22"
+description: |
+  在 ai-lib-gateway 暴露智能路由决策端点，供 Vela 等客户端消费。
+  与 PR-PP-002 库层同 PR 或紧接 PR 交付。
+  实现方案：docs/PR-PP-002-IMPLEMENTATION.md §4
+  对齐 Vela apps/web/docs/SMART_ROUTING.md 请求/响应形状。
+acceptance_criteria:
+  - POST /v1/route/decide 受 Gateway Bearer 保护
+  - optimize=cost 返回 model/provider_id/reason/fallback_chain
+  - 响应含 NOT_PRODUCTION_SLA disclaimer 字段或文档等效
+  - axum 集成测试覆盖 200/404/400
+testing:
+  strategy: "cargo test in ai-lib-gateway; curl smoke against local gateway"
+  evidence: "cargo test 16 passed (local); branch feat/pr-p2-003-route-decide"
+pr:
+  url: "https://github.com/hiddenpath/ai-lib-gateway/pull/10"
+  merge_commit: ""
+completion_notes: ""

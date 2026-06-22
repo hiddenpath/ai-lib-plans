@@ -1,31 +1,38 @@
 id: PP-002
 title: "P-layer minimal cost routing example (not production SLA)"
-status: open
-priority: P2
+status: in_progress
+priority: P1
 project: prism
-phase: wave2
+phase: 2
+scope: library
+repo: "hiddenpath/eos — crates/prism-core; ailib-official/ai-lib-gateway"
 depends_on: ["PR-P1-005", "PR-P1-008"]
-assignee: ""
+assignee: "cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
 created: "2026-04-26"
-updated: "2026-04-26"
+updated: "2026-06-22"
 description: |
-  ⚠️ Repo: `hiddenpath/gateway` — C-band closed-source; do NOT push to `ailib-official` public org.
-  Build a minimal cost-aware routing example in Prism:
+  Build a minimal cost-aware routing example in Prism (A-band library + C-band gateway HTTP).
+  Implementation spec: docs/PR-PP-002-IMPLEMENTATION.md
   - Cost routing strategy: given request, select provider with lowest per-token cost
-  - Pricing data source: static config (YAML/JSON) with per-provider per-model pricing
-  - Route decision: compare costs across available healthy providers for requested model class
+  - Pricing data source: external YAML/JSON (shared with Pricer where possible)
+  - Route decision: compare costs across available healthy providers for requested model
+  - HTTP: POST /v1/route/decide (task PR-P2-003; may ship same PR or immediately after)
   - Explicit "NOT PRODUCTION SLA" warning in code + docs
   - Example config with 5 P0 provider pricing (public pricing pages)
   - Integration test: verify routing selects cheapest option
+  **Does not block on PT-073** — uses prism-core libcurl path (D6).
 acceptance_criteria:
   - Cost routing selects lowest-cost provider for given model class
   - Pricing config is external (YAML/JSON), not hardcoded
   - Code and docs carry "not production SLA" warning
   - Integration test demonstrates cost-based routing decision
+  - cost_router.rs in prism-core with unit tests
 testing:
-  strategy: "Integration test: provide pricing config, send requests, verify routing decisions match expected cheapest provider"
-  evidence: ""
+  strategy: "cargo test -p prism-core cost_router; gateway route_decide integration test"
+  evidence: "prism-core: 4 cost_router tests pass; gateway: 16 tests pass (local)"
 pr:
-  url: ""
+  url: "https://github.com/hiddenpath/eos/pull/14"
   merge_commit: ""
 completion_notes: ""
