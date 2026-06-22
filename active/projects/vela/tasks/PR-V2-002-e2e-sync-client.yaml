@@ -1,14 +1,16 @@
 id: PR-V2-002
 title: "E2E encrypted cloud sync client (B-band)"
-status: open
+status: in_progress
 priority: P1
 project: vela
 phase: 2
 repo: "ailib-official/vela"
 depends_on: ["PR-V1-002"]
-assignee: ""
+assignee: "cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
 created: "2026-06-21"
-updated: "2026-06-21"
+updated: "2026-06-22"
 description: |
   Client-side E2E sync for Vela IndexedDB conversations (BIZ-004):
   - Port shared crypto from EOS-P2-003 ADR (AES-256-GCM + PBKDF2)
