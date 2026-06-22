@@ -22,6 +22,6 @@ testing:
   strategy: "Doc review"
   evidence: ""
 pr:
-  url: ""
+  url: "https://github.com/ailib-official/vela/pull/9"
   merge_commit: ""
 completion_notes: ""
