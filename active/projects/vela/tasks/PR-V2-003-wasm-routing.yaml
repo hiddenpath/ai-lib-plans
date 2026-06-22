@@ -1,14 +1,16 @@
 id: PR-V2-003
 title: "WASM routing decision integration (A-band basic)"
-status: open
+status: in_progress
 priority: P2
 project: vela
 phase: 2
 repo: "ailib-official/vela"
 depends_on: ["PR-V1-001"]
-assignee: ""
+assignee: "cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
 created: "2026-06-21"
-updated: "2026-06-21"
+updated: "2026-06-22"
 description: |
   Embed ailib-wasm-test wasm-browser module for client-side routing hints:
   - Load WASM in Vite app (static asset or workspace package)
