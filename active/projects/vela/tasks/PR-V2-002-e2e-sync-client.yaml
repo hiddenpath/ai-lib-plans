@@ -26,6 +26,6 @@ testing:
   strategy: "Manual cross-session restore; optional Playwright"
   evidence: ""
 pr:
-  url: ""
+  url: "https://github.com/ailib-official/vela/pull/7"
   merge_commit: ""
 completion_notes: ""
