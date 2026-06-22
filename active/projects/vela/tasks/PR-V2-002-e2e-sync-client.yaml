@@ -1,6 +1,6 @@
 id: PR-V2-002
 title: "E2E encrypted cloud sync client (B-band)"
-status: in_progress
+status: completed
 priority: P1
 project: vela
 phase: 2
@@ -24,8 +24,12 @@ acceptance_criteria:
   - Sync failures show user-friendly errors
 testing:
   strategy: "Manual cross-session restore; optional Playwright"
-  evidence: ""
+  evidence: "vitest: 4 crypto tests pass (round-trip, wrong passphrase, envelope b64)"
 pr:
   url: "https://github.com/ailib-official/vela/pull/7"
-  merge_commit: ""
-completion_notes: ""
+  merge_commit: "3d75c98"
+completion_notes: |
+  PR #7 squash-merged (3d75c98): syncCrypto (AES-256-GCM + PBKDF2, Web Crypto API),
+  syncClient (REST /api/sync, 409 conflict detection), syncService (push/pull orchestration),
+  SyncPanel UI in sidebar, vitest unit tests. Passphrase in sessionStorage only.
+  Vite proxy for /api/sync in dev. VITE_SYNC_AUTH_TOKEN env var.
