@@ -32,4 +32,3 @@ completion_notes: |
   lazy singleton with graceful fallback. routingHint.ts provides TS heuristics
   (long→context, code→capable, short→cheap). RoutingHintBar UI above composer
   with WASM badge and "Use" button. copy-wasm.mjs for artifact refresh.
->>>>>>> a82f16a (complete: PR-V2-003 — WASM routing hints merged (vela #8, c86cda7))

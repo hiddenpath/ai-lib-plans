@@ -1,14 +1,16 @@
 id: PR-V2-004
 title: "Smart model recommendations (placeholder)"
-status: open
+status: in_progress
 priority: P3
 project: vela
 phase: 2
 repo: "ailib-official/vela"
 depends_on: ["PR-V2-003"]
-assignee: ""
+assignee: "cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
 created: "2026-06-21"
-updated: "2026-06-21"
+updated: "2026-06-22"
 description: |
   Intelligent model suggestions based on Prism smart routing / usage signals.
   **Gated** on PT-073 and Prism Phase 2 billing (PR-PP-002).
