@@ -1,0 +1,32 @@
+id: PR-P2-004
+title: "Pay-per-use billing with platform margin (Phase 2 D3)"
+status: in_progress
+priority: P1
+project: prism
+phase: 2
+scope: library
+repo: "hiddenpath/eos — crates/prism-core; ailib-official/ai-lib-gateway"
+depends_on: ["PR-P2-001", "PR-P1-011"]
+assignee: "cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+created: "2026-06-22"
+updated: "2026-06-23"
+description: |
+  Phase 2 计费闭环（Decision D3）：Provider 成本价 + 平台 margin。
+  - margin 配置（TOML/YAML）
+  - 用户维度用量累计（复用 quota 基础设施）
+  - Admin 查询接口；为 Eos EOS-P2-004 免费 tier 提供钩子
+  解锁 Vela smartRouting.ts `prismPhase2Billing` 门控。
+acceptance_criteria:
+  - 每笔 completion 写入带 margin 的 µUSD 成本
+  - 用户/租户维度月度汇总可查询
+  - 超限行为与 PR-P1-011 quota 一致或文档化差异
+  - 首版不要求支付网关集成（用量可见即可）
+testing:
+  strategy: "prism-core billing tests + admin usage API smoke"
+  evidence: "eos: 59 tests pass; gateway: 18 tests pass (local)"
+pr:
+  url: "https://github.com/hiddenpath/eos/pull/16"
+  merge_commit: ""
+completion_notes: ""
