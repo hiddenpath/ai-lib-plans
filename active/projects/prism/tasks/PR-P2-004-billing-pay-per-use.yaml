@@ -1,6 +1,6 @@
 id: PR-P2-004
 title: "Pay-per-use billing with platform margin (Phase 2 D3)"
-status: in_progress
+status: completed
 priority: P1
 project: prism
 phase: 2
@@ -25,10 +25,13 @@ acceptance_criteria:
   - 首版不要求支付网关集成（用量可见即可）
 testing:
   strategy: "prism-core billing tests + admin usage API smoke"
-  evidence: "eos: 59 tests pass; gateway: 18 tests pass (local)"
+  evidence: "eos: 59+ tests pass; gateway: 18+ tests pass; CI SUCCESS"
 pr:
   url: "https://github.com/hiddenpath/eos/pull/16"
-  merge_commit: ""
+  merge_commit: "64772ef16e683802db09c2a8f9359be23118ccd0"
   gateway_pr:
     url: "https://github.com/hiddenpath/ai-lib-gateway/pull/11"
-completion_notes: ""
+    merge_commit: "140527d0116668374760cf1a10307f6fbb3b3afd"
+completion_notes: |
+  eos #16 merged @ 64772ef; gateway #11 merged @ 140527d. BillingService + CompletionInput,
+  GET /admin/billing?user_id=, optional [billing] TOML margin_bps.
