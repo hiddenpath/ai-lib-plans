@@ -297,3 +297,6 @@ xray：63 节点（57 SS + 2 VLESS + 4 VMess），logrotate daily 7d。
 - 免密配置：Ed25519 密钥对，lan-git/piubt 别名
 
 → **Extracted to**: [`infrastructure.md#lan-git-ops`](./infrastructure.md#lan-git-ops)
+---
+## 2026-06-23
+- **text-tool-call-standard**: 提出标准化跨 LLM 文本工具调用协议需求。详见 [active/text-tool-call-standard.md](../active/text-tool-call-standard.md)
