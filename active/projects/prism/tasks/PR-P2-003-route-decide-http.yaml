@@ -1,6 +1,6 @@
 id: PR-P2-003
 title: "POST /v1/route/decide — gateway HTTP for cost routing"
-status: in_progress
+status: completed
 priority: P1
 project: prism
 phase: 2
@@ -11,7 +11,7 @@ assignee: "cursor"
 executor_name: "cursor"
 executor_terminal: "agent-session"
 created: "2026-06-22"
-updated: "2026-06-22"
+updated: "2026-06-23"
 description: |
   在 ai-lib-gateway 暴露智能路由决策端点，供 Vela 等客户端消费。
   与 PR-PP-002 库层同 PR 或紧接 PR 交付。
@@ -27,5 +27,5 @@ testing:
   evidence: "cargo test 16 passed (local); branch feat/pr-p2-003-route-decide"
 pr:
   url: "https://github.com/hiddenpath/ai-lib-gateway/pull/10"
-  merge_commit: ""
-completion_notes: ""
+  merge_commit: "753e129"
+completion_notes: "Merged via gh pr merge --squash --delete-branch at 753e129. 333 additions, 5 deletions. CI rust check SUCCESS. Branch feat/pr-p2-003-route-decide deleted."
