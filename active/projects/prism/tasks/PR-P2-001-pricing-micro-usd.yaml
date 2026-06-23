@@ -25,6 +25,6 @@ testing:
   strategy: "cargo test -p prism-core --features full usage"
   evidence: "6 usage/admin tests pass locally; clippy clean"
 pr:
-  url: ""
+  url: "https://github.com/hiddenpath/eos/pull/15"
   merge_commit: ""
 completion_notes: ""
