@@ -34,9 +34,22 @@
 
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|------|------|------|
-| PR-PP-001 | [tasks/PR-PP-001-pack-contract-draft.yaml](./tasks/PR-PP-001-pack-contract-draft.yaml) | `open` | PR-P1-008 | Pack contract |
-| PR-PP-002 | [tasks/PR-PP-002-cost-routing-example.yaml](./tasks/PR-PP-002-cost-routing-example.yaml) | `open` | PR-P1-005, PR-P1-008 | Cost routing example |
-| PR-PP-003 | [tasks/PR-PP-003-constitution-rules-extraction.yaml](./tasks/PR-PP-003-constitution-rules-extraction.yaml) | `completed` | PR-P1-005 | BIZ-001~005（先对齐 A/C band） |
+| PR-PP-001 | [tasks/PR-PP-001-pack-contract-draft.yaml](./tasks/PR-PP-001-pack-contract-draft.yaml) | `open` | PR-P1-008 ✅ | Pack contract |
+| PR-PP-002 | [tasks/PR-PP-002-cost-routing-example.yaml](./tasks/PR-PP-002-cost-routing-example.yaml) | `completed` ✅ | PR-P1-005 ✅, PR-P1-008 ✅ | 成本路由 — eos [#14](https://github.com/hiddenpath/eos/pull/14) `7f72783` |
+| PR-PP-003 | [tasks/PR-PP-003-constitution-rules-extraction.yaml](./tasks/PR-PP-003-constitution-rules-extraction.yaml) | `completed` ✅ | PR-P1-005 ✅ | BIZ-001~005 |
+
+## Phase 2
+
+> 计划：[PHASE2_PLAN.md](./PHASE2_PLAN.md) · 门控分析：[PRISM_P2_PT073_GATE_ANALYSIS_2026-06.md](./PRISM_P2_PT073_GATE_ANALYSIS_2026-06.md)
+
+| ID | 文件 | 状态 | 依赖 | 说明 |
+|----|------|------|------|------|
+| PR-P2-001 | [tasks/PR-P2-001-pricing-micro-usd.yaml](./tasks/PR-P2-001-pricing-micro-usd.yaml) | `in_progress` | PR-P1-004 ✅ | µUSD 定价精度 |
+| PR-P2-002 | [tasks/PR-P2-002-byok-mode.yaml](./tasks/PR-P2-002-byok-mode.yaml) | `open` | PR-P1-003 ✅, PR-P1-005 ✅ | BYOK |
+| PR-P2-003 | [tasks/PR-P2-003-route-decide-http.yaml](./tasks/PR-P2-003-route-decide-http.yaml) | `completed` ✅ | PR-PP-002 | `POST /v1/route/decide` — gateway [#10](https://github.com/hiddenpath/ai-lib-gateway/pull/10) `753e129` |
+| PR-P2-004 | [tasks/PR-P2-004-billing-pay-per-use.yaml](./tasks/PR-P2-004-billing-pay-per-use.yaml) | `open` | PR-P2-001, PR-P1-011 ✅ | 按量计费 + margin |
+| PR-P2-005 | [tasks/PR-P2-005-smart-routing-ga.yaml](./tasks/PR-P2-005-smart-routing-ga.yaml) | `open` | PR-P2-003, PR-P2-004 | 智能路由 GA（软依赖 PT-073） |
+| PR-P2-006 | [tasks/PR-P2-006-enterprise-mvp-placeholder.yaml](./tasks/PR-P2-006-enterprise-mvp-placeholder.yaml) | `open` | PR-P2-004 | Enterprise 占位 |
 
 ## 里程碑
 
@@ -55,5 +68,9 @@
 ## 相关文档
 
 - [project-overview.md](./project-overview.md)
-- [NEAR_TERM_EXECUTION_2026-06-P1.md](./NEAR_TERM_EXECUTION_2026-06-P1.md) — **近期排期（P1）**；Eos proxy 不在范围内
+- [PHASE2_PLAN.md](./PHASE2_PLAN.md) — **Phase 2 排期**
+- [PRISM_P2_PT073_GATE_ANALYSIS_2026-06.md](./PRISM_P2_PT073_GATE_ANALYSIS_2026-06.md) — 门控对照
+- [docs/PR-PP-002-IMPLEMENTATION.md](./docs/PR-PP-002-IMPLEMENTATION.md) — 成本路由 + decide API
+- [NEAR_TERM_EXECUTION_2026-06-P1.md](./NEAR_TERM_EXECUTION_2026-06-P1.md) — P1 排期（已完成）
+- [../ai-protocol/PT-073-GAP-AUDIT_2026-06.md](../ai-protocol/PT-073-GAP-AUDIT_2026-06.md) — PT-073 差距审计
 - MEMORY.md § 2026-06-04 Prism Phase 1 计划对齐
