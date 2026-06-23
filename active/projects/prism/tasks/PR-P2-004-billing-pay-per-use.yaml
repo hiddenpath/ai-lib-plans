@@ -29,4 +29,6 @@ testing:
 pr:
   url: "https://github.com/hiddenpath/eos/pull/16"
   merge_commit: ""
+  gateway_pr:
+    url: "https://github.com/hiddenpath/ai-lib-gateway/pull/11"
 completion_notes: ""
