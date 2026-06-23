@@ -29,5 +29,5 @@ pr:
   url: "https://github.com/hiddenpath/eos/pull/17"
   merge_commit: ""
   gateway_pr:
-    url: ""
+    url: "https://github.com/hiddenpath/ai-lib-gateway/pull/12"
 completion_notes: ""
