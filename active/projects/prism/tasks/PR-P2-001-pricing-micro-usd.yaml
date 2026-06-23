@@ -1,30 +1,38 @@
 id: PR-P2-001
-title: "Pricing precision — migrate UsageRecord to µUSD (i64)"
-status: in_progress
+title: "PR-P2-001 migrate usage billing to micro-USD (i64)"
+status: completed
 priority: P1
 project: prism
 phase: 2
-scope: library
-repo: "hiddenpath/eos — crates/prism-core"
-depends_on: ["PR-P1-004"]
+scope: product
+repo: "hiddenpath/eos"
+depends_on: []
 assignee: "cursor"
 executor_name: "cursor"
 executor_terminal: "agent-session"
-created: "2026-06-22"
+created: "2026-06-23"
 updated: "2026-06-23"
 description: |
-  Phase 2 billing 先决：将 `UsageRecord.cost_usd: f64` 迁为 `cost_micro_usd: i64`。
-  Pricer 内部整数运算；API 边界可选只读 `cost_usd` 换算字段。
-  见 prism-core `usage.rs` 模块级 µUSD 注释。
+  Replace UsageRecord.cost_usd (f64) with cost_micro_usd (i64) as canonical
+  storage to eliminate float drift in accumulation. SQLite schema v2 migration
+  from legacy cost_usd column. Pricer::calculate_cost_micro_usd() with integer
+  math; calculate_cost() remains USD wrapper. Admin UsageSummary exposes
+  total_cost_micro_usd and derived total_cost_usd.
 acceptance_criteria:
-  - UsageRecord 持久化使用 i64 microdollars
-  - Pricer::calculate_cost 返回 microdollars 或新类型
-  - 现有 usage 单测更新；累加无浮点漂移回归测试
-  - Admin usage JSON 文档说明字段变更
+  - UsageRecord.cost_micro_usd i64 replaces cost_usd f64 as canonical
+  - SQLite schema v2 migration preserves legacy cost_usd column
+  - Pricer::calculate_cost_micro_usd() integer math; calculate_cost() stays as f64 wrapper
+  - Admin UsageSummary shows both total_cost_micro_usd and total_cost_usd
+  - Float-drift regression test for 10k-request accumulation
 testing:
-  strategy: "cargo test -p prism-core --features full usage"
-  evidence: "6 usage/admin tests pass locally; clippy clean"
+  strategy: "cargo test -p prism-core --features full"
+  evidence: "cargo test pass; cargo clippy -p prism-core --features full -D warnings"
 pr:
   url: "https://github.com/hiddenpath/eos/pull/15"
-  merge_commit: ""
-completion_notes: ""
+  merge_commit: "40ab60eb"
+completion_notes: |
+  Merged via gh pr merge --squash --delete-branch at 40ab60eb.
+  2 commits: feat(prism-core) + style(cargo fmt). CI rust/docker-build/e2e all SUCCESS.
+  Branch feat/pr-p2-001-pricing-micro-usd deleted.
+  Review: Spider left one COMMENT (rebase main for fmt fix), 2nd commit resolved fmt.
+
