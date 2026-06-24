@@ -1,13 +1,15 @@
 id: PP-001
 title: "Pack contract draft: JSON Schema extension + 1 example"
-status: open
+status: in_progress
 priority: P2
 project: prism
 phase: wave2
 depends_on: ["PR-P1-008"]
-assignee: ""
+assignee: "cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
 created: "2026-04-26"
-updated: "2026-04-26"
+updated: "2026-06-24"
 description: |
   ⚠️ Repo: `hiddenpath/gateway` — C-band closed-source; do NOT push to `ailib-official` public org.
   Draft the Prism Pack capability contract:
@@ -24,8 +26,8 @@ acceptance_criteria:
   - No marketplace or registry implementation (contract only)
 testing:
   strategy: "Validate: example JSON against schema; review schema completeness against report 5 §6 Pack description"
-  evidence: ""
+  evidence: "npm run validate:packs passes locally (1 example); full validate 108 passed"
 pr:
-  url: ""
+  url: "https://github.com/ailib-official/ai-protocol/pull/10"
   merge_commit: ""
 completion_notes: ""

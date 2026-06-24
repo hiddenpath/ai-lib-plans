@@ -34,7 +34,7 @@
 
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|------|------|------|
-| PR-PP-001 | [tasks/PR-PP-001-pack-contract-draft.yaml](./tasks/PR-PP-001-pack-contract-draft.yaml) | `open` | PR-P1-008 ✅ | Pack contract |
+| PR-PP-001 | [tasks/PR-PP-001-pack-contract-draft.yaml](./tasks/PR-PP-001-pack-contract-draft.yaml) | `in_progress` | PR-P1-008 ✅ | Pack contract — ai-protocol [#10](https://github.com/ailib-official/ai-protocol/pull/10) |
 | PR-PP-002 | [tasks/PR-PP-002-cost-routing-example.yaml](./tasks/PR-PP-002-cost-routing-example.yaml) | `completed` ✅ | PR-P1-005 ✅, PR-P1-008 ✅ | 成本路由 — eos [#14](https://github.com/hiddenpath/eos/pull/14) `7f72783` |
 | PR-PP-003 | [tasks/PR-PP-003-constitution-rules-extraction.yaml](./tasks/PR-PP-003-constitution-rules-extraction.yaml) | `completed` ✅ | PR-P1-005 ✅ | BIZ-001~005 |
 
@@ -49,7 +49,7 @@
 | PR-P2-003 | [tasks/PR-P2-003-route-decide-http.yaml](./tasks/PR-P2-003-route-decide-http.yaml) | `completed` ✅ | PR-PP-002 | `POST /v1/route/decide` — gateway [#10](https://github.com/hiddenpath/ai-lib-gateway/pull/10) `753e129` |
 | PR-P2-004 | [tasks/PR-P2-004-billing-pay-per-use.yaml](./tasks/PR-P2-004-billing-pay-per-use.yaml) | `completed` ✅ | PR-P2-001 ✅ | billing — eos [#16](https://github.com/hiddenpath/eos/pull/16) `64772ef` + gateway [#11](https://github.com/hiddenpath/ai-lib-gateway/pull/11) |
 | PR-P2-005 | [tasks/PR-P2-005-smart-routing-ga.yaml](./tasks/PR-P2-005-smart-routing-ga.yaml) | `in_progress` | PR-P2-003 ✅, PR-P2-004 ✅ | 智能路由 GA |
-| PR-P2-006 | [tasks/PR-P2-006-enterprise-mvp-placeholder.yaml](./tasks/PR-P2-006-enterprise-mvp-placeholder.yaml) | `open` | PR-P2-004 | Enterprise 占位 |
+| PR-P2-006 | [tasks/PR-P2-006-enterprise-mvp-placeholder.yaml](./tasks/PR-P2-006-enterprise-mvp-placeholder.yaml) | `completed` ✅ | PR-P2-004 ✅ | Enterprise 占位 — [design doc](./docs/PR-P2-006-ENTERPRISE_PLACEHOLDER.md) |
 
 ## 里程碑
 

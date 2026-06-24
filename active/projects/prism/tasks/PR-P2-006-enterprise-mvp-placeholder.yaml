@@ -1,0 +1,31 @@
+id: PR-P2-006
+title: "Enterprise MVP placeholder — SSO/audit hooks (loosely coupled to PT-073)"
+status: completed
+priority: P3
+project: prism
+phase: 2
+scope: product
+repo: "hiddenpath/eos — eos-server; ailib-official/ai-lib-gateway"
+depends_on: ["PR-P2-004"]
+assignee: "cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+created: "2026-06-22"
+updated: "2026-06-24"
+description: |
+  Phase 2 Enterprise MVP 占位（PRODUCT_PLAN §4.2）：与 PT-073 松耦合。
+  - SSO 集成点设计（OIDC/SAML 选型文档）
+  - 审计日志 schema 草案（谁、何时、调用了哪条 route）
+  - `--features enterprise` 与 eos-server 边界说明
+  非 Phase 2 必交付 blocker；Phase 2 末 Wave 7。
+acceptance_criteria:
+  - 设计文档在 ai-lib-plans 或 gateway docs
+  - 审计事件与 usage 记录可关联（request_id）
+  - 明确 Phase 3 与 Phase 2 边界
+testing:
+  strategy: "Doc review"
+  evidence: "docs/PR-P2-006-ENTERPRISE_PLACEHOLDER.md — OIDC-first SSO hooks, audit JSON schema, request_id correlation"
+pr:
+  url: ""
+  merge_commit: ""
+completion_notes: "Phase 2 placeholder design in ai-lib-plans; no runtime PR. Phase 3 owns OIDC middleware + audit sink."
