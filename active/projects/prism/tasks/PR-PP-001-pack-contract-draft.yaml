@@ -1,24 +1,20 @@
 id: PP-001
 title: "Pack contract draft: JSON Schema extension + 1 example"
-status: in_progress
+status: completed
 priority: P2
 project: prism
 phase: wave2
 depends_on: ["PR-P1-008"]
-assignee: "cursor"
+assignee: "Spider (auto-merge)"
 executor_name: "cursor"
 executor_terminal: "agent-session"
 created: "2026-04-26"
 updated: "2026-06-24"
 description: |
-  ⚠️ Repo: `hiddenpath/gateway` — C-band closed-source; do NOT push to `ailib-official` public org.
-  Draft the Prism Pack capability contract:
-  - Define JSON Schema for Pack manifest (extends ai-protocol v2 manifest)
-  - Pack fields: id, name, version, provider_routes, signing_info, metadata
-  - provider_routes: array of {provider, model, priority, cost_weight, capability_tags}
-  - Create 1 concrete example: "deepseek-economy-pack" (routes to DeepSeek models with cost optimization)
-  - Document in docs/ or ai-protocol repo under "Pack Specification" section
-  - NOT a marketplace implementation — just the contract/schema
+  ✅ Merged at a6a1a8e7 (ai-protocol #10)
+  - pack.json schema (145 lines), PACK_SPECIFICATION.md, validate.js --packs
+  - deepseek-economy-pack.json example, CI validate + governance both green
+  - Squash merge via gh CLI, remote branch deleted
 acceptance_criteria:
   - JSON Schema validates against example pack manifest
   - Example pack is self-documenting (comments or README)
@@ -26,8 +22,15 @@ acceptance_criteria:
   - No marketplace or registry implementation (contract only)
 testing:
   strategy: "Validate: example JSON against schema; review schema completeness against report 5 §6 Pack description"
-  evidence: "npm run validate:packs passes locally (1 example); full validate 108 passed"
+  evidence: "CI validate ✅, governance-report ✅"
 pr:
   url: "https://github.com/ailib-official/ai-protocol/pull/10"
-  merge_commit: ""
-completion_notes: ""
+  merge_commit: "a6a1a8e7"
+completion_notes: |
+  Auto-merged 2026-06-24 16:31 CST via heartbeat PR scan.
+  - 6 files, +351/-1
+  - pack.json schema (JSON Schema 2020-12) + provider_route $defs + signing_info
+  - validate.js extended with --packs flag + getJsonFiles() helper
+  - Example: deepseek-economy-pack (DeepSeek + Groq cost-optimized routes)
+  - PACK_SPECIFICATION.md covers schema, fields, relationship to v2 manifests
+  - CI: validate (40s ✅), governance-report (20s ✅), governance-required (skipped)
