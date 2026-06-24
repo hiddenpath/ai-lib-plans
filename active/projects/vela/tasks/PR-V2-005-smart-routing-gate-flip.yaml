@@ -1,0 +1,31 @@
+id: PR-V2-005
+title: "Smart routing gate flip — isSmartRoutingLive after Prism P2"
+status: in_progress
+priority: P2
+project: vela
+phase: 2
+repo: "ailib-official/vela"
+depends_on: ["PR-V2-004"]
+assignee: "cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+created: "2026-06-24"
+updated: "2026-06-24"
+description: |
+  Flip Vela smart routing feature gate after Prism Phase 2 delivery:
+  - PR-PP-002 + PR-P2-003 route/decide
+  - PR-P2-004 billing
+  - PR-P2-005 latency/balanced GA
+  PT-073 remains soft (not in AND chain).
+acceptance_criteria:
+  - isSmartRoutingLive() returns true
+  - SMART_ROUTING.md documents gate checklist + NOT PRODUCTION SLA
+  - vitest updated for live gate state
+  - SmartRoutingBanner hidden when live
+testing:
+  strategy: "vitest smartRouting.test.ts"
+  evidence: ""
+pr:
+  url: "https://github.com/ailib-official/vela/pull/10"
+  merge_commit: ""
+completion_notes: ""

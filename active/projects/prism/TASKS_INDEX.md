@@ -34,7 +34,7 @@
 
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|------|------|------|
-| PR-PP-001 | [tasks/PR-PP-001-pack-contract-draft.yaml](./tasks/PR-PP-001-pack-contract-draft.yaml) | `in_progress` | PR-P1-008 ✅ | Pack contract — ai-protocol [#10](https://github.com/ailib-official/ai-protocol/pull/10) |
+| PR-PP-001 | [tasks/PR-PP-001-pack-contract-draft.yaml](./tasks/PR-PP-001-pack-contract-draft.yaml) | `completed` ✅ | PR-P1-008 ✅ | Pack contract — ai-protocol [#10](https://github.com/ailib-official/ai-protocol/pull/10) `a6a1a8e` |
 | PR-PP-002 | [tasks/PR-PP-002-cost-routing-example.yaml](./tasks/PR-PP-002-cost-routing-example.yaml) | `completed` ✅ | PR-P1-005 ✅, PR-P1-008 ✅ | 成本路由 — eos [#14](https://github.com/hiddenpath/eos/pull/14) `7f72783` |
 | PR-PP-003 | [tasks/PR-PP-003-constitution-rules-extraction.yaml](./tasks/PR-PP-003-constitution-rules-extraction.yaml) | `completed` ✅ | PR-P1-005 ✅ | BIZ-001~005 |
 
@@ -71,6 +71,7 @@
 - [PHASE2_PLAN.md](./PHASE2_PLAN.md) — **Phase 2 排期**
 - [PRISM_P2_PT073_GATE_ANALYSIS_2026-06.md](./PRISM_P2_PT073_GATE_ANALYSIS_2026-06.md) — 门控对照
 - [docs/PR-PP-002-IMPLEMENTATION.md](./docs/PR-PP-002-IMPLEMENTATION.md) — 成本路由 + decide API
+- [docs/PHASE2_CLOSEOUT_2026-06.md](./docs/PHASE2_CLOSEOUT_2026-06.md) — **Phase 2 收尾**
 - [NEAR_TERM_EXECUTION_2026-06-P1.md](./NEAR_TERM_EXECUTION_2026-06-P1.md) — P1 排期（已完成）
 - [../ai-protocol/PT-073-GAP-AUDIT_2026-06.md](../ai-protocol/PT-073-GAP-AUDIT_2026-06.md) — PT-073 差距审计
 - MEMORY.md § 2026-06-04 Prism Phase 1 计划对齐

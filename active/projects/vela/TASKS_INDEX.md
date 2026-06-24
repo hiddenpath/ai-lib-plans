@@ -20,7 +20,8 @@
 | PR-V2-001 | [tasks/PR-V2-001-model-comparison.yaml](./tasks/PR-V2-001-model-comparison.yaml) | `completed` ✅ | PR-V1-003 ✅ | [PR #6](https://github.com/ailib-official/vela/pull/6) `5354089` — 并排模型对比 UI |
 | PR-V2-002 | [tasks/PR-V2-002-e2e-sync-client.yaml](./tasks/PR-V2-002-e2e-sync-client.yaml) | `completed` ✅ | PR-V1-002 ✅ | [PR #7](https://github.com/ailib-official/vela/pull/7) `3d75c98` — E2E 加密云同步 |
 | PR-V2-003 | [tasks/PR-V2-003-wasm-routing.yaml](./tasks/PR-V2-003-wasm-routing.yaml) | `completed` ✅ | PR-V1-001 ✅ | [PR #8](https://github.com/ailib-official/vela/pull/8) `c86cda7` — WASM 路由提示 |
-| PR-V2-004 | [tasks/PR-V2-004-smart-recommendations.yaml](./tasks/PR-V2-004-smart-recommendations.yaml) | `completed` ✅ | PR-V2-003 ✅ | [PR #9](https://github.com/ailib-official/vela/pull/9) `193c53a` — 智能推荐占位（门控 Prism P2） | (complete: PR-V2-004 — smart routing placeholder merged (vela #9, 193c53a))
+| PR-V2-004 | [tasks/PR-V2-004-smart-recommendations.yaml](./tasks/PR-V2-004-smart-recommendations.yaml) | `completed` ✅ | PR-V2-003 ✅ | [PR #9](https://github.com/ailib-official/vela/pull/9) `193c53a` — 智能推荐占位 |
+| PR-V2-005 | [tasks/PR-V2-005-smart-routing-gate-flip.yaml](./tasks/PR-V2-005-smart-routing-gate-flip.yaml) | `in_progress` | PR-V2-004 ✅, Prism P2 ✅ | gate flip — [vela #10](https://github.com/ailib-official/vela/pull/10) |
 
 ## 决策记录
 
@@ -28,7 +29,8 @@
 |------|------|
 | [PR-V1-001-PREREQUISITES-ANALYSIS.md](./PR-V1-001-PREREQUISITES-ANALYSIS.md) | 前置分析（Spider）+ Cursor 决策确认 |
 | [PHASE2_PLAN.md](./PHASE2_PLAN.md) | Phase 2 范围、Wave 排期、Prism/Eos 协调 |
-| [vela `SMART_ROUTING.md`](https://github.com/ailib-official/vela/blob/main/apps/web/docs/SMART_ROUTING.md) | PR-V2-004 智能路由设计占位 |
+| [vela `SMART_ROUTING.md`](https://github.com/ailib-official/vela/blob/main/apps/web/docs/SMART_ROUTING.md) | PR-V2-004/005 智能路由门控 |
+| [prism Phase 2 closeout](./../prism/docs/PHASE2_CLOSEOUT_2026-06.md) | Prism P2 收尾摘要 |
 | [project-overview.md](./project-overview.md) | 产品矩阵、三区对齐、路线图 |
 
 ## 仓库
