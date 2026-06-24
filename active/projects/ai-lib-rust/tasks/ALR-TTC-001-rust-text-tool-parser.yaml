@@ -1,7 +1,7 @@
 ---
 id: "ALR-TTC-001"
 title: "Text Tool Call — Rust 参考实现 (StandardTextToolParser)"
-status: "in_progress"
+status: "completed"
 priority: "high"
 executor_name: "alex"
 executor_terminal: "cursor-agent"
@@ -39,4 +39,11 @@ constitution_rules:
   - "ARCH-001"
   - "ARCH-003"
   - "TEST-001"
+pr:
+  url: "https://github.com/ailib-official/ai-lib-rust/pull/8"
+  merge_commit: "1865f558"
+completion_notes: |
+  Merged ai-lib-rust#8. StandardTextToolParser + compliance runner (6/6 PASS locally).
+  Blocks ALR-TTC-002 and VL-TTC-001.
+updated: "2026-06-24"
 ---

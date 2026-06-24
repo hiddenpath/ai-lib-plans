@@ -474,8 +474,8 @@ tool_calling:
 
 | Phase | 任务 ID | 状态 |
 |-------|---------|------|
-| 1 协议规范 | PT-078 | 本地完成，待 PR |
-| 2 Rust 实现 | ALR-TTC-001 | 本地完成，6/6 合规 PASS |
+| 1 协议规范 | PT-078 | ✅ [ai-protocol#11](https://github.com/ailib-official/ai-protocol/pull/11) merged |
+| 2 Rust 实现 | ALR-TTC-001 | ✅ [ai-lib-rust#8](https://github.com/ailib-official/ai-lib-rust/pull/8) merged |
 | 3 Python/TS | ALR-TTC-002 | pending |
 | 4 模型验证 | — | pending（需 API key） |
 | 5 velaclaw 迁移 | VL-TTC-001 | pending |

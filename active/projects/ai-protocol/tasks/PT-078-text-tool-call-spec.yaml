@@ -1,7 +1,7 @@
 ---
 id: "PT-078"
 title: "Text Tool Call Protocol — Phase 1 规范与合规测试"
-status: "in_progress"
+status: "completed"
 priority: "high"
 executor_name: "alex"
 executor_terminal: "cursor-agent"
@@ -40,4 +40,11 @@ constitution_rules:
   - "ARCH-001: Protocol-driven design"
   - "ARCH-003: Cross-runtime consistency"
   - "TEST-001: Compliance tests"
+pr:
+  url: "https://github.com/ailib-official/ai-protocol/pull/11"
+  merge_commit: "bf51b06"
+completion_notes: |
+  Merged ai-protocol#11 (squash). Deliverables: format/prompt spec, tool-calling schema,
+  6 compliance fixtures, deepseek tool_calling block, research notes.
+updated: "2026-06-24"
 ---
