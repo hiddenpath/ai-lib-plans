@@ -26,6 +26,6 @@ testing:
   strategy: "vitest decideRoute + smartRouting; manual against api.prism.ailib.info"
   evidence: "decideRoute 2 tests + smartRouting 3 tests pass"
 pr:
-  url: ""
+  url: "https://github.com/ailib-official/vela/pull/11"
   merge_commit: ""
 completion_notes: ""
