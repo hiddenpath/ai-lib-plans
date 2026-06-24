@@ -71,6 +71,7 @@ B 轨道：
 | VL-UI-003 | `tasks/VL-UI-003-web-chat-phase2.yaml` | [PR #57](https://github.com/ailib-official/velaclaw/pull/57) `bc09cb8` |
 | VL-UI-003 | `tasks/VL-UI-003-web-chat-phase2.yaml` | — |
 | VL-UI-004 | `tasks/VL-UI-004-web-chat-phase3.yaml` | — |
+| VL-TTC-001 | `tasks/VL-TTC-001-text-tool-migration.yaml` | OpenCode 执行中 |
 
 ---
 
@@ -78,6 +79,18 @@ B 轨道：
 
 - EVO 轨道：`feat/vl-evo-NNN-<short-slug>`
 - UI 轨道：`feat/vl-ui-NNN-<short-slug>`
+- TTC 轨道：`feat/vl-ttc-NNN-<short-slug>`
+
+### 轨道 C：Text Tool Call 迁移（OpenCode 指派，2026-06-24）
+
+| 序号 | ID | 任务 | 优先级 | 前置依赖 | 执行者 | 状态 |
+|:----:|----|------|:------:|----------|:------:|:----:|
+| C-1 | **VL-TTC-001** | velaclaw 迁移至 StandardTextToolParser | **高** | ALR-TTC-001 ✅ | **OpenCode** | pending |
+
+**Brief**：`tasks/VL-TTC-001-text-tool-migration.yaml`  
+**计划真源**：`active/text-tool-call-standard.md` §Phase 5  
+**分支**：`feat/vl-ttc-001-text-tool-migration`  
+**上游**：ai-lib-rust#8 已合入；manifest `tool_calling` 见 ai-protocol deepseek.yaml
 
 ## PR 审查
 

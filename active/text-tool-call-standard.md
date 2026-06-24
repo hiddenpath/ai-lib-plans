@@ -478,7 +478,7 @@ tool_calling:
 | 2 Rust 实现 | ALR-TTC-001 | ✅ [ai-lib-rust#8](https://github.com/ailib-official/ai-lib-rust/pull/8) merged |
 | 3 Python/TS | ALR-TTC-002 | ✅ [python#3](https://github.com/ailib-official/ai-lib-python/pull/3) + [ts#3](https://github.com/ailib-official/ai-lib-ts/pull/3) merged |
 | 4 模型验证 | — | pending（需 API key） |
-| 5 velaclaw 迁移 | VL-TTC-001 | pending |
+| 5 velaclaw 迁移 | VL-TTC-001 | ⏳ pending — **指派 OpenCode** |
 
 ---
 
