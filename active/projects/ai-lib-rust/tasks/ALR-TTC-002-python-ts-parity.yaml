@@ -31,4 +31,7 @@ completion_notes: |
   Merged ai-lib-python#3 and ai-lib-ts#3. Python: 6/6 compliance + 3 unit tests.
   TypeScript: 8 tests (6 YAML + 2 unit). Cross-runtime parity with Rust ALR-TTC-001.
 updated: "2026-06-24"
+constitution_rules:
+  - "ARCH-003"
+  - "TEST-001"
 ---
