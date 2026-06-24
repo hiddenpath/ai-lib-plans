@@ -1,9 +1,10 @@
 # Text Tool Call Protocol — 标准化文本工具调用
 
-**状态**: 需求分析 / 待排期  
+**状态**: Phase 1–2 实施中（2026-06-24）  
 **提出**: 2026-06-23, velaclaw (Sisyphus)  
 **优先级**: P1 — 阻塞 velaclaw 工具执行  
-**关联**: `ARCH-001` (一切逻辑皆算子), `ai-lib-core`, `ai-protocol`
+**关联**: `ARCH-001` (一切逻辑皆算子), `ai-lib-core`, `ai-protocol`  
+**任务追踪**: PT-078, ALR-TTC-001, ALR-TTC-002, VL-TTC-001
 
 ---
 
@@ -443,6 +444,41 @@ tool_calling:
 **T1.5 Manifest schema 扩展**  
 - 在 `ai-protocol/schemas/v2/provider.json` 中新增 `tool_calling` 块
 - 向后兼容（`tool_calling` 为 optional，缺失时默认 `native: {supported: true, reliability: full}`）
+
+---
+
+## 审阅结论（2026-06-24）
+
+### 文档正确性
+
+| 维度 | 评估 | 说明 |
+|------|------|------|
+| 问题诊断 | ✅ 准确 | `ToolCall` 仅覆盖 native FC；velaclaw DeepSeek 症状与代码现实一致 |
+| 架构定位 | ✅ 合理 | 协议在 ai-protocol、实现在 ai-lib-core，符合 ARCH-001 |
+| Trait 设计 | ✅ 合理 | `TextToolParser` 三方法（parse / prompt / format_results）职责清晰 |
+| 容错层级 L1-L4 | ✅ 合理 | 与已观察的 5 类格式偏差一一对应 |
+| 跨运行时 | ⚠️ 需修正 | 原 plan 未提 Go；Go 延后，不纳入 Phase 3 blocking gate |
+| 路径 | ⚠️ 已修正 | `spec/` → `docs/spec/text-tool-call/`（repo 无 `spec/` 根目录） |
+| Provider 集成 | ⚠️ 已修正 | 不新增 Provider trait 方法；改 `StandardTextToolParser::from_manifest()` + manifest `tool_calling` 块（ARCH-001） |
+| T1.4/T1.5 重复 | ⚠️ 文档瑕疵 | §3 与 §6.5 重复列出 T1.4/T1.5，合并为单一任务 |
+
+### 治理对齐
+
+- **ARCH-001**：manifest 驱动，零 hardcoded provider match ✅
+- **ARCH-003**：共享 YAML 合规用例，Rust 先行 ✅；Python/TS 待 ALR-TTC-002
+- **TEST-001**：6 合规用例已注册 `10-text-tool-call/` ✅
+- **GOV-004**：plans 变更待 commit + `git push lan main`
+- **PT-073**：本工作**不阻塞** v1 RC gate（并行轨道）
+
+### 实施进度
+
+| Phase | 任务 ID | 状态 |
+|-------|---------|------|
+| 1 协议规范 | PT-078 | 本地完成，待 PR |
+| 2 Rust 实现 | ALR-TTC-001 | 本地完成，6/6 合规 PASS |
+| 3 Python/TS | ALR-TTC-002 | pending |
+| 4 模型验证 | — | pending（需 API key） |
+| 5 velaclaw 迁移 | VL-TTC-001 | pending |
 
 ---
 

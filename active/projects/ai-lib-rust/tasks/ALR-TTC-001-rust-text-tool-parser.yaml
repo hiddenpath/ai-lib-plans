@@ -1,0 +1,42 @@
+---
+id: "ALR-TTC-001"
+title: "Text Tool Call — Rust 参考实现 (StandardTextToolParser)"
+status: "in_progress"
+priority: "high"
+executor_name: "alex"
+executor_terminal: "cursor-agent"
+assignee: "@ai"
+project: "ai-lib-rust"
+milestone: "text-tool-call-v1"
+labels:
+  - "tools"
+  - "ai-lib-core"
+  - "compliance"
+created: "2026-06-24"
+updated: "2026-06-24"
+description: |
+  Phase 2 of active/text-tool-call-standard.md — ai-lib-core 参考实现。
+
+  **架构决策**（相对原 plan 修正）：
+  - 不新增 Provider trait 方法；通过 manifest `tool_calling` 块 + `StandardTextToolParser::from_manifest()` 驱动（ARCH-001）
+  - ProviderDriver / NativeToolDispatcher 路径不变
+
+deliverables:
+  - "crates/ai-lib-core/src/types/text_tool.rs"
+  - "compliance_runner: text_tool_parse + text_tool_prompt 测试类型"
+  - "单元测试覆盖 L1-L4 容错层级"
+
+acceptance_criteria:
+  - "cargo test -p ai-lib-core compliance_text_tool 全绿"
+  - "5 合规用例 100% PASS"
+  - "现有 native tool call 测试无退化"
+
+dependencies:
+  - "PT-078"
+blocks:
+  - "ALR-TTC-002"
+constitution_rules:
+  - "ARCH-001"
+  - "ARCH-003"
+  - "TEST-001"
+---

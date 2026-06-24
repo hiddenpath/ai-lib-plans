@@ -1,0 +1,43 @@
+---
+id: "PT-078"
+title: "Text Tool Call Protocol — Phase 1 规范与合规测试"
+status: "in_progress"
+priority: "high"
+executor_name: "alex"
+executor_terminal: "cursor-agent"
+assignee: "@ai"
+project: "ai-protocol"
+milestone: "text-tool-call-v1"
+labels:
+  - "tools"
+  - "compliance"
+  - "cross-runtime"
+created: "2026-06-24"
+updated: "2026-06-24"
+description: |
+  Phase 1 of active/text-tool-call-standard.md — 协议规范、合规测试用例、
+  provider manifest `tool_calling` schema 扩展。不阻塞 PT-073 v1 RC gate。
+
+  **路径修正**（相对原 plan）：规范落 `docs/spec/text-tool-call/`（非 `spec/`，与现有 repo 布局一致）。
+
+deliverables:
+  - "docs/spec/text-tool-call/format.yaml — 标准格式定义"
+  - "docs/spec/text-tool-call/prompt.yaml — L1/L2/L3 prompt 模板"
+  - "tests/compliance/cases/10-text-tool-call/ — 5 合规用例"
+  - "schemas/v2/tool-calling.json + provider.json 扩展"
+  - "research/tool-calling/deepseek-text-fallback.md — DeepSeek 调研初稿"
+  - "v2/providers/deepseek.yaml — tool_calling 块示例"
+
+acceptance_criteria:
+  - "5 合规 YAML 用例可被 Rust compliance runner 消费"
+  - "provider.json schema 校验 tool_calling optional 块"
+  - "deepseek manifest 含 text_fallback known_dialects"
+
+dependencies: []
+blocks:
+  - "ALR-TTC-001"
+constitution_rules:
+  - "ARCH-001: Protocol-driven design"
+  - "ARCH-003: Cross-runtime consistency"
+  - "TEST-001: Compliance tests"
+---

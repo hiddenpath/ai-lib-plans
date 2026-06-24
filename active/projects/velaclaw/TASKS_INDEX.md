@@ -77,6 +77,14 @@
 | VL-EVO-003 | [tasks/VL-EVO-003-byok-telemetry.yaml](./tasks/VL-EVO-003-byok-telemetry.yaml) | `completed` ✅ | VL-EVO-001 | BYOK 调用记录遥测 — [PR #65](https://github.com/ailib-official/velaclaw/pull/65) (`d5edb5d`) |
 | VL-EVO-004 | [tasks/VL-EVO-004-adapter-retirement.yaml](./tasks/VL-EVO-004-adapter-retirement.yaml) | `completed` ✅ | VL-EVO-001, 002 | Adapter 退役 — [PR #67](https://github.com/ailib-official/velaclaw/pull/67) (`02ce38c`) |
 
+## Text Tool Call — 标准化文本工具调用（2026-06-24 新增）
+
+主计划：**[active/text-tool-call-standard.md](../../text-tool-call-standard.md)**
+
+| ID | 文件 | 状态 | 依赖 | 说明 |
+|----|------|:----:|:----:|------|
+| VL-TTC-001 | [tasks/VL-TTC-001-text-tool-migration.yaml](./tasks/VL-TTC-001-text-tool-migration.yaml) | `pending` | ALR-TTC-001 | 移除 XmlToolDispatcher，改用 StandardTextToolParser |
+
 **Prism 侧跟踪**：PR-P1-016 已修订为内嵌集成（见 `active/projects/prism/docs/VELACLAW_MIGRATION_STAGES.md`）。
 
 ## Web Chat UI — 本地控制面 + SPA（2026-06-10 新增，2026-06-11 优化）

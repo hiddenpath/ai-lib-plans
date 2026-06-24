@@ -1,0 +1,30 @@
+---
+id: "ALR-TTC-002"
+title: "Text Tool Call — Python/TS 运行时对齐"
+status: "pending"
+priority: "medium"
+executor_name: null
+executor_terminal: null
+assignee: "@ai"
+project: "ai-lib-rust"
+milestone: "text-tool-call-v1"
+labels:
+  - "tools"
+  - "cross-runtime"
+created: "2026-06-24"
+updated: "2026-06-24"
+description: |
+  Phase 3 of active/text-tool-call-standard.md — Python + TypeScript 实现与确定性交叉验证。
+  Go 运行时延后（非 blocking；ARCH-003 四运行时 gate 不含 Go text-tool 子集）。
+
+deliverables:
+  - "ai-lib-python: StandardTextToolParser + compliance runner 扩展"
+  - "ai-lib-ts: StandardTextToolParser + compliance runner 扩展"
+  - "三运行时同一 YAML 输入输出一致性测试"
+
+dependencies:
+  - "ALR-TTC-001"
+constitution_rules:
+  - "ARCH-003"
+  - "TEST-001"
+---

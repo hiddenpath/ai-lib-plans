@@ -1,0 +1,29 @@
+---
+id: "VL-TTC-001"
+title: "Text Tool Call — velaclaw 迁移至 StandardTextToolParser"
+status: "pending"
+priority: "high"
+executor_name: null
+executor_terminal: null
+assignee: "@ai"
+project: "velaclaw"
+milestone: "text-tool-call-v1"
+labels:
+  - "tools"
+  - "migration"
+created: "2026-06-24"
+updated: "2026-06-24"
+description: |
+  Phase 5 of active/text-tool-call-standard.md — 移除 XmlToolDispatcher，改用 ai-lib-core StandardTextToolParser。
+  依赖 ALR-TTC-001 合入 ai-lib-rust 并发版 velaclaw 依赖 bump。
+
+deliverables:
+  - "移除 src/agent/dispatcher.rs 中 XmlToolDispatcher"
+  - "agent.rs dispatcher 选择逻辑改用 manifest tool_calling"
+  - "E2E: ls + file_read + shell 工具执行"
+
+dependencies:
+  - "ALR-TTC-001"
+constitution_rules:
+  - "ARCH-001"
+---
