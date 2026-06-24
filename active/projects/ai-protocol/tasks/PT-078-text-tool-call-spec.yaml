@@ -42,7 +42,7 @@ constitution_rules:
   - "TEST-001: Compliance tests"
 pr:
   url: "https://github.com/ailib-official/ai-protocol/pull/11"
-  merge_commit: "bf51b06"
+  merge_commit: "4b38b61"
 completion_notes: |
   Merged ai-protocol#11 (squash). Deliverables: format/prompt spec, tool-calling schema,
   6 compliance fixtures, deepseek tool_calling block, research notes.
