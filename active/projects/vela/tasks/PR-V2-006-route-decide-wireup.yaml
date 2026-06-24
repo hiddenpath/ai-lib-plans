@@ -1,0 +1,31 @@
+id: PR-V2-006
+title: "Wire POST /v1/route/decide in ChatPanel (Prism smart routing)"
+status: in_progress
+priority: P2
+project: vela
+phase: 2
+repo: "ailib-official/vela"
+depends_on: ["PR-V2-005"]
+assignee: "cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+created: "2026-06-25"
+updated: "2026-06-25"
+description: |
+  Prism Phase 2 closeout follow-up: call gateway `/v1/route/decide` from Vela ChatPanel.
+  - decideRoute.ts client + usePrismRouteDecide debounced hook
+  - RoutingHintBar prefers Prism suggestion when isSmartRoutingLive()
+  - ChatPanel applies server model on send; WASM/heuristic fallback on error
+  - VITE_PRISM_ROUTE_OPTIMIZE env (cost | latency | balanced)
+acceptance_criteria:
+  - Debounced decide call when smart routing gate live
+  - Fallback to PR-V2-003 heuristics on API error
+  - vitest for decideRoute client
+  - SMART_ROUTING.md updated
+testing:
+  strategy: "vitest decideRoute + smartRouting; manual against api.prism.ailib.info"
+  evidence: "decideRoute 2 tests + smartRouting 3 tests pass"
+pr:
+  url: ""
+  merge_commit: ""
+completion_notes: ""

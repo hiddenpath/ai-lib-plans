@@ -19,8 +19,8 @@
 
 | Consumer | Follow-up | Status |
 |----------|-----------|--------|
-| **Vela** | PR-V2-005 gate flip (`isSmartRoutingLive`) | In progress — vela PR |
-| **Vela** | Wire `POST /v1/route/decide` in ChatPanel | Phase 2+ wire-up (not blocker) |
+| **Vela** | PR-V2-005 gate flip (`isSmartRoutingLive`) | ✅ vela #10 `6d44087` |
+| **Vela** | Wire `POST /v1/route/decide` in ChatPanel | In progress — PR-V2-006 |
 | **PT-073** | Contact / ExecutionMetadata enrichment | Soft dependency; parallel track |
 
 ## Known limitations
