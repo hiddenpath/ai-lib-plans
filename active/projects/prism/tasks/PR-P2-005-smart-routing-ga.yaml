@@ -1,0 +1,34 @@
+id: PR-P2-005
+title: "Smart routing GA — latency/balanced + optional Contact integration"
+status: in_progress
+priority: P2
+project: prism
+phase: 2
+scope: library
+repo: "hiddenpath/eos — crates/prism-core; ailib-official/ai-lib-gateway"
+depends_on: ["PR-P2-003", "PR-P2-004"]
+assignee: "cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+created: "2026-06-22"
+updated: "2026-06-24"
+description: |
+  智能路由从「成本示例」升级为可对外宣称的 auto 模式（仍受产品 SLA 策略约束）。
+  - optimize: latency | balanced 策略实现
+  - 接入 /admin/health 延迟信号
+  - （可选，软依赖 PT-073）ai-lib-core ExecutionMetadata / Contact 路由提示
+  完成后可 flip Vela isSmartRoutingLive() 全部门控（需 billing + PP-002 已 live）。
+acceptance_criteria:
+  - /v1/route/decide 支持 cost | latency | balanced
+  - balanced 权重可配置
+  - 文档标明 PT-073 前后能力差异
+  - Vela SMART_ROUTING.md 更新门控 flip 条件
+testing:
+  strategy: "Integration tests per optimize mode; Vela e2e optional"
+  evidence: "cost_router 5 tests pass; gateway tests pending PR"
+pr:
+  url: "https://github.com/hiddenpath/eos/pull/18"
+  merge_commit: ""
+  gateway_pr:
+    url: ""
+completion_notes: ""

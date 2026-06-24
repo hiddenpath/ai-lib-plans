@@ -1,6 +1,6 @@
 id: PR-P2-002
 title: "BYOK mode — user-provided API keys with platform routing"
-status: in_progress
+status: completed
 priority: P2
 project: prism
 phase: 2
@@ -11,7 +11,7 @@ assignee: "cursor"
 executor_name: "cursor"
 executor_terminal: "agent-session"
 created: "2026-06-22"
-updated: "2026-06-23"
+updated: "2026-06-24"
 description: |
   Phase 2 商业热点：用户自带 Provider Key，平台仍提供路由与用量统计。
   - 用户级 Key 存储（加密 at rest 设计；首版可 in-memory + 文档化限制）
@@ -24,10 +24,13 @@ acceptance_criteria:
   - 不存储对话内容（BIZ-004）
 testing:
   strategy: "prism-core integration tests + gateway smoke"
-  evidence: ""
+  evidence: "eos byok 4 tests; gateway 20 tests pass; CI SUCCESS"
 pr:
   url: "https://github.com/hiddenpath/eos/pull/17"
-  merge_commit: ""
+  merge_commit: "8289bb5ad03f6244cea7dbcd282b5c47688adbdf"
   gateway_pr:
     url: "https://github.com/hiddenpath/ai-lib-gateway/pull/12"
-completion_notes: ""
+    merge_commit: "430c0b1593f71a58863f497b7ba2d5104fc3a2a3"
+completion_notes: |
+  eos #17 merged @ 8289bb5; gateway #12 merged @ 430c0b1.
+  ByokStore, resolve_provider_key priority, admin BYOK CRUD, user API key auth on /v1/*.
