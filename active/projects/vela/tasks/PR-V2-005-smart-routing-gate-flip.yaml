@@ -1,6 +1,6 @@
 id: PR-V2-005
 title: "Smart routing gate flip — isSmartRoutingLive after Prism P2"
-status: in_progress
+status: completed
 priority: P2
 project: vela
 phase: 2
@@ -24,8 +24,9 @@ acceptance_criteria:
   - SmartRoutingBanner hidden when live
 testing:
   strategy: "vitest smartRouting.test.ts"
-  evidence: ""
+  evidence: "merged vela #10; isSmartRoutingLive() true; PT-073 soft gate false"
 pr:
   url: "https://github.com/ailib-official/vela/pull/10"
-  merge_commit: ""
-completion_notes: ""
+  merge_commit: "6d44087"
+completion_notes: |
+  Merged vela #10 @ 6d44087. Stale PRs #5-#9 closed 2026-06-24 — content already on main via squash commits (8678a29..193c53a); conflict was parallel history not missing code.
