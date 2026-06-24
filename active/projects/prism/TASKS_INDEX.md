@@ -48,7 +48,7 @@
 | PR-P2-002 | [tasks/PR-P2-002-byok-mode.yaml](./tasks/PR-P2-002-byok-mode.yaml) | `completed` ✅ | PR-P1-003 ✅ | BYOK — eos [#17](https://github.com/hiddenpath/eos/pull/17) `8289bb5` + gateway [#12](https://github.com/hiddenpath/ai-lib-gateway/pull/12) |
 | PR-P2-003 | [tasks/PR-P2-003-route-decide-http.yaml](./tasks/PR-P2-003-route-decide-http.yaml) | `completed` ✅ | PR-PP-002 | `POST /v1/route/decide` — gateway [#10](https://github.com/hiddenpath/ai-lib-gateway/pull/10) `753e129` |
 | PR-P2-004 | [tasks/PR-P2-004-billing-pay-per-use.yaml](./tasks/PR-P2-004-billing-pay-per-use.yaml) | `completed` ✅ | PR-P2-001 ✅ | billing — eos [#16](https://github.com/hiddenpath/eos/pull/16) `64772ef` + gateway [#11](https://github.com/hiddenpath/ai-lib-gateway/pull/11) |
-| PR-P2-005 | [tasks/PR-P2-005-smart-routing-ga.yaml](./tasks/PR-P2-005-smart-routing-ga.yaml) | `in_progress` | PR-P2-003 ✅, PR-P2-004 ✅ | 智能路由 GA |
+| PR-P2-005 | [tasks/PR-P2-005-smart-routing-ga.yaml](./tasks/PR-P2-005-smart-routing-ga.yaml) | `completed` ✅ | PR-P2-003 ✅, PR-P2-004 ✅ | 智能路由 GA — eos [#18](https://github.com/hiddenpath/eos/pull/18) `b71443c` + gateway [#13](https://github.com/hiddenpath/ai-lib-gateway/pull/13) `e96a93c` |
 | PR-P2-006 | [tasks/PR-P2-006-enterprise-mvp-placeholder.yaml](./tasks/PR-P2-006-enterprise-mvp-placeholder.yaml) | `completed` ✅ | PR-P2-004 ✅ | Enterprise 占位 — [design doc](./docs/PR-P2-006-ENTERPRISE_PLACEHOLDER.md) |
 
 ## 里程碑

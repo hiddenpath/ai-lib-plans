@@ -1,6 +1,6 @@
 id: PR-P2-005
 title: "Smart routing GA — latency/balanced + optional Contact integration"
-status: in_progress
+status: completed
 priority: P2
 project: prism
 phase: 2
@@ -25,10 +25,11 @@ acceptance_criteria:
   - Vela SMART_ROUTING.md 更新门控 flip 条件
 testing:
   strategy: "Integration tests per optimize mode; Vela e2e optional"
-  evidence: "cost_router 5 tests pass; gateway tests pending PR"
+  evidence: "cost_router 5 tests pass; eos #18 + gateway #13 merged"
 pr:
   url: "https://github.com/hiddenpath/eos/pull/18"
-  merge_commit: ""
+  merge_commit: "b71443c"
   gateway_pr:
     url: "https://github.com/hiddenpath/ai-lib-gateway/pull/13"
-completion_notes: ""
+    merge_commit: "e96a93c"
+completion_notes: "latency/balanced optimize in cost_router; gateway route/decide GA; PRISM_BALANCED_COST_WEIGHT env"
