@@ -41,11 +41,12 @@ blocks:
     evidence: "docs/EOS-P2-005-PRISM_INTEGRATION_ADR.md — 采纳方案 B（eos-server /v1 壳）"
   - id: "EOS-P2-005-R2"
     title: "本地/CI POC"
-    status: "open"
+    status: "in_progress"
     description: |
       对 **ai-lib-gateway** 或本地 eos `/v1` 壳跑通 chat + stream；
       证据注明 local/CI only（同 PR-P1-008 惯例）。
     depends_on: ["EOS-P2-005-R1"]
+    evidence: "hiddenpath/eos PR — eos-server /v1/models + /v1/chat/completions"
   - id: "EOS-P2-005-R3"
     title: "生产切换 runbook"
     status: "open"
