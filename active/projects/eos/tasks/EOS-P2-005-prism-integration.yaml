@@ -1,9 +1,11 @@
 ---
 id: "EOS-P2-005"
 title: "Eos Phase 2 — Prism 网关集成（可选，门控）"
-status: "open"
+status: "in_progress"
 priority: "medium"
 assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
 project: "eos"
 milestone: "eos-phase2-prism-ready"
 phase: 2
@@ -13,7 +15,7 @@ labels:
   - "integration"
   - "deferred-capable"
 created: "2026-06-04"
-updated: "2026-06-04"
+updated: "2026-06-25"
 description: |
   Phase 1 直连 Provider（PHASE1_PLAN §4）；Phase 2 **可选**迁 Prism API 或并行双路径。
 
@@ -31,11 +33,12 @@ description: |
 blocks:
   - id: "EOS-P2-005-R1"
     title: "集成方案 ADR"
-    status: "open"
+    status: "completed"
     description: |
       对比直连 vs Prism；auth 模型（平台 key vs BYOK）；区域合规在 P 层如何继承；
       记录于 plans 或 eos `.doc/`。
     depends_on: []
+    evidence: "docs/EOS-P2-005-PRISM_INTEGRATION_ADR.md — 采纳方案 B（eos-server /v1 壳）"
   - id: "EOS-P2-005-R2"
     title: "本地/CI POC"
     status: "open"
@@ -73,4 +76,6 @@ prism_coordination:
   note: "Phase 2 必交付项为 ADR+POC；生产切换可 defer 至 Prism P1-C 后"
 blocks_summary:
   total: 4
-completion_notes: ""
+completion_notes: |
+  R1 ADR 完成（2026-06-25）：主路径 eos-server 并行 /v1 壳 + 保留 /api/proxy；
+  前端直调 Prism 仅作 EOS-REQ-P2-001 远期 BYOK。R2 POC 待开。

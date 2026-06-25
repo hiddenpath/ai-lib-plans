@@ -1,6 +1,6 @@
 id: PR-V2-006
 title: "Wire POST /v1/route/decide in ChatPanel (Prism smart routing)"
-status: in_progress
+status: completed
 priority: P2
 project: vela
 phase: 2
@@ -24,8 +24,8 @@ acceptance_criteria:
   - SMART_ROUTING.md updated
 testing:
   strategy: "vitest decideRoute + smartRouting; manual against api.prism.ailib.info"
-  evidence: "decideRoute 2 tests + smartRouting 3 tests pass"
+  evidence: "vela #11 merged; decideRoute 2 + smartRouting 3 tests"
 pr:
   url: "https://github.com/ailib-official/vela/pull/11"
-  merge_commit: ""
-completion_notes: ""
+  merge_commit: "5c4669c"
+completion_notes: "ChatPanel wires debounced POST /v1/route/decide; Prism suggestion + send-time model apply; WASM fallback on error."

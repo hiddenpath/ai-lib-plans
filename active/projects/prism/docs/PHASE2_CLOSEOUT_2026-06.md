@@ -1,6 +1,6 @@
 # Prism Phase 2 — Closeout Summary (2026-06-24)
 
-> **Status**: Phase 2 code + contract tasks **complete**  
+> **Status**: Phase 2 **closed** (2026-06-25) — all waves + Vela consumer wire-up complete
 > **Production**: `api.prism.ailib.info` — Waves 1–7 delivered via eos + ai-lib-gateway PRs
 
 ## Delivered
@@ -20,7 +20,8 @@
 | Consumer | Follow-up | Status |
 |----------|-----------|--------|
 | **Vela** | PR-V2-005 gate flip (`isSmartRoutingLive`) | ✅ vela #10 `6d44087` |
-| **Vela** | Wire `POST /v1/route/decide` in ChatPanel | In progress — PR-V2-006 |
+| **Vela** | Wire `POST /v1/route/decide` in ChatPanel | ✅ vela #11 `5c4669c` |
+| **Eos** | EOS-P2-005 Prism 集成 ADR + POC | Next — see `eos/tasks/EOS-P2-005` |
 | **PT-073** | Contact / ExecutionMetadata enrichment | Soft dependency; parallel track |
 
 ## Known limitations

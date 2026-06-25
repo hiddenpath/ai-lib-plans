@@ -22,7 +22,7 @@
 | PR-V2-003 | [tasks/PR-V2-003-wasm-routing.yaml](./tasks/PR-V2-003-wasm-routing.yaml) | `completed` ✅ | PR-V1-001 ✅ | [PR #8](https://github.com/ailib-official/vela/pull/8) `c86cda7` — WASM 路由提示 |
 | PR-V2-004 | [tasks/PR-V2-004-smart-recommendations.yaml](./tasks/PR-V2-004-smart-recommendations.yaml) | `completed` ✅ | PR-V2-003 ✅ | [PR #9](https://github.com/ailib-official/vela/pull/9) `193c53a` — 智能推荐占位 |
 | PR-V2-005 | [tasks/PR-V2-005-smart-routing-gate-flip.yaml](./tasks/PR-V2-005-smart-routing-gate-flip.yaml) | `completed` ✅ | PR-V2-004 ✅, Prism P2 ✅ | gate flip — [vela #10](https://github.com/ailib-official/vela/pull/10) `6d44087` |
-| PR-V2-006 | [tasks/PR-V2-006-route-decide-wireup.yaml](./tasks/PR-V2-006-route-decide-wireup.yaml) | `in_progress` | PR-V2-005 ✅ | decide wire-up — [vela #11](https://github.com/ailib-official/vela/pull/11) |
+| PR-V2-006 | [tasks/PR-V2-006-route-decide-wireup.yaml](./tasks/PR-V2-006-route-decide-wireup.yaml) | `completed` ✅ | PR-V2-005 ✅ | decide — [vela #11](https://github.com/ailib-official/vela/pull/11) `5c4669c` |
 
 ## 决策记录
 
