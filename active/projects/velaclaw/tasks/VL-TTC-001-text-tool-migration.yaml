@@ -1,11 +1,10 @@
 ---
 id: "VL-TTC-001"
 title: "Text Tool Call — velaclaw 迁移至 StandardTextToolParser"
-status: "pending"
+status: "running"
 priority: "high"
 assignee: "opencode"
-executor_name: null
-executor_terminal: null
+executor_name: 
 project: "velaclaw"
 milestone: "text-tool-call-v1"
 labels:
@@ -13,7 +12,7 @@ labels:
   - "migration"
   - "opencode"
 created: "2026-06-24"
-updated: "2026-06-24"
+updated: "2026-06-25"
 assigned_at: "2026-06-24"
 assigned_by: "alex"
 description: |
