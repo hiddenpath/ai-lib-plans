@@ -46,3 +46,5 @@
 - `CONTEXT_STRATEGY_BOUNDARY.md` — 上下文策略层与浏览器 SKU 边界（2026-05-22）
 - `CONTEXT_ARCHITECTURE_V2.md` — 上下文架构 Phase 2+：动态分层结构化 & 外部文档化（2026-06-02）
 - `TRANSFER_COMBO_EVAL.md` — transfer.md 组合任务评估与 PR 切片（2026-05-29）
+- `docs/EOS-P2-005-PRISM_INTEGRATION_ADR.md` — Prism 集成 ADR（R1 ✅）
+- `docs/EOS-P2-005-POC-RUNBOOK.md` — R2 本地/CI POC 步骤
