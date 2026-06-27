@@ -15,7 +15,7 @@ labels:
   - "multimodal"
   - "product"
 created: "2026-06-04"
-updated: "2026-06-27"
+updated: "2026-06-11"
 description: |
   Phase 1 有意缩减的能力在 Phase 2 补齐（`EOS_DEPLOY_PLAN.md` D4、PHASE1_PLAN 风险表）。
 
@@ -32,10 +32,11 @@ blocks:
     evidence: "hiddenpath/eos #22 — /api/upload extracted_text + UI inject"
   - id: "EOS-P2-006-R2"
     title: "多图拖拽上传"
-    status: "open"
+    status: "in_progress"
     description: |
       前端 drag-drop、`accept` 扩展；多 attachment 预览；发送路径与 Phase 1 单图兼容。
-    depends_on: []
+    depends_on: ["EOS-P2-006-R1"]
+    evidence: "hiddenpath/eos #23 — pendingAttachments + drag-drop (stacked on #22)"
   - id: "EOS-P2-006-R3"
     title: "Anthropic Messages 路径"
     status: "completed"
@@ -68,4 +69,5 @@ blocks_summary:
 completion_notes: |
   R3 ✅ eos #21 `6346a4b` — Claude via /v1 + EOS_ANTHROPIC_API_KEY。
   R4 ✅ defer 非 WASM fallback（见 docs/EOS-P2-006-R4-WASM-FALLBACK-REVIEW.md）。
-  R1/R2 open — PDF/多图待实现。
+  R1 🚧 eos #22 open — PDF/txt/md `extracted_text`（服务端 extract，后续与 Vela 统一 provider-native 文档路径）。
+  R2 🚧 eos #23 open — 多附件 + drag-drop（stacked on #22）。
