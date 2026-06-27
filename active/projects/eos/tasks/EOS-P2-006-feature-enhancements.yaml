@@ -1,9 +1,11 @@
 ---
 id: "EOS-P2-006"
 title: "Eos Phase 2 — 功能增强（文件、Provider、WASM fallback）"
-status: "open"
+status: "in_progress"
 priority: "medium"
 assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
 project: "eos"
 milestone: "eos-phase2-features"
 phase: 2
@@ -13,7 +15,7 @@ labels:
   - "multimodal"
   - "product"
 created: "2026-06-04"
-updated: "2026-06-04"
+updated: "2026-06-27"
 description: |
   Phase 1 有意缩减的能力在 Phase 2 补齐（`EOS_DEPLOY_PLAN.md` D4、PHASE1_PLAN 风险表）。
 
@@ -45,11 +47,12 @@ blocks:
     depends_on: []
   - id: "EOS-P2-006-R4"
     title: "非 WASM fallback 复评"
-    status: "open"
+    status: "completed"
     description: |
       EOS-P0 豁免项：评估无 WASM 降级路径（纯 JS 或 server-side build_request）；
       决策记录 accept/defer。
     depends_on: []
+    evidence: "docs/EOS-P2-006-R4-WASM-FALLBACK-REVIEW.md — defer（维持 WASM 必需）"
 testing:
   - "上传 PDF 后对话上下文含提取文本"
   - "多图附件 E2E"
@@ -61,4 +64,7 @@ prism_coordination:
   note: "独立功能块；不与 Prism P1 关键路径耦合"
 blocks_summary:
   total: 4
-completion_notes: ""
+completion_notes: |
+  R3 ✅ eos #21 `6346a4b` — Claude via /v1 + EOS_ANTHROPIC_API_KEY。
+  R4 ✅ defer 非 WASM fallback（见 docs/EOS-P2-006-R4-WASM-FALLBACK-REVIEW.md）。
+  R1/R2 open — PDF/多图待实现。
