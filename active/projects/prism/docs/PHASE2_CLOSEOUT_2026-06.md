@@ -21,7 +21,7 @@
 |----------|-----------|--------|
 | **Vela** | PR-V2-005 gate flip (`isSmartRoutingLive`) | ✅ vela #10 `6d44087` |
 | **Vela** | Wire `POST /v1/route/decide` in ChatPanel | ✅ vela #11 `5c4669c` |
-| **Eos** | EOS-P2-005 Prism 集成 ADR + POC | Next — see `eos/tasks/EOS-P2-005` |
+| **Eos** | EOS-P2-005 Prism 集成 ADR + POC | In progress — eos #19 OPEN；R3/R4 docs ✅ |
 | **PT-073** | Contact / ExecutionMetadata enrichment | Soft dependency; parallel track |
 
 ## Known limitations

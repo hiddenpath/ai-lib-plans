@@ -54,16 +54,18 @@ blocks:
     merged_at: "2026-06-27T18:17:32+08:00"
   - id: "EOS-P2-005-R3"
     title: "生产切换 runbook"
-    status: "open"
+    status: "in_progress"
     description: |
       灰度、回滚、密钥轮换；**仅在** Prism P1-C + owner 确认生产 VPS 后执行。
     depends_on: ["EOS-P2-005-R2"]
+    evidence: "docs/EOS-P2-005-R3-PRODUCTION-RUNBOOK.md — 草案，门控 owner"
   - id: "EOS-P2-005-R4"
     title: "智能路由占位（非必交付）"
-    status: "open"
+    status: "completed"
     description: |
       依赖 PT-073 + Prism Phase 2；文档化接口预期，不阻塞 M9。
     depends_on: ["EOS-P2-005-R2"]
+    evidence: "docs/EOS-P2-005-R4-SMART-ROUTING-PLACEHOLDER.md"
 testing:
   - "本地 curl /v1/chat/completions 经 Prism 路径"
   - "区域合规：zh-cn 入口模型列表仍受 EOS-ARCH 约束"
@@ -83,8 +85,9 @@ prism_coordination:
 blocks_summary:
   total: 4
 completion_notes: |
-  R1 ADR 完成（2026-06-25）：主路径 eos-server 并行 /v1 壳 + 保留 /api/proxy；
-  前端直调 Prism 仅作 EOS-REQ-P2-001 远期 BYOK。
-  R2 已完成（2026-06-27）：eos-server 新增 OpenAI /v1 兼容壳（GET /v1/models + POST /v1/chat/completions + SSE stream），复用现有 key pool 和合规过滤器。PR #19 merged by hiddenpath。
+  R1 ADR ✅（2026-06-25）— 采纳方案 B（eos-server /v1 壳）。
+  R2 ✅（2026-06-27）— hiddenpath/eos#19 merged（703a942），OpenAI /v1 兼容壳上线。
+  R3 🚧（2026-06-26）— 生产切换 runbook 草案已写，门控 owner。
+  R4 ✅（2026-06-26）— 智能路由占位文档已提交。
 completed_at: "2026-06-27"
 merge_commit: "703a942"

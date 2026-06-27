@@ -8,7 +8,7 @@
 | EOS-P1-001 | [tasks/EOS-P1-001-minimal-chat-platform.yaml](./tasks/EOS-P1-001-minimal-chat-platform.yaml) | `completed` | — | Phase 1 + PR #3 capacity；见 [TRANSFER_COMBO_EVAL.md](./TRANSFER_COMBO_EVAL.md) |
 | EOS-P2-001 | [tasks/EOS-P2-001-context-strategy-browser.yaml](./tasks/EOS-P2-001-context-strategy-browser.yaml) | `completed` | PT-075、ALR-P2-001 | R1–R4 ✅ PR #4–#7；milestone **eos-phase2-context** done |
 | EOS-P2-003 | [tasks/EOS-P2-003-e2e-cloud-sync.yaml](./tasks/EOS-P2-003-e2e-cloud-sync.yaml) | `completed` | — | ✅ R1–R3 PR #12 (5e805b5) — BIZ-004 E2E sync (ciphertext blobs only) |
-| EOS-P2-005 | [tasks/EOS-P2-005-prism-integration.yaml](./tasks/EOS-P2-005-prism-integration.yaml) | `in_progress` | Prism P1-C ✅ | R1 ADR ✅；R2 — [eos #19](https://github.com/hiddenpath/eos/pull/19) `/v1` 壳 |
+| EOS-P2-005 | [tasks/EOS-P2-005-prism-integration.yaml](./tasks/EOS-P2-005-prism-integration.yaml) | `in_progress` | Prism P1-C ✅ | R1 ✅ R4 ✅；R2 [eos #19](https://github.com/hiddenpath/eos/pull/19) OPEN CI✅；R3 runbook 草案 |
 | EOS-DPL-001 | [EOS_DEPLOY_PLAN.md](./EOS_DEPLOY_PLAN.md) | `completed` | — | 香港 VPS + Caddy TLS + `deploy_eos.sh`；生产 `https://eos.ailib.info` 已确认 `main@299575a`（2026-05-28） |
 | EOS-ARCH-001 | [tasks/EOS-ARCH-001-compliance-regional-routing.yaml](./tasks/EOS-ARCH-001-compliance-regional-routing.yaml) | `completed` | — | ✅ R1–R5 all completed: R3 ⏺ eos PR #9 (6a39ef4), R4 ⏺ eos PR #8 (19544d2), R5 ⏺ plans PR #6 (cc0f551) |
 | EOS-CI-001 | [tasks/EOS-CI-001-ci-debt-cleanup.yaml](./tasks/EOS-CI-001-ci-debt-cleanup.yaml) | `completed` | — | #13 closed; fmt ee57a25 + compliance CI step |
@@ -28,7 +28,7 @@
 | M3: Live（eos.ailib.info 上线） | Week 3 末 | ✅ 已上线；Phase 2 context milestone ✅ (PR #4–#7) |
 | M4: Regional compliance（EOS-ARCH R1–R5） | 2026-06-02 | ✅ eos #8–#9 + plans #6 |
 | M7: Sync（EOS-P2-003 E2E 密文） | Phase 2 Wave 2a | ✅ PR #12 (5e805b5) |
-| M9: Prism-ready（EOS-P2-005 ADR + POC） | Phase 2 Wave 3 | ⏳ R1 ADR ✅；R2 POC open |
+| M9: Prism-ready（EOS-P2-005 ADR + POC） | Phase 2 Wave 3 | ⏳ R1+R4 ✅；R2 #19 待合并；R3 草案 |
 | M5: Context layering & external doc（EOS-CX-001/002） | Phase 2+ | ⏳ 远期架构规划中 |
 
 ## 依赖
