@@ -24,11 +24,12 @@ description: |
 blocks:
   - id: "EOS-P2-006-R1"
     title: "PDF/纯文本文件解析上传"
-    status: "open"
+    status: "in_progress"
     description: |
       扩展 `/api/upload`：PDF text extract、txt/md 直读；大小与 MIME 校验；
       注入 user message 或 artifact ref（配合 SessionMirror）。
     depends_on: []
+    evidence: "hiddenpath/eos PR — /api/upload extracted_text + UI inject"
   - id: "EOS-P2-006-R2"
     title: "多图拖拽上传"
     status: "open"
