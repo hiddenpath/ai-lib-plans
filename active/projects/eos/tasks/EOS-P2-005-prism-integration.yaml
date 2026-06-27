@@ -1,7 +1,7 @@
 ---
 id: "EOS-P2-005"
 title: "Eos Phase 2 — Prism 网关集成（可选，门控）"
-status: "in_progress"
+status: "completed"
 priority: "medium"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -54,11 +54,16 @@ blocks:
     merged_at: "2026-06-27T18:17:32+08:00"
   - id: "EOS-P2-005-R3"
     title: "生产切换 runbook"
-    status: "in_progress"
+    status: "completed"
     description: |
       灰度、回滚、密钥轮换；**仅在** Prism P1-C + owner 确认生产 VPS 后执行。
     depends_on: ["EOS-P2-005-R2"]
-    evidence: "docs/EOS-P2-005-R3-PRODUCTION-RUNBOOK.md；前端灰度 eos #20"
+    evidence: "docs/EOS-P2-005-R3-PRODUCTION-RUNBOOK.md + eos #20 `?v1=1` gray flag"
+    merge_commit: "3b1fd1c"
+    pr_ref: "hiddenpath/eos#20"
+    pr_url: "https://github.com/hiddenpath/eos/pull/20"
+    merged_at: "2026-06-27T18:54:15+08:00"
+    note: "G0–G3 在香港 VPS 执行仍门控 owner（ops follow-up）"
   - id: "EOS-P2-005-R4"
     title: "智能路由占位（非必交付）"
     status: "completed"
@@ -85,9 +90,9 @@ prism_coordination:
 blocks_summary:
   total: 4
 completion_notes: |
-  R1 ADR ✅（2026-06-25）— 采纳方案 B（eos-server /v1 壳）。
-  R2 ✅（2026-06-27）— hiddenpath/eos#19 merged（703a942），OpenAI /v1 兼容壳上线。
-  R3 🚧（2026-06-26）— 生产切换 runbook 草案已写，门控 owner。
-  R4 ✅（2026-06-26）— 智能路由占位文档已提交。
+  R1 ADR ✅（2026-06-25）— 方案 B（eos-server /v1 壳）。
+  R2 ✅ eos #19 `703a942` — /v1/models + /v1/chat/completions。
+  R3 ✅ runbook + eos #20 `3b1fd1c` — `?v1=1` 灰度开关；G0–G3 生产执行 defer owner。
+  R4 ✅ 智能路由占位文档。
 completed_at: "2026-06-27"
-merge_commit: "703a942"
+merge_commit: "3b1fd1c"
