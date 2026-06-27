@@ -66,7 +66,7 @@ curl -sS -H "Authorization: Bearer $PRISM_KEY" \
 
 ## 路径 B — eos-server `/v1` 壳（R2 完整验收）
 
-**状态**：实现中 — [hiddenpath/eos #19](https://github.com/hiddenpath/eos/pull/19)
+**状态**：✅ 已合并 — [hiddenpath/eos #19](https://github.com/hiddenpath/eos/pull/19) `703a942`
 
 实现要点（见 ADR §3）：
 

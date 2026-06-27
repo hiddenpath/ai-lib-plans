@@ -21,7 +21,7 @@
 |----------|-----------|--------|
 | **Vela** | PR-V2-005 gate flip (`isSmartRoutingLive`) | ✅ vela #10 `6d44087` |
 | **Vela** | Wire `POST /v1/route/decide` in ChatPanel | ✅ vela #11 `5c4669c` |
-| **Eos** | EOS-P2-005 Prism 集成 ADR + POC | In progress — eos #19 OPEN；R3/R4 docs ✅ |
+| **Eos** | EOS-P2-005 Prism 集成 ADR + POC | ✅ R2 eos #19 `703a942`；R3 生产灰度门控 owner |
 | **PT-073** | Contact / ExecutionMetadata enrichment | Soft dependency; parallel track |
 
 ## Known limitations

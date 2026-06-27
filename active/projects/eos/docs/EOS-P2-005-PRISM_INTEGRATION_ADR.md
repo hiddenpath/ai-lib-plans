@@ -109,9 +109,9 @@ R4 在 R2 POC 通过后文档化接口即可；不阻塞 M9（ADR + POC）。
 | Block | 交付物 | 状态 |
 |-------|--------|------|
 | **R1** | 本文 ADR | ✅ |
-| **R2** | 本地/CI curl：`/v1/chat/completions` 经 eos 或 gateway | open |
-| **R3** | 生产灰度 runbook（回滚、密钥轮换） | open，门控 owner |
-| **R4** | 智能路由接口预期（§6） | open（文档） |
+| **R2** | 本地/CI curl：`/v1/chat/completions` 经 eos 或 gateway | ✅ eos #19 `703a942` |
+| **R3** | 生产灰度 runbook（回滚、密钥轮换） | in_progress，门控 owner |
+| **R4** | 智能路由接口预期（§6） | ✅ |
 
 ---
 
