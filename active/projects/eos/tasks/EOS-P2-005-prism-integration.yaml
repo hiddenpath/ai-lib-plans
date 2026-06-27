@@ -58,7 +58,7 @@ blocks:
     description: |
       灰度、回滚、密钥轮换；**仅在** Prism P1-C + owner 确认生产 VPS 后执行。
     depends_on: ["EOS-P2-005-R2"]
-    evidence: "docs/EOS-P2-005-R3-PRODUCTION-RUNBOOK.md — 草案，门控 owner"
+    evidence: "docs/EOS-P2-005-R3-PRODUCTION-RUNBOOK.md；前端灰度 eos #20"
   - id: "EOS-P2-005-R4"
     title: "智能路由占位（非必交付）"
     status: "completed"

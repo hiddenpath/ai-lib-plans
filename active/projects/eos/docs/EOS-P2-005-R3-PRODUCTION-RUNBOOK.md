@@ -49,11 +49,11 @@ curl -sS https://eos.ailib.info/v1/models | jq '.object, (.data | length)'
 | 阶段 | 流量 | 验收 |
 |------|------|------|
 | **G0** | 0% — 仅运维 curl | `/v1/models` 200；合规模型可见 |
-| **G1** | 内部账号 / cookie flag | 单用户非流式 + 流式各 1 次 |
+| **G1** | 内部账号 / `?v1=1` localStorage 开关 | 单用户非流式 + 流式各 1 次 |
 | **G2** | 10% 新会话（前端 `useOpenAiV1`） | 错误率、延迟与 `/api/proxy` 对比 |
 | **G3** | 50% → 100% | 24h 无 P0 后全量 |
 
-**回滚**：前端 flag 切回 `false`（仍走 `/api/proxy`）；无需回滚数据库（无 schema 变更）。
+**回滚**：访问 `?v1=0` 或清除 `localStorage.eos_use_openai_v1`（仍走 `/api/proxy`）；无需回滚数据库（无 schema 变更）。
 
 ---
 
