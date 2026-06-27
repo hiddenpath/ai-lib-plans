@@ -35,10 +35,13 @@ blocks:
     depends_on: []
   - id: "EOS-P2-006-R3"
     title: "Anthropic Messages 路径"
-    status: "open"
+    status: "completed"
     description: |
       启用 Claude 模型；复用 prism-core Anthropic adapter（PR-P1-010 ✅）若已接线；
       env + `/api/models` 条目。
+    merge_commit: "6346a4b"
+    pr: "hiddenpath/eos#21"
+    completed: "2026-06-27"
     depends_on: []
   - id: "EOS-P2-006-R4"
     title: "非 WASM fallback 复评"
