@@ -1,10 +1,10 @@
 ---
 id: "VL-TTC-001"
 title: "Text Tool Call — velaclaw 迁移至 StandardTextToolParser"
-status: "running"
+status: "completed"
 priority: "high"
 assignee: "opencode"
-executor_name: 
+executor_name: "Sisyphus"
 project: "velaclaw"
 milestone: "text-tool-call-v1"
 labels:
@@ -12,7 +12,15 @@ labels:
   - "migration"
   - "opencode"
 created: "2026-06-24"
-updated: "2026-06-25"
+updated: "2026-06-27"
+resolved: "2026-06-27"
+resolution:
+  pr: "https://github.com/ailib-official/velaclaw/pull/79"
+  branch: "feat/vl-ttc-001-text-tool-migration"
+  summary: |
+    XmlToolDispatcher 接入 ai-lib-core StandardTextToolParser (L2 lenient)。
+    agent.rs 基于 manifest.tool_calling.native.reliability 选择 dispatcher。
+    cargo test --lib --features ai-protocol: 2210 passed。clippy/fmt clean。
 assigned_at: "2026-06-24"
 assigned_by: "alex"
 description: |
