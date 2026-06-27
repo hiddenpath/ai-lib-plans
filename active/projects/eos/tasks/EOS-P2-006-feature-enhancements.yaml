@@ -1,9 +1,11 @@
 ---
 id: "EOS-P2-006"
 title: "Eos Phase 2 — 功能增强（文件、Provider、WASM fallback）"
-status: "open"
+status: "in_progress"
 priority: "medium"
 assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
 project: "eos"
 milestone: "eos-phase2-features"
 phase: 2
@@ -13,7 +15,7 @@ labels:
   - "multimodal"
   - "product"
 created: "2026-06-04"
-updated: "2026-06-04"
+updated: "2026-06-27"
 description: |
   Phase 1 有意缩减的能力在 Phase 2 补齐（`EOS_DEPLOY_PLAN.md` D4、PHASE1_PLAN 风险表）。
 
@@ -35,11 +37,12 @@ blocks:
     depends_on: []
   - id: "EOS-P2-006-R3"
     title: "Anthropic Messages 路径"
-    status: "open"
+    status: "in_progress"
     description: |
       启用 Claude 模型；复用 prism-core Anthropic adapter（PR-P1-010 ✅）若已接线；
       env + `/api/models` 条目。
     depends_on: []
+    evidence: "hiddenpath/eos #21 — Anthropic /v1 + EOS_ANTHROPIC_API_KEY"
   - id: "EOS-P2-006-R4"
     title: "非 WASM fallback 复评"
     status: "open"
