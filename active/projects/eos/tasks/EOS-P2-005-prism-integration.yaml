@@ -58,7 +58,14 @@ blocks:
     description: |
       灰度、回滚、密钥轮换；**仅在** Prism P1-C + owner 确认生产 VPS 后执行。
     depends_on: ["EOS-P2-005-R2"]
-    evidence: "docs/EOS-P2-005-R3-PRODUCTION-RUNBOOK.md — 草案，门控 owner"
+    evidence: |
+      - docs/EOS-P2-005-R3-PRODUCTION-RUNBOOK.md — 草案，门控 owner
+      - hiddenpath/eos PR #20 — 前端 /v1 opt-in 切换（?v1=1/0 + localStorage 持久化）
+    merge_commit: "3b1fd1c"
+    pr_ref: "hiddenpath/eos#20"
+    pr_url: "https://github.com/hiddenpath/eos/pull/20"
+    merged_by: "hiddenpath"
+    merged_at: "2026-06-27T18:54:15+08:00"
   - id: "EOS-P2-005-R4"
     title: "智能路由占位（非必交付）"
     status: "completed"
@@ -87,7 +94,7 @@ blocks_summary:
 completion_notes: |
   R1 ADR ✅（2026-06-25）— 采纳方案 B（eos-server /v1 壳）。
   R2 ✅（2026-06-27）— hiddenpath/eos#19 merged（703a942），OpenAI /v1 兼容壳上线。
-  R3 🚧（2026-06-26）— 生产切换 runbook 草案已写，门控 owner。
+  R3 🚧（2026-06-27）— hiddenpath/eos#20 merged（3b1fd1c），前端 /v1 opt-in 切换上线；runbook 草案门控 owner。
   R4 ✅（2026-06-26）— 智能路由占位文档已提交。
 completed_at: "2026-06-27"
 merge_commit: "703a942"
