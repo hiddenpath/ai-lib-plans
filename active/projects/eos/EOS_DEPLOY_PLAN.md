@@ -13,6 +13,7 @@
 ```
 用户浏览器（香港设备或海外） ─── HTTPS ───→ eos-server (香港云服务器)
                                                     │
+                                                   ├── /v1/models / /v1/chat/completions (EOS-P2-005-R2, #19)
                                                    ├── /api/proxy / /api/proxy/stream  → Provider API (OpenAI/DeepSeek/...)
                                                    ├── /api/models / /health
                                                    ├── /api/web-search (新增)           → Tavily/SerpAPI
