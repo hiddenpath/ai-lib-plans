@@ -70,9 +70,9 @@ Stage 3  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 d
 
 | ID | 项目 | 状态 | 依赖 | 说明 |
 |----|------|------|------|------|
-| EOS-P2-006-R1 | eos | `in_progress` | — | 权宜 pdf_extract |
-| ALR-DOC-001 | ai-lib-rust | `completed` | — | Document block + driver 编码 |
-| EOS-P2-007 | eos | `planned` | ALR-DOC-001, EOS-P2-005-R2 | 迁移至能力路由 |
+| EOS-P2-006-R1 | eos | `superseded` | — | 权宜 pdf_extract → 由 EOS-P2-007 取代 |
+| ALR-DOC-001 | ai-lib-rust | `completed` | — | Document block + driver 编码；main@34bcd71 |
+| EOS-P2-007 | eos | `in_progress` | ALR-DOC-001 ✅, EOS-P2-005-R2 ✅ | 迁移至能力路由；PR 待合并 |
 | EOS-REQ-P2-003 | eos↔prism | `deferred` | PT-073, Prism P2 | decide 按 document 选模 |
 
 ---
@@ -105,3 +105,45 @@ Stage 3  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 d
 - `active/projects/eos/tasks/EOS-P2-007-document-capability-routing.yaml`
 - `active/projects/ai-lib-rust/tasks/ALR-DOC-001-document-content-block.yaml`
 - `ai-protocol/schemas/v2/multimodal.json` — `document_understanding`
+
+---
+
+## 7. 审查者须知（2026-06-28）
+
+### 7.1 ALR-DOC-001 / PR #9（ai-lib-rust）
+
+| 问题 | 事实 |
+|------|------|
+| 为何 PR 显示未合并？ | 人为 CLOSE；非 CI 失败（关闭前全部 SUCCESS） |
+| 代码是否在 main？ | ✅ `34bcd71` 含 `ContentBlock::Document` 等 10 文件 |
+| 能否重开 PR？ | ❌ feature 与 main 零 diff；`gh pr reopen` / `merge` 均被拒 |
+| 下游如何依赖？ | `merge_commit: 34bcd710…` + [PR 评论](https://github.com/ailib-official/ai-lib-rust/pull/9#issuecomment-4826584045) |
+
+### 7.2 分 provider 编码是否「越层」？
+
+**属实，但是 Stage 1 已知折中：**
+
+| 层 | document 相关职责 | 现状 |
+|----|-------------------|------|
+| Manifest | `document_understanding` 能力声明 | ✅ ai-protocol multimodal |
+| Runtime Driver | Anthropic/Gemini wire JSON 编码 | ⚠️ `encode_blocks_for_*` Rust |
+| 应用 (Eos) | 附件 staging + 能力门禁 | Stage 2 `document_attach` 复用 Driver encode |
+
+**终态（ARCH-001）**：请求体形状应由 manifest 算子驱动；Driver 只执行 pipeline。
+**非阻塞 follow-up**：`PT-079`（可选）或 `ALR-DOC-002` 声明式编码；不阻塞 EOS-P2-007 验收。
+
+### 7.3 轨道依赖（审查合并顺序）
+
+```text
+ALR-DOC-001 ✅ (main@34bcd71)
+    └── EOS-P2-007 (hiddenpath/eos PR) — 取代 EOS-P2-006-R1 权宜路径
+            └── EOS-REQ-P2-003 (deferred) — 智能选模，软依赖
+VL-TTC-001 ✅ — 并行无关轨道（velaclaw text tool）
+```
+
+### 7.4 EOS-P2-007 PR 审查要点
+
+1. PDF 上传返回 `document_ref`，无 `extracted_text`（txt/md 仍直读）
+2. 非 document 模型 + PDF → 前端显式拒绝（E2E：`document-capability-routing.spec.ts`）
+3. document 模型 → `eos_attachments` 进入 proxy/v1（E2E 断言）
+4. `pdf-extract` crate 已从 eos-server 移除

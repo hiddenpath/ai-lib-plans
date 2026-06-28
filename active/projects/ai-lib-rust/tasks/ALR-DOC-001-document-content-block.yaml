@@ -20,10 +20,23 @@ pr:
   url: "https://github.com/ailib-official/ai-lib-rust/pull/9"
   number: 9
   state: "CLOSED"
+  ci: "all SUCCESS at close time"
+  pr_comment: "https://github.com/ailib-official/ai-lib-rust/pull/9#issuecomment-4826584045"
   merge_note: |
-    PR #9 closed without mergedAt/mergeCommit metadata on GitHub.
-    Changes verified on origin/main at merge_commit below (likely direct push or out-of-band squash).
+    **审查者须知（2026-06-28）**
+    - PR #9 关闭时全部 CI 为 SUCCESS；`mergedAt`/`mergeCommit` 为空（非 CI 失败）。
+    - 提交 `af4d7b0` + `34bcd71` 已在 `origin/main`；与 `feat/alr-doc-001-document-content-block` 零 diff。
+    - GitHub 无法 reopen/merge（分支已与 base 一致）。**无需重提 PR**；下游依赖以 `merge_commit` 为准。
+    - 尝试 `gh pr reopen` + `gh pr merge` 均被 API 拒绝（已记录于 EOS-P2-007 prerequisite_verification）。
 merge_commit: "34bcd710ca3972c37dfa36aece281eb3c3cbb6f1"
+architecture_notes: |
+  **编码分层（审查重点）**
+  - R2 `document_understanding`：从 manifest 读取 ✅ 符合 ARCH-001 能力侧。
+  - R3 请求编码：`encode_blocks_for_anthropic` / `encode_blocks_for_gemini` 仍在 **Driver 层 Rust** —
+    Stage 1 务实批次，非 manifest 声明式终态。
+  - 已知 follow-up：PT-079（可选）或 ALR-DOC-002 — 将 wire format 迁入 protocol 算子；见
+    `active/document-capability-routing.md` §7。
+  - 应用层（Eos）`document_attach` 复用上述 encode 函数 — Stage 2 权宜；终态应经 Contact/Driver，非 P 层拼 JSON。
 description: |
   为「文档能力路由」愿景提供 Core 层基建：统一 Document 输入类型、manifest 驱动的
   `document_understanding` 校验、provider driver 编码。

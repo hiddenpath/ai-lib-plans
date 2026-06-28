@@ -24,15 +24,15 @@ description: |
 blocks:
   - id: "EOS-P2-006-R1"
     title: "PDF/纯文本文件解析上传（权宜）"
-    status: "in_progress"
+    status: "superseded"
+    superseded_by: "EOS-P2-007"
     description: |
       扩展 `/api/upload`：PDF text extract、txt/md 直读；大小与 MIME 校验；
       注入 user message（过渡实现）。
 
-      **技术债出路**: `EOS-P2-007` + `active/document-capability-routing.md`；
-      Stage 2 完成后退役 pdf_extract 主路径。txt/md 保持文本直读，不在退役范围。
+      **已由 EOS-P2-007 取代**（PDF → document_ref；txt/md 直读保留）。
     depends_on: []
-    evidence: "hiddenpath/eos #22 — /api/upload extracted_text + UI inject"
+    evidence: "hiddenpath/eos #22 — 权宜路径；EOS-P2-007 PR 退役 pdf_extract"
   - id: "EOS-P2-006-R2"
     title: "多图拖拽上传"
     status: "in_progress"
@@ -72,8 +72,8 @@ blocks_summary:
 completion_notes: |
   R3 ✅ eos #21 `6346a4b` — Claude via /v1 + EOS_ANTHROPIC_API_KEY。
   R4 ✅ defer 非 WASM fallback（见 docs/EOS-P2-006-R4-WASM-FALLBACK-REVIEW.md）。
-  R1 🚧 eos #22 open — PDF/txt/md `extracted_text`（**权宜**；出路 EOS-P2-007 / document-capability-routing.md）。
-  R2 🚧 eos #23 open — 多附件 + drag-drop（stacked on #22）。
+  R1 ⏭ superseded by EOS-P2-007 — pdf_extract 主路径退役；txt/md 直读保留。
+  R2 🚧 eos #23 open — 多附件 + drag-drop（与 P2-007 同批 PR 或 stacked）。
 tech_debt_exit:
   task_id: "EOS-P2-007"
   master_doc: "active/document-capability-routing.md"

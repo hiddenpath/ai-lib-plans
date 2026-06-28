@@ -49,10 +49,11 @@ blocks:
     depends_on: ["EOS-P2-007-R2", "EOS-P2-005-R2"]
   - id: "EOS-P2-007-R4"
     title: "退役 pdf_extract 主路径与回归测试"
-    status: "in_progress"
+    status: "completed"
     description: |
       删除或 feature-gate `extract_pdf_text`；Playwright：document 模型 + 非 document 模型各一条 E2E。
     depends_on: ["EOS-P2-007-R3"]
+    evidence: "e2e/tests/document-capability-routing.spec.ts"
 testing:
   - "PDF 上传 → document block 请求（非 extracted_text）"
   - "纯文本模型 + PDF → 明确错误/换模提示"
@@ -70,15 +71,22 @@ supersedes_interim:
   - "EOS-P2-006-R1 pdf_extract 主路径"
 blocks_summary:
   total: 4
-  completed: 3
+  completed: 4
 completion_notes: |
-  R1-R3 landed in eos (uncommitted local): PDF upload persists to staging + document_ref;
-  prism-core capabilities document_understanding on Gemini/Claude; frontend capability gate;
-  eos_attachments injection via document_attach module on /v1 (Anthropic) and /api/proxy (Gemini).
-  pdf_extract removed from eos-server; ai-lib rev bumped to 34bcd71 (ALR-DOC-001).
-  R4 pending: Playwright E2E for document vs non-document models.
+  eos branch feat/eos-p2-007-document-routing (PR pending): R1 upload document_ref; R2 capability gate;
+  R3 document_attach on /v1 + proxy; R4 pdf_extract removed + Playwright E2E.
+  ai-lib pinned 34bcd71 (ALR-DOC-001). Interim: eos-server calls encode_blocks_for_* directly — see
+  document-capability-routing.md §7 审查者须知 / PT-079 follow-up.
 prerequisite_verification:
   ALR-DOC-001:
     merge_commit: "34bcd710ca3972c37dfa36aece281eb3c3cbb6f1"
     pr: "https://github.com/ailib-official/ai-lib-rust/pull/9"
-    note: "PR #9 CLOSED without mergedAt; commit verified on ailib-official/main"
+    pr_comment: "https://github.com/ailib-official/ai-lib-rust/pull/9#issuecomment-4826584045"
+    delivery_note: |
+      **审查者须知**：PR #9 全部 CI SUCCESS 后被人为 CLOSE，未产生 GitHub mergeCommit。
+      变更已通过 direct push 进入 ailib-official/main（与 feature 分支零 diff）。
+      不可 reopen/merge（GitHub API 拒绝）。审计以 merge_commit + PR 评论为准，非 mergedAt 字段。
+pr:
+  repo: "hiddenpath/eos"
+  branch: "feat/eos-p2-007-document-routing"
+  status: "open"
