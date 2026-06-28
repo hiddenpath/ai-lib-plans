@@ -88,5 +88,7 @@ prerequisite_verification:
       不可 reopen/merge（GitHub API 拒绝）。审计以 merge_commit + PR 评论为准，非 mergedAt 字段。
 pr:
   repo: "hiddenpath/eos"
+  url: "https://github.com/hiddenpath/eos/pull/24"
+  number: 24
   branch: "feat/eos-p2-007-document-routing"
   status: "open"
