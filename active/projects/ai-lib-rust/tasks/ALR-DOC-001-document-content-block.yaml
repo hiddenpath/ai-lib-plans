@@ -1,7 +1,7 @@
 ---
 id: "ALR-DOC-001"
 title: "Document content block 与 document_understanding 能力校验"
-status: "planned"
+status: "completed"
 priority: "medium"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -27,21 +27,21 @@ description: |
 blocks:
   - id: "ALR-DOC-R1"
     title: "ContentBlock::Document 类型与序列化"
-    status: "planned"
+    status: "completed"
     description: |
       `ai-lib-core` 增加 `ContentBlock::Document`（mime、ref 或 base64、filename）；
       `Message::contains_document()` 辅助方法。
     depends_on: []
   - id: "ALR-DOC-R2"
     title: "MultimodalCapabilities 暴露 document_understanding"
-    status: "planned"
+    status: "completed"
     description: |
       从 manifest `multimodal.input.vision.document_understanding` 读取；
       `detect_modalities` / `validate_content_modalities` 识别 document block。
     depends_on: ["ALR-DOC-R1"]
   - id: "ALR-DOC-R3"
     title: "Provider driver document 编码（首批）"
-    status: "planned"
+    status: "completed"
     description: |
       至少覆盖 Google Gemini、Anthropic Claude 的 document 原生 API 形状；
       合规测试用 mock/fixture，无网络单测。
@@ -52,6 +52,11 @@ testing:
 depends_on_projects: []
 blocks_summary:
   total: 3
+completion_notes: |
+  ai-lib-core: ContentBlock::Document + DocumentSource; Modality::Document;
+  MultimodalCapabilities.document_understanding; encode_blocks_for_anthropic/gemini;
+  Anthropic/Gemini drivers wired; OpenAI driver fail-fast on document blocks.
+  Tests: cargo test -p ai-lib-core document; multimodal feature tests green.
 unblocks:
   - "EOS-P2-007"
 coordination:

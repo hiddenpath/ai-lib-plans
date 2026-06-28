@@ -311,3 +311,4 @@ xray：63 节点（57 SS + 2 VLESS + 4 VMess），logrotate daily 7d。
 - **任务**：`ALR-DOC-001`（ai-lib-rust Core）、`EOS-P2-007`（Eos 迁移）；需求槽 `EOS-REQ-P2-004`。
 - **协调真源**：`active/document-capability-routing.md`；Eos ADR：`active/projects/eos/docs/EOS-DOC-001-document-capability-routing.md`。
 - **与现有规划关系**：不推翻 EOS-P2-006-R1 交付；Wave 5 门控 ALR-DOC-001；Stage 3 可选绑定 `EOS-REQ-P2-003` 智能路由。
+- **ALR-DOC-001 completed**：ai-lib-core `ContentBlock::Document`、`document_understanding` 校验、Anthropic/Gemini document 编码；解除 EOS-P2-007 上游阻塞。

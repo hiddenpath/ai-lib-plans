@@ -23,7 +23,7 @@
 
 ```text
 Stage 0  权宜交付（进行中）     EOS-P2-006-R1   pdf_extract + extracted_text 注入
-Stage 1  协议与类型基建         ALR-DOC-001     ContentBlock::Document + 能力校验
+Stage 1  协议与类型基建         ALR-DOC-001 ✅   ContentBlock::Document + 能力校验
 Stage 2  产品迁移               EOS-P2-007      upload 返回 document_ref；路由/降级 UX
 Stage 3  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 document 需求选模
 ```
@@ -71,7 +71,7 @@ Stage 3  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 d
 | ID | 项目 | 状态 | 依赖 | 说明 |
 |----|------|------|------|------|
 | EOS-P2-006-R1 | eos | `in_progress` | — | 权宜 pdf_extract |
-| ALR-DOC-001 | ai-lib-rust | `planned` | — | Document block + driver 编码 |
+| ALR-DOC-001 | ai-lib-rust | `completed` | — | Document block + driver 编码 |
 | EOS-P2-007 | eos | `planned` | ALR-DOC-001, EOS-P2-005-R2 | 迁移至能力路由 |
 | EOS-REQ-P2-003 | eos↔prism | `deferred` | PT-073, Prism P2 | decide 按 document 选模 |
 
