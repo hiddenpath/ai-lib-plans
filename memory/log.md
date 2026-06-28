@@ -312,3 +312,9 @@ xray：63 节点（57 SS + 2 VLESS + 4 VMess），logrotate daily 7d。
 - **协调真源**：`active/document-capability-routing.md`；Eos ADR：`active/projects/eos/docs/EOS-DOC-001-document-capability-routing.md`。
 - **与现有规划关系**：不推翻 EOS-P2-006-R1 交付；Wave 5 门控 ALR-DOC-001；Stage 3 可选绑定 `EOS-REQ-P2-003` 智能路由。
 - **ALR-DOC-001 completed**：ai-lib-core `ContentBlock::Document`、`document_understanding` 校验、Anthropic/Gemini document 编码；解除 EOS-P2-007 上游阻塞。
+
+## 2026-06-28 — GitHub PAT 轮换（本机真源）
+
+- **真源**：`Y:\github-token-list.txt`（`hiddenpath pat` / `ailib-official pat` 分 org）
+- **记忆**：`memory/infrastructure.md` § GitHub PAT；`memory/INDEX.md` Quick Reference
+- **禁止**：PAT 明文不得进入 git、plans 或对话记录

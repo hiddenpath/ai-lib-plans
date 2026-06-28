@@ -22,6 +22,7 @@
 | **Eos work** | `architecture.md` § Eos + `infrastructure.md` § Eos Deploy |
 | **New product / architecture** | `architecture.md` (full) + `conventions.md` (rule index) |
 | **Deploy / CI / VPS** | `infrastructure.md` (full) |
+| **gh / GitHub PAT / PR** | `infrastructure.md` § GitHub PAT |
 | **npm publish / naming** | `conventions.md` § npm Scope |
 | **Rust / toolchain** | `conventions.md` § Rust Toolchain |
 | **Documentation** | `conventions.md` § Documentation |
@@ -50,7 +51,8 @@ ai-lib-plans/active/projects/<project>/tasks/*.yaml          ← task-level trut
 **npm scope**: `@ailib-official/*`  
 **prism-sdk npm**: `@ailib-official/prism-sdk@0.1.0`  
 **Default branch**: `main`  
-**Private repos push**: `git push lan main` daily
+**Private repos push**: `git push lan main` daily  
+**GitHub PAT (local)**: `Y:\github-token-list.txt` — `hiddenpath` vs `ailib-official` 分 org 使用（见 `infrastructure.md`）
 
 ---
 

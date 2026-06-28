@@ -4,7 +4,7 @@
 > Complete chronological record: [`log.md`](./log.md)
 > Loading strategy: [`INDEX.md`](./INDEX.md)
 
-**Last updated**: 2026-06-21
+**Last updated**: 2026-06-28
 
 ---
 
@@ -148,6 +148,31 @@ Env: `/opt/eos-v2/.env` (EOS_*_API_KEY prefixed, same keys as Prism)
 ---
 
 ## CI & Release
+
+### GitHub PAT — local workstation (2026-06-28 轮换)
+
+**真源文件（仅本机，禁止入 git/plans）**：`Y:\github-token-list.txt`
+
+| 条目 | 用途 |
+|------|------|
+| `hiddenpath pat` | `hiddenpath/*` 私有仓：`gh`、PR、Actions（如 `hiddenpath/eos`） |
+| `ailib-official pat` | `ailib-official/*` 公开仓：`gh pr`、merge、release、跨仓操作 |
+
+**选用规则**
+
+- 目标 URL / `--repo` 为 `ailib-official/...` → 使用 **ailib-official** PAT
+- 目标为 `hiddenpath/...` → 使用 **hiddenpath** PAT
+- **禁止**将 PAT 明文写入 `ai-lib-plans`、公开仓、聊天记录或 CI 日志
+
+**Agent / 终端用法（示例）**
+
+```powershell
+# 按目标 org 从真源文件读取后注入（勿把 token 写进脚本仓库）
+$env:GH_TOKEN = (Get-Content Y:\github-token-list.txt | Select-String 'ailib-official pat' -Context 0,1).Context.PostContext[0].Trim()
+gh pr checks 9 --repo ailib-official/ai-lib-rust
+```
+
+轮换 PAT 时：只更新 `Y:\github-token-list.txt`，并在 `memory/log.md` 记一条日期（不写 token 值）。
 
 ### Release Automation
 
