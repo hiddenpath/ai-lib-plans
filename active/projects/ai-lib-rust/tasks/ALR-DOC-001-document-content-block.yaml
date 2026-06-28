@@ -16,6 +16,14 @@ labels:
   - "protocol-driven"
 created: "2026-06-28"
 updated: "2026-06-28"
+pr:
+  url: "https://github.com/ailib-official/ai-lib-rust/pull/9"
+  number: 9
+  state: "CLOSED"
+  merge_note: |
+    PR #9 closed without mergedAt/mergeCommit metadata on GitHub.
+    Changes verified on origin/main at merge_commit below (likely direct push or out-of-band squash).
+merge_commit: "34bcd710ca3972c37dfa36aece281eb3c3cbb6f1"
 description: |
   为「文档能力路由」愿景提供 Core 层基建：统一 Document 输入类型、manifest 驱动的
   `document_understanding` 校验、provider driver 编码。

@@ -1,7 +1,7 @@
 ---
 id: "EOS-P2-007"
 title: "Eos — 文档能力路由迁移（退役 pdf_extract 主路径）"
-status: "planned"
+status: "in_progress"
 priority: "medium"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -17,6 +17,7 @@ labels:
   - "tech-debt-exit"
 created: "2026-06-28"
 updated: "2026-06-28"
+started: "2026-06-28"
 description: |
   将 Eos 从 Stage 0 权宜（`pdf_extract` + `extracted_text` 注入）迁移至 ai-lib 文档能力路由终态。
 
@@ -28,27 +29,27 @@ description: |
 blocks:
   - id: "EOS-P2-007-R1"
     title: "upload 返回 document_ref（PDF 不再默认 extract）"
-    status: "planned"
+    status: "completed"
     description: |
       `POST /api/upload` 对 PDF 返回 `document_ref` + staging 访问方式；
       移除 `extracted_text` 作为 PDF 默认字段（txt/md 仍为文本直读）。
     depends_on: ["ALR-DOC-001"]
   - id: "EOS-P2-007-R2"
     title: "发送路径 Document block + 模型能力校验"
-    status: "planned"
+    status: "completed"
     description: |
       前端/WASM 构造 Document block；eos-server 校验当前模型 `document_understanding`；
       不支持时显式 UX（换模/拒绝），禁止静默 pdf_extract。
     depends_on: ["EOS-P2-007-R1"]
   - id: "EOS-P2-007-R3"
     title: "经 /v1 或 proxy 发送厂商原生 document 载荷"
-    status: "planned"
+    status: "completed"
     description: |
       复用 EOS-P2-005 `/v1` 壳或现有 proxy；按 ALR-DOC-001 driver 编码。
     depends_on: ["EOS-P2-007-R2", "EOS-P2-005-R2"]
   - id: "EOS-P2-007-R4"
     title: "退役 pdf_extract 主路径与回归测试"
-    status: "planned"
+    status: "in_progress"
     description: |
       删除或 feature-gate `extract_pdf_text`；Playwright：document 模型 + 非 document 模型各一条 E2E。
     depends_on: ["EOS-P2-007-R3"]
@@ -69,3 +70,15 @@ supersedes_interim:
   - "EOS-P2-006-R1 pdf_extract 主路径"
 blocks_summary:
   total: 4
+  completed: 3
+completion_notes: |
+  R1-R3 landed in eos (uncommitted local): PDF upload persists to staging + document_ref;
+  prism-core capabilities document_understanding on Gemini/Claude; frontend capability gate;
+  eos_attachments injection via document_attach module on /v1 (Anthropic) and /api/proxy (Gemini).
+  pdf_extract removed from eos-server; ai-lib rev bumped to 34bcd71 (ALR-DOC-001).
+  R4 pending: Playwright E2E for document vs non-document models.
+prerequisite_verification:
+  ALR-DOC-001:
+    merge_commit: "34bcd710ca3972c37dfa36aece281eb3c3cbb6f1"
+    pr: "https://github.com/ailib-official/ai-lib-rust/pull/9"
+    note: "PR #9 CLOSED without mergedAt; commit verified on ailib-official/main"
