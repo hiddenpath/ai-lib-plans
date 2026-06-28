@@ -34,8 +34,9 @@ P2-0  CI 债务           EOS-CI-001              与 Prism P1-A 并行
 P2-1  用户身份           EOS-P2-002              无 Prism 硬依赖
 P2-2  云同步 + 免费 tier  EOS-P2-003/004        004 依赖 002；004 库层依赖 PR-P1-011 ✅
 P2-3  Prism 集成         EOS-P2-005              门控：Prism P1-B 设计 / P1-C 生产
-P2-4  功能增强           EOS-P2-006              可与 P2-1/2 并行
-P2-5  上下文 2.5         EOS-CX-001/002          Phase 2 末或 2.5
+P2-4  功能增强           EOS-P2-006              可与 P2-1/2 并行（R1 权宜技术债）
+P2-5  文档能力路由       EOS-P2-007              门控：ALR-DOC-001
+P2-6  上下文 2.5         EOS-CX-001/002          Phase 2 末或 2.5
 ```
 
 ---
@@ -78,11 +79,22 @@ P2-5  上下文 2.5         EOS-CX-001/002          Phase 2 末或 2.5
 
 | 任务 ID | 说明 |
 |---------|------|
-| **EOS-P2-006** | PDF/多图/Anthropic/WASM fallback |
+| **EOS-P2-006** | PDF/多图/Anthropic/WASM fallback；R1 为权宜 `pdf_extract`，出路 **EOS-P2-007** |
 
 ---
 
-## P2-5 — 上下文 2.5（延后）
+## P2-5 — 文档能力路由（ALR-DOC-001 后）
+
+| 任务 ID | 说明 |
+|---------|------|
+| **EOS-P2-007** | Document block + 能力路由；退役 pdf_extract 主路径 |
+| **ALR-DOC-001** | ai-lib-rust Core 基建（上游） |
+
+协调真源：`active/document-capability-routing.md`
+
+---
+
+## P2-6 — 上下文 2.5（延后）
 
 | 任务 ID | 说明 |
 |---------|------|
@@ -98,6 +110,7 @@ P2-5  上下文 2.5         EOS-CX-001/002          Phase 2 末或 2.5
 | EOS-REQ-P2-001 | Eos 前端可选指向 `api.prism.ailib.info` | `deferred` | EOS-P2-005 + Prism P1-C |
 | EOS-REQ-P2-002 | 共享 E2E sync crypto 协议（Vela/Eos） | `deferred` | EOS-P2-003 R1 + Vela Phase 2 |
 | EOS-REQ-P2-003 | 智能路由 auto 模式 | `deferred` | PT-073 + Prism Phase 2 |
+| EOS-REQ-P2-004 | 文档能力路由（Document block + provider-native） | `planned` | ALR-DOC-001 → EOS-P2-007 |
 
 ---
 
@@ -113,4 +126,5 @@ P2-5  上下文 2.5         EOS-CX-001/002          Phase 2 末或 2.5
 
 - 任务真源：`TASKS_INDEX.md`  
 - 详细计划：`PHASE2_PLAN.md`  
+- 文档能力路由：`../../document-capability-routing.md`  
 - Prism 真源：`../prism/TASKS_INDEX.md`  

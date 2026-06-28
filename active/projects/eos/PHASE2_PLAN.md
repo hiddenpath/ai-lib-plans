@@ -19,6 +19,7 @@ Phase 2 在 `project-overview.md` 中的产品目标：
 | **免费 tier** | 注册用户配额、用量可见、超限 UX | EOS-P2-004 |
 | **Prism 协调** | 可选迁网关/智能路由；**不**阻塞 Prism P1 | EOS-P2-005 |
 | **功能增强** | PDF/多图上传、Anthropic、WASM fallback 复评 | EOS-P2-006 |
+| **文档能力路由** | 退役 `pdf_extract` 权宜路径；Document block + 能力路由 | EOS-P2-007（依赖 ALR-DOC-001） |
 | **上下文进阶** | 消息分层、外部文档化（Phase 2.5） | EOS-CX-001/002 |
 
 **已完成、不计入本计划交付：**
@@ -63,8 +64,9 @@ Wave 0  债务          EOS-CI-001                    (~2–3d)
 Wave 1  身份          EOS-P2-002                    (~2w)
 Wave 2  同步+配额     EOS-P2-003 + EOS-P2-004       (~3–4w，003 可与 002 部分重叠)
 Wave 3  集成          EOS-P2-005                    (门控：Prism P1-B/C)
-Wave 4  增强          EOS-P2-006                    (与 Wave 2–3 并行)
-Wave 5  上下文 2.5    EOS-CX-001 → EOS-CX-002       (Phase 2 末 / Phase 2.5)
+Wave 4  增强          EOS-P2-006                    (与 Wave 2–3 并行；R1 为权宜技术债)
+Wave 5  文档路由      EOS-P2-007                    (门控：ALR-DOC-001；见 document-capability-routing.md)
+Wave 6  上下文 2.5    EOS-CX-001 → EOS-CX-002       (Phase 2 末 / Phase 2.5)
 ```
 
 ### Wave 1 — 用户身份（EOS-P2-002）
@@ -109,12 +111,23 @@ Wave 5  上下文 2.5    EOS-CX-001 → EOS-CX-002       (Phase 2 末 / Phase 2.
 
 | Block | 内容 |
 |-------|------|
-| R1 | PDF/纯文本文件解析上传 |
+| R1 | PDF/纯文本文件上传（**权宜**：`pdf_extract` + 文本注入；出路见 EOS-P2-007） |
 | R2 | 多图拖拽上传 |
 | R3 | Anthropic Messages 路径启用 |
 | R4 | 非 WASM fallback 复评（EOS-P0 豁免项） |
 
-### Wave 5 — 上下文 2.5（EOS-CX-001/002）
+### Wave 5 — 文档能力路由（EOS-P2-007）
+
+| Block | 内容 |
+|-------|------|
+| R1 | upload 返回 `document_ref`（PDF 不再默认 extract） |
+| R2 | Document block + 模型 `document_understanding` 校验与显式降级 UX |
+| R3 | 经 `/v1`/proxy 发送厂商原生 document 载荷 |
+| R4 | 退役 `pdf_extract` 主路径 + E2E |
+
+**上游**: `ALR-DOC-001`（ai-lib-rust）。**协调真源**: [`../../document-capability-routing.md`](../../document-capability-routing.md)。
+
+### Wave 6 — 上下文 2.5（EOS-CX-001/002）
 
 见 `CONTEXT_ARCHITECTURE_V2.md`；依赖 EOS-P2-001 与 OPFS 持久化（EOS-P2-003 R3 可复用存储层）。
 
@@ -128,7 +141,8 @@ Wave 5  上下文 2.5    EOS-CX-001 → EOS-CX-002       (Phase 2 末 / Phase 2.
 | **M7: Sync** | 两浏览器同账号恢复同一对话 | Wave 2a 末 |
 | **M8: Free tier** | 配额耗尽返回明确错误 + UI 提示 | Wave 2b 末 |
 | **M9: Prism-ready** | ADR + 本地 POC（若开 Wave 3） | Prism P1-B 后 |
-| **M10: Feature+** | PDF 上传 + 多图 | Wave 4 |
+| **M10: Feature+** | PDF 上传 + 多图（权宜路径） | Wave 4 |
+| **M11: Doc-route** | Document block + 能力路由；无静默 extract | Wave 5（ALR-DOC-001 后） |
 | **M5**（延续） | CX-001/002 | Phase 2.5 |
 
 ---
@@ -149,4 +163,6 @@ Wave 5  上下文 2.5    EOS-CX-001 → EOS-CX-002       (Phase 2 末 / Phase 2.
 - `CONTEXT_ARCHITECTURE_V2.md` — CX-001/002 设计  
 - `COMPLIANCE_REGIONAL_ROUTING.md` — 区域合规  
 - `../prism/NEAR_TERM_EXECUTION_2026-06-P1.md` — Prism P1 边界  
-- `../prism/TASKS_INDEX.md` — Prism 任务真源  
+- `../prism/TASKS_INDEX.md` — Prism 任务真源
+- `../../document-capability-routing.md` — 文档能力路由跨项目演进
+- `docs/EOS-DOC-001-document-capability-routing.md` — Eos ADR  

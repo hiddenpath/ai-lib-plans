@@ -304,3 +304,10 @@ xray：63 节点（57 SS + 2 VLESS + 4 VMess），logrotate daily 7d。
 ## 2026-06-27
 - **VL-TTC-001 completed**: VelaClaw 迁移至 StandardTextToolParser 完成。PR #79 已提交至 ailib-official/velaclaw (feat/vl-ttc-001-text-tool-migration)。核心变更：XmlToolDispatcher 接入 ai-lib-core 的 StandardTextToolParser（L2 lenient 解析），agent.rs 基于 manifest.tool_calling.native.reliability 选择 dispatcher。
 - **ai-protocol tool_calling schema**: 11 份 V2 provider manifest 已补充 tool_calling 块，schemas/v2/capabilities.json 新增 tool_calling property，dist/ JSON 重新构建。validate:providers 51/52 passing。
+
+## 2026-06-28 — 文档能力路由演进（Eos 技术债出路）
+
+- **决策**：Eos `EOS-P2-006-R1` 的 `pdf_extract` + 文本注入为**阶段性权宜**；基于 ai-lib 的应用应将用户 PDF 作为 `Document` 输入，经能力路由交给具备 `document_understanding` 的模型，不在应用层做语义解析。
+- **任务**：`ALR-DOC-001`（ai-lib-rust Core）、`EOS-P2-007`（Eos 迁移）；需求槽 `EOS-REQ-P2-004`。
+- **协调真源**：`active/document-capability-routing.md`；Eos ADR：`active/projects/eos/docs/EOS-DOC-001-document-capability-routing.md`。
+- **与现有规划关系**：不推翻 EOS-P2-006-R1 交付；Wave 5 门控 ALR-DOC-001；Stage 3 可选绑定 `EOS-REQ-P2-003` 智能路由。

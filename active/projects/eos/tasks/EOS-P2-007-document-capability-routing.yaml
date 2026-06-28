@@ -1,0 +1,71 @@
+---
+id: "EOS-P2-007"
+title: "Eos — 文档能力路由迁移（退役 pdf_extract 主路径）"
+status: "planned"
+priority: "medium"
+assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+project: "eos"
+milestone: "eos-phase2-document-routing"
+phase: 2
+labels:
+  - "eos"
+  - "upload"
+  - "multimodal"
+  - "capability-routing"
+  - "tech-debt-exit"
+created: "2026-06-28"
+updated: "2026-06-28"
+description: |
+  将 Eos 从 Stage 0 权宜（`pdf_extract` + `extracted_text` 注入）迁移至 ai-lib 文档能力路由终态。
+
+  **前置**: `EOS-P2-006-R1` 权宜交付完成；`ALR-DOC-001` Core 基建完成。
+
+  **协调真源**: `active/document-capability-routing.md`
+  **ADR**: `docs/EOS-DOC-001-document-capability-routing.md`
+
+blocks:
+  - id: "EOS-P2-007-R1"
+    title: "upload 返回 document_ref（PDF 不再默认 extract）"
+    status: "planned"
+    description: |
+      `POST /api/upload` 对 PDF 返回 `document_ref` + staging 访问方式；
+      移除 `extracted_text` 作为 PDF 默认字段（txt/md 仍为文本直读）。
+    depends_on: ["ALR-DOC-001"]
+  - id: "EOS-P2-007-R2"
+    title: "发送路径 Document block + 模型能力校验"
+    status: "planned"
+    description: |
+      前端/WASM 构造 Document block；eos-server 校验当前模型 `document_understanding`；
+      不支持时显式 UX（换模/拒绝），禁止静默 pdf_extract。
+    depends_on: ["EOS-P2-007-R1"]
+  - id: "EOS-P2-007-R3"
+    title: "经 /v1 或 proxy 发送厂商原生 document 载荷"
+    status: "planned"
+    description: |
+      复用 EOS-P2-005 `/v1` 壳或现有 proxy；按 ALR-DOC-001 driver 编码。
+    depends_on: ["EOS-P2-007-R2", "EOS-P2-005-R2"]
+  - id: "EOS-P2-007-R4"
+    title: "退役 pdf_extract 主路径与回归测试"
+    status: "planned"
+    description: |
+      删除或 feature-gate `extract_pdf_text`；Playwright：document 模型 + 非 document 模型各一条 E2E。
+    depends_on: ["EOS-P2-007-R3"]
+testing:
+  - "PDF 上传 → document block 请求（非 extracted_text）"
+  - "纯文本模型 + PDF → 明确错误/换模提示"
+  - "document 模型路径 E2E"
+depends_on_projects:
+  - task_id: "ALR-DOC-001"
+    task_file: "active/projects/ai-lib-rust/tasks/ALR-DOC-001-document-content-block.yaml"
+  - task_id: "EOS-P2-005-R2"
+    task_file: "active/projects/eos/tasks/EOS-P2-005-prism-integration.yaml"
+    note: "/v1 壳已 merged"
+prism_coordination:
+  optional_enhancement: "EOS-REQ-P2-003"
+  note: "智能路由按 document 选模为 Stage 3 增强，非本任务阻塞"
+supersedes_interim:
+  - "EOS-P2-006-R1 pdf_extract 主路径"
+blocks_summary:
+  total: 4

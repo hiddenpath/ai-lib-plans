@@ -15,7 +15,7 @@ labels:
   - "multimodal"
   - "product"
 created: "2026-06-04"
-updated: "2026-06-11"
+updated: "2026-06-28"
 description: |
   Phase 1 有意缩减的能力在 Phase 2 补齐（`EOS_DEPLOY_PLAN.md` D4、PHASE1_PLAN 风险表）。
 
@@ -23,11 +23,14 @@ description: |
 
 blocks:
   - id: "EOS-P2-006-R1"
-    title: "PDF/纯文本文件解析上传"
+    title: "PDF/纯文本文件解析上传（权宜）"
     status: "in_progress"
     description: |
       扩展 `/api/upload`：PDF text extract、txt/md 直读；大小与 MIME 校验；
-      注入 user message 或 artifact ref（配合 SessionMirror）。
+      注入 user message（过渡实现）。
+
+      **技术债出路**: `EOS-P2-007` + `active/document-capability-routing.md`；
+      Stage 2 完成后退役 pdf_extract 主路径。txt/md 保持文本直读，不在退役范围。
     depends_on: []
     evidence: "hiddenpath/eos #22 — /api/upload extracted_text + UI inject"
   - id: "EOS-P2-006-R2"
@@ -69,5 +72,9 @@ blocks_summary:
 completion_notes: |
   R3 ✅ eos #21 `6346a4b` — Claude via /v1 + EOS_ANTHROPIC_API_KEY。
   R4 ✅ defer 非 WASM fallback（见 docs/EOS-P2-006-R4-WASM-FALLBACK-REVIEW.md）。
-  R1 🚧 eos #22 open — PDF/txt/md `extracted_text`（服务端 extract，后续与 Vela 统一 provider-native 文档路径）。
+  R1 🚧 eos #22 open — PDF/txt/md `extracted_text`（**权宜**；出路 EOS-P2-007 / document-capability-routing.md）。
   R2 🚧 eos #23 open — 多附件 + drag-drop（stacked on #22）。
+tech_debt_exit:
+  task_id: "EOS-P2-007"
+  master_doc: "active/document-capability-routing.md"
+  upstream: "ALR-DOC-001"

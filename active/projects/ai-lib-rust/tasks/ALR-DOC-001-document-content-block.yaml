@@ -1,0 +1,59 @@
+---
+id: "ALR-DOC-001"
+title: "Document content block 与 document_understanding 能力校验"
+status: "planned"
+priority: "medium"
+assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+project: "ai-lib-rust"
+milestone: "document-capability-routing"
+phase: 2
+labels:
+  - "ai-lib-rust"
+  - "multimodal"
+  - "document"
+  - "protocol-driven"
+created: "2026-06-28"
+updated: "2026-06-28"
+description: |
+  为「文档能力路由」愿景提供 Core 层基建：统一 Document 输入类型、manifest 驱动的
+  `document_understanding` 校验、provider driver 编码。
+
+  **显式不做**：应用侧 PDF 文本抽取；OCR/版面分析。
+
+  **协调真源**: `active/document-capability-routing.md`
+
+blocks:
+  - id: "ALR-DOC-R1"
+    title: "ContentBlock::Document 类型与序列化"
+    status: "planned"
+    description: |
+      `ai-lib-core` 增加 `ContentBlock::Document`（mime、ref 或 base64、filename）；
+      `Message::contains_document()` 辅助方法。
+    depends_on: []
+  - id: "ALR-DOC-R2"
+    title: "MultimodalCapabilities 暴露 document_understanding"
+    status: "planned"
+    description: |
+      从 manifest `multimodal.input.vision.document_understanding` 读取；
+      `detect_modalities` / `validate_content_modalities` 识别 document block。
+    depends_on: ["ALR-DOC-R1"]
+  - id: "ALR-DOC-R3"
+    title: "Provider driver document 编码（首批）"
+    status: "planned"
+    description: |
+      至少覆盖 Google Gemini、Anthropic Claude 的 document 原生 API 形状；
+      合规测试用 mock/fixture，无网络单测。
+    depends_on: ["ALR-DOC-R2"]
+testing:
+  - "cargo test document / multimodal 模块"
+  - "compliance：document block 在 unsupported provider 上 fail-fast"
+depends_on_projects: []
+blocks_summary:
+  total: 3
+unblocks:
+  - "EOS-P2-007"
+coordination:
+  master_doc: "active/document-capability-routing.md"
+  protocol_note: "复用既有 multimodal.document_understanding；PT-079 标准 schema 文档化为可选"
