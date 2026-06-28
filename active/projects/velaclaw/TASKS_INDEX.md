@@ -83,7 +83,7 @@
 
 | ID | 文件 | 状态 | 依赖 | 说明 |
 |----|------|:----:|:----:|------|
-| VL-TTC-001 | [tasks/VL-TTC-001-text-tool-migration.yaml](./tasks/VL-TTC-001-text-tool-migration.yaml) | `pending` | ALR-TTC-001 ✅ | **OpenCode** — 移除 XmlToolDispatcher，改用 StandardTextToolParser |
+| VL-TTC-001 | [tasks/VL-TTC-001-text-tool-migration.yaml](./tasks/VL-TTC-001-text-tool-migration.yaml) | `completed` | ALR-TTC-001 ✅ | [PR #79](https://github.com/ailib-official/velaclaw/pull/79) (`22d4195`) — StandardTextToolParser 迁移 |
 
 **Prism 侧跟踪**：PR-P1-016 已修订为内嵌集成（见 `active/projects/prism/docs/VELACLAW_MIGRATION_STAGES.md`）。
 

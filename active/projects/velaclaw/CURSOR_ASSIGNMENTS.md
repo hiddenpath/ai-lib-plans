@@ -71,7 +71,7 @@ B 轨道：
 | VL-UI-003 | `tasks/VL-UI-003-web-chat-phase2.yaml` | [PR #57](https://github.com/ailib-official/velaclaw/pull/57) `bc09cb8` |
 | VL-UI-003 | `tasks/VL-UI-003-web-chat-phase2.yaml` | — |
 | VL-UI-004 | `tasks/VL-UI-004-web-chat-phase3.yaml` | — |
-| VL-TTC-001 | `tasks/VL-TTC-001-text-tool-migration.yaml` | OpenCode 执行中 |
+| VL-TTC-001 | `tasks/VL-TTC-001-text-tool-migration.yaml` | [PR #79](https://github.com/ailib-official/velaclaw/pull/79) `22d4195` |
 
 ---
 
@@ -85,7 +85,7 @@ B 轨道：
 
 | 序号 | ID | 任务 | 优先级 | 前置依赖 | 执行者 | 状态 |
 |:----:|----|------|:------:|----------|:------:|:----:|
-| C-1 | **VL-TTC-001** | velaclaw 迁移至 StandardTextToolParser | **高** | ALR-TTC-001 ✅ | **OpenCode** | pending |
+| C-1 | **VL-TTC-001** | velaclaw 迁移至 StandardTextToolParser | **高** | ALR-TTC-001 ✅ | **OpenCode** | ✅ completed ([PR #79](https://github.com/ailib-official/velaclaw/pull/79) `22d4195`) |
 
 **Brief**：`tasks/VL-TTC-001-text-tool-migration.yaml`  
 **计划真源**：`active/text-tool-call-standard.md` §Phase 5  

@@ -302,7 +302,7 @@ xray：63 节点（57 SS + 2 VLESS + 4 VMess），logrotate daily 7d。
 - **text-tool-call-standard**: 提出标准化跨 LLM 文本工具调用协议需求。详见 [active/text-tool-call-standard.md](../active/text-tool-call-standard.md)
 
 ## 2026-06-27
-- **VL-TTC-001 completed**: VelaClaw 迁移至 StandardTextToolParser 完成。PR #79 已提交至 ailib-official/velaclaw (feat/vl-ttc-001-text-tool-migration)。核心变更：XmlToolDispatcher 接入 ai-lib-core 的 StandardTextToolParser（L2 lenient 解析），agent.rs 基于 manifest.tool_calling.native.reliability 选择 dispatcher。
+- **VL-TTC-001 merged**: [velaclaw#79](https://github.com/ailib-official/velaclaw/pull/79) → main `22d4195`。XmlToolDispatcher 接入 ai-lib-core StandardTextToolParser（L2 lenient）；agent.rs 基于 manifest.tool_calling.native.reliability 选择 dispatcher；git dep ai-lib-rust@1865f55。
 - **ai-protocol tool_calling schema**: 11 份 V2 provider manifest 已补充 tool_calling 块，schemas/v2/capabilities.json 新增 tool_calling property，dist/ JSON 重新构建。validate:providers 51/52 passing。
 
 ## 2026-06-28 — 文档能力路由演进（Eos 技术债出路）

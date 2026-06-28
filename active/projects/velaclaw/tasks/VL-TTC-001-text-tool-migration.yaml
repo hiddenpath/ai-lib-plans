@@ -1,63 +1,78 @@
----
-id: "VL-TTC-001"
-title: "Text Tool Call — velaclaw 迁移至 StandardTextToolParser"
-status: "completed"
-priority: "high"
-assignee: "opencode"
-executor_name: "Sisyphus"
-project: "velaclaw"
-milestone: "text-tool-call-v1"
-labels:
-  - "tools"
-  - "migration"
-  - "opencode"
-created: "2026-06-24"
-updated: "2026-06-27"
-resolved: "2026-06-27"
-resolution:
-  pr: "https://github.com/ailib-official/velaclaw/pull/79"
-  branch: "feat/vl-ttc-001-text-tool-migration"
-  summary: |
-    XmlToolDispatcher 接入 ai-lib-core StandardTextToolParser (L2 lenient)。
-    agent.rs 基于 manifest.tool_calling.native.reliability 选择 dispatcher。
-    cargo test --lib --features ai-protocol: 2210 passed。clippy/fmt clean。
-assigned_at: "2026-06-24"
-assigned_by: "alex"
-description: |
-  Phase 5 of active/text-tool-call-standard.md — 移除 XmlToolDispatcher，改用 ai-lib-core StandardTextToolParser。
-  **执行者：OpenCode**（由 alex 于 2026-06-24 指派）。
-
-  前置 ALR-TTC-001 已合入 ai-lib-rust#8 (`1865f558`)。本任务需 bump velaclaw 对 ai-lib-core 的依赖并接入
-  `StandardTextToolParser` + manifest `tool_calling` 块。
-
-deliverables:
-  - "移除 src/agent/dispatcher.rs 中 XmlToolDispatcher（或等价 text XML 解析路径）"
-  - "agent.rs dispatcher 选择逻辑：manifest tool_calling.native.reliability ≠ full 时启用 text fallback"
-  - "system prompt 注入 StandardTextToolParser::prompt_instructions()"
-  - "E2E: ls + file_read + shell 工具执行（DeepSeek 或 mock）"
-
-acceptance_criteria:
-  - "cargo test + clippy 通过"
-  - "DeepSeek / text-fallback 路径下工具调用不再依赖 <shell> XML 方言"
-  - "PR 合入 ailib-official/velaclaw main"
-  - "TASKS_INDEX + 本 YAML 回填 merge_commit"
-
-branch: "feat/vl-ttc-001-text-tool-migration"
-
-dependencies:
-  - "ALR-TTC-001"
-blocked_by: []
-
-references:
-  - "active/text-tool-call-standard.md"
-  - "ai-lib-rust/crates/ai-lib-core/src/types/text_tool.rs"
-  - "ai-protocol/docs/spec/text-tool-call/format.yaml"
-  - "ai-protocol/v2/providers/deepseek.yaml (tool_calling block)"
-
-upstream_merges:
-  ALR-TTC-001: "https://github.com/ailib-official/ai-lib-rust/pull/8 (1865f558)"
-
-constitution_rules:
-  - "ARCH-001"
-  - "GOV-003"
----
+---
+id: "VL-TTC-001"
+title: "Text Tool Call — velaclaw 迁移至 StandardTextToolParser"
+status: "completed"
+priority: "high"
+assignee: "opencode"
+executor_name: "cursor-agent"
+executor_terminal: "cursor-agent"
+project: "velaclaw"
+milestone: "text-tool-call-v1"
+labels:
+  - "tools"
+  - "migration"
+  - "opencode"
+created: "2026-06-24"
+updated: "2026-06-28"
+resolved: "2026-06-28"
+resolution:
+  pr: "https://github.com/ailib-official/velaclaw/pull/79"
+  branch: "feat/vl-ttc-001-text-tool-migration"
+  merge_commit: "22d4195"
+  summary: |
+    XmlToolDispatcher 接入 ai-lib-core StandardTextToolParser (L2 lenient)。
+    agent.rs 基于 manifest.tool_calling.native.reliability 选择 dispatcher。
+    cargo test --features ai-protocol: 2210 passed。clippy/fmt clean。
+assigned_at: "2026-06-24"
+assigned_by: "alex"
+description: |
+  Phase 5 of active/text-tool-call-standard.md — 移除 XmlToolDispatcher，改用 ai-lib-core StandardTextToolParser。
+  **执行者：OpenCode**（由 alex 于 2026-06-24 指派）。
+
+  前置 ALR-TTC-001 已合入 ai-lib-rust#8 (`1865f558`)。本任务需 bump velaclaw 对 ai-lib-core 的依赖并接入
+  `StandardTextToolParser` + manifest `tool_calling` 块。
+
+deliverables:
+  - "移除 src/agent/dispatcher.rs 中 XmlToolDispatcher（或等价 text XML 解析路径）"
+  - "agent.rs dispatcher 选择逻辑：manifest tool_calling.native.reliability ≠ full 时启用 text fallback"
+  - "system prompt 注入 StandardTextToolParser::prompt_instructions()"
+  - "E2E: ls + file_read + shell 工具执行（DeepSeek 或 mock）"
+
+acceptance_criteria:
+  - "cargo test + clippy 通过"
+  - "DeepSeek / text-fallback 路径下工具调用不再依赖 <shell> XML 方言"
+  - "PR 合入 ailib-official/velaclaw main"
+  - "TASKS_INDEX + 本 YAML 回填 merge_commit"
+
+branch: "feat/vl-ttc-001-text-tool-migration"
+
+pr:
+  repo: "ailib-official/velaclaw"
+  url: "https://github.com/ailib-official/velaclaw/pull/79"
+  merge_commit: "22d4195"
+  merge_target: "main"
+
+dependencies:
+  - "ALR-TTC-001"
+blocked_by: []
+
+references:
+  - "active/text-tool-call-standard.md"
+  - "ai-lib-rust/crates/ai-lib-core/src/types/text_tool.rs"
+  - "ai-protocol/docs/spec/text-tool-call/format.yaml"
+  - "ai-protocol/v2/providers/deepseek.yaml (tool_calling block)"
+
+upstream_merges:
+  ALR-TTC-001: "https://github.com/ailib-official/ai-lib-rust/pull/8 (1865f558)"
+
+testing:
+  evidence: "CI run #28321025227 green (pull_request); merge main conflict resolved; Cargo.lock synced post-merge (941c9a7)"
+
+completion_notes: |
+  Merged #79 squash → main @ 22d4195 (2026-06-28). OpenCode 实现 + alex 手动 merge main 冲突；
+  Cursor 修复 merge 后 Cargo.lock 与 git ai-lib-rust@1865f55 不同步并合并。含 workflow_dispatch 与 CI 辅助提交。
+
+constitution_rules:
+  - "ARCH-001"
+  - "GOV-003"
+---
