@@ -27,10 +27,10 @@
 
 | 项 | 状态 | 证据 / 差距 |
 |----|------|-------------|
-| Rust full compliance matrix | 🟡 | 本地 2026-04-03 `compliance_from_core` 全量 PASS；**默认 branch 需持续绿** `pt073-rust-core-wasm.yml` |
+| Rust full compliance matrix | ✅ | `pt073-rust-core-wasm.yml` on main — `cargo test -p ai-lib-core` (incl. compliance_from_core); green run 2026-06-29 (`28364691515`) |
 | Python **full** `pytest tests/compliance/` | ✅ | PR #4 merged `b30b831` — `pt073-python-full.yml` + `COMPLIANCE_SUBSET`；e_only 保留 `pt073-python-e-only.yml` |
-| TypeScript **full** compliance | 🟡 | PR #4 待合并：`pt073-ts-full.yml` + `test:compliance:full`；E-only 保留 `pt073-ts-core.yml` |
-| Go compliance PASS | 🟡 | `ci.yml` 存在；需确认 E-only harness 与 resilience 边界文档化 |
+| TypeScript **full** compliance | ✅ | PR #4 merged `324e67a` — `pt073-ts-full.yml` + `test:compliance:full`；E-only 保留 `pt073-ts-core.yml` |
+| Go compliance PASS | 🟡 | `ci.yml` 存在；最近绿 run 2026-05-07 — 需刷新 evidence 或 `pt073-go` workflow |
 
 **收口动作（建议 PT-073a / PT-073 子项）**：
 

@@ -1,0 +1,42 @@
+---
+id: "PT-073c"
+title: "Go + Rust PT-073 §1 evidence closure"
+status: "in_progress"
+priority: "high"
+assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+project: "ai-lib-go"
+parent: "PT-073"
+milestone: "v1.0.0"
+phase: 2
+labels:
+  - "compliance"
+  - "ci"
+  - "go"
+  - "rust"
+created: "2026-06-29"
+updated: "2026-06-29"
+started: "2026-06-29"
+description: |
+  PT-073 §1 剩余：Rust 证据已在 gap audit 勾选（`pt073-rust-core-wasm.yml` 全量 core test）。
+  Go 需刷新 default-branch compliance CI evidence（`pt073-go.yml` 或 workflow_dispatch + checklist URL）。
+
+blocks:
+  - id: "PT-073c-R1"
+    title: "Rust §1 checklist row + gap audit evidence"
+    status: "completed"
+  - id: "PT-073c-R2"
+    title: "pt073-go.yml workflow + compliance run green"
+    status: "in_progress"
+  - id: "PT-073c-R3"
+    title: "PT-073 YAML §1 Rust/Go rows + plans 回填"
+    status: "planned"
+    depends_on: ["PT-073c-R2"]
+
+depends_on_projects:
+  - task_id: "PT-073b"
+    task_file: "active/projects/ai-protocol/tasks/PT-073b-typescript-full-compliance-ci.yaml"
+
+coordination:
+  gap_audit: "active/projects/ai-protocol/PT-073-GAP-AUDIT_2026-06.md"

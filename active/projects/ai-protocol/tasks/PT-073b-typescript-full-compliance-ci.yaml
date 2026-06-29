@@ -1,7 +1,7 @@
 ---
 id: "PT-073b"
 title: "TypeScript full compliance CI (PT-073 §1 P0)"
-status: "in_progress"
+status: "completed"
 priority: "critical"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -15,7 +15,8 @@ labels:
   - "ci"
   - "typescript"
 created: "2026-06-29"
-updated: "2026-06-29"
+updated: "2026-06-29T22:30"
+completed: "2026-06-29"
 started: "2026-06-29"
 description: |
   PT-073 差距审计 P0：默认 branch 跑 **完整** compliance vitest 矩阵（含 06-resilience 等），
@@ -26,16 +27,30 @@ blocks:
     title: "vitest compliance-full config + npm script"
     status: "completed"
     pr: "https://github.com/ailib-official/ai-lib-ts/pull/4"
+    merge_commit: "324e67ad9320f56775bc0df849b3ee8fb4f26155"
+    merged_at: "2026-06-29T14:21:01Z"
   - id: "PT-073b-R2"
     title: "pt073-ts-full.yml workflow"
     status: "completed"
     depends_on: ["PT-073b-R1"]
     pr: "https://github.com/ailib-official/ai-lib-ts/pull/4"
+    merge_commit: "324e67ad9320f56775bc0df849b3ee8fb4f26155"
+    merged_at: "2026-06-29T14:21:01Z"
   - id: "PT-073b-R3"
     title: "main CI green + plans 回填"
-    status: "in_progress"
+    status: "completed"
     depends_on: ["PT-073b-R2"]
     pr: "https://github.com/ailib-official/ai-lib-ts/pull/4"
+    merge_commit: "324e67ad9320f56775bc0df849b3ee8fb4f26155"
+    merged_at: "2026-06-29T14:21:01Z"
+
+pr:
+  url: "https://github.com/ailib-official/ai-lib-ts/pull/4"
+  merge_commit: "324e67ad9320f56775bc0df849b3ee8fb4f26155"
+
+completion_notes: |
+  PR #4 merged 2026-06-29. vitest.compliance-full.config.ts + test:compliance:full + pt073-ts-full.yml on main.
+  Full matrix 79 tests; E-only unchanged via test:core (59 tests).
 
 depends_on_projects:
   - task_id: "PT-073a"
