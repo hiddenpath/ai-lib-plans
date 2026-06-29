@@ -27,25 +27,32 @@ description: |
 blocks:
   - id: "ALR-DOC-002-R1"
     title: "content_block_mapping 类型与合约加载"
-    status: "in_progress"
+    status: "completed"
     description: |
       `protocol/v2/content_block_mapping.rs`；从嵌入的 `v2/contracts/*.yaml` 反序列化；
       与 ai-protocol 合约文件保持同步（合规测试锁定）。
     depends_on: ["PT-079-R1"]
   - id: "ALR-DOC-002-R2"
     title: "manifest_encode 执行器 + driver 接线"
-    status: "planned"
+    status: "completed"
     description: |
       `manifest_encode` 按 mapping 编码 Document/Text/Image；
       AnthropicDriver/GeminiDriver 改调 manifest encoder；行为与 ALR-DOC-001 单测等价。
     depends_on: ["ALR-DOC-002-R1"]
   - id: "ALR-DOC-002-R3"
     title: "合规 runner content_block_encode + 退役硬编码"
-    status: "planned"
+    status: "in_progress"
     description: |
       `compliance_runner` 新增 `content_block_encode`；`content_encode.rs` 改为薄包装或删除；
       `cargo test` document + compliance 全绿。
     depends_on: ["ALR-DOC-002-R2"]
+
+pr:
+  repo: "ailib-official/ai-lib-rust"
+  branch: "feat/alr-doc-002-manifest-encode"
+  number: 10
+  url: "https://github.com/ailib-official/ai-lib-rust/pull/10"
+  commit: "a5e46a2"
 
 depends_on_projects:
   - task_id: "PT-079"
