@@ -26,7 +26,7 @@ Stage 0  权宜交付（已退役）   EOS-P2-006-R1   superseded by EOS-P2-007 
 Stage 1  协议与类型基建         ALR-DOC-001 ✅   ContentBlock::Document + 能力校验
 Stage 2  产品迁移               EOS-P2-007 ✅    upload document_ref；路由/降级 UX
 Stage 3  声明式编码             PT-079 ✅        manifest content_block_mapping；退役 P 层 encode
-Stage 4  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 document 需求选模（in_progress）
+Stage 4  智能路由（可选增强）   EOS-REQ-P2-003 ✅  /v1/route/decide 按 document 需求选模
 ```
 
 ### Stage 0 — 权宜（不推翻）
@@ -66,11 +66,11 @@ Stage 4  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 d
   - `v2/contracts/*.contract.yaml` 为 Anthropic/Gemini 真源
   - ai-lib manifest encoder 替代 Driver 硬编码 `encode_blocks_for_*`
   - Eos `document_attach` 退役 P 层 vendor JSON 拼接（见 `EOS-P2-008` 退役条件）
-- **门控**: `EOS-REQ-P2-003` 可进入排期（PT-079 ✅ 完成；任务仍为 deferred）
+- **门控**: ~~EOS-REQ-P2-003~~ ✅ Stage 4 完成（#26+#27）
 
 ### Stage 4 — 智能路由增强（软依赖）
 
-- **需求槽**: `EOS-REQ-P2-003`（已有，`deferred`）
+- **需求槽**: `EOS-REQ-P2-003` ✅（`completed`）
 - **增强**: `POST /v1/route/decide` 输入含 document 附件时，优先推荐 `document_understanding` 模型
 - **参考**: `eos/docs/EOS-P2-005-R4-SMART-ROUTING-PLACEHOLDER.md`
 - **SLA**: NOT PRODUCTION SLA（与 Prism gateway 一致）
@@ -87,7 +87,7 @@ Stage 4  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 d
 | PT-079 | ai-protocol | `completed` | ALR-DOC-001, EOS-P2-007 | R1✅ #12；R2✅ #10+#11；R3✅ eos #25 |
 | ALR-DOC-002 | ai-lib-rust | `completed` | PT-079-R1 ✅ | #10 `21a049c` + #11 `2f331b4` |
 | EOS-P2-008 | eos | `completed` | ALR-DOC-002 ✅ | hiddenpath/eos #25 `bdd9324` |
-| EOS-REQ-P2-003 | eos↔prism | `in_progress` | PT-079 ✅ | decide document uplift 🚧 |
+| EOS-REQ-P2-003 | eos↔prism | `completed` | PT-079 ✅ | #26+#27 `6961b83` decide + UI uplift |
 
 ---
 
@@ -104,7 +104,7 @@ Stage 4  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 d
 ## 5. 验收口径（Stage 2 完成时）
 
 - [x] 上传 PDF 后请求体含 document block（非 extracted_text 注入）
-- [x] 选择纯文本模型 + PDF 附件 → 明确错误/换模提示（无静默 extract）
+- [x] 选择纯文本模型 + PDF 附件 → `/v1/route/decide` 自动 uplift 或明确失败（Stage 4 #27）
 - [x] 选择 Gemini/Claude 等 document 模型 → 厂商侧收到原生 document 载荷
 - [ ] 扫描件 PDF 在 document 模型路径下可处理（或厂商返回可理解错误）
 - [x] `EOS-P2-006-R1` 的 `pdf_extract` 代码路径已移除或仅 feature-gated 应急
@@ -120,6 +120,7 @@ Stage 4  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 d
 - `active/projects/ai-protocol/tasks/PT-079-declarative-content-block-encoding.yaml`
 - `active/projects/ai-lib-rust/tasks/ALR-DOC-002-manifest-content-encode.yaml`
 - `active/projects/eos/tasks/EOS-P2-008-retire-document-attach.yaml`
+- `active/projects/eos/tasks/EOS-REQ-P2-003-document-smart-routing.yaml`
 
 ---
 
@@ -141,11 +142,11 @@ Stage 4  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 d
 | 层 | document 相关职责 | 现状 |
 |----|-------------------|------|
 | Manifest | `document_understanding` 能力声明 | ✅ ai-protocol multimodal |
-| Runtime Driver | Anthropic/Gemini wire JSON 编码 | ⚠️ `encode_blocks_for_*` Rust |
-| 应用 (Eos) | 附件 staging + 能力门禁 | Stage 2 `document_attach` 复用 Driver encode |
+| Runtime Driver | Anthropic/Gemini wire JSON 编码 | ✅ manifest_encode（PT-079） |
+| 应用 (Eos) | 附件 staging + 能力门禁 | ✅ document_attach + route/decide uplift |
 
 **终态（ARCH-001）**：请求体形状应由 manifest 算子驱动；Driver 只执行 pipeline。
-**非阻塞 follow-up**：~~`PT-079`（可选）~~ → **PT-079 已立项**（`in_progress`）；ALR-DOC-002 + EOS-P2-008 串行执行。EOS-REQ-P2-003 门控至 PT-079 完成。
+**非阻塞 follow-up**：~~PT-079 / EOS-REQ-P2-003~~ ✅ 已完成。可选：Python/TS `ContentBlock::Document` parity。
 
 ### 7.3 轨道依赖（审查合并顺序）
 
@@ -155,13 +156,13 @@ ALR-DOC-001 ✅ (main@34bcd71)
             └── PT-079 ✅ — Stage 3 声明式编码
                     ├── ALR-DOC-002 ✅ — manifest encoder (#10+#11)
                     └── EOS-P2-008 ✅ — 退役 document_attach P 层 encode (#25)
-                            └── EOS-REQ-P2-003 🚧 — Stage 4 智能选模（R1 route/decide）
+                            └── EOS-REQ-P2-003 ✅ — Stage 4 智能选模 (#26+#27)
 VL-TTC-001 ✅ — 并行无关轨道（velaclaw text tool）
 ```
 
 ### 7.4 EOS-P2-007 PR 审查要点
 
 1. PDF 上传返回 `document_ref`，无 `extracted_text`（txt/md 仍直读）
-2. 非 document 模型 + PDF → 前端显式拒绝（E2E：`document-capability-routing.spec.ts`）
+2. 非 document 模型 + PDF → `/v1/route/decide` 自动 uplift（E2E：`document-capability-routing.spec.ts` #27）
 3. document 模型 → `eos_attachments` 进入 proxy/v1（E2E 断言）
 4. `pdf-extract` crate 已从 eos-server 移除

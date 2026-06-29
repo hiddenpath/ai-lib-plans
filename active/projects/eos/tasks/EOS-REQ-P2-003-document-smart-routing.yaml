@@ -1,7 +1,7 @@
 ---
 id: "EOS-REQ-P2-003"
 title: "Eos — document 感知智能路由（/v1/route/decide）"
-status: "in_progress"
+status: "completed"
 priority: "medium"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -17,6 +17,7 @@ labels:
 created: "2026-06-29"
 updated: "2026-06-29"
 started: "2026-06-29"
+completed: "2026-06-29"
 description: |
   Stage 4：当请求含 PDF/document 附件且当前模型不支持 `document_understanding` 时，
   `/v1/route/decide` 自动推荐合规的 document 模型（成本优先）。
@@ -33,14 +34,21 @@ blocks:
       内嵌 prism-core CostRouter；`eos_attachments` 含 PDF 时 uplift 至 document 模型；
       合规过滤 + 单元测试。
     depends_on: ["EOS-P2-008", "PR-P2-003"]
+    pr:
+      number: 26
+      merge_commit: "51226a05733696ad744e291ebb9021f4874e3201"
   - id: "EOS-REQ-P2-003-R2"
     title: "前端 debounce 调用 decide + 发送路径应用"
-    status: "in_progress"
+    status: "completed"
     depends_on: ["EOS-REQ-P2-003-R1"]
+    pr:
+      number: 27
+      merge_commit: "6961b83da8de96dc71582e439ee7d21cd9575adc"
   - id: "EOS-REQ-P2-003-R3"
     title: "E2E：PDF 附件 + auto 路由至 document 模型"
-    status: "planned"
+    status: "completed"
     depends_on: ["EOS-REQ-P2-003-R2"]
+    evidence: "e2e/tests/document-capability-routing.spec.ts — auto-uplift via /v1/route/decide (#27)"
 
 depends_on_projects:
   - task_id: "PT-079"
@@ -51,13 +59,24 @@ depends_on_projects:
 
 pr:
   repo: "hiddenpath/eos"
-  branch: "feat/eos-req-p2-003-r2-frontend"
-  number: 27
-  url: "https://github.com/hiddenpath/eos/pull/27"
-  commit: "a9d7bd7"
-  follow_up_r1:
+  r1:
     number: 26
+    url: "https://github.com/hiddenpath/eos/pull/26"
     merge_commit: "51226a05733696ad744e291ebb9021f4874e3201"
+  r2_r3:
+    number: 27
+    url: "https://github.com/hiddenpath/eos/pull/27"
+    commit: "a9d7bd7"
+    merge_commit: "6961b83da8de96dc71582e439ee7d21cd9575adc"
+    merged_at: "2026-06-29T19:28:19+08:00"
+
+blocks_summary:
+  total: 3
+  completed: 3
+
+completion_notes: |
+  Stage 4 完成：服务端 decide + 前端 debounce/uplift + E2E auto-route。
+  文档能力路由轨道 Stage 0–4 全部交付。
 
 coordination:
   master_doc: "active/document-capability-routing.md"
