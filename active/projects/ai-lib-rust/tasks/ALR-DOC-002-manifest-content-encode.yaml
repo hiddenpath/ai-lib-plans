@@ -1,7 +1,7 @@
 ---
 id: "ALR-DOC-002"
 title: "Manifest-driven ContentBlock 编码（退役 Driver 硬编码）"
-status: "planned"
+status: "in_progress"
 priority: "high"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -16,6 +16,7 @@ labels:
   - "ARCH-001"
 created: "2026-06-29"
 updated: "2026-06-29"
+started: "2026-06-29"
 description: |
   PT-079-R2 执行载体：用 ProviderContract `content_block_mapping` 驱动 document（首批）
   及 text/image 编码；删除或薄包装 `encode_blocks_for_anthropic/gemini` 硬编码主路径。
@@ -26,7 +27,7 @@ description: |
 blocks:
   - id: "ALR-DOC-002-R1"
     title: "content_block_mapping 类型与合约加载"
-    status: "planned"
+    status: "in_progress"
     description: |
       `protocol/v2/content_block_mapping.rs`；从嵌入的 `v2/contracts/*.yaml` 反序列化；
       与 ai-protocol 合约文件保持同步（合规测试锁定）。

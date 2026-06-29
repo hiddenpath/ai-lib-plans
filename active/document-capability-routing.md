@@ -84,8 +84,8 @@ Stage 4  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 d
 | EOS-P2-006-R1 | eos | `superseded` | — | 权宜 pdf_extract → 由 EOS-P2-007 取代 |
 | ALR-DOC-001 | ai-lib-rust | `completed` | — | Document block + driver 编码；main@34bcd71 |
 | EOS-P2-007 | eos | `completed` | ALR-DOC-001 ✅ | hiddenpath/eos #24 `ea62ebb` |
-| PT-079 | ai-protocol | `in_progress` | ALR-DOC-001, EOS-P2-007 | 声明式 document 编码 |
-| ALR-DOC-002 | ai-lib-rust | `planned` | PT-079-R1 | manifest encoder |
+| PT-079 | ai-protocol | `in_progress` | ALR-DOC-001, EOS-P2-007 | R1 ✅ #12 `4eac968`；R2 ALR-DOC-002 🚧 |
+| ALR-DOC-002 | ai-lib-rust | `in_progress` | PT-079-R1 ✅ | manifest encoder |
 | EOS-P2-008 | eos | `planned` | ALR-DOC-002 | 退役 document_attach P 层 encode |
 | EOS-REQ-P2-003 | eos↔prism | `deferred` | PT-079, Prism P2 | decide 按 document 选模 |
 

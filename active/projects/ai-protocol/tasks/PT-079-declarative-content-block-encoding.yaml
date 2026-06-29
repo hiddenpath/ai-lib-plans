@@ -17,6 +17,7 @@ labels:
 created: "2026-06-29"
 updated: "2026-06-29"
 started: "2026-06-29"
+completed: null
 description: |
   将 ALR-DOC-001 遗留的 Driver 硬编码 `encode_blocks_for_*` 收敛到 **manifest / ProviderContract**
   声明式 `content_block_mapping`，消除 Eos P 层与多 runtime 重复拼厂商 JSON 的权宜路径。
@@ -33,13 +34,14 @@ constitution_rules:
 blocks:
   - id: "PT-079-R1"
     title: "Schema + 规范 + ProviderContract 样例 + 合规夹具"
-    status: "in_progress"
+    status: "completed"
     project: "ai-protocol"
     pr:
       repo: "ailib-official/ai-protocol"
       branch: "feat/pt-079-content-block-encoding"
       number: 12
       url: "https://github.com/ailib-official/ai-protocol/pull/12"
+      merge_commit: "4eac96868bcb54ad3632a944707b4a34d0529ad4"
       commit: "67a6291"
     description: |
       - `provider-contract.json` 增加 `document` content_block_mapping
@@ -54,7 +56,7 @@ blocks:
       - "tests/compliance/cases/11-content-block-encoding/"
   - id: "PT-079-R2"
     title: "Runtime manifest-driven encoder（Rust 首批）"
-    status: "planned"
+    status: "in_progress"
     project: "ai-lib-rust"
     task_ref: "ALR-DOC-002"
     description: |
@@ -90,7 +92,7 @@ depends_on_projects:
 
 blocks_summary:
   total: 3
-  completed: 0
+  completed: 1
 
 testing:
   - "provider-contract.json 校验含 document 枚举"
