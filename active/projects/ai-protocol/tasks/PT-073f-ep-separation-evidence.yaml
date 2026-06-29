@@ -22,11 +22,13 @@ description: |
 blocks:
   - id: "PT-073f-R1"
     title: "EP boundary CI 证据汇总（Rust/Python 已有 pt073）"
-    status: "in_progress"
+    status: "completed"
+    note: "Rust/Python/TS pt073 workflows; TS script in ai-protocol PR #16"
   - id: "PT-073f-R2"
     title: "TS ep-boundary / architecture 检查入 CI"
-    status: "planned"
+    status: "in_progress"
     depends_on: ["PT-073f-R1"]
+    pr: "https://github.com/ailib-official/ai-lib-ts/pull/6"
   - id: "PT-073f-R3"
     title: "ExecutionMetadata + contact build 证据 + WAVE5 §3 勾选"
     status: "planned"
@@ -35,6 +37,9 @@ blocks:
 depends_on_projects:
   - task_id: "PT-073e"
     task_file: "active/projects/ai-protocol/tasks/PT-073e-governance-gates-evidence.yaml"
+
+pr:
+  url: "https://github.com/ailib-official/ai-protocol/pull/16"
 
 coordination:
   gap_audit: "active/projects/ai-protocol/PT-073-GAP-AUDIT_2026-06.md"
