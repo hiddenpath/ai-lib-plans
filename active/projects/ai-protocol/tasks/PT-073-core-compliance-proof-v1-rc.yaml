@@ -36,7 +36,6 @@ description: |
   - [x] ai-lib-core (Rust): cargo test -p ai-lib-core → full compliance PASS (`pt073-rust-core-wasm.yml`, green 2026-06-29)
   - [x] ai-lib-python[core]: **full** `pytest tests/compliance/` (entire matrix, not only `e_only`) → PASS on default branch CI
   - [x] @ailib/core (TS): **full** compliance (`test:compliance:full`) → PASS on default branch CI (`pt073-ts-full.yml`)
-  - [ ] ai-lib-go: go test ./... → compliance PASS (already core-only)
 
   **Partial evidence (PT-073–named CI on `ailib-official/main`, 2026-04-15):**
 
@@ -44,6 +43,7 @@ description: |
   - [x] **ai-lib-python (full):** `pt073-python-full.yml` — full matrix; PR #4 `b30b831` (2026-06-29).
   - [x] **ai-lib-ts:** workflow `.github/workflows/pt073-ts-core.yml` — `npm run typecheck` + `npm run test:core` with `AI_PROTOCOL_DIR`, checkout **ailib-official/ai-protocol** (merge `33f5d0a` includes non-stream `response_paths` / `openai_chat` path-mapper parity).
   - [x] **ai-lib-ts (full):** `pt073-ts-full.yml` — `test:compliance:full`; PR #4 `324e67a` (2026-06-29).
+  - [x] **ai-lib-go:** `pt073-go.yml` — full compliance; PR #2 `334ac745` (2026-06-29).
 
   ### 2. WASM compliance (blocking)
 
@@ -153,8 +153,12 @@ completion_notes: |
   **2026-06-22:** Gap audit documented in `active/projects/ai-protocol/PT-073-GAP-AUDIT_2026-06.md`.
   Prism P2 can proceed in parallel (PR-PP-002); PT-073 is a **milestone goal**, not a phase start gate.
   Priority: P0 Python/TS full compliance CI; P1 CHANGELOG; P3 maintainer v1.0.0 decision.
+  **2026-06-29:** PT-073a ✅ ai-lib-python PR #4 (b30b831), PT-073b ✅ ai-lib-ts PR #4 (324e67a), PT-073c ✅ ai-lib-go PR #2 (334ac745) — §1 three-runtime full compliance CI merged.
+  - ai-lib-python PR #4 (b30b831) — Python full compliance CI
+  - ai-lib-ts PR #4 (324e67a) — TS full compliance CI
+  - ai-lib-go PR #2 (334ac745) — Go compliance CI
 
-  **2026-06-29:** PT-073a ✅ — ai-lib-python PR #4 merged `b30b831`:
+  PT-073a in flight — ai-lib-python PR #4 (`feat/pt073a-python-full-compliance`):
   COMPLIANCE_SUBSET filtering, provider-contract schema validation for cbe-* cases,
   `pt073-python-full.yml`. §1 Python full-matrix row satisfied on default branch CI.
 
@@ -171,4 +175,3 @@ constitution_rules:
   - "TEST-001: Compliance tests"
   - "GOV-001: Canonical remote, official sync, monorepo workspace"
   - "GOV-002: Merge conflict resolution discipline"
----
