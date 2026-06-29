@@ -65,7 +65,7 @@ Wave 1  身份          EOS-P2-002                    (~2w)
 Wave 2  同步+配额     EOS-P2-003 + EOS-P2-004       (~3–4w，003 可与 002 部分重叠)
 Wave 3  集成          EOS-P2-005                    (门控：Prism P1-B/C)
 Wave 4  增强          EOS-P2-006                    (与 Wave 2–3 并行；R1 为权宜技术债)
-Wave 5  文档路由      EOS-P2-007                    (门控：ALR-DOC-001；见 document-capability-routing.md)
+Wave 5  文档路由      EOS-P2-007 ✅                 (#24 ea62ebb；见 document-capability-routing.md)
 Wave 6  上下文 2.5    EOS-CX-001 → EOS-CX-002       (Phase 2 末 / Phase 2.5)
 ```
 
@@ -142,7 +142,7 @@ Wave 6  上下文 2.5    EOS-CX-001 → EOS-CX-002       (Phase 2 末 / Phase 2.
 | **M8: Free tier** | 配额耗尽返回明确错误 + UI 提示 | Wave 2b 末 |
 | **M9: Prism-ready** | ADR + 本地 POC（若开 Wave 3） | Prism P1-B 后 |
 | **M10: Feature+** | PDF 上传 + 多图（权宜路径） | Wave 4 |
-| **M11: Doc-route** | Document block + 能力路由；无静默 extract | Wave 5（ALR-DOC-001 后） |
+| **M11: Doc-route** | Document block + 能力路由；无静默 extract | ✅ #24 `ea62ebb` (2026-06-29) |
 | **M5**（延续） | CX-001/002 | Phase 2.5 |
 
 ---

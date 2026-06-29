@@ -1,7 +1,7 @@
 ---
 id: "EOS-P2-006"
 title: "Eos Phase 2 — 功能增强（文件、Provider、WASM fallback）"
-status: "in_progress"
+status: "completed"
 priority: "medium"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -15,7 +15,7 @@ labels:
   - "multimodal"
   - "product"
 created: "2026-06-04"
-updated: "2026-06-28"
+updated: "2026-06-29"
 description: |
   Phase 1 有意缩减的能力在 Phase 2 补齐（`EOS_DEPLOY_PLAN.md` D4、PHASE1_PLAN 风险表）。
 
@@ -35,11 +35,12 @@ blocks:
     evidence: "hiddenpath/eos #22 — 权宜路径；EOS-P2-007 PR 退役 pdf_extract"
   - id: "EOS-P2-006-R2"
     title: "多图拖拽上传"
-    status: "in_progress"
+    status: "completed"
     description: |
       前端 drag-drop、`accept` 扩展；多 attachment 预览；发送路径与 Phase 1 单图兼容。
     depends_on: ["EOS-P2-006-R1"]
-    evidence: "hiddenpath/eos #23 — pendingAttachments + drag-drop (stacked on #22)"
+    evidence: "hiddenpath/eos #24 — pendingAttachments + drag-drop (shipped with EOS-P2-007)"
+    merge_commit: "ea62ebba7b6d278edccbf4a224e4c84d9faea43b"
   - id: "EOS-P2-006-R3"
     title: "Anthropic Messages 路径"
     status: "completed"
@@ -73,7 +74,7 @@ completion_notes: |
   R3 ✅ eos #21 `6346a4b` — Claude via /v1 + EOS_ANTHROPIC_API_KEY。
   R4 ✅ defer 非 WASM fallback（见 docs/EOS-P2-006-R4-WASM-FALLBACK-REVIEW.md）。
   R1 ⏭ superseded by EOS-P2-007 — pdf_extract 主路径退役；txt/md 直读保留。
-  R2 🚧 eos #23 open — 多附件 + drag-drop（与 P2-007 同批 PR 或 stacked）。
+  R2 ✅ eos #24 `ea62ebb` — 多附件 + drag-drop。
 tech_debt_exit:
   task_id: "EOS-P2-007"
   master_doc: "active/document-capability-routing.md"
