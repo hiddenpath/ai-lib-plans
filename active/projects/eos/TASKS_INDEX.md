@@ -33,7 +33,7 @@
 | M4: Regional compliance（EOS-ARCH R1–R5） | 2026-06-02 | ✅ eos #8–#9 + plans #6 |
 | M7: Sync（EOS-P2-003 E2E 密文） | Phase 2 Wave 2a | ✅ PR #12 (5e805b5) |
 | M9: Prism-ready（EOS-P2-005 ADR + POC） | Phase 2 Wave 3 | ✅ #19 `703a942` + #20 `3b1fd1c` |
-| M11: Doc-route（EOS-P2-007） | Phase 2 Wave 5 | ✅ #24 `ea62ebb` (2026-06-29) |
+| M11: Doc-route（EOS-P2-007 + PT-079） | Phase 2 Wave 5 | ✅ #24–#27 Stage 0–4 (2026-06-29) |
 | M5: Context layering & external doc（EOS-CX-001/002） | Phase 2+ | ⏳ 远期架构规划中 |
 
 ## 依赖
