@@ -17,6 +17,11 @@
 - **适用范围**: eos、Prism 侧构建链及任何为解决 CI 网络所做的 vendoring
 - **落地示例**: `hiddenpath/eos` 根目录 `wasm-pack-bin` / `wasm-bindgen-bin`（见 `docs/engineering/VENDORED_BUILD_TOOL_BINARIES.md`）
 
+## `active/projects/ai-protocol/TASKS_INDEX.md`
+
+- **用途**: PT-073 v1.0 门控任务索引 + 多仓库 PR merge 链（**Spider 扫描真源**）
+- **适用范围**: ai-protocol, ai-lib-rust, ai-lib-python, ai-lib-ts, ai-lib-go 的 PT-073 子任务回填
+
 ## `active/projects/infra/LAN_INFRA.md`
 
 - **用途**: GOV-005 基础设施详表——设备、bare 仓清单、CI 分层、双重备份架构

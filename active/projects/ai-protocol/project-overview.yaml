@@ -60,8 +60,16 @@ active_tasks:
     title: "Core-only compliance proof and v1.0.0 RC gate"
     status: "in_progress"
     priority: "critical"
-    description: "Final gate before v1.0.0 — four runtimes + E/P + migration docs; see task file for checklist."
+    description: "§1–§5 complete (see TASKS_INDEX.md PT-073a–f); §6 v1.0.0 tag awaits maintainer."
     task_file: "active/projects/ai-protocol/tasks/PT-073-core-compliance-proof-v1-rc.yaml"
+    tasks_index: "active/projects/ai-protocol/TASKS_INDEX.md"
+
+recently_completed_pt073_track:
+  note: "Spider 扫描：见 TASKS_INDEX.md；2026-06-29 PT-073a–f 全部 completed"
+  items:
+    - "PT-073a–c: §1 four-runtime compliance"
+    - "PT-073d–e: §4–§5 CHANGELOG + governance"
+    - "PT-073f: §3 E/P (PR chain #16/#6/#17/#3/#6/#7)"
 
   - id: "PT-075"
     title: "V2-alpha model capacity metadata parity with V1 (context_window / max_output)"

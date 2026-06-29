@@ -62,23 +62,33 @@ depends_on_projects:
     task_file: "active/projects/ai-protocol/tasks/PT-073e-governance-gates-evidence.yaml"
 
 pr:
-  - url: "https://github.com/ailib-official/ai-protocol/pull/16"
-    merge_commit: "c805203"
-  - url: "https://github.com/ailib-official/ai-protocol/pull/17"
-    merge_commit: "65857ef"
-  - url: "https://github.com/ailib-official/ai-lib-ts/pull/6"
-    merge_commit: "955f795"
-  - url: "https://github.com/ailib-official/ai-lib-go/pull/3"
-    merge_commit: "2cf42c6"
-  - url: "https://github.com/ailib-official/ai-lib-python/pull/6"
-    merge_commit: "c3f4d53"
-  - url: "https://github.com/ailib-official/ai-lib-ts/pull/7"
-    merge_commit: "aa3f5fa"
+  repo: "ailib-official/ai-protocol"
+  url: "https://github.com/ailib-official/ai-protocol/pull/17"
+  merge_commit: "65857ef9476c7da5fc729a5360f5c9e92b15bb3f"
+  merged_at: "2026-06-29T16:34:54Z"
+
+related_prs:
+  - repo: "ailib-official/ai-protocol"
+    url: "https://github.com/ailib-official/ai-protocol/pull/16"
+    merge_commit: "c8052037ec071b13aecd7eddfca666fc8eeb6b71"
+  - repo: "ailib-official/ai-lib-ts"
+    url: "https://github.com/ailib-official/ai-lib-ts/pull/6"
+    merge_commit: "955f795c556f3e2c1fca61e37e3f84e67f67684c"
+  - repo: "ailib-official/ai-lib-go"
+    url: "https://github.com/ailib-official/ai-lib-go/pull/3"
+    merge_commit: "2cf42c60b84dab909563695105eb460c592d4cac"
+  - repo: "ailib-official/ai-lib-python"
+    url: "https://github.com/ailib-official/ai-lib-python/pull/6"
+    merge_commit: "c3f4d53ec541e326e3bf66f980f42168ac6a4e44"
+  - repo: "ailib-official/ai-lib-ts"
+    url: "https://github.com/ailib-official/ai-lib-ts/pull/7"
+    merge_commit: "aa3f5faa66caa72a8a7eb154fdedc5e74edfcaab"
 
 completion_notes: |
-  2026-06-29: 按序合并 #16→#6, 再 #17→go/python/ts #3/#6/#7.
+  2026-06-29: 按序合并 #16→ts#6, 再 #17→go#3/python#6/ts#7 (Cursor; Spider 见 TASKS_INDEX PT-073f PR 链).
   四运行时 EP 静态检查 + ExecutionMetadata schema 样本/测试 + contact build smoke 均已入 pt073 CI.
   WAVE5 §3 证据见 ai-protocol main (65857ef). §6 v1.0.0 tag 仍待 maintainer.
+  executor_note: "Merged by cursor agent-session — Spider backfill via TASKS_INDEX.md"
 
 coordination:
   gap_audit: "active/projects/ai-protocol/PT-073-GAP-AUDIT_2026-06.md"

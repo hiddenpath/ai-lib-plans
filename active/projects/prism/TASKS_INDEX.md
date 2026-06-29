@@ -73,5 +73,5 @@
 - [docs/PR-PP-002-IMPLEMENTATION.md](./docs/PR-PP-002-IMPLEMENTATION.md) — 成本路由 + decide API
 - [docs/PHASE2_CLOSEOUT_2026-06.md](./docs/PHASE2_CLOSEOUT_2026-06.md) — **Phase 2 收尾**
 - [NEAR_TERM_EXECUTION_2026-06-P1.md](./NEAR_TERM_EXECUTION_2026-06-P1.md) — P1 排期（已完成）
-- [../ai-protocol/PT-073-GAP-AUDIT_2026-06.md](../ai-protocol/PT-073-GAP-AUDIT_2026-06.md) — PT-073 差距审计
+- [../ai-protocol/TASKS_INDEX.md](../ai-protocol/TASKS_INDEX.md) — PT-073 任务索引（Spider）
 - MEMORY.md § 2026-06-04 Prism Phase 1 计划对齐
