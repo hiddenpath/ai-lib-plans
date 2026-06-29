@@ -1,0 +1,62 @@
+---
+id: "EOS-P2-008"
+title: "Eos — 退役 document_attach P 层编码（收敛至 ai-lib manifest encoder）"
+status: "planned"
+priority: "medium"
+assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+project: "eos"
+milestone: "document-capability-routing-stage-3"
+phase: 2
+labels:
+  - "eos"
+  - "tech-debt-exit"
+  - "ARCH-001"
+created: "2026-06-29"
+updated: "2026-06-29"
+description: |
+  PT-079-R3 / EOS 侧执行：移除 eos-server 对 `encode_blocks_for_anthropic/gemini` 的直接依赖，
+  将 document 载荷编码下沉至 ai-lib manifest encoder（ALR-DOC-002）。
+
+  **前置**: ALR-DOC-002 ✅（manifest_encode 在 driver 路径可用）
+  **协调**: `active/document-capability-routing.md`
+
+retirement_conditions:
+  all_required:
+    - "eos-server/Cargo.toml 无 ai-lib-core encode 直接调用（grep encode_blocks_for_* = 0）"
+    - "document_attach.rs 仅负责 ref→base64 解析与 ContentBlock 构造，或整模块删除改走统一 chat 路径"
+    - "eos_attachments 仍可从 UI 传入，但上游编码仅在 ai-lib/prism driver 层发生"
+    - "e2e/tests/document-capability-routing.spec.ts 全绿"
+    - "hiddenpath/eos PR 合并 + plans 回填 merge_commit"
+  forbidden_after_retirement:
+    - "P 层拼接 Anthropic document / Gemini inlineData / OpenAI file JSON 形状"
+    - "复制 ALR-DOC-001 编码逻辑到 prism-core anthropic adapter（应复用 ai-lib）"
+
+blocks:
+  - id: "EOS-P2-008-R1"
+    title: "document_attach 瘦身为 ref 解析 + ContentBlock 传递"
+    status: "planned"
+    depends_on: ["ALR-DOC-002"]
+  - id: "EOS-P2-008-R2"
+    title: "proxy/v1 改调 manifest encoder 路径"
+    status: "planned"
+    depends_on: ["EOS-P2-008-R1"]
+  - id: "EOS-P2-008-R3"
+    title: "E2E 回归 + 删除冗余编码代码"
+    status: "planned"
+    depends_on: ["EOS-P2-008-R2"]
+
+depends_on_projects:
+  - task_id: "ALR-DOC-002"
+    task_file: "active/projects/ai-lib-rust/tasks/ALR-DOC-002-manifest-content-encode.yaml"
+  - task_id: "EOS-P2-007"
+    task_file: "active/projects/eos/tasks/EOS-P2-007-document-capability-routing.yaml"
+    merge_commit: "ea62ebba7b6d278edccbf4a224e4c84d9faea43b"
+
+blocks_summary:
+  total: 3
+
+coordination:
+  master_doc: "active/document-capability-routing.md"
+  parent_track: "PT-079-R3"

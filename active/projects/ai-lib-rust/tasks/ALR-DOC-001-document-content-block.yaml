@@ -34,8 +34,8 @@ architecture_notes: |
   - R2 `document_understanding`：从 manifest 读取 ✅ 符合 ARCH-001 能力侧。
   - R3 请求编码：`encode_blocks_for_anthropic` / `encode_blocks_for_gemini` 仍在 **Driver 层 Rust** —
     Stage 1 务实批次，非 manifest 声明式终态。
-  - 已知 follow-up：PT-079（可选）或 ALR-DOC-002 — 将 wire format 迁入 protocol 算子；见
-    `active/document-capability-routing.md` §7。
+  - 已知 follow-up：**PT-079**（`in_progress`）→ **ALR-DOC-002** → **EOS-P2-008**；将 wire format 迁入
+    `provider-contract.content_block_mapping`；见 `active/document-capability-routing.md` §7。
   - 应用层（Eos）`document_attach` 复用上述 encode 函数 — Stage 2 权宜；终态应经 Contact/Driver，非 P 层拼 JSON。
 description: |
   为「文档能力路由」愿景提供 Core 层基建：统一 Document 输入类型、manifest 驱动的
@@ -80,6 +80,7 @@ completion_notes: |
   Tests: cargo test -p ai-lib-core document; multimodal feature tests green.
 unblocks:
   - "EOS-P2-007"
+  - "PT-079"
 coordination:
   master_doc: "active/document-capability-routing.md"
-  protocol_note: "复用既有 multimodal.document_understanding；PT-079 标准 schema 文档化为可选"
+  protocol_note: "复用 multimodal.document_understanding；PT-079 声明式 content_block_mapping 已立项"

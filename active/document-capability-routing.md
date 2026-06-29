@@ -25,7 +25,8 @@
 Stage 0  权宜交付（已退役）   EOS-P2-006-R1   superseded by EOS-P2-007 #24
 Stage 1  协议与类型基建         ALR-DOC-001 ✅   ContentBlock::Document + 能力校验
 Stage 2  产品迁移               EOS-P2-007 ✅    upload document_ref；路由/降级 UX
-Stage 3  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 document 需求选模
+Stage 3  声明式编码             PT-079 🚧        manifest content_block_mapping；退役 P 层 encode
+Stage 4  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 document 需求选模（deferred，门控 PT-079）
 ```
 
 ### Stage 0 — 权宜（不推翻）
@@ -57,7 +58,17 @@ Stage 3  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 d
   4. 合规：`ComplianceFilter` 与 `EOS-ARCH-001` 区域模型表仍适用
 - **与 EOS-P2-006 关系**: R1 完成后保留至 Stage 2 切换；Stage 2 验收后删除 `extract_pdf_text` 主路径
 
-### Stage 3 — 智能路由增强（软依赖）
+### Stage 3 — 声明式编码（PT-079）
+
+- **任务**: `PT-079`（协调）+ `ALR-DOC-002`（Rust）+ `EOS-P2-008`（Eos 退役）
+- **范围**:
+  - `provider-contract.json` 增加 `content_block_mapping.document`
+  - `v2/contracts/*.contract.yaml` 为 Anthropic/Gemini 真源
+  - ai-lib manifest encoder 替代 Driver 硬编码 `encode_blocks_for_*`
+  - Eos `document_attach` 退役 P 层 vendor JSON 拼接（见 `EOS-P2-008` 退役条件）
+- **门控**: `EOS-REQ-P2-003` 保持 deferred 直至 PT-079 R2 完成
+
+### Stage 4 — 智能路由增强（软依赖）
 
 - **需求槽**: `EOS-REQ-P2-003`（已有，`deferred`）
 - **增强**: `POST /v1/route/decide` 输入含 document 附件时，优先推荐 `document_understanding` 模型
@@ -73,7 +84,10 @@ Stage 3  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 d
 | EOS-P2-006-R1 | eos | `superseded` | — | 权宜 pdf_extract → 由 EOS-P2-007 取代 |
 | ALR-DOC-001 | ai-lib-rust | `completed` | — | Document block + driver 编码；main@34bcd71 |
 | EOS-P2-007 | eos | `completed` | ALR-DOC-001 ✅ | hiddenpath/eos #24 `ea62ebb` |
-| EOS-REQ-P2-003 | eos↔prism | `deferred` | PT-073, Prism P2 | decide 按 document 选模 |
+| PT-079 | ai-protocol | `in_progress` | ALR-DOC-001, EOS-P2-007 | 声明式 document 编码 |
+| ALR-DOC-002 | ai-lib-rust | `planned` | PT-079-R1 | manifest encoder |
+| EOS-P2-008 | eos | `planned` | ALR-DOC-002 | 退役 document_attach P 层 encode |
+| EOS-REQ-P2-003 | eos↔prism | `deferred` | PT-079, Prism P2 | decide 按 document 选模 |
 
 ---
 
@@ -103,8 +117,9 @@ Stage 3  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 d
 - `active/projects/eos/PHASE2_PLAN.md` — Wave 4/5 排期
 - `active/projects/eos/tasks/EOS-P2-006-feature-enhancements.yaml`
 - `active/projects/eos/tasks/EOS-P2-007-document-capability-routing.yaml`
-- `active/projects/ai-lib-rust/tasks/ALR-DOC-001-document-content-block.yaml`
-- `ai-protocol/schemas/v2/multimodal.json` — `document_understanding`
+- `active/projects/ai-protocol/tasks/PT-079-declarative-content-block-encoding.yaml`
+- `active/projects/ai-lib-rust/tasks/ALR-DOC-002-manifest-content-encode.yaml`
+- `active/projects/eos/tasks/EOS-P2-008-retire-document-attach.yaml`
 
 ---
 
@@ -130,14 +145,17 @@ Stage 3  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 d
 | 应用 (Eos) | 附件 staging + 能力门禁 | Stage 2 `document_attach` 复用 Driver encode |
 
 **终态（ARCH-001）**：请求体形状应由 manifest 算子驱动；Driver 只执行 pipeline。
-**非阻塞 follow-up**：`PT-079`（可选）或 `ALR-DOC-002` 声明式编码；不阻塞 EOS-P2-007 验收。
+**非阻塞 follow-up**：~~`PT-079`（可选）~~ → **PT-079 已立项**（`in_progress`）；ALR-DOC-002 + EOS-P2-008 串行执行。EOS-REQ-P2-003 门控至 PT-079 完成。
 
 ### 7.3 轨道依赖（审查合并顺序）
 
 ```text
 ALR-DOC-001 ✅ (main@34bcd71)
-    └── EOS-P2-007 (hiddenpath/eos PR) — 取代 EOS-P2-006-R1 权宜路径
-            └── EOS-REQ-P2-003 (deferred) — 智能选模，软依赖
+    └── EOS-P2-007 ✅ (#24 ea62ebb) — Stage 2 产品迁移
+            └── PT-079 🚧 — Stage 3 声明式编码
+                    ├── ALR-DOC-002 (planned) — manifest encoder
+                    └── EOS-P2-008 (planned) — 退役 document_attach P 层 encode
+                            └── EOS-REQ-P2-003 (deferred) — Stage 4 智能选模
 VL-TTC-001 ✅ — 并行无关轨道（velaclaw text tool）
 ```
 
