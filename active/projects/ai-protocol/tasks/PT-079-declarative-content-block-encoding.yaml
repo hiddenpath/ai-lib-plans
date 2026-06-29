@@ -118,4 +118,11 @@ unblocks:
 
 completion_notes: |
   Stage 3 声明式编码轨道完成：协议 schema → Rust manifest encoder → Eos P 层退役。
-  可选 follow-up：ai-protocol document-encode.yaml 合规用例 PR（feat/pt-079-document-encode-cases）。
+  Follow-up: ai-protocol #13 `85d4165` document-encode compliance cases (cbe-010-012) ✅.
+
+follow_up_pr:
+  repo: "ailib-official/ai-protocol"
+  number: 13
+  url: "https://github.com/ailib-official/ai-protocol/pull/13"
+  merge_commit: "85d4165c7a2ee7aa408674bed0c4a1c5ae9432e3"
+  note: "Runtime content_block_encode compliance cases"

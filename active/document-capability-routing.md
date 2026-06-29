@@ -26,7 +26,7 @@ Stage 0  权宜交付（已退役）   EOS-P2-006-R1   superseded by EOS-P2-007 
 Stage 1  协议与类型基建         ALR-DOC-001 ✅   ContentBlock::Document + 能力校验
 Stage 2  产品迁移               EOS-P2-007 ✅    upload document_ref；路由/降级 UX
 Stage 3  声明式编码             PT-079 ✅        manifest content_block_mapping；退役 P 层 encode
-Stage 4  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 document 需求选模（deferred，门控已解除）
+Stage 4  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 document 需求选模（in_progress）
 ```
 
 ### Stage 0 — 权宜（不推翻）
@@ -87,7 +87,7 @@ Stage 4  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 d
 | PT-079 | ai-protocol | `completed` | ALR-DOC-001, EOS-P2-007 | R1✅ #12；R2✅ #10+#11；R3✅ eos #25 |
 | ALR-DOC-002 | ai-lib-rust | `completed` | PT-079-R1 ✅ | #10 `21a049c` + #11 `2f331b4` |
 | EOS-P2-008 | eos | `completed` | ALR-DOC-002 ✅ | hiddenpath/eos #25 `bdd9324` |
-| EOS-REQ-P2-003 | eos↔prism | `deferred` | — | decide 按 document 选模（门控已解除） |
+| EOS-REQ-P2-003 | eos↔prism | `in_progress` | PT-079 ✅ | decide document uplift 🚧 |
 
 ---
 
@@ -155,7 +155,7 @@ ALR-DOC-001 ✅ (main@34bcd71)
             └── PT-079 ✅ — Stage 3 声明式编码
                     ├── ALR-DOC-002 ✅ — manifest encoder (#10+#11)
                     └── EOS-P2-008 ✅ — 退役 document_attach P 层 encode (#25)
-                            └── EOS-REQ-P2-003 (deferred) — Stage 4 智能选模
+                            └── EOS-REQ-P2-003 🚧 — Stage 4 智能选模（R1 route/decide）
 VL-TTC-001 ✅ — 并行无关轨道（velaclaw text tool）
 ```
 

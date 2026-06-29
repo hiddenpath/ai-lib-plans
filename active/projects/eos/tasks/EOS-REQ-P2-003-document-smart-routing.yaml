@@ -1,0 +1,58 @@
+---
+id: "EOS-REQ-P2-003"
+title: "Eos — document 感知智能路由（/v1/route/decide）"
+status: "in_progress"
+priority: "medium"
+assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+project: "eos"
+milestone: "document-capability-routing-stage-4"
+phase: 2
+labels:
+  - "eos"
+  - "prism"
+  - "document"
+  - "routing"
+created: "2026-06-29"
+updated: "2026-06-29"
+started: "2026-06-29"
+description: |
+  Stage 4：当请求含 PDF/document 附件且当前模型不支持 `document_understanding` 时，
+  `/v1/route/decide` 自动推荐合规的 document 模型（成本优先）。
+
+  **前置**: PT-079 ✅、PR-P2-003 ✅（gateway decide 参考实现）
+  **协调**: `active/document-capability-routing.md`、`docs/EOS-P2-005-R4-SMART-ROUTING-PLACEHOLDER.md`
+  **SLA**: NOT PRODUCTION SLA
+
+blocks:
+  - id: "EOS-REQ-P2-003-R1"
+    title: "eos-server POST /v1/route/decide + document uplift"
+    status: "in_progress"
+    description: |
+      内嵌 prism-core CostRouter；`eos_attachments` 含 PDF 时 uplift 至 document 模型；
+      合规过滤 + 单元测试。
+    depends_on: ["EOS-P2-008", "PR-P2-003"]
+  - id: "EOS-REQ-P2-003-R2"
+    title: "前端 debounce 调用 decide + 发送路径应用"
+    status: "planned"
+    depends_on: ["EOS-REQ-P2-003-R1"]
+  - id: "EOS-REQ-P2-003-R3"
+    title: "E2E：PDF 附件 + auto 路由至 document 模型"
+    status: "planned"
+    depends_on: ["EOS-REQ-P2-003-R2"]
+
+depends_on_projects:
+  - task_id: "PT-079"
+    task_file: "active/projects/ai-protocol/tasks/PT-079-declarative-content-block-encoding.yaml"
+  - task_id: "PR-P2-003"
+    task_file: "active/projects/prism/tasks/PR-P2-003-route-decide-http.yaml"
+    merge_commit: "753e129"
+
+pr:
+  repo: "hiddenpath/eos"
+  branch: "feat/eos-req-p2-003-route-decide"
+
+coordination:
+  master_doc: "active/document-capability-routing.md"
+  parent_track: "document-capability-routing-stage-4"
