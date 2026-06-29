@@ -52,6 +52,9 @@ depends_on_projects:
 pr:
   repo: "hiddenpath/eos"
   branch: "feat/eos-req-p2-003-route-decide"
+  number: 26
+  url: "https://github.com/hiddenpath/eos/pull/26"
+  commit: "3556f9a"
 
 coordination:
   master_doc: "active/document-capability-routing.md"
