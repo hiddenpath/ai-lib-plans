@@ -24,15 +24,18 @@ description: |
 blocks:
   - id: "PT-073b-R1"
     title: "vitest compliance-full config + npm script"
-    status: "in_progress"
+    status: "completed"
+    pr: "https://github.com/ailib-official/ai-lib-ts/pull/4"
   - id: "PT-073b-R2"
     title: "pt073-ts-full.yml workflow"
-    status: "planned"
+    status: "completed"
     depends_on: ["PT-073b-R1"]
+    pr: "https://github.com/ailib-official/ai-lib-ts/pull/4"
   - id: "PT-073b-R3"
     title: "main CI green + plans 回填"
-    status: "planned"
+    status: "in_progress"
     depends_on: ["PT-073b-R2"]
+    pr: "https://github.com/ailib-official/ai-lib-ts/pull/4"
 
 depends_on_projects:
   - task_id: "PT-073a"
