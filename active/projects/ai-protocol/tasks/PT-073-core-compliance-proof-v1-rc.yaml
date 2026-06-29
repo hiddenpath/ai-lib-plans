@@ -34,7 +34,7 @@ description: |
   ### 1. Core-only compliance (blocking)
 
   - [ ] ai-lib-core (Rust): cargo test -p ai-lib-core → full compliance PASS
-  - [ ] ai-lib-python[core]: **full** `pytest tests/compliance/` (entire matrix, not only `e_only`) → PASS on default branch CI
+  - [x] ai-lib-python[core]: **full** `pytest tests/compliance/` (entire matrix, not only `e_only`) → PASS on default branch CI
   - [ ] @ailib/core (TS): **full** `npm test` / compliance suites (beyond `test:core` subset) → PASS on default branch CI
   - [ ] ai-lib-go: go test ./... → compliance PASS (already core-only)
 
@@ -152,9 +152,11 @@ completion_notes: |
   Prism P2 can proceed in parallel (PR-PP-002); PT-073 is a **milestone goal**, not a phase start gate.
   Priority: P0 Python/TS full compliance CI; P1 CHANGELOG; P3 maintainer v1.0.0 decision.
 
-  **2026-06-29:** PT-073a in flight — ai-lib-python PR #4 (`feat/pt073a-python-full-compliance`):
+  **2026-06-29:** PT-073a ✅ — ai-lib-python PR #4 merged `b30b831`:
   COMPLIANCE_SUBSET filtering, provider-contract schema validation for cbe-* cases,
-  `pt073-python-full.yml`. Local full matrix 110 passed / 7 skipped. Awaiting merge for §1 Python row.
+  `pt073-python-full.yml`. §1 Python full-matrix row satisfied on default branch CI.
+
+  **Next P0:** PT-073b — TypeScript `pt073-ts-full.yml` (full compliance vitest matrix).
 
 constitution_rules:
   - "ARCH-001: Protocol-driven design"

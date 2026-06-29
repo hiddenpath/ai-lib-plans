@@ -28,7 +28,7 @@
 | 项 | 状态 | 证据 / 差距 |
 |----|------|-------------|
 | Rust full compliance matrix | 🟡 | 本地 2026-04-03 `compliance_from_core` 全量 PASS；**默认 branch 需持续绿** `pt073-rust-core-wasm.yml` |
-| Python **full** `pytest tests/compliance/` | 🟡 | PR #4 待合并：`pt073-python-full.yml` + cbe schema validation；e_only 子集已有 `pt073-python-e-only.yml` |
+| Python **full** `pytest tests/compliance/` | ✅ | PR #4 merged `b30b831` — `pt073-python-full.yml` + `COMPLIANCE_SUBSET`；e_only 保留 `pt073-python-e-only.yml` |
 | TypeScript **full** compliance | ❌ | CI 仅 `npm run test:core`（`pt073-ts-core.yml`），非完整 compliance 目录 |
 | Go compliance PASS | 🟡 | `ci.yml` 存在；需确认 E-only harness 与 resilience 边界文档化 |
 

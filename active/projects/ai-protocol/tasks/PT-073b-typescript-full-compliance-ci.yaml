@@ -1,0 +1,42 @@
+---
+id: "PT-073b"
+title: "TypeScript full compliance CI (PT-073 §1 P0)"
+status: "in_progress"
+priority: "critical"
+assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+project: "ai-lib-ts"
+parent: "PT-073"
+milestone: "v1.0.0"
+phase: 2
+labels:
+  - "compliance"
+  - "ci"
+  - "typescript"
+created: "2026-06-29"
+updated: "2026-06-29"
+started: "2026-06-29"
+description: |
+  PT-073 差距审计 P0：默认 branch 跑 **完整** compliance vitest 矩阵（含 06-resilience 等），
+  非仅 `vitest.core.config.ts` / `npm run test:core` 子集。
+
+blocks:
+  - id: "PT-073b-R1"
+    title: "vitest compliance-full config + npm script"
+    status: "in_progress"
+  - id: "PT-073b-R2"
+    title: "pt073-ts-full.yml workflow"
+    status: "planned"
+    depends_on: ["PT-073b-R1"]
+  - id: "PT-073b-R3"
+    title: "main CI green + plans 回填"
+    status: "planned"
+    depends_on: ["PT-073b-R2"]
+
+depends_on_projects:
+  - task_id: "PT-073a"
+    task_file: "active/projects/ai-protocol/tasks/PT-073a-python-full-compliance-ci.yaml"
+
+coordination:
+  gap_audit: "active/projects/ai-protocol/PT-073-GAP-AUDIT_2026-06.md"
