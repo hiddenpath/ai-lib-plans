@@ -66,6 +66,8 @@ description: |
 
   - [x] drift:check → no critical findings (2026-06-29 local, 0 drifts)
   - [x] gate:fullchain → PASS in required mode (2026-06-29 local)
+  - [x] drift:check → no critical findings
+  - [ ] gate:fullchain → PASS in required mode
   - [ ] Rollback drill evidence refreshed
 
   ### 6. Documentation and release (blocking)
@@ -159,6 +161,9 @@ completion_notes: |
 
   **2026-06-29:** PT-073d ✅ — Python/TS CHANGELOG PR #5 merged; ai-protocol PR #14 (§1 checklist).
   PT-073e started — `drift:check` 0 drifts + `gate:fullchain` required PASS (local 2026-06-29).
+  **2026-06-29:** PT-073d ✅ — Python PR #5 (f0fa875), TS PR #5 (0df05ee): CHANGELOG.md migration sections.
+  **2026-06-29:** PT-073e ✅ — ai-protocol PR #15 (4db1f0b): §4–§5 WAVE5 gate checklist + compliance evidence update.
+  - ai-protocol PR #14 (987f7c7): §1 gate checklist evidence, content-block-encode test doc.
 
   **Next:** §3 E/P evidence; rollback drill (PT-073e-R3); spiderswitch downstream issue.
 
