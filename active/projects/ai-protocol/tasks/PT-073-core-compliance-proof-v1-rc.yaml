@@ -59,7 +59,8 @@ description: |
 
   ### 4. Migration documentation (blocking)
 
-  - [ ] CHANGELOG per runtime: new package/crate names, breaking import paths, migration notes
+  - [x] CHANGELOG per runtime: PT-073d migration sections (Python PR #5 f0fa875, TS PR #5 0df05ee)
+  - [x] Gate checklist evidence update (ai-protocol PR #14 987f7c7)
   - [ ] Internal consumers (e.g. spiderswitch) updated or tracked with explicit follow-up issue
 
   ### 5. Governance gates (blocking)
@@ -162,12 +163,10 @@ completion_notes: |
   COMPLIANCE_SUBSET filtering, provider-contract schema validation for cbe-* cases,
   `pt073-python-full.yml`. §1 Python full-matrix row satisfied on default branch CI.
 
-  **2026-06-29:** PT-073b ✅ — ai-lib-ts PR #4 merged `324e67a`:
-  `vitest.compliance-full.config.ts`, `test:compliance:full`, `pt073-ts-full.yml`.
-  §1 TypeScript full-matrix row satisfied on default branch CI.
+  **2026-06-29:** PT-073d ✅ — Python PR #5 (f0fa875), TS PR #5 (0df05ee): CHANGELOG.md migration sections.
+  - ai-protocol PR #14 (987f7c7): §1 gate checklist evidence, content-block-encode test doc.
 
-  **Next P0 (§1):** Rust default-branch green evidence (`pt073-rust-core-wasm.yml` already runs
-  full `cargo test -p ai-lib-core`); Go compliance CI freshness + checklist URL.
+  **Next:** Rust default-branch green evidence; maintainer v1.0.0 decision.
 
   **2026-06-29:** PT-073c ✅ — ai-lib-go PR #2 merged `334ac74`:
   `pt073-go.yml`, manifest_path resolution for v2/dist paths. §1 **four-runtime** compliance complete.
