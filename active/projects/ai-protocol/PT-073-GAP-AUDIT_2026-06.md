@@ -90,7 +90,7 @@
 |----|------|-------------|
 | drift:check | ✅ | 本地 2026-06-29：0 drifts（`drift-2026-06-29T15-14-05-656Z.json`） |
 | gate:fullchain | ✅ | 本地 2026-06-29 required 模式 PASS（`fullchain-gate-2026-06-29T15-23-06-754Z.json`）；CI `governance-report.yml` |
-| Rollback drill | ❌ | 待 `gate:fullchain:with-rollback:required-drill` 刷新证据 |
+| Rollback drill | ✅ | 2026-06-29 `rehearse:compliance:rollback:required` — `compliance-rollback-rehearsal-2026-06-29T15-39-38-864Z.json` (pass=true) |
 
 **收口动作**：在 `ai-lib-constitution` / plans tools 跑一次并归档日志到 task `testing.evidence`。
 

@@ -1,7 +1,7 @@
 ---
 id: "PT-073e"
 title: "Governance gates evidence (PT-073 §5)"
-status: "in_progress"
+status: "completed"
 priority: "high"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -14,7 +14,8 @@ labels:
   - "governance"
   - "gate"
 created: "2026-06-29"
-updated: "2026-06-29"
+updated: "2026-06-29T23:45"
+completed: "2026-06-29"
 started: "2026-06-29"
 description: |
   PT-073 §5：drift:check、gate:fullchain required 模式、rollback drill 证据归档。
@@ -28,12 +29,25 @@ blocks:
       fullchain: "reports/fullchain-gates/fullchain-gate-2026-06-29T15-23-06-754Z.json"
   - id: "PT-073e-R2"
     title: "WAVE5 §5 勾选 + ai-protocol PR"
-    status: "in_progress"
+    status: "completed"
     depends_on: ["PT-073e-R1"]
+    pr: "https://github.com/ailib-official/ai-protocol/pull/15"
+    merge_commit: "4db1f0b"
+    merged_at: "2026-06-29"
   - id: "PT-073e-R3"
     title: "rollback drill 刷新"
-    status: "planned"
+    status: "completed"
     depends_on: ["PT-073e-R2"]
+    evidence_local: "reports/rollback-rehearsals/compliance-rollback-rehearsal-2026-06-29T15-39-38-864Z.json"
+    note: "rehearse:compliance:rollback:required — summary.pass true"
+
+pr:
+  url: "https://github.com/ailib-official/ai-protocol/pull/15"
+  merge_commit: "4db1f0b"
+
+completion_notes: |
+  PR #15 merged 2026-06-29 (4db1f0b): WAVE5 §4 CHANGELOG + §5 drift/fullchain.
+  Rollback drill refreshed locally (required mode, pass=true). §5 complete except optional CI mirror.
 
 depends_on_projects:
   - task_id: "PT-073d"

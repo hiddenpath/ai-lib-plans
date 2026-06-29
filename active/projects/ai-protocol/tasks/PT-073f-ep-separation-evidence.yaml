@@ -1,0 +1,41 @@
+---
+id: "PT-073f"
+title: "E/P separation integrity evidence (PT-073 §3)"
+status: "in_progress"
+priority: "high"
+assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+project: "ai-protocol"
+parent: "PT-073"
+milestone: "v1.0.0"
+phase: 2
+labels:
+  - "ep-boundary"
+  - "compliance"
+created: "2026-06-29"
+updated: "2026-06-29"
+started: "2026-06-29"
+description: |
+  PT-073 §3：四运行时 EP 边界、ExecutionMetadata schema 对齐、contact 包构建证据。
+
+blocks:
+  - id: "PT-073f-R1"
+    title: "EP boundary CI 证据汇总（Rust/Python 已有 pt073）"
+    status: "in_progress"
+  - id: "PT-073f-R2"
+    title: "TS ep-boundary / architecture 检查入 CI"
+    status: "planned"
+    depends_on: ["PT-073f-R1"]
+  - id: "PT-073f-R3"
+    title: "ExecutionMetadata + contact build 证据 + WAVE5 §3 勾选"
+    status: "planned"
+    depends_on: ["PT-073f-R2"]
+
+depends_on_projects:
+  - task_id: "PT-073e"
+    task_file: "active/projects/ai-protocol/tasks/PT-073e-governance-gates-evidence.yaml"
+
+coordination:
+  gap_audit: "active/projects/ai-protocol/PT-073-GAP-AUDIT_2026-06.md"
+  checklist: "ai-protocol/docs/WAVE5_V1_GATE_CHECKLIST.md"

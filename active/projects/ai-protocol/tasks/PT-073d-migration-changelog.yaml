@@ -46,6 +46,7 @@ blocks:
     status: "completed"
     depends_on: ["PT-073d-R2", "PT-073d-R3"]
     pr: "https://github.com/ailib-official/ai-protocol/pull/15"
+    merge_commit: "4db1f0b"
 
 pr:
   - repo: "ai-lib-python"
