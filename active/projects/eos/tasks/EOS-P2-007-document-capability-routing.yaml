@@ -1,15 +1,23 @@
 ---
 id: "EOS-P2-007"
 title: "Eos — 文档能力路由迁移（退役 pdf_extract 主路径）"
-status: "in_progress"
+status: "completed"
 priority: "medium"
 assignee: "@cursor"
 executor_name: "cursor"
 executor_terminal: "agent-session"
-updated: "2026-06-28"
+resolved: "2026-06-29"
+updated: "2026-06-29"
 ci_status: |
-  PR #24: rust ✅ docker-build ✅ e2e ❌ (selector fix pushed, re-run pending)
-  Blocker resolved: `.system-info` selector + `selectOption('gemini-2.5-flash')`
+  PR #24 merged 2026-06-29: rust ✅ docker-build ✅ e2e ✅ (after selector fix a6c131a)
+pr:
+  repo: "hiddenpath/eos"
+  url: "https://github.com/hiddenpath/eos/pull/24"
+  number: 24
+  branch: "feat/eos-p2-007-document-routing"
+  status: "merged"
+  merge_commit: "ea62ebba7b6d278edccbf4a224e4c84d9faea43b"
+  merged_at: "2026-06-29T04:38:08Z"
 project: "eos"
 milestone: "eos-phase2-document-routing"
 phase: 2
@@ -20,7 +28,6 @@ labels:
   - "capability-routing"
   - "tech-debt-exit"
 created: "2026-06-28"
-updated: "2026-06-28"
 started: "2026-06-28"
 description: |
   将 Eos 从 Stage 0 权宜（`pdf_extract` + `extracted_text` 注入）迁移至 ai-lib 文档能力路由终态。
@@ -77,10 +84,9 @@ blocks_summary:
   total: 4
   completed: 4
 completion_notes: |
-  eos branch feat/eos-p2-007-document-routing (PR pending): R1 upload document_ref; R2 capability gate;
-  R3 document_attach on /v1 + proxy; R4 pdf_extract removed + Playwright E2E.
-  ai-lib pinned 34bcd71 (ALR-DOC-001). Interim: eos-server calls encode_blocks_for_* directly — see
-  document-capability-routing.md §7 审查者须知 / PT-079 follow-up.
+  hiddenpath/eos #24 merged `ea62ebb` (2026-06-29). R1-R4 complete: document_ref upload,
+  capability gate, document_attach on /v1+proxy, pdf_extract removed, E2E green.
+  ai-lib @ 34bcd71 (ALR-DOC-001). Interim debt: P-layer encode — PT-079 follow-up.
 prerequisite_verification:
   ALR-DOC-001:
     merge_commit: "34bcd710ca3972c37dfa36aece281eb3c3cbb6f1"
@@ -90,9 +96,3 @@ prerequisite_verification:
       **审查者须知**：PR #9 全部 CI SUCCESS 后被人为 CLOSE，未产生 GitHub mergeCommit。
       变更已通过 direct push 进入 ailib-official/main（与 feature 分支零 diff）。
       不可 reopen/merge（GitHub API 拒绝）。审计以 merge_commit + PR 评论为准，非 mergedAt 字段。
-pr:
-  repo: "hiddenpath/eos"
-  url: "https://github.com/hiddenpath/eos/pull/24"
-  number: 24
-  branch: "feat/eos-p2-007-document-routing"
-  status: "open"
