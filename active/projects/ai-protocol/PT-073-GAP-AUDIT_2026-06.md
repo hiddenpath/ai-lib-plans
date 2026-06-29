@@ -30,7 +30,9 @@
 | Rust full compliance matrix | ✅ | `pt073-rust-core-wasm.yml` on main — `cargo test -p ai-lib-core` (incl. compliance_from_core); green run 2026-06-29 (`28364691515`) |
 | Python **full** `pytest tests/compliance/` | ✅ | PR #4 merged `b30b831` — `pt073-python-full.yml` + `COMPLIANCE_SUBSET`；e_only 保留 `pt073-python-e-only.yml` |
 | TypeScript **full** compliance | ✅ | PR #4 merged `324e67a` — `pt073-ts-full.yml` + `test:compliance:full`；E-only 保留 `pt073-ts-core.yml` |
-| Go compliance PASS | 🟡 | `ci.yml` 存在；最近绿 run 2026-05-07 — 需刷新 evidence 或 `pt073-go` workflow |
+| Go compliance PASS | ✅ | PR #2 merged `334ac74` — `pt073-go.yml`; green run 2026-06-29 (`28380766175`) |
+
+**§1 状态（2026-06-29）：四运行时 full/subset CI 均已绿 — P0 收口完成。**
 
 **收口动作（建议 PT-073a / PT-073 子项）**：
 
@@ -45,7 +47,7 @@
 
 | 项 | 状态 | 证据 / 差距 |
 |----|------|-------------|
-| wasm32-wasip1 on CI runners | 🟡 | `pt073-rust-core-wasm.yml` 安装 target；需确认 **default branch 最近 run 绿** |
+| wasm32-wasip1 on CI runners | ✅ | `pt073-rust-core-wasm.yml` green 2026-06-29 (`28364691515`) |
 | release build PASS | ✅ | 2026-04-03 证据 |
 | Binary < 2 MB | ✅ | ~1.24 MB |
 | Six exported functions | ✅ | PT-061 spec |

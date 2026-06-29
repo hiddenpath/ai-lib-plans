@@ -1,7 +1,7 @@
 ---
 id: "PT-073c"
 title: "Go + Rust PT-073 §1 evidence closure"
-status: "in_progress"
+status: "completed"
 priority: "high"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -16,7 +16,8 @@ labels:
   - "go"
   - "rust"
 created: "2026-06-29"
-updated: "2026-06-29"
+updated: "2026-06-29T22:50"
+completed: "2026-06-29"
 started: "2026-06-29"
 description: |
   PT-073 §1 剩余：Rust 证据已在 gap audit 勾选（`pt073-rust-core-wasm.yml` 全量 core test）。
@@ -28,11 +29,25 @@ blocks:
     status: "completed"
   - id: "PT-073c-R2"
     title: "pt073-go.yml workflow + compliance run green"
-    status: "in_progress"
+    status: "completed"
+    pr: "https://github.com/ailib-official/ai-lib-go/pull/2"
+    merge_commit: "334ac74511815962f20c05ae4d0d66317b35d0c8"
+    merged_at: "2026-06-29T14:48:23Z"
   - id: "PT-073c-R3"
     title: "PT-073 YAML §1 Rust/Go rows + plans 回填"
-    status: "planned"
+    status: "completed"
     depends_on: ["PT-073c-R2"]
+    pr: "https://github.com/ailib-official/ai-lib-go/pull/2"
+    merge_commit: "334ac74511815962f20c05ae4d0d66317b35d0c8"
+    merged_at: "2026-06-29T14:48:23Z"
+
+pr:
+  url: "https://github.com/ailib-official/ai-lib-go/pull/2"
+  merge_commit: "334ac74511815962f20c05ae4d0d66317b35d0c8"
+
+completion_notes: |
+  PR #2 merged 2026-06-29. pt073-go.yml on main; manifest_path resolution fix for v2/dist canonical paths.
+  CI green run 28380766175. PT-073 §1 four-runtime compliance matrix complete.
 
 depends_on_projects:
   - task_id: "PT-073b"

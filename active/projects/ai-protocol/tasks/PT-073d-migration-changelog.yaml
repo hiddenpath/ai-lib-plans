@@ -1,0 +1,48 @@
+---
+id: "PT-073d"
+title: "Migration CHANGELOG per runtime (PT-073 §4 P1)"
+status: "in_progress"
+priority: "high"
+assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+project: "ai-protocol"
+parent: "PT-073"
+milestone: "v1.0.0"
+phase: 2
+labels:
+  - "documentation"
+  - "migration"
+  - "changelog"
+created: "2026-06-29"
+updated: "2026-06-29"
+started: "2026-06-29"
+description: |
+  PT-073 §4：E/P 拆分后各运行时 CHANGELOG 需覆盖 crate/package 重命名、import 路径、facade 行为。
+  可先写 0.x 迁移说明，不必等 v1.0.0 tag。
+
+blocks:
+  - id: "PT-073d-R1"
+    title: "差距审计：四运行时 CHANGELOG 现状对照"
+    status: "completed"
+    evidence: "active/projects/ai-protocol/PT-073d-CHANGELOG-AUDIT_2026-06.md"
+  - id: "PT-073d-R2"
+    title: "Rust + Python CHANGELOG 迁移段落"
+    status: "planned"
+    depends_on: ["PT-073d-R1"]
+  - id: "PT-073d-R3"
+    title: "TS + Go CHANGELOG 迁移段落"
+    status: "planned"
+    depends_on: ["PT-073d-R1"]
+  - id: "PT-073d-R4"
+    title: "WAVE5 checklist §4 勾选 + plans 回填"
+    status: "planned"
+    depends_on: ["PT-073d-R2", "PT-073d-R3"]
+
+depends_on_projects:
+  - task_id: "PT-073c"
+    task_file: "active/projects/ai-protocol/tasks/PT-073c-go-rust-compliance-evidence.yaml"
+
+coordination:
+  gap_audit: "active/projects/ai-protocol/PT-073-GAP-AUDIT_2026-06.md"
+  checklist: "ai-protocol/docs/WAVE5_V1_GATE_CHECKLIST.md"
