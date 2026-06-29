@@ -57,7 +57,7 @@ pr:
 
 completion_notes: |
   四运行时均有 E/P migration 可追溯段落（Rust/Go 基线 + Python/TS PR #5 merged 2026-06-29）。
-  WAVE5 §4 CHANGELOG 行待 ai-protocol PR #15 勾选；spiderswitch downstream 仍单独跟踪。
+  WAVE5 §4 CHANGELOG 行 via ai-protocol PR #15；spiderswitch downstream 仍单独跟踪。
 
 depends_on_projects:
   - task_id: "PT-073c"
