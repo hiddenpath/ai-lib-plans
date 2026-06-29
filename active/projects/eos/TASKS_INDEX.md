@@ -14,8 +14,8 @@
 | EOS-DPL-001 | [EOS_DEPLOY_PLAN.md](./EOS_DEPLOY_PLAN.md) | `completed` | — | 香港 VPS + Caddy TLS + `deploy_eos.sh`；生产 `https://eos.ailib.info` 已确认 `main@299575a`（2026-05-28） |
 | EOS-ARCH-001 | [tasks/EOS-ARCH-001-compliance-regional-routing.yaml](./tasks/EOS-ARCH-001-compliance-regional-routing.yaml) | `completed` | — | ✅ R1–R5 all completed: R3 ⏺ eos PR #9 (6a39ef4), R4 ⏺ eos PR #8 (19544d2), R5 ⏺ plans PR #6 (cc0f551) |
 | EOS-CI-001 | [tasks/EOS-CI-001-ci-debt-cleanup.yaml](./tasks/EOS-CI-001-ci-debt-cleanup.yaml) | `completed` | — | #13 closed; fmt ee57a25 + compliance CI step |
-| EOS-P2-008 | [tasks/EOS-P2-008-retire-document-attach.yaml](./tasks/EOS-P2-008-retire-document-attach.yaml) | `in_progress` | ALR-DOC-002 ✅ | hiddenpath/eos #25 |
-| EOS-REQ-P2-003 | — | `deferred` | PT-079 | 智能选模（Stage 4） |
+| EOS-P2-008 | [tasks/EOS-P2-008-retire-document-attach.yaml](./tasks/EOS-P2-008-retire-document-attach.yaml) | `completed` | ALR-DOC-002 ✅ | #25 `bdd9324` 退役 P 层 encode |
+| EOS-REQ-P2-003 | — | `deferred` | — | 智能选模（Stage 4；PT-079 门控已解除） |
 | EOS-CX-001 | — | `planned` | EOS-P2-001 | **消息动态分层结构化** — Priority 标注、按层级裁剪组装、Layer 0–5 模型；详见 [CONTEXT_ARCHITECTURE_V2.md](./CONTEXT_ARCHITECTURE_V2.md) §3, §6 |
 | EOS-CX-002 | — | `planned` | EOS-CX-001 | **外部文档化 & 对话归档** — 摘要文档生成、索引存储、检索召回、跨会话上下文继承；详见 [CONTEXT_ARCHITECTURE_V2.md](./CONTEXT_ARCHITECTURE_V2.md) §4, §6 |
 

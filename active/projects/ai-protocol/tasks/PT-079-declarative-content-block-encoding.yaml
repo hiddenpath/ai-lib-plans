@@ -1,7 +1,7 @@
 ---
 id: "PT-079"
 title: "声明式 ContentBlock 编码 — document 映射与 ProviderContract"
-status: "in_progress"
+status: "completed"
 priority: "high"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -17,14 +17,14 @@ labels:
 created: "2026-06-29"
 updated: "2026-06-29"
 started: "2026-06-29"
-completed: null
+completed: "2026-06-29"
 description: |
   将 ALR-DOC-001 遗留的 Driver 硬编码 `encode_blocks_for_*` 收敛到 **manifest / ProviderContract**
   声明式 `content_block_mapping`，消除 Eos P 层与多 runtime 重复拼厂商 JSON 的权宜路径。
 
   **协调真源**: `active/document-capability-routing.md`
   **前置**: ALR-DOC-001 ✅、EOS-P2-007 ✅
-  **阻塞 Stage 3**: EOS-REQ-P2-003（智能选模）在编码单一真源就绪前保持 deferred
+  **Stage 3 完成**；EOS-REQ-P2-003（智能选模）可进入排期（仍为 deferred，非阻塞）
 
 constitution_rules:
   - "ARCH-001: Protocol-driven design — wire format 在协议层声明"
@@ -63,6 +63,9 @@ blocks:
       repo: "ailib-official/ai-lib-rust"
       number: 10
       merge_commit: "21a049c218250022dc2a54b869e4957104fc8e54"
+      follow_up:
+        number: 11
+        merge_commit: "2f331b400e2efbf46fb4087c6d7a2b66cf79e12f"
     description: |
       ai-lib-core 读取 `content_block_mapping` 执行 document（及挂钩 text/image）编码；
       Anthropic/Gemini driver 退役 `encode_blocks_for_*` 硬编码主路径；
@@ -70,9 +73,13 @@ blocks:
     depends_on: ["PT-079-R1"]
   - id: "PT-079-R3"
     title: "Eos document_attach 退役 + 端到端回归"
-    status: "in_progress"
+    status: "completed"
     project: "eos"
     task_ref: "EOS-P2-008"
+    pr:
+      repo: "hiddenpath/eos"
+      number: 25
+      merge_commit: "bdd9324cdd7277262c85a76a8f8e1e2c18fc7de5"
     description: |
       见 `EOS-P2-008` 退役条件；eos-server 不再 import `encode_blocks_for_*`。
     depends_on: ["PT-079-R2"]
@@ -84,7 +91,7 @@ coordination:
       merge_commit: "34bcd710ca3972c37dfa36aece281eb3c3cbb6f1"
   downstream_unblocked_after_r2:
     - "EOS-P2-008"
-  deferred_until_complete:
+  unblocked_for_planning:
     - "EOS-REQ-P2-003"
 
 depends_on_projects:
@@ -92,17 +99,23 @@ depends_on_projects:
     task_file: "active/projects/ai-lib-rust/tasks/ALR-DOC-001-document-content-block.yaml"
   - task_id: "EOS-P2-007"
     task_file: "active/projects/eos/tasks/EOS-P2-007-document-capability-routing.yaml"
-    note: "Stage 2 完成；document_attach 为已知 P 层债务"
+    note: "Stage 2 完成；document_attach P 层债务已退役"
 
 blocks_summary:
   total: 3
-  completed: 2
+  completed: 3
 
 testing:
   - "provider-contract.json 校验含 document 枚举"
   - "v2/contracts/*.yaml 通过 JSON Schema"
   - "content_block_encode 合规用例（R2 后）"
+  - "e2e document-capability-routing.spec.ts（R3）"
 
 unblocks:
   - "ALR-DOC-002"
   - "EOS-P2-008"
+  - "EOS-REQ-P2-003"
+
+completion_notes: |
+  Stage 3 声明式编码轨道完成：协议 schema → Rust manifest encoder → Eos P 层退役。
+  可选 follow-up：ai-protocol document-encode.yaml 合规用例 PR（feat/pt-079-document-encode-cases）。

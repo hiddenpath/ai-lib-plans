@@ -1,7 +1,7 @@
 ---
 id: "EOS-P2-008"
 title: "Eos — 退役 document_attach P 层编码（收敛至 ai-lib manifest encoder）"
-status: "in_progress"
+status: "completed"
 priority: "medium"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -16,6 +16,7 @@ labels:
 created: "2026-06-29"
 updated: "2026-06-29"
 started: "2026-06-29"
+completed: "2026-06-29"
 description: |
   PT-079-R3 / EOS 侧执行：移除 eos-server 对 `encode_blocks_for_anthropic/gemini` 的直接依赖，
   将 document 载荷编码下沉至 ai-lib manifest encoder（ALR-DOC-002）。
@@ -45,23 +46,33 @@ blocks:
     depends_on: ["EOS-P2-008-R1"]
   - id: "EOS-P2-008-R3"
     title: "E2E 回归 + 删除冗余编码代码"
-    status: "in_progress"
+    status: "completed"
     depends_on: ["EOS-P2-008-R2"]
 
 pr:
   repo: "hiddenpath/eos"
   branch: "feat/eos-p2-008-retire-document-attach"
-  commit: "6ef8eb8"
+  number: 25
+  url: "https://github.com/hiddenpath/eos/pull/25"
+  commit: "cab9ac1"
+  merge_commit: "bdd9324cdd7277262c85a76a8f8e1e2c18fc7de5"
+  merged_at: "2026-06-29T18:26:13+08:00"
 
 depends_on_projects:
   - task_id: "ALR-DOC-002"
     task_file: "active/projects/ai-lib-rust/tasks/ALR-DOC-002-manifest-content-encode.yaml"
+    merge_commit: "2f331b400e2efbf46fb4087c6d7a2b66cf79e12f"
   - task_id: "EOS-P2-007"
     task_file: "active/projects/eos/tasks/EOS-P2-007-document-capability-routing.yaml"
     merge_commit: "ea62ebba7b6d278edccbf4a224e4c84d9faea43b"
 
 blocks_summary:
   total: 3
+  completed: 3
+
+completion_notes: |
+  document_attach 退役 P 层 vendor JSON 拼接；编码经 ai-lib manifest_encode。
+  E2E document-capability-routing.spec.ts 全绿；ai-lib pinned 2f331b4 (ALR-DOC-002-R3 #11).
 
 coordination:
   master_doc: "active/document-capability-routing.md"

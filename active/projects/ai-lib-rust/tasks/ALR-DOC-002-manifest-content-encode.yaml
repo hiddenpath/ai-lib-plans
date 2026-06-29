@@ -58,7 +58,9 @@ pr:
   follow_up_pr:
     number: 11
     url: "https://github.com/ailib-official/ai-lib-rust/pull/11"
-    commit: "7b29cd1"
+    commit: "7ff7dd5"
+    merge_commit: "2f331b400e2efbf46fb4087c6d7a2b66cf79e12f"
+    merged_at: "2026-06-29T18:12:15+08:00"
     note: "R3 compliance runner + gemini proxy shim for EOS-P2-008"
 
 depends_on_projects:

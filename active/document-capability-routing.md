@@ -25,8 +25,8 @@
 Stage 0  权宜交付（已退役）   EOS-P2-006-R1   superseded by EOS-P2-007 #24
 Stage 1  协议与类型基建         ALR-DOC-001 ✅   ContentBlock::Document + 能力校验
 Stage 2  产品迁移               EOS-P2-007 ✅    upload document_ref；路由/降级 UX
-Stage 3  声明式编码             PT-079 🚧        manifest content_block_mapping；退役 P 层 encode
-Stage 4  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 document 需求选模（deferred，门控 PT-079）
+Stage 3  声明式编码             PT-079 ✅        manifest content_block_mapping；退役 P 层 encode
+Stage 4  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 document 需求选模（deferred，门控已解除）
 ```
 
 ### Stage 0 — 权宜（不推翻）
@@ -66,7 +66,7 @@ Stage 4  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 d
   - `v2/contracts/*.contract.yaml` 为 Anthropic/Gemini 真源
   - ai-lib manifest encoder 替代 Driver 硬编码 `encode_blocks_for_*`
   - Eos `document_attach` 退役 P 层 vendor JSON 拼接（见 `EOS-P2-008` 退役条件）
-- **门控**: `EOS-REQ-P2-003` 保持 deferred 直至 PT-079 R2 完成
+- **门控**: `EOS-REQ-P2-003` 可进入排期（PT-079 ✅ 完成；任务仍为 deferred）
 
 ### Stage 4 — 智能路由增强（软依赖）
 
@@ -84,10 +84,10 @@ Stage 4  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 d
 | EOS-P2-006-R1 | eos | `superseded` | — | 权宜 pdf_extract → 由 EOS-P2-007 取代 |
 | ALR-DOC-001 | ai-lib-rust | `completed` | — | Document block + driver 编码；main@34bcd71 |
 | EOS-P2-007 | eos | `completed` | ALR-DOC-001 ✅ | hiddenpath/eos #24 `ea62ebb` |
-| PT-079 | ai-protocol | `in_progress` | ALR-DOC-001, EOS-P2-007 | R1✅ R2✅ #10；R3 EOS-P2-008 🚧 |
-| ALR-DOC-002 | ai-lib-rust | `completed` | PT-079-R1 ✅ | #10 `21a049c` + #11 R3 compliance |
-| EOS-P2-008 | eos | `in_progress` | ALR-DOC-002 ✅ | hiddenpath/eos #25 |
-| EOS-REQ-P2-003 | eos↔prism | `deferred` | PT-079, Prism P2 | decide 按 document 选模 |
+| PT-079 | ai-protocol | `completed` | ALR-DOC-001, EOS-P2-007 | R1✅ #12；R2✅ #10+#11；R3✅ eos #25 |
+| ALR-DOC-002 | ai-lib-rust | `completed` | PT-079-R1 ✅ | #10 `21a049c` + #11 `2f331b4` |
+| EOS-P2-008 | eos | `completed` | ALR-DOC-002 ✅ | hiddenpath/eos #25 `bdd9324` |
+| EOS-REQ-P2-003 | eos↔prism | `deferred` | — | decide 按 document 选模（门控已解除） |
 
 ---
 
@@ -152,9 +152,9 @@ Stage 4  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 d
 ```text
 ALR-DOC-001 ✅ (main@34bcd71)
     └── EOS-P2-007 ✅ (#24 ea62ebb) — Stage 2 产品迁移
-            └── PT-079 🚧 — Stage 3 声明式编码
-                    ├── ALR-DOC-002 (planned) — manifest encoder
-                    └── EOS-P2-008 (planned) — 退役 document_attach P 层 encode
+            └── PT-079 ✅ — Stage 3 声明式编码
+                    ├── ALR-DOC-002 ✅ — manifest encoder (#10+#11)
+                    └── EOS-P2-008 ✅ — 退役 document_attach P 层 encode (#25)
                             └── EOS-REQ-P2-003 (deferred) — Stage 4 智能选模
 VL-TTC-001 ✅ — 并行无关轨道（velaclaw text tool）
 ```
