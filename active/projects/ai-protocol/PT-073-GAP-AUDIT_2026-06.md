@@ -77,7 +77,7 @@
 
 | 项 | 状态 | 证据 / 差距 |
 |----|------|-------------|
-| CHANGELOG per runtime | ❌ | E/P 拆分后 import 路径变更需 **逐包** CHANGELOG |
+| CHANGELOG per runtime | ✅ | Python PR #5 `f0fa875`、TS PR #5 `0df05ee`；Rust/Go 基线已有 E/P 段落（`PT-073d-CHANGELOG-AUDIT_2026-06.md`） |
 | Downstream (spiderswitch) | ❌ | 需 issue 或 PR 跟踪 contact 迁移 |
 
 **收口动作**：按 PT-073 release train 顺序起草 CHANGELOG 草稿（可先 0.x 迁移说明，不必等 tag）。
@@ -88,9 +88,9 @@
 
 | 项 | 状态 | 证据 / 差距 |
 |----|------|-------------|
-| drift:check | ❌ | 无近期 evidence |
-| gate:fullchain | ❌ | required mode PASS 待跑 |
-| Rollback drill | ❌ | evidence 过期或未刷新 |
+| drift:check | ✅ | 本地 2026-06-29：0 drifts（`drift-2026-06-29T15-14-05-656Z.json`） |
+| gate:fullchain | ✅ | 本地 2026-06-29 required 模式 PASS（`fullchain-gate-2026-06-29T15-23-06-754Z.json`）；CI `governance-report.yml` |
+| Rollback drill | ❌ | 待 `gate:fullchain:with-rollback:required-drill` 刷新证据 |
 
 **收口动作**：在 `ai-lib-constitution` / plans tools 跑一次并归档日志到 task `testing.evidence`。
 

@@ -1,7 +1,7 @@
 ---
 id: "PT-073d"
 title: "Migration CHANGELOG per runtime (PT-073 §4 P1)"
-status: "in_progress"
+status: "completed"
 priority: "high"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -15,7 +15,8 @@ labels:
   - "migration"
   - "changelog"
 created: "2026-06-29"
-updated: "2026-06-29"
+updated: "2026-06-29T23:15"
+completed: "2026-06-29"
 started: "2026-06-29"
 description: |
   PT-073 §4：E/P 拆分后各运行时 CHANGELOG 需覆盖 crate/package 重命名、import 路径、facade 行为。
@@ -28,16 +29,35 @@ blocks:
     evidence: "active/projects/ai-protocol/PT-073d-CHANGELOG-AUDIT_2026-06.md"
   - id: "PT-073d-R2"
     title: "Rust + Python CHANGELOG 迁移段落"
-    status: "planned"
+    status: "completed"
     depends_on: ["PT-073d-R1"]
+    pr: "https://github.com/ailib-official/ai-lib-python/pull/5"
+    merge_commit: "f0fa8759f4c11f63b018ba4afc909daa2fda8fd0"
+    note: "Rust CHANGELOG 已有 0.9.x E/P 段落（审计基线）"
   - id: "PT-073d-R3"
     title: "TS + Go CHANGELOG 迁移段落"
-    status: "planned"
+    status: "completed"
     depends_on: ["PT-073d-R1"]
+    pr: "https://github.com/ailib-official/ai-lib-ts/pull/5"
+    merge_commit: "0df05ee"
+    note: "Go CHANGELOG 已有 pkg/contact breaking 段落（审计基线）"
   - id: "PT-073d-R4"
     title: "WAVE5 checklist §4 勾选 + plans 回填"
-    status: "planned"
+    status: "completed"
     depends_on: ["PT-073d-R2", "PT-073d-R3"]
+    pr: "https://github.com/ailib-official/ai-protocol/pull/15"
+
+pr:
+  - repo: "ai-lib-python"
+    url: "https://github.com/ailib-official/ai-lib-python/pull/5"
+    merge_commit: "f0fa8759f4c11f63b018ba4afc909daa2fda8fd0"
+  - repo: "ai-lib-ts"
+    url: "https://github.com/ailib-official/ai-lib-ts/pull/5"
+    merge_commit: "0df05ee"
+
+completion_notes: |
+  四运行时均有 E/P migration 可追溯段落（Rust/Go 基线 + Python/TS PR #5 merged 2026-06-29）。
+  WAVE5 §4 CHANGELOG 行待 ai-protocol PR #15 勾选；spiderswitch downstream 仍单独跟踪。
 
 depends_on_projects:
   - task_id: "PT-073c"

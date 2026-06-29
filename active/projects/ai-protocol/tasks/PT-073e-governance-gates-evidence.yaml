@@ -1,0 +1,44 @@
+---
+id: "PT-073e"
+title: "Governance gates evidence (PT-073 §5)"
+status: "in_progress"
+priority: "high"
+assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+project: "ai-protocol"
+parent: "PT-073"
+milestone: "v1.0.0"
+phase: 2
+labels:
+  - "governance"
+  - "gate"
+created: "2026-06-29"
+updated: "2026-06-29"
+started: "2026-06-29"
+description: |
+  PT-073 §5：drift:check、gate:fullchain required 模式、rollback drill 证据归档。
+
+blocks:
+  - id: "PT-073e-R1"
+    title: "drift:check + gate:fullchain 本地/CI 证据"
+    status: "completed"
+    evidence_local:
+      drift: "reports/drift/drift-2026-06-29T15-14-05-656Z.json"
+      fullchain: "reports/fullchain-gates/fullchain-gate-2026-06-29T15-23-06-754Z.json"
+  - id: "PT-073e-R2"
+    title: "WAVE5 §5 勾选 + ai-protocol PR"
+    status: "in_progress"
+    depends_on: ["PT-073e-R1"]
+  - id: "PT-073e-R3"
+    title: "rollback drill 刷新"
+    status: "planned"
+    depends_on: ["PT-073e-R2"]
+
+depends_on_projects:
+  - task_id: "PT-073d"
+    task_file: "active/projects/ai-protocol/tasks/PT-073d-migration-changelog.yaml"
+
+coordination:
+  gap_audit: "active/projects/ai-protocol/PT-073-GAP-AUDIT_2026-06.md"
+  checklist: "ai-protocol/docs/WAVE5_V1_GATE_CHECKLIST.md"

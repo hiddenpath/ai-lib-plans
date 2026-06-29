@@ -47,9 +47,8 @@ description: |
 
   ### 2. WASM compliance (blocking)
 
-  - [ ] wasm32-wasip1 binary < 2MB
-  - [ ] wasmtime harness: protocol_loading + message_building PASS
-  - [ ] 6 exported functions verified
+  - [x] wasm32-wasip1 on CI + release build + binary < 2MB + wasmtime harness (`pt073-rust-core-wasm.yml`, WAVE5 §2)
+  - [x] 6 exported functions verified (PT-061)
 
   ### 3. E/P separation integrity (blocking)
 
@@ -59,14 +58,14 @@ description: |
 
   ### 4. Migration documentation (blocking)
 
-  - [x] CHANGELOG per runtime: PT-073d migration sections (Python PR #5 f0fa875, TS PR #5 0df05ee)
-  - [x] Gate checklist evidence update (ai-protocol PR #14 987f7c7)
+  - [x] CHANGELOG per runtime: PT-073d — Python PR #5 `f0fa875`, TS PR #5 `0df05ee`; Rust/Go baseline
+  - [x] Gate checklist: ai-protocol PR #14 `987f7c7` (§1); PR #15 pending (§4–§5)
   - [ ] Internal consumers (e.g. spiderswitch) updated or tracked with explicit follow-up issue
 
   ### 5. Governance gates (blocking)
 
-  - [ ] drift:check → no critical findings
-  - [ ] gate:fullchain → PASS in required mode
+  - [x] drift:check → no critical findings (2026-06-29 local, 0 drifts)
+  - [x] gate:fullchain → PASS in required mode (2026-06-29 local)
   - [ ] Rollback drill evidence refreshed
 
   ### 6. Documentation and release (blocking)
@@ -153,25 +152,15 @@ completion_notes: |
 
   **2026-06-22:** Gap audit documented in `active/projects/ai-protocol/PT-073-GAP-AUDIT_2026-06.md`.
   Prism P2 can proceed in parallel (PR-PP-002); PT-073 is a **milestone goal**, not a phase start gate.
-  Priority: P0 Python/TS full compliance CI; P1 CHANGELOG; P3 maintainer v1.0.0 decision.
-  **2026-06-29:** PT-073a ✅ ai-lib-python PR #4 (b30b831), PT-073b ✅ ai-lib-ts PR #4 (324e67a), PT-073c ✅ ai-lib-go PR #2 (334ac745) — §1 three-runtime full compliance CI merged.
-  - ai-lib-python PR #4 (b30b831) — Python full compliance CI
-  - ai-lib-ts PR #4 (324e67a) — TS full compliance CI
-  - ai-lib-go PR #2 (334ac745) — Go compliance CI
 
-  PT-073a in flight — ai-lib-python PR #4 (`feat/pt073a-python-full-compliance`):
-  COMPLIANCE_SUBSET filtering, provider-contract schema validation for cbe-* cases,
-  `pt073-python-full.yml`. §1 Python full-matrix row satisfied on default branch CI.
+  **2026-06-29:** §1 four-runtime compliance CI complete:
+  PT-073a ✅ Python PR #4 (`b30b831`), PT-073b ✅ TS PR #4 (`324e67a`), PT-073c ✅ Go PR #2 (`334ac745`).
+  Rust evidence via `pt073-rust-core-wasm.yml` green run `28364691515`.
 
-  **2026-06-29:** PT-073d ✅ — Python PR #5 (f0fa875), TS PR #5 (0df05ee): CHANGELOG.md migration sections.
-  - ai-protocol PR #14 (987f7c7): §1 gate checklist evidence, content-block-encode test doc.
+  **2026-06-29:** PT-073d ✅ — Python/TS CHANGELOG PR #5 merged; ai-protocol PR #14 (§1 checklist).
+  PT-073e started — `drift:check` 0 drifts + `gate:fullchain` required PASS (local 2026-06-29).
 
-  **Next:** Rust default-branch green evidence; maintainer v1.0.0 decision.
-
-  **2026-06-29:** PT-073c ✅ — ai-lib-go PR #2 merged `334ac74`:
-  `pt073-go.yml`, manifest_path resolution for v2/dist paths. §1 **four-runtime** compliance complete.
-
-  **Next:** §2 WASM checklist sign-off; §4 migration CHANGELOG (PT-073d); §5 governance evidence.
+  **Next:** §3 E/P evidence; rollback drill (PT-073e-R3); spiderswitch downstream issue.
 
 constitution_rules:
   - "ARCH-001: Protocol-driven design"
