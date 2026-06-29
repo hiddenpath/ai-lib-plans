@@ -1,7 +1,7 @@
 ---
 id: "PT-073a"
 title: "Python full compliance CI (PT-073 §1 P0)"
-status: "in_progress"
+status: "completed"
 priority: "critical"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -15,7 +15,7 @@ labels:
   - "ci"
   - "python"
 created: "2026-06-29"
-updated: "2026-06-29"
+updated: "2026-06-29T21:00"
 started: "2026-06-29"
 description: |
   PT-073 差距审计 P0：默认 branch 跑 **完整** `pytest tests/compliance/`（含 06-resilience 等），
@@ -28,16 +28,22 @@ blocks:
     title: "COMPLIANCE_SUBSET 过滤实现 + 单测"
     status: "completed"
     pr: "https://github.com/ailib-official/ai-lib-python/pull/4"
+    merge_commit: "b30b831"
+    merged_at: "2026-06-29T13:59:58Z"
   - id: "PT-073a-R2"
     title: "pt073-python-full.yml workflow"
     status: "completed"
     depends_on: ["PT-073a-R1"]
     pr: "https://github.com/ailib-official/ai-lib-python/pull/4"
+    merge_commit: "b30b831"
+    merged_at: "2026-06-29T13:59:58Z"
   - id: "PT-073a-R3"
     title: "main CI green + plans 回填"
-    status: "in_progress"
+    status: "completed"
     depends_on: ["PT-073a-R2"]
     pr: "https://github.com/ailib-official/ai-lib-python/pull/4"
+    merge_commit: "b30b831"
+    merged_at: "2026-06-29T13:59:58Z"
 
 depends_on_projects:
   - task_id: "PT-073"
