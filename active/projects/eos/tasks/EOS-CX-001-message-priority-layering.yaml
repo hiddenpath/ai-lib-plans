@@ -1,0 +1,52 @@
+---
+id: "EOS-CX-001"
+title: "消息动态分层结构化 — Priority 标注与按层裁剪"
+status: "planned"
+priority: "medium"
+assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+project: "eos"
+milestone: "eos-phase2-context-v2"
+phase: 2
+labels:
+  - "eos"
+  - "context"
+  - "session-mirror"
+created: "2026-06-29"
+updated: "2026-06-29"
+description: |
+  Phase 2.5 / Wave 6：在 SessionMirror + WASM assemble 路径引入 Layer 0–5 Priority，
+  替代纯 flat 倒序截断。详见 `CONTEXT_ARCHITECTURE_V2.md` §3、§6。
+
+  **前置**: EOS-P2-001 ✅（SessionMirror、ContextBudget flat 策略）
+  **非目标**: LLM compaction；服务端全量归档（→ EOS-CX-002）
+
+blocks:
+  - id: "EOS-CX-001-R1"
+    title: "Priority 元数据模型 + SessionMirror 存储"
+    status: "planned"
+    description: |
+      消息/block 携带 `priority`（layer 0–5）；默认推断规则（system→0, 当前 round→1, …）。
+    depends_on: ["EOS-P2-001"]
+  - id: "EOS-CX-001-R2"
+    title: "layered assemble 策略（浏览器 + WASM）"
+    status: "planned"
+    description: |
+      `assembleMessages(budget, 'layered')` 按层填充；单测 + 与 flat 行为回归对比。
+    depends_on: ["EOS-CX-001-R1"]
+  - id: "EOS-CX-001-R3"
+    title: "E2E 长对话分层裁剪验收"
+    status: "planned"
+    depends_on: ["EOS-CX-001-R2"]
+
+depends_on_projects:
+  - task_id: "EOS-P2-001"
+    task_file: "active/projects/eos/tasks/EOS-P2-001-context-strategy-browser.yaml"
+
+coordination:
+  architecture: "active/projects/eos/CONTEXT_ARCHITECTURE_V2.md"
+  boundary: "active/projects/eos/CONTEXT_STRATEGY_BOUNDARY.md"
+
+unblocks:
+  - "EOS-CX-002"

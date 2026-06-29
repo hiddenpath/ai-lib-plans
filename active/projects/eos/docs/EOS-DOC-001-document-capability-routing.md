@@ -49,5 +49,6 @@ Browser → POST /api/upload (PDF)
 
 ## 开放项
 
-- Python/TS `ContentBlock::Document` parity（ALR-DOC-001 之后另任务）
-- `PT-079` 标准 schema 文档化（可选，非阻塞）
+- ~~`PT-079` 标准 schema 文档化~~ ✅ 已完成（Stage 3）
+- ~~`EOS-REQ-P2-003` 智能路由~~ ✅ 已完成（Stage 4 #26+#27）
+- Python/TS `ContentBlock::Document` parity（ALR-DOC-001 之后另任务；模式同 `ALR-TTC-002`）

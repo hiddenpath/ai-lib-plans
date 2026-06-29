@@ -16,7 +16,7 @@
 | EOS-CI-001 | [tasks/EOS-CI-001-ci-debt-cleanup.yaml](./tasks/EOS-CI-001-ci-debt-cleanup.yaml) | `completed` | — | #13 closed; fmt ee57a25 + compliance CI step |
 | EOS-P2-008 | [tasks/EOS-P2-008-retire-document-attach.yaml](./tasks/EOS-P2-008-retire-document-attach.yaml) | `completed` | ALR-DOC-002 ✅ | #25 `bdd9324` 退役 P 层 encode |
 | EOS-REQ-P2-003 | [tasks/EOS-REQ-P2-003-document-smart-routing.yaml](./tasks/EOS-REQ-P2-003-document-smart-routing.yaml) | `completed` | PT-079 ✅ | #26+#27 Stage 4 ✅ |
-| EOS-CX-001 | — | `planned` | EOS-P2-001 | **消息动态分层结构化** — Priority 标注、按层级裁剪组装、Layer 0–5 模型；详见 [CONTEXT_ARCHITECTURE_V2.md](./CONTEXT_ARCHITECTURE_V2.md) §3, §6 |
+| EOS-CX-001 | [tasks/EOS-CX-001-message-priority-layering.yaml](./tasks/EOS-CX-001-message-priority-layering.yaml) | `planned` | EOS-P2-001 ✅ | Wave 6 消息 Priority 分层 |
 | EOS-CX-002 | — | `planned` | EOS-CX-001 | **外部文档化 & 对话归档** — 摘要文档生成、索引存储、检索召回、跨会话上下文继承；详见 [CONTEXT_ARCHITECTURE_V2.md](./CONTEXT_ARCHITECTURE_V2.md) §4, §6 |
 
 ## 上线前专项（Pre-launch）
