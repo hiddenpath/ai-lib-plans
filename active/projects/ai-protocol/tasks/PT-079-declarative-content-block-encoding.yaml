@@ -35,6 +35,12 @@ blocks:
     title: "Schema + 规范 + ProviderContract 样例 + 合规夹具"
     status: "in_progress"
     project: "ai-protocol"
+    pr:
+      repo: "ailib-official/ai-protocol"
+      branch: "feat/pt-079-content-block-encoding"
+      number: 12
+      url: "https://github.com/ailib-official/ai-protocol/pull/12"
+      commit: "67a6291"
     description: |
       - `provider-contract.json` 增加 `document` content_block_mapping
       - `docs/spec/content-block-encoding/` 规范文档
