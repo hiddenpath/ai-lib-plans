@@ -26,15 +26,18 @@ description: |
 blocks:
   - id: "PT-073a-R1"
     title: "COMPLIANCE_SUBSET 过滤实现 + 单测"
-    status: "in_progress"
+    status: "completed"
+    pr: "https://github.com/ailib-official/ai-lib-python/pull/4"
   - id: "PT-073a-R2"
     title: "pt073-python-full.yml workflow"
-    status: "planned"
+    status: "completed"
     depends_on: ["PT-073a-R1"]
+    pr: "https://github.com/ailib-official/ai-lib-python/pull/4"
   - id: "PT-073a-R3"
     title: "main CI green + plans 回填"
-    status: "planned"
+    status: "in_progress"
     depends_on: ["PT-073a-R2"]
+    pr: "https://github.com/ailib-official/ai-lib-python/pull/4"
 
 depends_on_projects:
   - task_id: "PT-073"

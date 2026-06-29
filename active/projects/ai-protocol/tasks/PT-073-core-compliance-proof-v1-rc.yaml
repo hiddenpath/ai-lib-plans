@@ -152,6 +152,10 @@ completion_notes: |
   Prism P2 can proceed in parallel (PR-PP-002); PT-073 is a **milestone goal**, not a phase start gate.
   Priority: P0 Python/TS full compliance CI; P1 CHANGELOG; P3 maintainer v1.0.0 decision.
 
+  **2026-06-29:** PT-073a in flight — ai-lib-python PR #4 (`feat/pt073a-python-full-compliance`):
+  COMPLIANCE_SUBSET filtering, provider-contract schema validation for cbe-* cases,
+  `pt073-python-full.yml`. Local full matrix 110 passed / 7 skipped. Awaiting merge for §1 Python row.
+
 constitution_rules:
   - "ARCH-001: Protocol-driven design"
   - "ARCH-003: Cross-runtime consistency"
