@@ -61,9 +61,9 @@
 
 | 项 | 状态 | 证据 / 差距 |
 |----|------|-------------|
-| No P-imports in core | 🟡 | Rust/Python/TS：`check_ep_boundary.py` 在 pt073 workflow 绿（#16 `c805203`, #6 `955f795`, 2026-06-29）；**Go 待补** |
-| ExecutionMetadata 四运行时 | 🟡 | 2026-04-05 审计修 3 项缺陷；需 **schema 对齐复验** `execution-metadata.json` |
-| ai-lib-contact builds | 🟡 | Rust pt073 workflow 含 compile smoke；Python/TS contact 子包 **独立 evidence** 待补 |
+| No P-imports in core | ✅ | 四运行时 pt073 + `check_ep_boundary.py` (#16 `c805203`, #17 `65857ef`) |
+| ExecutionMetadata 四运行时 | ✅ | 样本 `fixtures/execution-metadata/` + 各运行时 schema 测试 (#17, py #6, ts #7) |
+| ai-lib-contact builds | ✅ | Rust pt073 `--no-run`; Go `pkg/contact`; Python/TS contact import smoke |
 
 **收口动作**：
 

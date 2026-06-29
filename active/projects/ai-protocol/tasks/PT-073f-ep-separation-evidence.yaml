@@ -1,7 +1,7 @@
 ---
 id: "PT-073f"
 title: "E/P separation integrity evidence (PT-073 §3)"
-status: "in_progress"
+status: "completed"
 priority: "high"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -14,19 +14,20 @@ labels:
   - "ep-boundary"
   - "compliance"
 created: "2026-06-29"
-updated: "2026-06-29T16:00"
+updated: "2026-06-29T16:45"
+completed: "2026-06-29"
 started: "2026-06-29"
 description: |
   PT-073 §3：四运行时 EP 边界、ExecutionMetadata schema 对齐、contact 包构建证据。
 
 blocks:
   - id: "PT-073f-R1"
-    title: "EP boundary CI 证据汇总（Rust/Python/TS pt073）"
+    title: "EP boundary CI 证据汇总（四运行时 pt073）"
     status: "completed"
     merge_evidence:
       ai_protocol: "https://github.com/ailib-official/ai-protocol/pull/16"
       merge_commit: "c805203"
-    note: "check_ep_boundary.py --rust-root|--python-root|--ts-root"
+    note: "check_ep_boundary.py --rust-root|--python-root|--ts-root|--go-root (PR #17)"
   - id: "PT-073f-R2"
     title: "TS ep-boundary 检查入 CI"
     status: "completed"
@@ -34,16 +35,27 @@ blocks:
     pr: "https://github.com/ailib-official/ai-lib-ts/pull/6"
     merge_commit: "955f795"
     merged_at: "2026-06-29"
-    ci_evidence:
-      pt073_ts_core_main: "28385324782"
   - id: "PT-073f-R3"
-    title: "ExecutionMetadata + contact build 证据 + WAVE5 §3 勾选"
-    status: "planned"
+    title: "ExecutionMetadata + contact build 证据 + WAVE5 §3"
+    status: "completed"
     depends_on: ["PT-073f-R2"]
-    remaining:
-      - "Go EP boundary (pt073-go or check_ep_boundary --go-root)"
-      - "ExecutionMetadata schema golden cross-runtime"
-      - "contact package build evidence (Python/TS)"
+    prs:
+      - repo: "ai-protocol"
+        url: "https://github.com/ailib-official/ai-protocol/pull/17"
+        merge_commit: "65857ef"
+      - repo: "ai-lib-go"
+        url: "https://github.com/ailib-official/ai-lib-go/pull/3"
+        merge_commit: "2cf42c6"
+      - repo: "ai-lib-python"
+        url: "https://github.com/ailib-official/ai-lib-python/pull/6"
+        merge_commit: "c3f4d53"
+      - repo: "ai-lib-ts"
+        url: "https://github.com/ailib-official/ai-lib-ts/pull/7"
+        merge_commit: "aa3f5fa"
+    evidence:
+      execution_metadata_samples: "tests/compliance/fixtures/execution-metadata/"
+      validate_script: "tests/compliance/ep-boundary/validate_execution_metadata_samples.py"
+      rust_contact: "pt073-rust-core-wasm.yml cargo test -p ai-lib-contact --no-run"
 
 depends_on_projects:
   - task_id: "PT-073e"
@@ -52,12 +64,21 @@ depends_on_projects:
 pr:
   - url: "https://github.com/ailib-official/ai-protocol/pull/16"
     merge_commit: "c805203"
+  - url: "https://github.com/ailib-official/ai-protocol/pull/17"
+    merge_commit: "65857ef"
   - url: "https://github.com/ailib-official/ai-lib-ts/pull/6"
     merge_commit: "955f795"
+  - url: "https://github.com/ailib-official/ai-lib-go/pull/3"
+    merge_commit: "2cf42c6"
+  - url: "https://github.com/ailib-official/ai-lib-python/pull/6"
+    merge_commit: "c3f4d53"
+  - url: "https://github.com/ailib-official/ai-lib-ts/pull/7"
+    merge_commit: "aa3f5fa"
 
 completion_notes: |
-  2026-06-29: 按序合并 ai-protocol #16 (c805203) → ai-lib-ts #6 (955f795).
-  Rust/Python/TS 三运行时 EP 静态检查均在 pt073 workflow 绿。§3 余项见 PT-073f-R3.
+  2026-06-29: 按序合并 #16→#6, 再 #17→go/python/ts #3/#6/#7.
+  四运行时 EP 静态检查 + ExecutionMetadata schema 样本/测试 + contact build smoke 均已入 pt073 CI.
+  WAVE5 §3 证据见 ai-protocol main (65857ef). §6 v1.0.0 tag 仍待 maintainer.
 
 coordination:
   gap_audit: "active/projects/ai-protocol/PT-073-GAP-AUDIT_2026-06.md"
