@@ -6,6 +6,10 @@ priority: "medium"
 assignee: "@cursor"
 executor_name: "cursor"
 executor_terminal: "agent-session"
+updated: "2026-06-28"
+ci_status: |
+  PR #24: rust ✅ docker-build ✅ e2e ❌ (selector fix pushed, re-run pending)
+  Blocker resolved: `.system-info` selector + `selectOption('gemini-2.5-flash')`
 project: "eos"
 milestone: "eos-phase2-document-routing"
 phase: 2

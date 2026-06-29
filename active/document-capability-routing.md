@@ -89,11 +89,11 @@ Stage 3  智能路由（可选增强）   EOS-REQ-P2-003  /v1/route/decide 按 d
 
 ## 5. 验收口径（Stage 2 完成时）
 
-- [ ] 上传 PDF 后请求体含 document block（非 extracted_text 注入）
-- [ ] 选择纯文本模型 + PDF 附件 → 明确错误/换模提示（无静默 extract）
-- [ ] 选择 Gemini/Claude 等 document 模型 → 厂商侧收到原生 document 载荷
+- [x] 上传 PDF 后请求体含 document block（非 extracted_text 注入）
+- [x] 选择纯文本模型 + PDF 附件 → 明确错误/换模提示（无静默 extract）
+- [x] 选择 Gemini/Claude 等 document 模型 → 厂商侧收到原生 document 载荷
 - [ ] 扫描件 PDF 在 document 模型路径下可处理（或厂商返回可理解错误）
-- [ ] `EOS-P2-006-R1` 的 `pdf_extract` 代码路径已移除或仅 feature-gated 应急
+- [x] `EOS-P2-006-R1` 的 `pdf_extract` 代码路径已移除或仅 feature-gated 应急
 
 ---
 
