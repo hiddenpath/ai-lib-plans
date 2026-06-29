@@ -13,9 +13,9 @@ labels:
   - "v1"
   - "compliance"
 created: "2026-04-01"
-updated: "2026-05-07"
-executor_name: "alex"
-executor_terminal: "cursor-shell"
+updated: "2026-06-29"
+executor_name: "cursor"
+executor_terminal: "agent-session"
 
 description: |
   **Readiness work for v1.0.0** — proves the minimal execution layer (Paper1 §3)
@@ -147,6 +147,10 @@ completion_notes: |
   **2026-04-15:** Python/TS `pt-063-*-hardening` feature branches merged into **`ailib-official` `main`** and remote feature branches deleted after verification.
   PT-073 **subset** CI above is green on `main`; **full-matrix** checklist rows for Python/TS remain open until default CI runs entire compliance suites.
   Merge conflict policy for future work: **GOV-002** in `ai-lib-constitution` (no blind whole-file takeover; PR rationale + narrow tests).
+
+  **2026-06-22:** Gap audit documented in `active/projects/ai-protocol/PT-073-GAP-AUDIT_2026-06.md`.
+  Prism P2 can proceed in parallel (PR-PP-002); PT-073 is a **milestone goal**, not a phase start gate.
+  Priority: P0 Python/TS full compliance CI; P1 CHANGELOG; P3 maintainer v1.0.0 decision.
 
 constitution_rules:
   - "ARCH-001: Protocol-driven design"

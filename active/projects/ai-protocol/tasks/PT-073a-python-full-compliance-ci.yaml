@@ -1,0 +1,44 @@
+---
+id: "PT-073a"
+title: "Python full compliance CI (PT-073 §1 P0)"
+status: "in_progress"
+priority: "critical"
+assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+project: "ai-lib-python"
+parent: "PT-073"
+milestone: "v1.0.0"
+phase: 2
+labels:
+  - "compliance"
+  - "ci"
+  - "python"
+created: "2026-06-29"
+updated: "2026-06-29"
+started: "2026-06-29"
+description: |
+  PT-073 差距审计 P0：默认 branch 跑 **完整** `pytest tests/compliance/`（含 06-resilience 等），
+  非仅 `COMPLIANCE_SUBSET=e_only`。
+
+  依赖：实现 `COMPLIANCE_SUBSET` 过滤（`E_ONLY_CASES.md`）+ `pt073-python-full.yml`。
+
+blocks:
+  - id: "PT-073a-R1"
+    title: "COMPLIANCE_SUBSET 过滤实现 + 单测"
+    status: "in_progress"
+  - id: "PT-073a-R2"
+    title: "pt073-python-full.yml workflow"
+    status: "planned"
+    depends_on: ["PT-073a-R1"]
+  - id: "PT-073a-R3"
+    title: "main CI green + plans 回填"
+    status: "planned"
+    depends_on: ["PT-073a-R2"]
+
+depends_on_projects:
+  - task_id: "PT-073"
+    task_file: "active/projects/ai-protocol/tasks/PT-073-core-compliance-proof-v1-rc.yaml"
+
+coordination:
+  gap_audit: "active/projects/ai-protocol/PT-073-GAP-AUDIT_2026-06.md"
