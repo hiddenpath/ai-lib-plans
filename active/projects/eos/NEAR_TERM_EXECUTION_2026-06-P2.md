@@ -109,8 +109,8 @@ P2-6  上下文 2.5         EOS-CX-001/002          Phase 2 末或 2.5
 |---------|------|------|----------|
 | EOS-REQ-P2-001 | Eos 前端可选指向 `api.prism.ailib.info` | `deferred` | EOS-P2-005 + Prism P1-C |
 | EOS-REQ-P2-002 | 共享 E2E sync crypto 协议（Vela/Eos） | `deferred` | EOS-P2-003 R1 + Vela Phase 2 |
-| EOS-REQ-P2-003 | 智能路由 auto 模式 | `deferred` | PT-073 + Prism Phase 2 |
-| EOS-REQ-P2-004 | 文档能力路由（Document block + provider-native） | `planned` | ALR-DOC-001 → EOS-P2-007 |
+| EOS-REQ-P2-003 | 智能路由 auto 模式 | `completed` | eos #26+#27；document decide uplift |
+| EOS-REQ-P2-004 | 文档能力路由（Document block + provider-native） | `completed` | EOS-P2-007 + PT-079 轨道 |
 
 ---
 
