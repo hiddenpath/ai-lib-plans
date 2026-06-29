@@ -14,32 +14,50 @@ labels:
   - "ep-boundary"
   - "compliance"
 created: "2026-06-29"
-updated: "2026-06-29"
+updated: "2026-06-29T16:00"
 started: "2026-06-29"
 description: |
   PT-073 §3：四运行时 EP 边界、ExecutionMetadata schema 对齐、contact 包构建证据。
 
 blocks:
   - id: "PT-073f-R1"
-    title: "EP boundary CI 证据汇总（Rust/Python 已有 pt073）"
+    title: "EP boundary CI 证据汇总（Rust/Python/TS pt073）"
     status: "completed"
-    note: "Rust/Python/TS pt073 workflows; TS script in ai-protocol PR #16"
+    merge_evidence:
+      ai_protocol: "https://github.com/ailib-official/ai-protocol/pull/16"
+      merge_commit: "c805203"
+    note: "check_ep_boundary.py --rust-root|--python-root|--ts-root"
   - id: "PT-073f-R2"
-    title: "TS ep-boundary / architecture 检查入 CI"
-    status: "in_progress"
+    title: "TS ep-boundary 检查入 CI"
+    status: "completed"
     depends_on: ["PT-073f-R1"]
     pr: "https://github.com/ailib-official/ai-lib-ts/pull/6"
+    merge_commit: "955f795"
+    merged_at: "2026-06-29"
+    ci_evidence:
+      pt073_ts_core_main: "28385324782"
   - id: "PT-073f-R3"
     title: "ExecutionMetadata + contact build 证据 + WAVE5 §3 勾选"
     status: "planned"
     depends_on: ["PT-073f-R2"]
+    remaining:
+      - "Go EP boundary (pt073-go or check_ep_boundary --go-root)"
+      - "ExecutionMetadata schema golden cross-runtime"
+      - "contact package build evidence (Python/TS)"
 
 depends_on_projects:
   - task_id: "PT-073e"
     task_file: "active/projects/ai-protocol/tasks/PT-073e-governance-gates-evidence.yaml"
 
 pr:
-  url: "https://github.com/ailib-official/ai-protocol/pull/16"
+  - url: "https://github.com/ailib-official/ai-protocol/pull/16"
+    merge_commit: "c805203"
+  - url: "https://github.com/ailib-official/ai-lib-ts/pull/6"
+    merge_commit: "955f795"
+
+completion_notes: |
+  2026-06-29: 按序合并 ai-protocol #16 (c805203) → ai-lib-ts #6 (955f795).
+  Rust/Python/TS 三运行时 EP 静态检查均在 pt073 workflow 绿。§3 余项见 PT-073f-R3.
 
 coordination:
   gap_audit: "active/projects/ai-protocol/PT-073-GAP-AUDIT_2026-06.md"

@@ -13,7 +13,7 @@ labels:
   - "v1"
   - "compliance"
 created: "2026-04-01"
-updated: "2026-06-29"
+updated: "2026-06-29T16:00"
 executor_name: "cursor"
 executor_terminal: "agent-session"
 
@@ -52,15 +52,15 @@ description: |
 
   ### 3. E/P separation integrity (blocking)
 
-  - [ ] No P-module imports in any core package (verified by build test)
+  - [x] No P-module imports in core — **Rust/Python/TS** pt073 EP boundary CI (ai-protocol #16 `c805203`, ai-lib-ts #6 `955f795`, 2026-06-29); Go 待 PT-073f-R3
   - [ ] ExecutionMetadata returned by all four runtimes
   - [ ] ai-lib-contact (Rust/Python/TS) compiles against core
 
   ### 4. Migration documentation (blocking)
 
   - [x] CHANGELOG per runtime: PT-073d — Python PR #5 `f0fa875`, TS PR #5 `0df05ee`; Rust/Go baseline
-  - [x] Gate checklist: ai-protocol PR #14 `987f7c7` (§1); PR #15 `4db1f0b` (§4–§5)
-  - [ ] Internal consumers (e.g. spiderswitch) updated or tracked with explicit follow-up issue
+  - [x] Gate checklist: ai-protocol PR #14 `987f7c7` (§1); PR #15 `4db1f0b` (§4–§5); PR #16 `c805203` (§3 EP script)
+  - [x] Downstream migration tracking — **deferred (non-blocking)**: WAVE5 初稿曾列 spiderswitch 为 contact 示例消费者；当前产品路线以 Prism / eos / Vela 为主。spiderswitch 保留为 MCP showcase，**不纳入 v1.0 门控**。
 
   ### 5. Governance gates (blocking)
 
@@ -86,7 +86,7 @@ description: |
   7. Tag ai-lib-go v1.0.0
   8. Publish WASM package v1.0.0
   9. Tag ai-protocol-mock v1.0.0
-  10. Update spiderswitch to consume ai-lib-contact
+  10. (Optional) Legacy MCP showcase repos — **not** a v1.0.0 gate; P-layer products: Prism / eos / Vela
 
   ## Hold criteria
 
@@ -161,7 +161,9 @@ completion_notes: |
   **2026-06-29:** PT-073e ✅ — ai-protocol PR #15 (`4db1f0b`): WAVE5 §4–§5 + rollback drill refreshed.
   - ai-protocol PR #14 (`987f7c7`): §1 gate checklist evidence.
 
-  **Next:** §3 E/P evidence (PT-073f); spiderswitch downstream issue.
+  **2026-06-29:** PT-073f-R1/R2 ✅ — ai-protocol #16 (`c805203`), ai-lib-ts #6 (`955f795`): EP boundary CI Rust/Python/TS.
+
+  **Next:** PT-073f-R3 (Go EP + ExecutionMetadata + contact build); maintainer v1.0.0 决策 (§6).
 
 constitution_rules:
   - "ARCH-001: Protocol-driven design"

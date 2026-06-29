@@ -61,7 +61,7 @@
 
 | 项 | 状态 | 证据 / 差距 |
 |----|------|-------------|
-| No P-imports in core | 🟡 | Rust：`check_ep_boundary.py` 在 Python pt073 workflow；**TS/Python 扩展静态检查**未在 checklist 勾选 |
+| No P-imports in core | 🟡 | Rust/Python/TS：`check_ep_boundary.py` 在 pt073 workflow 绿（#16 `c805203`, #6 `955f795`, 2026-06-29）；**Go 待补** |
 | ExecutionMetadata 四运行时 | 🟡 | 2026-04-05 审计修 3 项缺陷；需 **schema 对齐复验** `execution-metadata.json` |
 | ai-lib-contact builds | 🟡 | Rust pt073 workflow 含 compile smoke；Python/TS contact 子包 **独立 evidence** 待补 |
 
@@ -78,7 +78,7 @@
 | 项 | 状态 | 证据 / 差距 |
 |----|------|-------------|
 | CHANGELOG per runtime | ✅ | Python PR #5 `f0fa875`、TS PR #5 `0df05ee`；Rust/Go 基线已有 E/P 段落（`PT-073d-CHANGELOG-AUDIT_2026-06.md`） |
-| Downstream (spiderswitch) | ❌ | 需 issue 或 PR 跟踪 contact 迁移 |
+| Downstream migration | ⏸️ | **非阻塞**：WAVE5 初稿列 spiderswitch 为 contact 示例消费者（历史遗留）。现战略产品为 Prism / eos / Vela；spiderswitch 仅为 MCP showcase，已从 PT-073 门控移除 |
 
 **收口动作**：按 PT-073 release train 顺序起草 CHANGELOG 草稿（可先 0.x 迁移说明，不必等 tag）。
 

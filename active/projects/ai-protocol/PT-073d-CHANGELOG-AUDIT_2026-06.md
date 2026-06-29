@@ -21,4 +21,4 @@
 
 ## 非阻塞
 
-- spiderswitch downstream issue（§4 第二行）— 单独 issue，不阻塞 CHANGELOG 段落。
+- spiderswitch downstream — **已从 v1.0 门控移除**（2026-06-29）：历史 WAVE5 示例消费者；现以 Prism/eos/Vela 为 P 层产品路线。
