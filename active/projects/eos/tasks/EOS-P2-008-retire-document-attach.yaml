@@ -1,7 +1,7 @@
 ---
 id: "EOS-P2-008"
 title: "Eos — 退役 document_attach P 层编码（收敛至 ai-lib manifest encoder）"
-status: "planned"
+status: "in_progress"
 priority: "medium"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -15,6 +15,7 @@ labels:
   - "ARCH-001"
 created: "2026-06-29"
 updated: "2026-06-29"
+started: "2026-06-29"
 description: |
   PT-079-R3 / EOS 侧执行：移除 eos-server 对 `encode_blocks_for_anthropic/gemini` 的直接依赖，
   将 document 载荷编码下沉至 ai-lib manifest encoder（ALR-DOC-002）。
@@ -36,16 +37,21 @@ retirement_conditions:
 blocks:
   - id: "EOS-P2-008-R1"
     title: "document_attach 瘦身为 ref 解析 + ContentBlock 传递"
-    status: "planned"
+    status: "completed"
     depends_on: ["ALR-DOC-002"]
   - id: "EOS-P2-008-R2"
     title: "proxy/v1 改调 manifest encoder 路径"
-    status: "planned"
+    status: "completed"
     depends_on: ["EOS-P2-008-R1"]
   - id: "EOS-P2-008-R3"
     title: "E2E 回归 + 删除冗余编码代码"
-    status: "planned"
+    status: "in_progress"
     depends_on: ["EOS-P2-008-R2"]
+
+pr:
+  repo: "hiddenpath/eos"
+  branch: "feat/eos-p2-008-retire-document-attach"
+  commit: "6ef8eb8"
 
 depends_on_projects:
   - task_id: "ALR-DOC-002"
