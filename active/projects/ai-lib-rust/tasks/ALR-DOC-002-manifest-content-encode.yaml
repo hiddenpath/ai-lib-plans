@@ -1,7 +1,7 @@
 ---
 id: "ALR-DOC-002"
 title: "Manifest-driven ContentBlock 编码（退役 Driver 硬编码）"
-status: "in_progress"
+status: "completed"
 priority: "high"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -41,9 +41,9 @@ blocks:
     depends_on: ["ALR-DOC-002-R1"]
   - id: "ALR-DOC-002-R3"
     title: "合规 runner content_block_encode + 退役硬编码"
-    status: "in_progress"
+    status: "completed"
     description: |
-      `compliance_runner` 新增 `content_block_encode`；`content_encode.rs` 改为薄包装或删除；
+      `compliance_runner` 新增 `content_block_encode`；`content_encode.rs` 薄包装；
       `cargo test` document + compliance 全绿。
     depends_on: ["ALR-DOC-002-R2"]
 
@@ -53,6 +53,8 @@ pr:
   number: 10
   url: "https://github.com/ailib-official/ai-lib-rust/pull/10"
   commit: "a5e46a2"
+  merge_commit: "21a049c218250022dc2a54b869e4957104fc8e54"
+  merged_at: "2026-06-29T17:27:26+08:00"
 
 depends_on_projects:
   - task_id: "PT-079"
