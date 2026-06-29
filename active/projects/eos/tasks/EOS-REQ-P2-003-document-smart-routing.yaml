@@ -35,7 +35,7 @@ blocks:
     depends_on: ["EOS-P2-008", "PR-P2-003"]
   - id: "EOS-REQ-P2-003-R2"
     title: "前端 debounce 调用 decide + 发送路径应用"
-    status: "planned"
+    status: "in_progress"
     depends_on: ["EOS-REQ-P2-003-R1"]
   - id: "EOS-REQ-P2-003-R3"
     title: "E2E：PDF 附件 + auto 路由至 document 模型"
@@ -51,12 +51,10 @@ depends_on_projects:
 
 pr:
   repo: "hiddenpath/eos"
-  branch: "feat/eos-req-p2-003-route-decide"
-  number: 26
-  url: "https://github.com/hiddenpath/eos/pull/26"
-  commit: "aef5ac8"
-  merge_commit: "51226a05733696ad744e291ebb9021f4874e3201"
-  merged_at: "2026-06-29T19:15:00+08:00"
+  branch: "feat/eos-req-p2-003-r2-frontend"
+  follow_up_r1:
+    number: 26
+    merge_commit: "51226a05733696ad744e291ebb9021f4874e3201"
 
 coordination:
   master_doc: "active/document-capability-routing.md"
