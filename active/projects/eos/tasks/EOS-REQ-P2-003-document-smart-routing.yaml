@@ -28,7 +28,7 @@ description: |
 blocks:
   - id: "EOS-REQ-P2-003-R1"
     title: "eos-server POST /v1/route/decide + document uplift"
-    status: "in_progress"
+    status: "completed"
     description: |
       内嵌 prism-core CostRouter；`eos_attachments` 含 PDF 时 uplift 至 document 模型；
       合规过滤 + 单元测试。
@@ -54,7 +54,9 @@ pr:
   branch: "feat/eos-req-p2-003-route-decide"
   number: 26
   url: "https://github.com/hiddenpath/eos/pull/26"
-  commit: "3556f9a"
+  commit: "aef5ac8"
+  merge_commit: "51226a05733696ad744e291ebb9021f4874e3201"
+  merged_at: "2026-06-29T19:15:00+08:00"
 
 coordination:
   master_doc: "active/document-capability-routing.md"
