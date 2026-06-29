@@ -52,6 +52,9 @@ depends_on_projects:
 pr:
   repo: "hiddenpath/eos"
   branch: "feat/eos-req-p2-003-r2-frontend"
+  number: 27
+  url: "https://github.com/hiddenpath/eos/pull/27"
+  commit: "a9d7bd7"
   follow_up_r1:
     number: 26
     merge_commit: "51226a05733696ad744e291ebb9021f4874e3201"
