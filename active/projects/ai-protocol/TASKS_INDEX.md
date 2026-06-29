@@ -13,6 +13,7 @@
 | PT-073d | [tasks/PT-073d-migration-changelog.yaml](./tasks/PT-073d-migration-changelog.yaml) | `completed` | py [#5](https://github.com/ailib-official/ai-lib-python/pull/5) `f0fa875`; ts [#5](https://github.com/ailib-official/ai-lib-ts/pull/5) `0df05ee`; protocol [#15](https://github.com/ailib-official/ai-protocol/pull/15) `4db1f0b` | §4 CHANGELOG |
 | PT-073e | [tasks/PT-073e-governance-gates-evidence.yaml](./tasks/PT-073e-governance-gates-evidence.yaml) | `completed` | [ai-protocol #15](https://github.com/ailib-official/ai-protocol/pull/15) `4db1f0b` | §5 drift/fullchain/rollback |
 | PT-073f | [tasks/PT-073f-ep-separation-evidence.yaml](./tasks/PT-073f-ep-separation-evidence.yaml) | `completed` | 见下表 **PT-073f PR 链** | §3 E/P + ExecutionMetadata + contact |
+| PT-073g | [tasks/PT-073g-cross-repo-quality-audit.yaml](./tasks/PT-073g-cross-repo-quality-audit.yaml) | `in_progress` | — | §6 前 **质量审查**；暂缓 v1.0.0 tag |
 
 ## PT-073f PR 链（合并顺序）
 
@@ -28,5 +29,7 @@
 ## 相关文档
 
 - [PT-073-GAP-AUDIT_2026-06.md](./PT-073-GAP-AUDIT_2026-06.md)
+- [QUALITY_AUDIT_PLAN_2026-06.md](./QUALITY_AUDIT_PLAN_2026-06.md)
+- [templates/QUALITY_AUDIT_REPORT_TEMPLATE.md](./templates/QUALITY_AUDIT_REPORT_TEMPLATE.md)
 - [docs/WAVE5_V1_GATE_CHECKLIST.md](https://github.com/ailib-official/ai-protocol/blob/main/docs/WAVE5_V1_GATE_CHECKLIST.md)（在 ai-protocol 仓库）
 - [WAVE5_EP_SEPARATION_AND_V1_PLAN_2026-04-01.md](./WAVE5_EP_SEPARATION_AND_V1_PLAN_2026-04-01.md)

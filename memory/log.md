@@ -318,3 +318,10 @@ xray：63 节点（57 SS + 2 VLESS + 4 VMess），logrotate daily 7d。
 - **真源**：`Y:\github-token-list.txt`（`hiddenpath pat` / `ailib-official pat` 分 org）
 - **记忆**：`memory/infrastructure.md` § GitHub PAT；`memory/INDEX.md` Quick Reference
 - **禁止**：PAT 明文不得进入 git、plans 或对话记录
+
+## 2026-06-29 — PT-073g 质量审查 + v1.0.0 暂缓
+
+- **决策**：PT-073 §1–§5 工程证据齐备；maintainer 同意 **暂缓 v1.0.0 tag**，先完成跨仓库六维质量审查。
+- **任务**：`PT-073g` — 计划 `active/projects/ai-protocol/QUALITY_AUDIT_PLAN_2026-06.md`；报告模板 `templates/QUALITY_AUDIT_REPORT_TEMPLATE.md`。
+- **并行**：`EOS-CX-001` R1（Priority 元数据）；`ALR-TTC-003` Phase 4 live 模型验证。
+- **§6 release train**：阻塞于 PT-073g P0 闭环 + sign-off。

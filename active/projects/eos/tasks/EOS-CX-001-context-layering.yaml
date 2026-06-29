@@ -1,7 +1,9 @@
 ---
-id: "EOS-CX-001"
-title: "Eos 上下文 2.5 — 消息动态分层结构化"
-status: "planned"
+# SUPERSEDED: 请使用 EOS-CX-001-message-priority-layering.yaml（本文件保留作历史引用）
+id: "EOS-CX-001-legacy"
+title: "Eos 上下文 2.5 — 消息动态分层结构化（已合并至 message-priority-layering）"
+status: "superseded"
+superseded_by: "active/projects/eos/tasks/EOS-CX-001-message-priority-layering.yaml"
 priority: "low"
 assignee: "@cursor"
 project: "eos"

@@ -1,0 +1,79 @@
+---
+id: "ALR-TTC-003"
+title: "Text Tool Call — Phase 4 模型验证（live provider）"
+status: "in_progress"
+priority: "high"
+assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+project: "ai-lib-rust"
+milestone: "text-tool-call-v1"
+parent_track: "active/text-tool-call-standard.md"
+labels:
+  - "tools"
+  - "text-tool-call"
+  - "live-validation"
+  - "compliance-adjacent"
+created: "2026-06-29"
+updated: "2026-06-29"
+started: "2026-06-29"
+description: |
+  `active/text-tool-call-standard.md` **Phase 4**：在合规单元测试之外，
+  用真实 API 验证 `StandardTextToolParser` + prompt 模板对「顽固模型」的有效性。
+
+  **前置**: ALR-TTC-001 ✅、ALR-TTC-002 ✅、VL-TTC-001 ✅  
+  **非目标**: 修改协议 schema；新增 provider manifest（除非发现规范缺口）
+
+  **密钥**: 使用本机环境变量 / `Y:\` 真源，**不得**写入仓库或 plans。
+
+blocks:
+  - id: "ALR-TTC-003-R1"
+    title: "验证 harness + 报告模板"
+    status: "completed"
+    description: |
+      定义统一用例集（5 轮重复 × 多工具场景）、结果 JSON schema、报告模板。
+    evidence:
+      - "active/projects/ai-lib-rust/templates/TTC_MODEL_VALIDATION_REPORT_TEMPLATE.md"
+      - "active/projects/ai-lib-rust/docs/TTC_PHASE4_HARNESS_SPEC.md"
+
+  - id: "ALR-TTC-003-R2"
+    title: "T4.1 DeepSeek（deepseek-chat, deepseek-reasoner）"
+    status: "in_progress"
+    models: ["deepseek-chat", "deepseek-reasoner"]
+    rounds: 5
+    depends_on: ["ALR-TTC-003-R1"]
+
+  - id: "ALR-TTC-003-R3"
+    title: "T4.2 Claude（3.5 Sonnet, Opus）"
+    status: "planned"
+    note: "对比 text 路径 vs native tool_use 一致性"
+    depends_on: ["ALR-TTC-003-R2"]
+
+  - id: "ALR-TTC-003-R4"
+    title: "T4.3 Ollama 本地（Llama 3, Qwen 2.5, Mistral）"
+    status: "planned"
+    depends_on: ["ALR-TTC-003-R2"]
+
+  - id: "ALR-TTC-003-R5"
+    title: "T4.4 回归 — native FC 不受影响"
+    status: "planned"
+    description: "OpenAI native function calling + `cargo test` 全绿"
+    depends_on: ["ALR-TTC-003-R3", "ALR-TTC-003-R4"]
+
+  - id: "ALR-TTC-003-R6"
+    title: "汇总报告 + text-tool-call-standard Phase 4 勾选"
+    status: "planned"
+    deliverable: "reports/text-tool-call/2026-06/PHASE4_SUMMARY.md"
+    depends_on: ["ALR-TTC-003-R5"]
+
+acceptance_criteria:
+  - "每模型 ≥5 轮：解析成功率、格式偏差分类、prompt 有效性记录"
+  - "DeepSeek 顽固格式（<shell> 等）残留率有量化数据"
+  - "native OpenAI FC 路径回归无退化"
+  - "PHASE4_SUMMARY 归档至 ai-lib-plans/reports/text-tool-call/"
+
+coordination:
+  standard: "active/text-tool-call-standard.md"
+  rust_impl: "ai-lib-rust/crates/ai-lib-core/src/types/text_tool.rs"
+
+completion_notes: ""

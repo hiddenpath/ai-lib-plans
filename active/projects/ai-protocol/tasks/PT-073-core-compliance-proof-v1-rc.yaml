@@ -13,7 +13,7 @@ labels:
   - "v1"
   - "compliance"
 created: "2026-04-01"
-updated: "2026-06-29T16:45"
+updated: "2026-06-29T18:00"
 executor_name: "cursor"
 executor_terminal: "agent-session"
 
@@ -70,6 +70,7 @@ description: |
 
   ### 6. Documentation and release (blocking)
 
+  - [ ] **PT-073g** cross-repo quality audit complete — P0=0, SUMMARY sign-off（**v1.0.0 暂缓至审查关闭**）
   - [ ] Release notes cover: E/P separation, WASM support, minimality proof
   - [ ] ailib.info updated with new package structure
   - [ ] MEMORY.md updated with v1.0.0 decision record
@@ -119,6 +120,7 @@ blocked_by:
   - "PT-069"
   - "PT-070"
   - "PT-071"
+  - "PT-073g"
 
 files_changed:
   - "ai-protocol/docs/WAVE5_V1_GATE_CHECKLIST.md"
@@ -163,7 +165,10 @@ completion_notes: |
 
   **2026-06-29:** PT-073f ✅ — #17 `65857ef` + go/python/ts #3/#6/#7; §3 E/P 证据齐备。
 
-  **Next:** §6 maintainer v1.0.0 决策 + release train（非自动门控）。
+  **2026-06-29:** Maintainer 决定 **暂缓 v1.0.0**；§6 release train 阻塞于 **PT-073g** 跨仓库质量审查（六维、P0 闭环）。
+  工程就绪 §1–§5 不变；见 `QUALITY_AUDIT_PLAN_2026-06.md`。
+
+  **Next:** PT-073g R2–R6 → P0 修复 → §6 sign-off + release train。
 
 constitution_rules:
   - "ARCH-001: Protocol-driven design"

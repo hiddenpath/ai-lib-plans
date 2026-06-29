@@ -16,8 +16,8 @@
 | EOS-CI-001 | [tasks/EOS-CI-001-ci-debt-cleanup.yaml](./tasks/EOS-CI-001-ci-debt-cleanup.yaml) | `completed` | — | #13 closed; fmt ee57a25 + compliance CI step |
 | EOS-P2-008 | [tasks/EOS-P2-008-retire-document-attach.yaml](./tasks/EOS-P2-008-retire-document-attach.yaml) | `completed` | ALR-DOC-002 ✅ | #25 `bdd9324` 退役 P 层 encode |
 | EOS-REQ-P2-003 | [tasks/EOS-REQ-P2-003-document-smart-routing.yaml](./tasks/EOS-REQ-P2-003-document-smart-routing.yaml) | `completed` | PT-079 ✅ | #26+#27 Stage 4 ✅ |
-| EOS-CX-001 | [tasks/EOS-CX-001-message-priority-layering.yaml](./tasks/EOS-CX-001-message-priority-layering.yaml) | `planned` | EOS-P2-001 ✅ | Wave 6 消息 Priority 分层 |
-| EOS-CX-002 | — | `planned` | EOS-CX-001 | **外部文档化 & 对话归档** — 摘要文档生成、索引存储、检索召回、跨会话上下文继承；详见 [CONTEXT_ARCHITECTURE_V2.md](./CONTEXT_ARCHITECTURE_V2.md) §4, §6 |
+| EOS-CX-001 | [tasks/EOS-CX-001-message-priority-layering.yaml](./tasks/EOS-CX-001-message-priority-layering.yaml) | `in_progress` | EOS-P2-001 ✅ | Wave 6 R1 Priority 元数据；[R1 切片](./docs/EOS-CX-001-R1-IMPLEMENTATION_SLICE.md) |
+| EOS-CX-002 | [tasks/EOS-CX-002-external-docs.yaml](./tasks/EOS-CX-002-external-docs.yaml) | `planned` | EOS-CX-001 | 外部文档化 & 对话归档 — §4 CONTEXT_ARCHITECTURE_V2 |
 
 ## 上线前专项（Pre-launch）
 
@@ -34,7 +34,7 @@
 | M7: Sync（EOS-P2-003 E2E 密文） | Phase 2 Wave 2a | ✅ PR #12 (5e805b5) |
 | M9: Prism-ready（EOS-P2-005 ADR + POC） | Phase 2 Wave 3 | ✅ #19 `703a942` + #20 `3b1fd1c` |
 | M11: Doc-route（EOS-P2-007 + PT-079） | Phase 2 Wave 5 | ✅ #24–#27 Stage 0–4 (2026-06-29) |
-| M5: Context layering & external doc（EOS-CX-001/002） | Phase 2+ | ⏳ 远期架构规划中 |
+| M5: Context layering & external doc（EOS-CX-001/002） | Phase 2+ | 🔄 CX-001 R1 进行中 |
 
 ## 依赖
 

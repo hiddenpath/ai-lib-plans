@@ -1,0 +1,103 @@
+---
+id: "PT-073g"
+title: "Cross-repo quality audit — v1.0.0 admission gate"
+status: "in_progress"
+priority: "critical"
+assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
+project: "ai-protocol"
+parent: "PT-073"
+milestone: "v1.0.0"
+phase: 3
+labels:
+  - "audit"
+  - "quality"
+  - "gate"
+  - "v1"
+created: "2026-06-29"
+updated: "2026-06-29"
+started: "2026-06-29"
+description: |
+  **Maintainer 决策（2026-06-29）**：PT-073 §1–§5 工程证据齐备，但 **暂缓 v1.0.0 tag**，
+  直至完成本任务定义的六维跨仓库质量审查，并关闭全部 **P0** 发现项。
+
+  本任务 **不重复** 合规矩阵（已由 PT-073a–f 证明），而是审查：
+  - 公共 API 面一致性（导出、命名、semver 意图）
+  - E/P 边界在真实代码路径中的泄漏风险（超越 `check_ep_boundary.py`）
+  - 代码质量（unwrap/panic/unsafe、错误传播、死代码）
+  - 测试真实性（subset CI vs full、mock 漂移、跳过项）
+  - 安全边界（密钥、proxy、trust_env、日志脱敏）
+  - 文档与迁移对齐（CHANGELOG、README、ailib.info、MEMORY 决策记录）
+
+  **真源文档**：
+  - `active/projects/ai-protocol/QUALITY_AUDIT_PLAN_2026-06.md`
+  - `active/projects/ai-protocol/templates/QUALITY_AUDIT_REPORT_TEMPLATE.md`
+  - `active/projects/ai-protocol/templates/QUALITY_AUDIT_DIMENSION_CHECKLIST.md`
+
+  **准入 v1.0.0（§6 release train）条件**：
+  1. 六维审查报告归档（每维每运行时至少抽样）
+  2. P0 = 0 open；P1 有明确 owner + 截止日期或显式 defer 记录
+  3. MEMORY.md 记录 maintainer sign-off
+  4. PT-073 §6 release notes / ailib.info 更新可随 sign-off 一并完成
+
+blocks:
+  - id: "PT-073g-R1"
+    title: "审查计划冻结 + 报告模板验收"
+    status: "completed"
+    description: |
+      发布 QUALITY_AUDIT_PLAN、REPORT_TEMPLATE、DIMENSION_CHECKLIST；
+      PT-073 §6 显式依赖 PT-073g。
+    evidence:
+      - "active/projects/ai-protocol/QUALITY_AUDIT_PLAN_2026-06.md"
+      - "active/projects/ai-protocol/templates/QUALITY_AUDIT_REPORT_TEMPLATE.md"
+
+  - id: "PT-073g-R2"
+    title: "Dim 1–2：公共 API + E/P 深度审查"
+    status: "in_progress"
+    repos: ["ai-lib-rust", "ai-lib-python", "ai-lib-ts", "ai-lib-go", "ai-protocol"]
+    deliverable: "reports/quality-audit/2026-06/D1-D2-*.md"
+    depends_on: ["PT-073g-R1"]
+
+  - id: "PT-073g-R3"
+    title: "Dim 3–4：代码质量 + 测试真实性"
+    status: "planned"
+    repos: ["ai-lib-rust", "ai-lib-python", "ai-lib-ts", "ai-lib-go"]
+    deliverable: "reports/quality-audit/2026-06/D3-D4-*.md"
+    depends_on: ["PT-073g-R2"]
+
+  - id: "PT-073g-R4"
+    title: "Dim 5–6：安全边界 + 文档迁移"
+    status: "planned"
+    repos: ["ai-protocol", "ai-lib-rust", "eos", "velaclaw", "ailib.info"]
+    deliverable: "reports/quality-audit/2026-06/D5-D6-*.md"
+    depends_on: ["PT-073g-R3"]
+
+  - id: "PT-073g-R5"
+    title: "汇总 + P0/P1/P2 分级 + maintainer 评审包"
+    status: "planned"
+    deliverable: "reports/quality-audit/2026-06/SUMMARY.md"
+    depends_on: ["PT-073g-R4"]
+
+  - id: "PT-073g-R6"
+    title: "P0 修复闭环 + v1.0.0 admission sign-off"
+    status: "planned"
+    depends_on: ["PT-073g-R5"]
+    unblocks: ["PT-073 §6 release train"]
+
+depends_on_projects:
+  - task_id: "PT-073f"
+    task_file: "active/projects/ai-protocol/tasks/PT-073f-ep-separation-evidence.yaml"
+    note: "§3 E/P 合规证据为本审查基线，非终点"
+
+coordination:
+  gap_audit: "active/projects/ai-protocol/PT-073-GAP-AUDIT_2026-06.md"
+  wave5: "ai-protocol/docs/WAVE5_V1_GATE_CHECKLIST.md"
+
+severity_rubric:
+  P0: "数据泄漏、E/P 违规、发布阻断、安全漏洞、公共 API 破坏性未文档化"
+  P1: "可测缺陷、文档严重漂移、CI 假绿风险 — 须在 1.0 前修复或书面 defer"
+  P2: "风格、非阻塞技术债 — 记入 backlog"
+
+estimated_duration: "3–4 weeks (phased R2→R5)"
+completion_notes: ""

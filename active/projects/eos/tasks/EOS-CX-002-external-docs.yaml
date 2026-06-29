@@ -45,7 +45,7 @@ testing:
   - "新会话召回命中旧摘要关键词"
 depends_on_projects:
   - task_id: "EOS-CX-001"
-    task_file: "active/projects/eos/tasks/EOS-CX-001-context-layering.yaml"
+    task_file: "active/projects/eos/tasks/EOS-CX-001-message-priority-layering.yaml"
 prism_coordination:
   note: "无 Prism 依赖"
 blocks_summary:

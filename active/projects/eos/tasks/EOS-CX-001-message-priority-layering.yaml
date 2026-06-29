@@ -1,7 +1,7 @@
 ---
 id: "EOS-CX-001"
 title: "消息动态分层结构化 — Priority 标注与按层裁剪"
-status: "planned"
+status: "in_progress"
 priority: "medium"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -15,6 +15,7 @@ labels:
   - "session-mirror"
 created: "2026-06-29"
 updated: "2026-06-29"
+started: "2026-06-29"
 description: |
   Phase 2.5 / Wave 6：在 SessionMirror + WASM assemble 路径引入 Layer 0–5 Priority，
   替代纯 flat 倒序截断。详见 `CONTEXT_ARCHITECTURE_V2.md` §3、§6。
@@ -25,9 +26,12 @@ description: |
 blocks:
   - id: "EOS-CX-001-R1"
     title: "Priority 元数据模型 + SessionMirror 存储"
-    status: "planned"
+    status: "in_progress"
     description: |
       消息/block 携带 `priority`（layer 0–5）；默认推断规则（system→0, 当前 round→1, …）。
+      实现切片：`docs/EOS-CX-001-R1-IMPLEMENTATION_SLICE.md`
+    evidence:
+      - "active/projects/eos/docs/EOS-CX-001-R1-IMPLEMENTATION_SLICE.md"
     depends_on: ["EOS-P2-001"]
   - id: "EOS-CX-001-R2"
     title: "layered assemble 策略（浏览器 + WASM）"
@@ -47,6 +51,11 @@ depends_on_projects:
 coordination:
   architecture: "active/projects/eos/CONTEXT_ARCHITECTURE_V2.md"
   boundary: "active/projects/eos/CONTEXT_STRATEGY_BOUNDARY.md"
+  implementation_slice: "active/projects/eos/docs/EOS-CX-001-R1-IMPLEMENTATION_SLICE.md"
 
 unblocks:
   - "EOS-CX-002"
+
+completion_notes: |
+  2026-06-29: R1 实现切片文档就绪；`session_mirror.js` 已有 `layered` strategy 占位（回退 flat）。
+  下一步：eos PR-A — priority 字段 + inferPriority 单测，保持 flat 默认行为不变。

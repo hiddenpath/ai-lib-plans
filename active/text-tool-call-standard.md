@@ -1,10 +1,10 @@
 # Text Tool Call Protocol — 标准化文本工具调用
 
-**状态**: Phase 1–2 实施中（2026-06-24）  
+**状态**: Phase 1–3、5 ✅；**Phase 4 模型验证进行中**（ALR-TTC-003，2026-06-29）  
 **提出**: 2026-06-23, velaclaw (Sisyphus)  
 **优先级**: P1 — 阻塞 velaclaw 工具执行  
 **关联**: `ARCH-001` (一切逻辑皆算子), `ai-lib-core`, `ai-protocol`  
-**任务追踪**: PT-078, ALR-TTC-001, ALR-TTC-002, VL-TTC-001
+**任务追踪**: PT-078, ALR-TTC-001, ALR-TTC-002, **ALR-TTC-003**, VL-TTC-001
 
 ---
 
@@ -477,7 +477,7 @@ tool_calling:
 | 1 协议规范 | PT-078 | ✅ [ai-protocol#11](https://github.com/ailib-official/ai-protocol/pull/11) merged |
 | 2 Rust 实现 | ALR-TTC-001 | ✅ [ai-lib-rust#8](https://github.com/ailib-official/ai-lib-rust/pull/8) merged |
 | 3 Python/TS | ALR-TTC-002 | ✅ [python#3](https://github.com/ailib-official/ai-lib-python/pull/3) + [ts#3](https://github.com/ailib-official/ai-lib-ts/pull/3) merged |
-| 4 模型验证 | — | pending（需 API key） |
+| 4 模型验证 | ALR-TTC-003 | 🔄 in_progress — [harness spec](active/projects/ai-lib-rust/docs/TTC_PHASE4_HARNESS_SPEC.md) |
 | 5 velaclaw 迁移 | VL-TTC-001 | ✅ [velaclaw#79](https://github.com/ailib-official/velaclaw/pull/79) merged (`22d4195`) |
 
 ---
