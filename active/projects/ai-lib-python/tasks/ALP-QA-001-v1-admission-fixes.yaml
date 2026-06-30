@@ -1,0 +1,107 @@
+---
+id: "ALP-QA-001"
+title: "ai-lib-python v1.0 准入修复（PT-073g 合规可信度 + 并发 + 文档卫生）"
+status: "planned"
+priority: "high"
+assignee: "@unassigned"
+executor_name: ""
+executor_terminal: ""
+project: "ai-lib-python"
+parent: "PT-073g"
+milestone: "v1.0.0"
+labels:
+  - "audit-remediation"
+  - "p1"
+created: "2026-06-30"
+updated: "2026-06-30"
+audit_source: "reports/quality-audit/2026-06/D3-D4-ai-lib-python.md"
+audit_baseline: "ai-lib-python @ c3f4d53 (SYNC_BASELINE §2)"
+repo: "ailib-official/ai-lib-python"
+
+description: |
+  依据 PT-073g 审查，ai-lib-python 的 E→P 边界（importlib 动态 opt-in）与安全姿态优秀；
+  本任务关闭合规自实现/空跑、一处并发缺陷、版本/extra/文档卫生问题。
+
+  **真源报告**：
+  - `reports/quality-audit/2026-06/D3-D4-ai-lib-python.md`
+  - `reports/quality-audit/2026-06/D1-D2-ai-lib-python.md`（版本/README）
+  - `reports/quality-audit/2026-06/D5-D6-cross-repo.md`（DOC-002 卫生）
+
+blocks:
+  - id: "ALP-QA-001-R1"
+    title: "合规可信度：调用真实库 + fail-closed + 边界测试修复（QA-python-004/005/006）"
+    status: "planned"
+    severity: "P1"
+    findings: ["QA-python-004", "QA-python-005", "QA-python-006"]
+    steps: |
+      1. `tests/compliance/test_compliance.py`：retry/fallback/message_building/stream/
+         event/tool/protocol_loading 各 runner 改为调用真实库（`resilience`/`pipeline`/
+         `protocol`/`types`）而非测试内重实现（QA-python-004，可分批）。
+      2. 未知用例类型由 `pytest.skip`（:138-139）改 `fail`/显式 xfail；断言最小用例数（QA-python-005）。
+      3. `tests/architecture/test_execution_layer_import_boundary.py`：用
+         `COMPLIANCE_DIR`/`AI_PROTOCOL_DIR` 解析 matrix 路径；env 声明存在时缺失则 fail（QA-python-006）。
+    acceptance:
+      - "CI 中边界 pytest 不再 skip 空跑；未知类型不静默通过"
+
+  - id: "ALP-QA-001-R2"
+    title: "并发：fallback 不改写共享实例态（QA-python-010）"
+    status: "planned"
+    severity: "P1"
+    findings: ["QA-python-010"]
+    steps: |
+      `src/ai_lib_python/client/core.py:274-282`：由局部 manifest/model 参数构造 payload，
+      勿临时改写 `self._model_id/_manifest`（并发 chat() 竞争）。
+    acceptance:
+      - "新增并发 fallback 单测，断言 payload 正确"
+
+  - id: "ALP-QA-001-R3"
+    title: "CI：pin ai-protocol checkout ref（QA-python-007）"
+    status: "planned"
+    severity: "P1"
+    findings: ["QA-python-007"]
+    steps: |
+      `.github/workflows/{ci,pt073-python-e-only,pt073-python-full}.yml` protocol checkout 加 `ref:`。
+
+  - id: "ALP-QA-001-R4"
+    title: "版本/extra/README（QA-python-001/002/003/012/013）"
+    status: "planned"
+    severity: "P1/P2"
+    findings: ["QA-python-001", "QA-python-002", "QA-python-003", "QA-python-012", "QA-python-013"]
+    steps: |
+      1. `__version__` 单一真源（`importlib.metadata`）或同步 0.8.5；CI 加版本一致性断言（QA-python-001）。
+      2. `pyproject.toml` 定义 `[contact]` extra（或移除 CHANGELOG 引用），按需纳入 `[full]`（QA-python-002）。
+      3. README 修正 `report_feedback` 用法（模块级函数）（QA-python-003）。
+      4. UA fallback 改回落 `__version__`（QA-python-012）；CHANGELOG link-ref 补 0.8.4/0.8.5（QA-python-013）。
+
+  - id: "ALP-QA-001-R5"
+    title: "DOC-002 卫生：清理内部 report 文件（QA-python-008）"
+    status: "planned"
+    severity: "P1"
+    findings: ["QA-python-008"]
+    steps: |
+      从公共仓移除（转私有笔记）：PYPI_TOKEN_SEARCH_REPORT.md、PYPI_UPLOAD_STATUS.md、
+      RELEASE_INSTRUCTIONS_V0.5.0.md、RELEASE_COMPLETE_REPORT.md、CODE_REVIEW_REPORT_V0.5.0.md、
+      RELEASE_NOTES_V0.5.0.md、ROUTING_MANAGER_REFACTORING_ASSESSMENT.md
+      （泄漏 /home/alex 路径 + 废弃 hiddenpath org；无实活密钥）。加 `.gitignore`；修文档链接为 ailib-official。
+    acceptance:
+      - "公共仓不含上述内部文件；用户向链接指向 ailib-official"
+
+  - id: "ALP-QA-001-R6"
+    title: "ARCH-001：routing provider-slug 去硬编码（QA-python-009）+ 异步 IO（QA-python-011）"
+    status: "planned"
+    severity: "P2"
+    findings: ["QA-python-009", "QA-python-011"]
+    steps: |
+      1. `routing/manager.py:575-582` 由 manifest/registry 驱动 preset，去 `provider=="openai"/"anthropic"`。
+      2. `protocol/loader.py:195-196` 等异步路径同步 read 改 `asyncio.to_thread`/`anyio` 或文档化。
+
+acceptance_criteria:
+  - "R1 合规 fail-closed + 边界测试有效 + 部分真实调用"
+  - "R2 并发修复 + 单测；R3 CI ref；R4/R5 文档与卫生；R6 可 defer 至 P2"
+severity_summary: "P1×4(组), P2×2(组)"
+references:
+  - "reports/quality-audit/2026-06/SUMMARY.md §4.2/§4.3, §7 批次2/3/4"
+constitution_rules:
+  - "PY-001 类型；PY-002 异步 I/O"
+  - "DOC-002 内部文档不入公共仓"
+  - "TEST-001 合规测试"

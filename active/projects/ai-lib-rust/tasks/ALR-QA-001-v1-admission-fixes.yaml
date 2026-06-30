@@ -1,0 +1,95 @@
+---
+id: "ALR-QA-001"
+title: "ai-lib-rust v1.0 准入修复（PT-073g 正确性 + 合规可信度 + 文档）"
+status: "planned"
+priority: "high"
+assignee: "@unassigned"
+executor_name: ""
+executor_terminal: ""
+project: "ai-lib-rust"
+parent: "PT-073g"
+milestone: "v1.0.0"
+labels:
+  - "audit-remediation"
+  - "p1"
+created: "2026-06-30"
+updated: "2026-06-30"
+audit_source: "reports/quality-audit/2026-06/D3-D4-ai-lib-rust.md"
+audit_baseline: "ai-lib-rust @ 2f331b4 (SYNC_BASELINE §2)"
+repo: "ailib-official/ai-lib-rust"
+
+description: |
+  依据 PT-073g 审查，ai-lib-rust 的 E/P 边界为参考级（无需返工）；本任务关闭
+  一处远端可触发的传输 panic、合规自实现/假绿问题，以及文档漂移。
+
+  **真源报告**：
+  - `reports/quality-audit/2026-06/D3-D4-ai-lib-rust.md`
+  - `reports/quality-audit/2026-06/D1-D2-ai-lib-rust.md`（README API）
+
+blocks:
+  - id: "ALR-QA-001-R1"
+    title: "传输层 panic 防护（QA-rust-001）+ pipeline unwrap（QA-rust-009）"
+    status: "planned"
+    severity: "P1/P2"
+    findings: ["QA-rust-001", "QA-rust-009"]
+    steps: |
+      1. `crates/ai-lib-core/src/transport/http.rs:316,399`：循环后用合成
+         `TransportError` 返回，替代 `last_err.expect(...)`；或仅在非末位路由
+         `continue`（`should_try_alternate_route` 判断需含"是否末位"）。
+         复现：多路由（proxy+direct），末位返回 403/407/451/502/503/504。
+      2. `crates/ai-lib-core/src/pipeline/select.rs:17-21`：`Selector::new` 改 fallible
+         或退化 evaluator，避免病态 manifest JSONPath 在构造时 panic。
+    acceptance:
+      - "新增单测：全路由返回可重试状态时返回 Err 而非 panic"
+
+  - id: "ALR-QA-001-R2"
+    title: "合规可信度：fail-closed + 调用生产代码（QA-rust-003/004/011）"
+    status: "planned"
+    severity: "P1"
+    findings: ["QA-rust-003", "QA-rust-004", "QA-rust-011"]
+    steps: |
+      1. `tests/compliance_runner/mod.rs`：6 个合规测试在 `COMPLIANCE_DIR` 显式设置时，
+         目录/子集缺失须硬失败；断言 `passed >= 最小期望数`（QA-rust-004）。
+      2. `parse_test_cases`（:137-141）反序列化失败应区分坏例并失败（QA-rust-011）。
+      3. 将 `run_message_building`/retry/stream/event/tool/param/capability/endpoint/fallback
+         逐步改为调用真实 core API（driver build_request/parse_stream_event、真实 retry 引擎），
+         以 YAML 断言运行时输出（QA-rust-003，可按用例族分批）。
+    acceptance:
+      - "fixture 缺失 → 测试失败（非静默通过）"
+      - "至少 message_building/retry/event mapping 改为真实调用"
+
+  - id: "ALR-QA-001-R3"
+    title: "CI：pin ai-protocol checkout ref（QA-rust-005）"
+    status: "planned"
+    severity: "P1"
+    findings: ["QA-rust-005"]
+    steps: |
+      `.github/workflows/{ci,pt073-rust-core-wasm}.yml` 所有 ai-protocol checkout 加 `ref:`。
+    acceptance:
+      - "所有 protocol checkout 带 ref"
+
+  - id: "ALR-QA-001-R4"
+    title: "文档/版本（QA-rust-002/006/007/008）+ wasm 毒锁（QA-rust-010）"
+    status: "planned"
+    severity: "P1/P2"
+    findings: ["QA-rust-002", "QA-rust-006", "QA-rust-007", "QA-rust-008", "QA-rust-010", "QA-rust-012"]
+    steps: |
+      1. README 删除已移除的 `circuit_breaker_default()`/`AI_LIB_BREAKER_*`/`AI_LIB_RPS/RPM`，
+         指向 `ai_lib_contact::resilience`（facade `ai_lib_rust::resilience`）（QA-rust-002）。
+      2. CHANGELOG 重排（0.9.6 居顶）+ 消歧两个 0.9.4（QA-rust-006）。
+      3. README 版本 0.8.0 → 0.9.6（QA-rust-007）；feature 矩阵补 stt/tts/reranking/keyring（QA-rust-008）。
+      4. `crates/ai-lib-wasm/src/lib.rs:98,102` 毒锁恢复 `unwrap_or_else(|e| e.into_inner())`（QA-rust-010）。
+    acceptance:
+      - "README 示例可编译；CHANGELOG 有序；feature 矩阵完整"
+
+acceptance_criteria:
+  - "R1 panic 防护 + 单测"
+  - "R2 合规 fail-closed（至少）+ 部分真实调用"
+  - "R3 CI ref pin；R4 文档对齐或 defer"
+severity_summary: "P1×3(组), P2×3"
+references:
+  - "reports/quality-audit/2026-06/SUMMARY.md §4.2, §7 批次2/3/4"
+constitution_rules:
+  - "RUST-001 错误处理"
+  - "TEST-001 合规测试"
+  - "DOC-001 文档"

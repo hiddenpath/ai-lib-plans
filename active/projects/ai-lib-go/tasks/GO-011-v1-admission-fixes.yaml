@@ -1,0 +1,89 @@
+---
+id: "GO-011"
+title: "ai-lib-go v1.0 准入修复（PT-073g 正确性 + 合规可信度 + 文档）"
+status: "planned"
+priority: "high"
+assignee: "@unassigned"
+executor_name: ""
+executor_terminal: ""
+project: "ai-lib-go"
+parent: "PT-073g"
+milestone: "v1.0.0"
+labels:
+  - "audit-remediation"
+  - "p1"
+created: "2026-06-30"
+updated: "2026-06-30"
+audit_source: "reports/quality-audit/2026-06/D3-D4-ai-lib-go.md"
+audit_baseline: "ai-lib-go @ 2cf42c6 (SYNC_BASELINE §2)"
+repo: "ailib-official/ai-lib-go"
+
+description: |
+  依据 PT-073g 审查，ai-lib-go 的 E←P 依赖方向正确；本任务关闭两处行为正确性缺陷
+  （重试体复用、流式 usage 空）、合规自实现/CI 漂移，以及 README↔代码不一致。
+
+  **真源报告**：
+  - `reports/quality-audit/2026-06/D3-D4-ai-lib-go.md`
+  - `reports/quality-audit/2026-06/D1-D2-ai-lib-go.md`（流式 usage）
+  - `reports/quality-audit/2026-06/D5-D6-cross-repo.md`（README proxy/错误码）
+
+blocks:
+  - id: "GO-011-R1"
+    title: "重试复用 request 体（QA-go-006，P0 候选）"
+    status: "planned"
+    severity: "P0-candidate"
+    findings: ["QA-go-006"]
+    steps: |
+      `pkg/ailib/client.go:405-417,442-478`：每次尝试重建 `*http.Request`，或设置并使用
+      `req.GetBody`（当前 body 为一次性 `bytes.NewReader`，重试 POST 发空 body）。
+      先写**运行时复验测试**（mock 服务器断言每次重试收到完整 body）确认问题再修。
+    acceptance:
+      - "重试测试断言重发 body 完整；maintainer 据复验结果定级"
+
+  - id: "GO-011-R2"
+    title: "流式 ExecutionMetadata.Usage（QA-go-004）"
+    status: "planned"
+    severity: "P1"
+    findings: ["QA-go-004"]
+    steps: |
+      为 `internal/stream`（或接入 `pkg/streaming`）增 usage 解析，`fillExecutionMetadata`
+      （`client.go:666-672`）从末帧填 `meta.Usage`；`client_execution_metadata_test.go` 断言 Usage。
+    acceptance:
+      - "流式路径返回非空 Usage；测试断言"
+
+  - id: "GO-011-R3"
+    title: "合规可信度：调用生产代码 + CI ref + 类别 08（QA-go-008/009/010）"
+    status: "planned"
+    severity: "P1"
+    findings: ["QA-go-008", "QA-go-009", "QA-go-010"]
+    steps: |
+      1. `tests/compliance/compliance_test.go`：stream decode/event mapping/tool accum/
+         error classify/param mapping/retry decision 改为调用生产代码（`internal/stream`/
+         `pkg/streaming`、`parseHTTPError`、`buildChatPayload`、`resilience`）；
+         注意本地 `classify` 与生产 502→E3002 的分歧（QA-go-008）。
+      2. `.github/workflows/{ci,pt073-go,release}.yml` protocol checkout 加 `ref:`（QA-go-009）。
+      3. 增类别 08 runner；gen-001 静默 `t.Skipf` 改 CI 硬失败（QA-go-010）。
+
+  - id: "GO-011-R4"
+    title: "公共面整洁 + README 一致（QA-go-001/002/003/005/007/011/012/013）"
+    status: "planned"
+    severity: "P1/P2"
+    findings: ["QA-go-001", "QA-go-002", "QA-go-003", "QA-go-005", "QA-go-007", "QA-go-011", "QA-go-012", "QA-go-013"]
+    steps: |
+      1. `pkg/streaming` 下沉 internal 或接入 client 并文档化（QA-go-001）；
+         `EnrichNonstreamChatResponse` unexport（QA-go-002）；`ExecutionResult[T]` 返回或移出公共面（QA-go-003）。
+      2. builder 增 `WithHTTPClient`/transport 选项（和/或 `AI_PROXY_URL`），或修 README 出口控制承诺（QA-go-011）。
+      3. README E2002 retryable 与代码/宪法对齐并加 fixture（QA-go-012）；补 pkg/streaming 与版本（QA-go-013）。
+      4. `chat_enrich.go:55,60` 检查 `applyUsage` 错误（QA-go-007）；error-token fallback 由 manifest 驱动（QA-go-005，P2）。
+
+acceptance_criteria:
+  - "R1 运行时复验 + 修复（解锁 maintainer 定级）"
+  - "R2 流式 usage；R3 合规真实调用(至少部分)+CI ref+类别08"
+  - "R4 公共面/README 对齐或 defer"
+severity_summary: "P0候选×1, P1×3(组), P2×多"
+references:
+  - "reports/quality-audit/2026-06/SUMMARY.md §4.1/§4.2, §7 批次1/2/3/4"
+constitution_rules:
+  - "ARCH-003 跨运行时一致性"
+  - "TEST-001 合规测试"
+  - "DOC-001 文档"

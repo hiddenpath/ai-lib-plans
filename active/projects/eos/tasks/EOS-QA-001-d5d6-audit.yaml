@@ -1,0 +1,61 @@
+---
+id: "EOS-QA-001"
+title: "eos D5-D6 安全/文档审查（PT-073g 覆盖缺口补审，LAN 执行）"
+status: "planned"
+priority: "high"
+assignee: "@unassigned"
+executor_name: ""
+executor_terminal: ""
+project: "eos"
+parent: "PT-073g"
+milestone: "v1.0.0"
+labels:
+  - "audit-remediation"
+  - "coverage-gap"
+  - "lan-only"
+created: "2026-06-30"
+updated: "2026-06-30"
+audit_source: "reports/quality-audit/2026-06/D5-D6-cross-repo.md §5"
+repo: "hiddenpath/eos (私有)"
+
+description: |
+  PT-073g 跨仓库审查在 cloud agent 端**无法覆盖 eos**（`hiddenpath/eos` 私有，
+  cloud token 无访问权限，clone 报 not found）。本任务由 **LAN 内有权限节点** 补审 eos 的
+  Dim 5（安全）+ Dim 6（文档），完成 PT-073g 准入清单中的覆盖缺口。
+
+  **执行端要求**：
+  - 按 `SYNC_BASELINE.md` §2 对齐 `eos=1427438`（或更新基线）
+  - 报告写入 `reports/quality-audit/2026-06/D5-D6-eos.md`（用统一模板）
+  - 完成后 commit plans 并 **双推 `lan` + `origin`**（GOV-004）
+
+blocks:
+  - id: "EOS-QA-001-R1"
+    title: "Dim 5 安全抽样"
+    status: "planned"
+    severity: "TBD"
+    checklist: |
+      - 源码/workflow/.env 无 PAT/API key 泄漏（排除 mock）
+      - eos-server proxy / libcurl / xray(SOCKS) TLS 校验默认
+      - BIZ-004：区域路由（EOS-ARCH-R1~R5）密文同步路径无 plaintext 落盘
+      - 依赖 CVE 与 pin 策略（cargo audit）
+
+  - id: "EOS-QA-001-R2"
+    title: "Dim 6 文档/部署对齐"
+    status: "planned"
+    severity: "TBD"
+    checklist: |
+      - README/部署文档（Caddy→eos-server→xray→providers）与实际一致
+      - zh-cn vs global dual-stack 路由文档准确
+      - 内部文档未误入公共可见面（DOC-002，注意 eos 为私有商业仓）
+
+acceptance_criteria:
+  - "归档 reports/quality-audit/2026-06/D5-D6-eos.md（含发现分级）"
+  - "P0 发现（若有）回写 SUMMARY §2/§3 并纳入准入清单"
+  - "plans 双推 lan + origin"
+references:
+  - "reports/quality-audit/2026-06/SUMMARY.md §6（准入清单：eos 覆盖缺口）"
+  - "memory/architecture.md § Eos"
+constitution_rules:
+  - "BIZ-004 隐私优先架构"
+  - "DOC-002 内部文档不外泄"
+  - "GOV-004 LAN 双远端"

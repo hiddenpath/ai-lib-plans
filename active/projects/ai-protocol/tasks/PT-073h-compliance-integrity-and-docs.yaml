@@ -1,0 +1,98 @@
+---
+id: "PT-073h"
+title: "ai-protocol 合规真实性收口 + 文档对齐（PT-073g 修复）"
+status: "planned"
+priority: "critical"
+assignee: "@unassigned"
+executor_name: ""
+executor_terminal: ""
+project: "ai-protocol"
+parent: "PT-073g"
+milestone: "v1.0.0"
+labels:
+  - "audit-remediation"
+  - "compliance"
+  - "p0-candidate"
+created: "2026-06-30"
+updated: "2026-06-30"
+audit_source: "reports/quality-audit/2026-06/D3-D4-ai-protocol.md"
+audit_baseline: "ai-protocol @ 65857ef (SYNC_BASELINE §2)"
+repo: "ailib-official/ai-protocol"
+
+description: |
+  依据 PT-073g 审查，作为"跨运行时合规真源"，ai-protocol 的最大风险在合规执行链：
+  跨运行时合规门为死门、mock 与用例矛盾、用例 schema 不强制、e_only 漏分类、P0 用例自相矛盾。
+  本任务收口这些项（含 2 项 maintainer 待定级的 P0 候选）。
+
+  **真源报告**：`reports/quality-audit/2026-06/D3-D4-ai-protocol.md`、`D1-D2-ai-protocol.md`
+
+blocks:
+  - id: "PT-073h-R1"
+    title: "合规门控可执行性（QA-protocol-006，P0 候选）"
+    status: "planned"
+    severity: "P0-candidate"
+    findings: ["QA-protocol-006"]
+    steps: |
+      `scripts/gate-compliance-matrix.js:17-19,35-46` 指向 CI 不存在的 `../rustapp/ai-lib-*`，
+      PR report-only、required-on-main exit 127 → 本仓 CI 从不执行合规用例。
+      方案二选一：
+      (a) required 模式在缺失运行时目录时**硬失败**并给清晰信息；
+      (b) 明确"跨运行时强制在各运行时仓"，并在本仓新增**用例 linter**（schema + 内部一致性），
+          使本仓 CI 至少静态保证用例正确性。
+    acceptance:
+      - "本仓 CI 对合规用例有真实门控（执行或 lint），不再假绿"
+
+  - id: "PT-073h-R2"
+    title: "mock 与用例对齐（QA-protocol-005，P0 候选）"
+    status: "planned"
+    severity: "P0-candidate"
+    findings: ["QA-protocol-005"]
+    steps: |
+      `tests/compliance/fixtures/providers/mock-openai.yaml:25` 补 reasoning/structured_output/
+      feature_flags、`chat`→`text`，对齐 gen-001/003/007 断言；或令用例加载真实 `v2/providers/openai.yaml`。
+    acceptance:
+      - "gen-001/003/007 在对齐后真实通过（非空洞）"
+
+  - id: "PT-073h-R3"
+    title: "用例 schema 强制 + e_only 分类（QA-protocol-003/004/010）"
+    status: "planned"
+    severity: "P1"
+    findings: ["QA-protocol-003", "QA-protocol-004", "QA-protocol-010"]
+    steps: |
+      1. 扩 `tests/compliance/schema.json` enum 至实际 suite/input.type；新增 `validate:compliance`
+         逐文件校验并接入 `validate.yml`（QA-protocol-003）。
+      2. `ep-boundary/E_ONLY_CASES.md` 分类目录 10-text-tool-call / 11-content-block-encoding（均 E 层）（QA-protocol-004）。
+      3. 统一断言键名（`error_name` vs `error_type`）并经 schema 校验（QA-protocol-010）。
+
+  - id: "PT-073h-R4"
+    title: "错误码语义（QA-protocol-001/002）"
+    status: "planned"
+    severity: "P1"
+    findings: ["QA-protocol-001", "QA-protocol-002"]
+    steps: |
+      1. 修 gen-005 描述 E1003→E1005/request_too_large（断言正确）（QA-protocol-001）。
+      2. 能力守卫拒绝增专用码（如 `E1006 capability_not_declared`）或显式文档化复用 E1005（QA-protocol-002）。
+
+  - id: "PT-073h-R5"
+    title: "文档/版本/示例校验（QA-protocol-007/008/009/011/012/013/014）"
+    status: "planned"
+    severity: "P1/P2"
+    findings: ["QA-protocol-007", "QA-protocol-008", "QA-protocol-009", "QA-protocol-011", "QA-protocol-012", "QA-protocol-013", "QA-protocol-014"]
+    steps: |
+      1. CHANGELOG 回填 0.8.2-0.8.4（QA-protocol-007）。
+      2. CI 加 `validate:examples`（QA-protocol-008）。
+      3. errors.json↔error-codes.yaml 一致性测试（QA-protocol-009）。
+      4. README provider/schema 计数更正（QA-protocol-011）；compliance README 据实重生成（QA-protocol-012）；
+         标注陈旧审计/补发版说明（QA-protocol-013）；v2-alpha schema 补或文档化复用（QA-protocol-014）。
+
+acceptance_criteria:
+  - "R1/R2 经 maintainer 定级并关闭（解锁 PT-073g 准入）"
+  - "R3 用例 schema 强制 + e_only 完整；R4 错误码语义修正"
+  - "R5 文档/版本/示例校验对齐或 defer"
+severity_summary: "P0候选×2, P1×多, P2×多"
+references:
+  - "reports/quality-audit/2026-06/SUMMARY.md §4.1, §7 批次1/2/4"
+constitution_rules:
+  - "ARCH-001 协议驱动；ARCH-003 跨运行时一致性"
+  - "ARCH-005 manifest 公共权威"
+  - "TEST-001 合规测试"

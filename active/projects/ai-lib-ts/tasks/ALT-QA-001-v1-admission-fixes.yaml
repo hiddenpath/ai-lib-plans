@@ -1,0 +1,100 @@
+---
+id: "ALT-QA-001"
+title: "ai-lib-ts v1.0 准入修复（PT-073g P0 + 安全 + 文档）"
+status: "planned"
+priority: "critical"
+assignee: "@unassigned"
+executor_name: ""
+executor_terminal: ""
+project: "ai-lib-ts"
+parent: "PT-073g"
+milestone: "v1.0.0"
+labels:
+  - "audit-remediation"
+  - "p0"
+  - "release-blocker"
+created: "2026-06-30"
+updated: "2026-06-30"
+audit_source: "reports/quality-audit/2026-06/D1-D2-ai-lib-ts.md"
+audit_baseline: "ai-lib-ts @ aa3f5fa (SYNC_BASELINE §2)"
+repo: "ailib-official/ai-lib-ts"
+
+description: |
+  依据 PT-073g 跨仓库质量审查，ai-lib-ts 是**唯一携带确认 P0 的运行时**：已发布的
+  `./core` / `./contact` E/P 子路径不可用。本任务关闭该 P0 簇及相关安全/文档 P1。
+
+  **真源报告**：
+  - `reports/quality-audit/2026-06/D1-D2-ai-lib-ts.md`（P0 簇）
+  - `reports/quality-audit/2026-06/D3-D4-ai-lib-ts.md`（CI/测试）
+  - `reports/quality-audit/2026-06/D5-D6-cross-repo.md`（安全/文档）
+
+  **密钥纪律**：真实 key 仅用本机 env，不得写入仓库/plans。
+
+blocks:
+  - id: "ALT-QA-001-R1"
+    title: "P0 簇：可用的 E/P 子路径导出（QA-ts-001/002/003）"
+    status: "planned"
+    severity: "P0"
+    findings: ["QA-ts-001", "QA-ts-002", "QA-ts-003"]
+    steps: |
+      1. tsup 多入口：`tsup.config.ts` `entry: ['src/index.ts','src/core.ts','src/contact.ts']`；
+         构建后验证 `dist/{index,core,contact}.{js,cjs,d.ts}` 均产出。
+      2. 新增 `src/contact.ts`：聚合 P 层（routing/cache/batch/guardrails/negotiation/
+         resilience/plugins/telemetry/interceptors/tokens）re-export；不含业务逻辑。
+      3. 拆分 transport：将纯 E 的 HTTP/SSE 与 P 层 resilience 装饰器分离，使
+         `src/core.ts`（`export * from './transport'`）不再传递性引入 `resilience`；
+         `core.ts:6` 自述的 "Excludes: resilience" 须在实际依赖图成立。
+      4. 加冒烟测试：从 `./core`、`./contact`、根三个入口 import 并断言关键符号存在。
+    acceptance:
+      - "node -e \"require('@ailib-official/ai-lib-ts/core')\" 与 /contact 均不报 ERR_MODULE_NOT_FOUND"
+      - "构建产物含 dist/core.* 与 dist/contact.*"
+      - "core 入口依赖图不含 resilience（可用 madge / import 静态检查证明）"
+
+  - id: "ALT-QA-001-R2"
+    title: "安全：MOCK_HTTP_URL 重定向守卫 + 移除内置内网 IP（QA-ts-008/009）"
+    status: "planned"
+    severity: "P1"
+    findings: ["QA-ts-008", "QA-ts-009"]
+    steps: |
+      1. `src/transport/index.ts:135-154` `resolveBaseUrl()`：仅在显式测试标志
+         （如 `AILIB_ALLOW_MOCK_URL=1` 或 `NODE_ENV==='test'`）下让 `MOCK_HTTP_URL` 生效；
+         否则忽略，避免生产环境重定向 auth 头。
+      2. `index.ts:34` 移除内置默认 `http://192.168.2.13:4010`，改 `127.0.0.1:4010` 或要求 env。
+    acceptance:
+      - "无测试标志时 MOCK_HTTP_URL 不改变 baseURL"
+      - "源码不含内网 IP 字面量"
+
+  - id: "ALT-QA-001-R3"
+    title: "CI：pin ai-protocol checkout ref（QA-ts-006）"
+    status: "planned"
+    severity: "P1"
+    findings: ["QA-ts-006"]
+    steps: |
+      `.github/workflows/{pt073-ts-core,pt073-ts-full,ci}.yml` 的 ai-protocol checkout
+      增加 `ref:`（pin 到与 peer dep `^0.8.4` 匹配的 tag/SHA）。
+    acceptance:
+      - "三个 workflow 的 protocol checkout 均带 ref"
+
+  - id: "ALT-QA-001-R4"
+    title: "文档/版本一致（QA-ts-004/005/007/012）"
+    status: "planned"
+    severity: "P1/P2"
+    findings: ["QA-ts-004", "QA-ts-005", "QA-ts-007", "QA-ts-012"]
+    steps: |
+      1. CHANGELOG 切 `## [0.5.3]` 段 + link-ref；R1 落地后更正 "tsup multi-entry" 声明。
+      2. README 更新版本/特性，新增 `/core` `/contact` 导入路径表。
+      3. `vitest.compliance-full.config.ts` 纳入遗漏套件或重命名澄清，确保 `ci.yml` 全量为 required。
+    acceptance:
+      - "CHANGELOG 顶部为 0.5.3；README 反映 E/P 导入；full 配置名实相符"
+
+acceptance_criteria:
+  - "R1 P0 全部关闭并经冒烟验证（解锁 PT-073g 复审）"
+  - "R2/R3 P1 关闭"
+  - "R4 文档/版本对齐或书面 defer"
+severity_summary: "P0×3, P1×4, P2×2"
+references:
+  - "reports/quality-audit/2026-06/SUMMARY.md §3, §7 批次1/3/4"
+constitution_rules:
+  - "ARCH-003 跨运行时一致性"
+  - "TS-001 strict"
+  - "DOC-001 文档"
