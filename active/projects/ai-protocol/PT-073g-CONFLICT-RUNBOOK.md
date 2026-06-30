@@ -81,5 +81,6 @@ If `git diff origin/main..HEAD` is **non-empty**:
 - **Exits 1** on true divergence (prints this runbook path).
 - Does **not** force-push.
 - Public repos: `reset --hard` only when tree matches `origin/main` or FF-only behind.
+- **Skips `reset`** when working tree has uncommitted changes (commit/stash first).
 
 See also: [PT-073g-SYNC_BASELINE.md](./PT-073g-SYNC_BASELINE.md)

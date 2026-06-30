@@ -117,3 +117,7 @@ ai-lib-plans/reports/quality-audit/2026-06/
 4. 报告写入 `reports/quality-audit/2026-06/` 后 **双推** `lan` + `origin`
 
 私有仓（plans / constitution / eos）须保持 `lan/main` ≡ `origin/main`；公开仓以 `ailib-official` `main` 为准。
+
+## 9. 冲突处理（GOV-002）
+
+真分歧时 **禁止** 盲 `reset` 或整文件 `--ours`/`--theirs`。按 [PT-073g-CONFLICT-RUNBOOK.md](./PT-073g-CONFLICT-RUNBOOK.md) 手工合并后双推 `lan` + `origin`。

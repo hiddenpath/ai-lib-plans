@@ -69,9 +69,11 @@
   - Linux: `bash /home/alex/ai-lib-plans/tools/sync_pt073g_repos.sh`
   - Git Bash: `WORKSPACE_ROOT=/d/rustapp bash D:/ai-lib-plans/tools/sync_pt073g_repos.sh`
   - 演练: `-DryRun` / `--dry-run`；保留未跟踪文件: `-NoClean` / `--no-clean`
+- **冲突**: 真分歧 exit 1 → [PT-073g-CONFLICT-RUNBOOK.md](../active/projects/ai-protocol/PT-073g-CONFLICT-RUNBOOK.md)（GOV-002）
 - **风险提示**:
-  - 默认 `git clean -fd`；公开仓 `reset --hard` 丢弃已跟踪文件的本地修改
-  - 私有仓可能 `push` 以补齐落后远端
+  - 公开仓仅在 tree 与 `origin/main` 一致时才 `reset --hard`
+  - 私有仓 `lan`/`origin` 双向 ahead 时需手工合并（runbook §2）
+  - 工作区有未提交改动时跳过 `reset`（先 commit）
 
 ## `sync_repos_serial.sh`
 - **路径**: `tools/sync_repos_serial.sh`

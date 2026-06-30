@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# PT-073g multi-executor repo sync: align lan/origin (private) and origin/main (public).
+# PT-073g multi-executor repo sync (GOV-002 aware).
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLANS="${PLANS_ROOT:-$(cd "${SCRIPT_DIR}/.." && pwd)}"
+CONFLICT_RUNBOOK="active/projects/ai-protocol/PT-073g-CONFLICT-RUNBOOK.md"
 
 if [[ -n "${WORKSPACE_ROOT:-}" ]]; then
   ROOT="${WORKSPACE_ROOT}"
@@ -18,17 +19,18 @@ usage() {
   cat <<EOF
 Usage: sync_pt073g_repos.sh [--dry-run] [--no-clean]
 
-Align PT-073g audit repos for multi-machine execution.
-Private: bidirectional lan <-> origin. Public: reset --hard origin/main.
-
-Env:
-  WORKSPACE_ROOT   e.g. /home/alex or /d/rustapp (Git Bash)
-  PLANS_ROOT       ai-lib-plans path (default: parent of tools/)
-  STRICT_BASELINE=1  fail if HEAD != PT-073g-SYNC_BASELINE.md table
+Align PT-073g audit repos. True divergence stops with GOV-002 runbook pointer.
+See: ${PLANS}/${CONFLICT_RUNBOOK}
 EOF
 }
 
 log() { printf '[%s] %s\n' "$(date '+%F %T')" "$*"; }
+
+gov002_stop() {
+  log "GOV-002: $1"
+  log "See: ${PLANS}/${CONFLICT_RUNBOOK}"
+  return 1
+}
 
 run_git() {
   local repo="$1"; shift
@@ -71,7 +73,7 @@ resolve_path() {
 }
 
 declare -A BASELINE=(
-  [ai-lib-plans]=46b0e78
+  [ai-lib-plans]=c55b9dc
   [ai-lib-constitution]=081bc81
   [eos]=1427438
   [ai-protocol]=65857ef
@@ -86,6 +88,22 @@ declare -A BASELINE=(
 
 DUAL_REPOS=(ai-lib-plans ai-lib-constitution eos)
 PUBLIC_REPOS=(ai-protocol ai-lib-rust ai-lib-python ai-lib-ts ai-lib-go velaclaw ailib.info ai-lib-benchmark)
+
+check_git_quiet() {
+  local path="$1"
+  [[ -f "${path}/.git/MERGE_HEAD" ]] && { gov002_stop "${path}: merge in progress"; return 1; }
+  [[ -d "${path}/.git/rebase-merge" || -d "${path}/.git/rebase-apply" ]] && { gov002_stop "${path}: rebase in progress"; return 1; }
+  if git -C "$path" diff 2>/dev/null | grep -q '^<<<<<<< '; then
+    gov002_stop "${path}: conflict markers in working tree"
+    return 1
+  fi
+  return 0
+}
+
+working_tree_dirty() {
+  local path="$1"
+  [[ -n "$(git -C "$path" status --porcelain 2>/dev/null)" ]]
+}
 
 check_baseline() {
   local name="$1" path="$2"
@@ -106,6 +124,7 @@ sync_dual() {
   path="$(resolve_path "$name")"
   log "=== $name (dual) $path ==="
   [[ -d "$path/.git" ]] || { log "SKIP: missing $path"; return 0; }
+  check_git_quiet "$path" || return 1
 
   run_git "$path" fetch --all --prune
 
@@ -120,15 +139,26 @@ sync_dual() {
       log "push lan ($ahead_origin commits from origin)"
       run_git "$path" push lan origin/main:main
     elif [[ "$ahead_lan" -gt 0 && "$ahead_origin" -gt 0 ]]; then
-      log "ERROR: $name lan/origin diverged"
+      git -C "$path" log --oneline --left-right lan/main...origin/main | head -20 || true
+      gov002_stop "$name lan/origin both ahead — manual merge per runbook section 2"
       return 1
     fi
-    run_git "$path" checkout main 2>/dev/null || true
-    run_git "$path" reset --hard lan/main
+    if working_tree_dirty "$path"; then
+      log "WARN: dirty working tree — skip reset (commit/stash first)"
+    else
+      run_git "$path" checkout main 2>/dev/null || true
+      run_git "$path" reset --hard lan/main
+    fi
   elif git -C "$path" rev-parse lan/main &>/dev/null; then
-    run_git "$path" reset --hard lan/main
+    if ! working_tree_dirty "$path"; then
+      run_git "$path" checkout main 2>/dev/null || true
+      run_git "$path" reset --hard lan/main
+    fi
   else
-    run_git "$path" reset --hard origin/main
+    if ! working_tree_dirty "$path"; then
+      run_git "$path" checkout main 2>/dev/null || true
+      run_git "$path" reset --hard origin/main
+    fi
   fi
 
   [[ "$NO_CLEAN" == "0" ]] && run_git "$path" clean -fd
@@ -136,13 +166,29 @@ sync_dual() {
 }
 
 sync_public() {
-  local name="$1" path
+  local name="$1" path ahead behind
   path="$(resolve_path "$name")"
   log "=== $name (public) $path ==="
   [[ -d "$path/.git" ]] || { log "SKIP: missing $path"; return 0; }
+  check_git_quiet "$path" || return 1
+
   run_git "$path" fetch origin --prune
   run_git "$path" checkout main 2>/dev/null || true
-  run_git "$path" reset --hard origin/main
+
+  ahead="$(git -C "$path" rev-list --count origin/main..HEAD 2>/dev/null || echo 0)"
+  behind="$(git -C "$path" rev-list --count HEAD..origin/main 2>/dev/null || echo 0)"
+
+  if git -C "$path" diff --quiet origin/main..HEAD 2>/dev/null; then
+    log "tree matches origin/main (ahead=$ahead behind=$behind) — reset OK"
+    run_git "$path" reset --hard origin/main
+  elif [[ "$ahead" -gt 0 ]]; then
+    git -C "$path" diff origin/main..HEAD --stat | head -30 || true
+    gov002_stop "$name local tree differs from origin/main — runbook section 3"
+    return 1
+  else
+    run_git "$path" reset --hard origin/main
+  fi
+
   [[ "$NO_CLEAN" == "0" ]] && run_git "$path" clean -fd
   check_baseline "$name" "$path"
 }
@@ -156,7 +202,7 @@ for name in "${PUBLIC_REPOS[@]}"; do
 done
 
 if [[ "$failed" -gt 0 ]]; then
-  log "Completed with $failed failure(s)"
+  log "Completed with $failed failure(s) — resolve via GOV-002 runbook"
   exit 1
 fi
 log "PT-073g repos aligned."

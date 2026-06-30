@@ -35,9 +35,11 @@ description: |
   - `active/projects/ai-protocol/templates/QUALITY_AUDIT_REPORT_TEMPLATE.md`
   - `active/projects/ai-protocol/templates/QUALITY_AUDIT_DIMENSION_CHECKLIST.md`
   - `active/projects/ai-protocol/PT-073g-SYNC_BASELINE.md`（多端 commit 基线）
+  - `active/projects/ai-protocol/PT-073g-CONFLICT-RUNBOOK.md`（**GOV-002** 冲突处理）
 
-  **多端执行**：任意节点开工前运行 `tools/sync_pt073g_repos.ps1`（Windows）或
-  `tools/sync_pt073g_repos.sh`（Linux）；报告双推 `lan` + `origin`。
+  **多端执行**：开工前运行 `tools/sync_pt073g_repos.ps1` / `.sh`；
+  遇真分歧脚本 **停止** 并指向 CONFLICT-RUNBOOK（禁止盲 reset / 整文件 ours/theirs）。
+  有未提交改动时脚本 **跳过 reset**，须先 commit 再同步。
 
   **准入 v1.0.0（§6 release train）条件**：
   1. 六维审查报告归档（每维每运行时至少抽样）
@@ -98,6 +100,8 @@ coordination:
   gap_audit: "active/projects/ai-protocol/PT-073-GAP-AUDIT_2026-06.md"
   wave5: "ai-protocol/docs/WAVE5_V1_GATE_CHECKLIST.md"
   sync_baseline: "active/projects/ai-protocol/PT-073g-SYNC_BASELINE.md"
+  conflict_runbook: "active/projects/ai-protocol/PT-073g-CONFLICT-RUNBOOK.md"
+  constitution_rule: "GOV-002"
   sync_script_win: "tools/sync_pt073g_repos.ps1"
   sync_script_unix: "tools/sync_pt073g_repos.sh"
   reports_dir: "reports/quality-audit/2026-06/"
