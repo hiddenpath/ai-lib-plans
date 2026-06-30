@@ -1,7 +1,7 @@
 ---
 id: "ALT-QA-001"
 title: "ai-lib-ts v1.0 准入修复（PT-073g P0 + 安全 + 文档）"
-status: "in_progress"
+status: "completed"
 priority: "critical"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -14,7 +14,7 @@ labels:
   - "p0"
   - "release-blocker"
 created: "2026-06-30"
-updated: "2026-06-30"
+updated: "2026-06-30T15:17"
 audit_source: "reports/quality-audit/2026-06/D1-D2-ai-lib-ts.md"
 audit_baseline: "ai-lib-ts @ aa3f5fa (SYNC_BASELINE §2)"
 repo: "ailib-official/ai-lib-ts"
@@ -36,6 +36,9 @@ blocks:
     status: "completed"
     severity: "P0"
     findings: ["QA-ts-001", "QA-ts-002", "QA-ts-003"]
+    pr: "https://github.com/ailib-official/ai-lib-ts/pull/8"
+    merge_commit: "72b7cfba"
+    merged_at: "2026-06-30T15:17:48"
     steps: |
       1. tsup 多入口：`tsup.config.ts` `entry: ['src/index.ts','src/core.ts','src/contact.ts']`；
          构建后验证 `dist/{index,core,contact}.{js,cjs,d.ts}` 均产出。
@@ -55,6 +58,9 @@ blocks:
     status: "completed"
     severity: "P1"
     findings: ["QA-ts-008", "QA-ts-009"]
+    pr: "https://github.com/ailib-official/ai-lib-ts/pull/8"
+    merge_commit: "72b7cfba"
+    merged_at: "2026-06-30T15:17:48"
     steps: |
       1. `src/transport/index.ts:135-154` `resolveBaseUrl()`：仅在显式测试标志
          （如 `AILIB_ALLOW_MOCK_URL=1` 或 `NODE_ENV==='test'`）下让 `MOCK_HTTP_URL` 生效；
@@ -69,6 +75,9 @@ blocks:
     status: "completed"
     severity: "P1"
     findings: ["QA-ts-006"]
+    pr: "https://github.com/ailib-official/ai-lib-ts/pull/8"
+    merge_commit: "72b7cfba"
+    merged_at: "2026-06-30T15:17:48"
     steps: |
       `.github/workflows/{pt073-ts-core,pt073-ts-full,ci}.yml` 的 ai-protocol checkout
       增加 `ref:`（pin 到与 peer dep `^0.8.4` 匹配的 tag/SHA）。
