@@ -1,7 +1,7 @@
 # PT-073g — 跨仓库质量审查计划
 
-> **日期**: 2026-06-29  
-> **状态**: 执行中（R2）  
+> **日期**: 2026-06-29（更新 2026-06-30）  
+> **状态**: R2–R5 完成；R6（P0 修复 + sign-off）待办。裁定 **HOLD v1.0.0**，详见 [reports/quality-audit/2026-06/SUMMARY.md](../../../reports/quality-audit/2026-06/SUMMARY.md)  
 > **决策**: Maintainer 同意 **暂缓 v1.0.0**，待本审查关闭 P0 后再走 PT-073 §6 release train  
 > **任务 YAML**: [tasks/PT-073g-cross-repo-quality-audit.yaml](./tasks/PT-073g-cross-repo-quality-audit.yaml)
 
