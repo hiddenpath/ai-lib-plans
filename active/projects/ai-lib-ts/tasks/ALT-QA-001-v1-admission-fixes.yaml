@@ -1,11 +1,11 @@
 ---
 id: "ALT-QA-001"
 title: "ai-lib-ts v1.0 准入修复（PT-073g P0 + 安全 + 文档）"
-status: "planned"
+status: "in_progress"
 priority: "critical"
-assignee: "@unassigned"
-executor_name: ""
-executor_terminal: ""
+assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
 project: "ai-lib-ts"
 parent: "PT-073g"
 milestone: "v1.0.0"
@@ -33,7 +33,7 @@ description: |
 blocks:
   - id: "ALT-QA-001-R1"
     title: "P0 簇：可用的 E/P 子路径导出（QA-ts-001/002/003）"
-    status: "planned"
+    status: "completed"
     severity: "P0"
     findings: ["QA-ts-001", "QA-ts-002", "QA-ts-003"]
     steps: |
@@ -52,7 +52,7 @@ blocks:
 
   - id: "ALT-QA-001-R2"
     title: "安全：MOCK_HTTP_URL 重定向守卫 + 移除内置内网 IP（QA-ts-008/009）"
-    status: "planned"
+    status: "completed"
     severity: "P1"
     findings: ["QA-ts-008", "QA-ts-009"]
     steps: |
@@ -66,7 +66,7 @@ blocks:
 
   - id: "ALT-QA-001-R3"
     title: "CI：pin ai-protocol checkout ref（QA-ts-006）"
-    status: "planned"
+    status: "completed"
     severity: "P1"
     findings: ["QA-ts-006"]
     steps: |

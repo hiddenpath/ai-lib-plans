@@ -1,11 +1,11 @@
 ---
 id: "PT-073h"
 title: "ai-protocol 合规真实性收口 + 文档对齐（PT-073g 修复）"
-status: "planned"
+status: "in_progress"
 priority: "critical"
-assignee: "@unassigned"
-executor_name: ""
-executor_terminal: ""
+assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
 project: "ai-protocol"
 parent: "PT-073g"
 milestone: "v1.0.0"
@@ -29,7 +29,7 @@ description: |
 blocks:
   - id: "PT-073h-R1"
     title: "合规门控可执行性（QA-protocol-006，P0 候选）"
-    status: "planned"
+    status: "completed"
     severity: "P0-candidate"
     findings: ["QA-protocol-006"]
     steps: |
@@ -44,7 +44,7 @@ blocks:
 
   - id: "PT-073h-R2"
     title: "mock 与用例对齐（QA-protocol-005，P0 候选）"
-    status: "planned"
+    status: "completed"
     severity: "P0-candidate"
     findings: ["QA-protocol-005"]
     steps: |
@@ -55,7 +55,7 @@ blocks:
 
   - id: "PT-073h-R3"
     title: "用例 schema 强制 + e_only 分类（QA-protocol-003/004/010）"
-    status: "planned"
+    status: "completed"
     severity: "P1"
     findings: ["QA-protocol-003", "QA-protocol-004", "QA-protocol-010"]
     steps: |
