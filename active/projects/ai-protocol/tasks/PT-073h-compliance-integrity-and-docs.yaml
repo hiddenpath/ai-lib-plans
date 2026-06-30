@@ -15,8 +15,10 @@ labels:
   - "p0-candidate"
 created: "2026-06-30"
 updated: "2026-06-30"
-audit_source: "reports/quality-audit/2026-06/D3-D4-ai-protocol.md"
-audit_baseline: "ai-protocol @ 65857ef (SYNC_BASELINE §2)"
+pr:
+  number: 18
+  merge_commit: "9c9613d"
+  url: "https://github.com/ailib-official/ai-protocol/pull/18"
 repo: "ailib-official/ai-protocol"
 
 description: |
@@ -30,6 +32,7 @@ blocks:
   - id: "PT-073h-R1"
     title: "合规门控可执行性（QA-protocol-006，P0 候选）"
     status: "completed"
+    evidence: "PR #18 9c9613d — validate:compliance + gate optional runtime siblings"
     severity: "P0-candidate"
     findings: ["QA-protocol-006"]
     steps: |
@@ -45,6 +48,7 @@ blocks:
   - id: "PT-073h-R2"
     title: "mock 与用例对齐（QA-protocol-005，P0 候选）"
     status: "completed"
+    evidence: "PR #18 — mock-openai feature_flags + text/reasoning/structured_output"
     severity: "P0-candidate"
     findings: ["QA-protocol-005"]
     steps: |
@@ -56,6 +60,7 @@ blocks:
   - id: "PT-073h-R3"
     title: "用例 schema 强制 + e_only 分类（QA-protocol-003/004/010）"
     status: "completed"
+    evidence: "PR #18 — schema enum + validate:compliance + E_ONLY_CASES 10/11"
     severity: "P1"
     findings: ["QA-protocol-003", "QA-protocol-004", "QA-protocol-010"]
     steps: |

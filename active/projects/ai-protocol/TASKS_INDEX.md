@@ -13,7 +13,8 @@
 | PT-073d | [tasks/PT-073d-migration-changelog.yaml](./tasks/PT-073d-migration-changelog.yaml) | `completed` | py [#5](https://github.com/ailib-official/ai-lib-python/pull/5) `f0fa875`; ts [#5](https://github.com/ailib-official/ai-lib-ts/pull/5) `0df05ee`; protocol [#15](https://github.com/ailib-official/ai-protocol/pull/15) `4db1f0b` | §4 CHANGELOG |
 | PT-073e | [tasks/PT-073e-governance-gates-evidence.yaml](./tasks/PT-073e-governance-gates-evidence.yaml) | `completed` | [ai-protocol #15](https://github.com/ailib-official/ai-protocol/pull/15) `4db1f0b` | §5 drift/fullchain/rollback |
 | PT-073f | [tasks/PT-073f-ep-separation-evidence.yaml](./tasks/PT-073f-ep-separation-evidence.yaml) | `completed` | 见下表 **PT-073f PR 链** | §3 E/P + ExecutionMetadata + contact |
-| PT-073g | [tasks/PT-073g-cross-repo-quality-audit.yaml](./tasks/PT-073g-cross-repo-quality-audit.yaml) | `in_progress` | — | §6 前 **质量审查**；暂缓 v1.0.0 tag |
+| PT-073g | [tasks/PT-073g-cross-repo-quality-audit.yaml](./tasks/PT-073g-cross-repo-quality-audit.yaml) | `in_progress` | R6 remediation | §6 前 **质量审查**；R2–R5 ✅，R6 修复中 |
+| PT-073h | [tasks/PT-073h-compliance-integrity-and-docs.yaml](./tasks/PT-073h-compliance-integrity-and-docs.yaml) | `in_progress` | [#18](https://github.com/ailib-official/ai-protocol/pull/18) `9c9613d` | PT-073g R1–R3 已合并；R4/R5 待办 |
 
 ## PT-073f PR 链（合并顺序）
 
