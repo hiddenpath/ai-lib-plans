@@ -3,9 +3,9 @@ id: "ALR-QA-001"
 title: "ai-lib-rust v1.0 准入修复（PT-073g 正确性 + 合规可信度 + 文档）"
 status: "planned"
 priority: "high"
-assignee: "@unassigned"
-executor_name: ""
-executor_terminal: ""
+assignee: "@cursor"
+executor_name: "cursor"
+executor_terminal: "agent-session"
 project: "ai-lib-rust"
 parent: "PT-073g"
 milestone: "v1.0.0"
@@ -13,7 +13,7 @@ labels:
   - "audit-remediation"
   - "p1"
 created: "2026-06-30"
-updated: "2026-06-30"
+updated: "2026-06-30T14:26"
 audit_source: "reports/quality-audit/2026-06/D3-D4-ai-lib-rust.md"
 audit_baseline: "ai-lib-rust @ 2f331b4 (SYNC_BASELINE §2)"
 repo: "ailib-official/ai-lib-rust"
@@ -44,9 +44,17 @@ blocks:
 
   - id: "ALR-QA-001-R2"
     title: "合规可信度：fail-closed + 调用生产代码（QA-rust-003/004/011）"
-    status: "planned"
+    status: "in_progress"
     severity: "P1"
     findings: ["QA-rust-003", "QA-rust-004", "QA-rust-011"]
+    merge_evidence:
+      retry_fallback:
+        pr: "https://github.com/ailib-official/ai-lib-rust/pull/15"
+        merge_commit: "e377350"
+      stream_event:
+        pr: "https://github.com/ailib-official/ai-lib-rust/pull/16"
+        merge_commit: "6cb10a4"
+    note: "PR #15 retry/fallback+parse fail-closed; PR #16 stream/event prod APIs merged 2026-06-30. Remaining: message_building + other runners to prod APIs."
     steps: |
       1. `tests/compliance_runner/mod.rs`：6 个合规测试在 `COMPLIANCE_DIR` 显式设置时，
          目录/子集缺失须硬失败；断言 `passed >= 最小期望数`（QA-rust-004）。
