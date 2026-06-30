@@ -60,6 +60,19 @@
 - **风险提示**:
   - 脚本使用 `pull --rebase --autostash`，在复杂冲突场景下需要人工处理 rebase 冲突。
 
+## `sync_pt073g_repos.ps1` / `sync_pt073g_repos.sh`
+- **路径**: `tools/sync_pt073g_repos.ps1`（Windows）、`tools/sync_pt073g_repos.sh`（Linux/Git Bash）
+- **用途**: **PT-073g** 质量审查多端执行前，对齐全部相关仓库（私有仓 `lan`↔`origin` 互推；公开仓 `reset --hard origin/main`）
+- **基线真源**: `active/projects/ai-protocol/PT-073g-SYNC_BASELINE.md`
+- **示例**:
+  - Windows: `powershell -File D:\ai-lib-plans\tools\sync_pt073g_repos.ps1`
+  - Linux: `bash /home/alex/ai-lib-plans/tools/sync_pt073g_repos.sh`
+  - Git Bash: `WORKSPACE_ROOT=/d/rustapp bash D:/ai-lib-plans/tools/sync_pt073g_repos.sh`
+  - 演练: `-DryRun` / `--dry-run`；保留未跟踪文件: `-NoClean` / `--no-clean`
+- **风险提示**:
+  - 默认 `git clean -fd`；公开仓 `reset --hard` 丢弃已跟踪文件的本地修改
+  - 私有仓可能 `push` 以补齐落后远端
+
 ## `sync_repos_serial.sh`
 - **路径**: `tools/sync_repos_serial.sh`
 - **用途**: 串行同步多个仓库到各自上游分支（`fetch -> reset --hard -> clean -> status`）

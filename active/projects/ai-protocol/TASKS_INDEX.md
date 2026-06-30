@@ -31,5 +31,6 @@
 - [PT-073-GAP-AUDIT_2026-06.md](./PT-073-GAP-AUDIT_2026-06.md)
 - [QUALITY_AUDIT_PLAN_2026-06.md](./QUALITY_AUDIT_PLAN_2026-06.md)
 - [templates/QUALITY_AUDIT_REPORT_TEMPLATE.md](./templates/QUALITY_AUDIT_REPORT_TEMPLATE.md)
+- [PT-073g-SYNC_BASELINE.md](./PT-073g-SYNC_BASELINE.md) — 多端 commit 基线 + 同步脚本
 - [docs/WAVE5_V1_GATE_CHECKLIST.md](https://github.com/ailib-official/ai-protocol/blob/main/docs/WAVE5_V1_GATE_CHECKLIST.md)（在 ai-protocol 仓库）
 - [WAVE5_EP_SEPARATION_AND_V1_PLAN_2026-04-01.md](./WAVE5_EP_SEPARATION_AND_V1_PLAN_2026-04-01.md)

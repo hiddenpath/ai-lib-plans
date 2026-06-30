@@ -106,3 +106,14 @@ ai-lib-plans/reports/quality-audit/2026-06/
 |-----------|------|----------------|
 | §1–§5 | ✅ | 基线证据，审查不重复跑 full matrix |
 | §6 release train | ⏳ | **阻塞于 PT-073g-R6** sign-off |
+
+## 8. 多端同步（非本机执行必读）
+
+审查可在 LAN 内其他机器、WSL 或代理会话执行。**开工前**：
+
+1. 拉取 `ai-lib-plans` `main`（`lan` 与 `origin` 应对齐）
+2. 运行同步脚本（见 [PT-073g-SYNC_BASELINE.md](./PT-073g-SYNC_BASELINE.md) §3）
+3. 确认 §2 基线表 SHA 与本地 `HEAD` 一致
+4. 报告写入 `reports/quality-audit/2026-06/` 后 **双推** `lan` + `origin`
+
+私有仓（plans / constitution / eos）须保持 `lan/main` ≡ `origin/main`；公开仓以 `ailib-official` `main` 为准。

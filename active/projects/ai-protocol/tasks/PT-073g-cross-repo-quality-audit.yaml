@@ -16,7 +16,7 @@ labels:
   - "gate"
   - "v1"
 created: "2026-06-29"
-updated: "2026-06-29"
+updated: "2026-06-30"
 started: "2026-06-29"
 description: |
   **Maintainer 决策（2026-06-29）**：PT-073 §1–§5 工程证据齐备，但 **暂缓 v1.0.0 tag**，
@@ -34,6 +34,10 @@ description: |
   - `active/projects/ai-protocol/QUALITY_AUDIT_PLAN_2026-06.md`
   - `active/projects/ai-protocol/templates/QUALITY_AUDIT_REPORT_TEMPLATE.md`
   - `active/projects/ai-protocol/templates/QUALITY_AUDIT_DIMENSION_CHECKLIST.md`
+  - `active/projects/ai-protocol/PT-073g-SYNC_BASELINE.md`（多端 commit 基线）
+
+  **多端执行**：任意节点开工前运行 `tools/sync_pt073g_repos.ps1`（Windows）或
+  `tools/sync_pt073g_repos.sh`（Linux）；报告双推 `lan` + `origin`。
 
   **准入 v1.0.0（§6 release train）条件**：
   1. 六维审查报告归档（每维每运行时至少抽样）
@@ -93,6 +97,10 @@ depends_on_projects:
 coordination:
   gap_audit: "active/projects/ai-protocol/PT-073-GAP-AUDIT_2026-06.md"
   wave5: "ai-protocol/docs/WAVE5_V1_GATE_CHECKLIST.md"
+  sync_baseline: "active/projects/ai-protocol/PT-073g-SYNC_BASELINE.md"
+  sync_script_win: "tools/sync_pt073g_repos.ps1"
+  sync_script_unix: "tools/sync_pt073g_repos.sh"
+  reports_dir: "reports/quality-audit/2026-06/"
 
 severity_rubric:
   P0: "数据泄漏、E/P 违规、发布阻断、安全漏洞、公共 API 破坏性未文档化"
