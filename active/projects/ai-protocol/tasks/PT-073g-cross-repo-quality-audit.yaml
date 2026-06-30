@@ -103,9 +103,18 @@ blocks:
     status: "planned"
     depends_on: ["PT-073g-R5"]
     unblocks: ["PT-073 §6 release train"]
+    remediation_plan: "reports/quality-audit/2026-06/REMEDIATION_PLAN.md"
+    remediation_tasks:
+      - "active/projects/ai-lib-ts/tasks/ALT-QA-001-v1-admission-fixes.yaml (P0)"
+      - "active/projects/ai-protocol/tasks/PT-073h-compliance-integrity-and-docs.yaml (P0候选)"
+      - "active/projects/ai-lib-go/tasks/GO-011-v1-admission-fixes.yaml (P0候选)"
+      - "active/projects/ai-lib-rust/tasks/ALR-QA-001-v1-admission-fixes.yaml"
+      - "active/projects/ai-lib-python/tasks/ALP-QA-001-v1-admission-fixes.yaml"
+      - "active/projects/eos/tasks/EOS-QA-001-d5d6-audit.yaml (LAN 覆盖缺口)"
     note: |
       待办：① 运行时仓修复批次 1–3（P0 + 合规可信度 + 正确性/安全 P1）；
-      ② maintainer 裁定 3 项 P0 候选；③ eos 补审；④ MEMORY v1.0 决策记录。
+      ② maintainer 裁定 3 项 P0 候选（PT-073h-R1/R2、GO-011-R1）；③ eos 补审（EOS-QA-001）；
+      ④ MEMORY v1.0 决策记录（QA-memory-001）。详见 REMEDIATION_PLAN.md。
 
 depends_on_projects:
   - task_id: "PT-073f"

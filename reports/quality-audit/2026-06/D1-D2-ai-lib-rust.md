@@ -39,7 +39,7 @@
 | ID | 严重度 | 状态 | 位置 | 问题 | 建议修复 |
 |----|--------|------|------|------|----------|
 | QA-rust-002 | P1 | open | `README.md:188-198,398-400` | README 文档化 `AiClientBuilder::circuit_breaker_default()` 与 `AI_LIB_BREAKER_*`/`AI_LIB_RPS/RPM` 环境变量，但 `CHANGELOG.md:63` 已移除（grep 无该方法/env 读取者）→ 示例无法编译，宣传不存在的公共 API | 改指向 `ai_lib_contact::resilience`（facade `ai_lib_rust::resilience`）；删除失效 builder 方法与 env |
-| QA-rust-001-leak | P2 | open | `crates/ai-lib-rust/src/lib.rs:7` | facade 用 `pub use ai_lib_core::*;` glob 全量再导出，README 仅文档化子集 | 评估是否收敛为显式 re-export，控制公共面 |
+| QA-rust-012 | P2 | open | `crates/ai-lib-rust/src/lib.rs:7` | facade 用 `pub use ai_lib_core::*;` glob 全量再导出，README 仅文档化子集 | 评估是否收敛为显式 re-export，控制公共面 |
 | QA-rust-008 | P2 | open | `README.md:132-146` vs `crates/ai-lib-rust/Cargo.toml:93-95` | feature 矩阵漏列 `stt/tts/reranking`，`keyring` 仅在散文 | 补全 feature 矩阵并与 `[features]` 同步 |
 
 ---
@@ -51,7 +51,7 @@
 | 检查项 | 结果 | 备注 |
 |--------|------|------|
 | workspace 各 crate 版本一致 | ✅ | 全部 `0.9.6`，内部 path dep pin `0.9.6` |
-| 内部模块路径经 `pub use` 泄漏 | ⚠️ | facade glob 再导出（QA-rust-001-leak，非阻塞） |
+| 内部模块路径经 `pub use` 泄漏 | ⚠️ | facade glob 再导出（QA-rust-012，非阻塞） |
 | README 公共 API 与导出一致 | ❌ | 宣传不存在的 builder API（QA-rust-002）+ 版本号 `0.8.0` 陈旧（详见 D6 QA-rust-007） |
 | 废弃 API 有 `#[deprecated]`/CHANGELOG | ⚠️ | 全仓零 `#[deprecated]`；breaker/rate-limiter 从 `AiClient` 移除无弃用周期，仅 CHANGELOG 记录 |
 | WASM 导出函数与 PT-061 一致 | ✅ | 6 个：`ailib_load_manifest/check_capability/build_chat_request/parse_chat_response/classify_error/extract_usage`（`wasm/src/lib.rs`） |
