@@ -1,11 +1,11 @@
 ---
 id: "GO-011"
 title: "ai-lib-go v1.0 准入修复（PT-073g 正确性 + 合规可信度 + 文档）"
-status: "planned"
+status: "in_progress"
 priority: "high"
-assignee: "@unassigned"
-executor_name: ""
-executor_terminal: ""
+assignee: "@cursor"
+executor_name: "cursor-agent"
+executor_terminal: "terminal-2"
 project: "ai-lib-go"
 parent: "PT-073g"
 milestone: "v1.0.0"
@@ -13,7 +13,7 @@ labels:
   - "audit-remediation"
   - "p1"
 created: "2026-06-30"
-updated: "2026-06-30"
+updated: "2026-06-30T16:00"
 audit_source: "reports/quality-audit/2026-06/D3-D4-ai-lib-go.md"
 audit_baseline: "ai-lib-go @ 2cf42c6 (SYNC_BASELINE §2)"
 repo: "ailib-official/ai-lib-go"
@@ -30,9 +30,10 @@ description: |
 blocks:
   - id: "GO-011-R1"
     title: "重试复用 request 体（QA-go-006，P0 候选）"
-    status: "planned"
+    status: "in_progress"
     severity: "P0-candidate"
     findings: ["QA-go-006"]
+    pr: "https://github.com/ailib-official/ai-lib-go/pull/4"
     steps: |
       `pkg/ailib/client.go:405-417,442-478`：每次尝试重建 `*http.Request`，或设置并使用
       `req.GetBody`（当前 body 为一次性 `bytes.NewReader`，重试 POST 发空 body）。
@@ -53,15 +54,16 @@ blocks:
 
   - id: "GO-011-R3"
     title: "合规可信度：调用生产代码 + CI ref + 类别 08（QA-go-008/009/010）"
-    status: "planned"
+    status: "in_progress"
     severity: "P1"
     findings: ["QA-go-008", "QA-go-009", "QA-go-010"]
+    pr: "https://github.com/ailib-official/ai-lib-go/pull/4"
     steps: |
       1. `tests/compliance/compliance_test.go`：stream decode/event mapping/tool accum/
          error classify/param mapping/retry decision 改为调用生产代码（`internal/stream`/
          `pkg/streaming`、`parseHTTPError`、`buildChatPayload`、`resilience`）；
          注意本地 `classify` 与生产 502→E3002 的分歧（QA-go-008）。
-      2. `.github/workflows/{ci,pt073-go,release}.yml` protocol checkout 加 `ref:`（QA-go-009）。
+      2. `.github/workflows/{ci,pt073-go,release}.yml` protocol checkout 加 `ref:`（QA-go-009）。**PR #4 已覆盖 ref pin；compliance 自实现待续。**
       3. 增类别 08 runner；gen-001 静默 `t.Skipf` 改 CI 硬失败（QA-go-010）。
 
   - id: "GO-011-R4"

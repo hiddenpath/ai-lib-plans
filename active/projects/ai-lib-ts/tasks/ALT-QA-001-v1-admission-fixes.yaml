@@ -1,7 +1,7 @@
 ---
 id: "ALT-QA-001"
 title: "ai-lib-ts v1.0 准入修复（PT-073g P0 + 安全 + 文档）"
-status: "completed"
+status: "in_progress"
 priority: "critical"
 assignee: "@cursor"
 executor_name: "cursor"
@@ -14,7 +14,7 @@ labels:
   - "p0"
   - "release-blocker"
 created: "2026-06-30"
-updated: "2026-06-30T15:17"
+updated: "2026-06-30T16:00"
 audit_source: "reports/quality-audit/2026-06/D1-D2-ai-lib-ts.md"
 audit_baseline: "ai-lib-ts @ aa3f5fa (SYNC_BASELINE §2)"
 repo: "ailib-official/ai-lib-ts"
@@ -86,9 +86,10 @@ blocks:
 
   - id: "ALT-QA-001-R4"
     title: "文档/版本一致（QA-ts-004/005/007/012）"
-    status: "planned"
+    status: "in_progress"
     severity: "P1/P2"
     findings: ["QA-ts-004", "QA-ts-005", "QA-ts-007", "QA-ts-012"]
+    pr: "https://github.com/ailib-official/ai-lib-ts/pull/9"
     steps: |
       1. CHANGELOG 切 `## [0.5.3]` 段 + link-ref；R1 落地后更正 "tsup multi-entry" 声明。
       2. README 更新版本/特性，新增 `/core` `/contact` 导入路径表。
