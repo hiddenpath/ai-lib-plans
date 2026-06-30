@@ -24,7 +24,7 @@ param(
 $ErrorActionPreference = 'Stop'
 
 $Baseline = @{
-  'ai-lib-plans'       = '23e1e4d'
+  'ai-lib-plans'       = '46b0e78'
   'ai-lib-constitution'= '081bc81'
   'eos'                = '1427438'
   'ai-protocol'        = '65857ef'
